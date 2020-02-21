@@ -1,93 +1,50 @@
-# Here you find the Documentation für CI Tests with AixLib
-## What is CI?
+![E.ON EBC RWTH Aachen University](./AixLib/Resources/Images/EBC_Logo.png)
 
-Continuous integration is a term from software development that describes the process of continuously assembling components to form an application. 
-The goal of continuous integration is to increase software quality.
-Typical actions are translating and linking the application parts, but in principle any other operations to generate derived information are performed. 
-Usually, not only the entire system is rebuilt, but also automated tests are performed and software metrics are created to measure software quality. 
-The whole process is automatically triggered by checking into the version control system.
+[![Travis CI](https://travis-ci.org/RWTH-EBC/AixLib.svg?branch=master)](https://travis-ci.org/RWTH-EBC/AixLib)
 
-### How we use CI?
-In our case we mirror a github repository in GitLab. This way the repository can be tested and corrected with the CI in Gitlab. 
-We also use the Docker service to create an image containing Dymola and thus be able to simulate models in Dymola.
+AixLib
+======
 
-For more information read the [General Documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/blob/master/bin/04_Documentation/Documentation_GitLab.md)
-![E.ON EBC RWTH Aachen University](04_Documentation/Images/GITLABCI.png)
-and the Repository [Dymola-Docker](https://git.rwth-aachen.de/EBC/EBC_intern/dymola-docker)
+**AixLib** is a Modelica model library for building performance simulations. It is being developed at [RWTH Aachen University, E.ON Energy Research Center, Institute for Energy Efficient Buildings and Indoor Climate (EBC)](http://www.ebc.eonerc.rwth-aachen.de/cms/~dmzz/E-ON-ERC-EBC/?lidx=1) in Aachen, Germany.
 
-## What CI Tests are implement?
-#### Check, Simulate and Regressiontest: [UnitTests](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/UnitTests)
+As the library is developed at RWTH Aachen University's EBC, the library's name **AixLib** is derived from the city's French name Aix-la-Chapelle, which the people of Aachen are very fond of and use a lot. With the name **AixLib** we follow this local tradition.
 
-With the help of these tests, models are validated or simulated and the models are compared and evaluated with stored values by means of a unit test. 
+If you have any questions regarding **AixLib**, feel free to contact us at aixlib@eonerc.rwth-aachen.de.
 
-#### Correct HTML and Style Check: [SyntaxTest](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/SyntaxTests)
+### License
 
-The documentation is tested and corrected if necessary. Thus the deposited HTML code is checked for correctness and corrected.  
+The **AixLib** Library is released by RWTH Aachen University, E.ON Energy Research Center, Institute for Energy Efficient Buildings and Indoor Climate and is available under a 3-clause BSD-license.
+See [AixLib Library license](https://htmlpreview.github.io/?https://github.com/rwth-ebc/aixlib/blob/master/AixLib/legal.html).
 
-With the ModelManagement Library in Dymola the style of the models is checked. 
+### Acknowledgements
 
-#### Clean the Modelica [CleanUpSkripts](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/CleanUpSkripts)
-Removes any files that were created when running simulations in Dymola, such as *.mat or dymola.log
+Parts of **AixLib** have been developed within public funded projects and with financial support by BMWi (German Federal Ministry for Economic Affairs and Energy).
 
+### Description
 
-## Folder 
-The folder contains the subfolder 01_BaseFunction, 02_CITests, 03_Whitelists, 04_Documentation, 05_Templates and 06_Configfiles. 
+**AixLib** contains models of HVAC systems as well as low and high order building models.
 
-### 1 BaseFunction
-This folder contains all important Scripts and Functions that are builded for the CI Tests. The Scripts are not in use, feel free to work with the functions and overwrite them. 
+### Version
 
-### 2 CITests
-This folder contains all CI Tests for AixLib in GitLab within UnitTests, SyntaxTest and CleanUpScripts
-For more information view this [CI Tests](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests).
+The latest version is always available on the [release page](https://github.com/RWTH-EBC/AixLib/releases) and defined in [AixLib's package.mo](https://github.com/RWTH-EBC/AixLib/blob/master/AixLib/package.mo).
 
-### 3 WhiteLists
-This folder contains [WhiteLists](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/03_WhiteLists), which are not included in the CITests.
+### How to cite AixLib
 
+We continuously improve **AixLib** and try to keep the community up-to-date with citable papers:
 
-### 4 Documentation
-This folder contains [documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/04_Documentation) on the CI, e.g. how new tests can be integrated or relevant commands for the CI 
+- AixLib - An Open-Source Modelica Library within the IEA-EBC Annex 60 Framework.
+  Müller D., Lauster M., Constantin A., Fuchs M., Remmen P..
+  BauSIM 2016, p.3–9, September 2016.
+  [link](http://www.iea-annex60.org/downloads/2016-bausim-aixlib.pdf)
 
-### 5 Templates
-This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/05_Templates) for the CI tests implemented so far. The following example can be used to implement the tests in the CI. 
+### Publications using AixLib
 
+Please see the [publications list](https://github.com/RWTH-EBC/AixLib/blob/master/PUBLICATIONS.md)
 
-	#!/bin/bash
-	image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+### How to contribute to the development of AixLib
 
-	stages:
-		- build
-		- HTMLCheck
-		- openMR
-		- deploy
-		- StyleCheck
-		- Check
-		- Simulate
-		- RegressionTest
-
-	include:
-		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/check_model.gitlab-ci.yml'
-		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/check_simulate.gitlab-ci.yml'
-		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/regression_test.gitlab-ci.yml'
-		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/html_check.gitlab-ci.yml'
-		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/style_check.gitlab-ci.yml'
-
-
-The templates are also implemented under the following repository [Templates](https://git.rwth-aachen.de/EBC/EBC_all/gitlab_ci/templates)
-
-### 6 Configfiles
-
-This folder contains [Config files](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/06_Configfiles) which are used for the CI. 
-
-For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
-
-
-
-# What is done?
-
+You are invited to contribute to the development of **AixLib**.
+Issues can be reported using this site's [Issues section](https://github.com/RWTH-EBC/AixLib/issues).
+Furthermore, you are welcome to contribute via [Pull Requests](https://github.com/RWTH-EBC/AixLib/pulls). The workflow for changes is described in our [Wiki](https://github.com/RWTH-EBC/AixLib/wiki).
 
 
