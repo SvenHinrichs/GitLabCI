@@ -12,7 +12,7 @@ fi
 
 # Look which is the default branch
 #TARGET_BRANCH=`curl --silent "${HOST}${CI_PROJECT_ID}" --header "PRIVATE-TOKEN:${GL_TOKEN}" | jq --raw-output '.default_branch'`;
-TARGET_BRANCH =  $TARGET_BRANCH       
+#TARGET_BRANCH =  $TARGET_BRANCH       
 
 
 # The description of our new MR, we want to remove the branch after the MR has
