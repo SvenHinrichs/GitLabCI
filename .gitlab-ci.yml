@@ -683,6 +683,7 @@ HTML_Check:
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git branch;
+            git branch -D $Newbranch;
             git checkout -b $Newbranch;
             message="Correct HTML AixLib";
             git add AixLib;
@@ -703,8 +704,7 @@ HTML_Check:
         expire_in: 2 day 
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH
-       
+            - $CI_COMMIT_BRANCH == $TARGET_BRANCH       
 trigger_branch:
     stage: build
     services:
