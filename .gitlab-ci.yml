@@ -785,7 +785,8 @@ Style_Check_AixLib:
     allow_failure: true 
     
     only:
-        - merge_requests
+        variables:
+            - $CI_COMMIT_BRANCH == $Newbranch
         
 
 
