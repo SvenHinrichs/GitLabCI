@@ -785,9 +785,9 @@ Style_Check_AixLib:
     allow_failure: true 
     
     only:
-        variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH
+        - merge_requests
         
+
 Merge_To_Branch:
     stage: deploy
     services:
