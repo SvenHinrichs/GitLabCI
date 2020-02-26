@@ -786,8 +786,10 @@ Style_Check_AixLib:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH
+            - $CI_COMMIT_BRANCH == $Newbranch
         
+
+
 Merge_To_Branch:
     stage: deploy
     services:
