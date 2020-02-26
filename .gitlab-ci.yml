@@ -762,7 +762,7 @@ Open_Merge_Request:
        - bin/06_Configfiles/autoMergeRequest.sh
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH
+            - $CI_COMMIT_BRANCH == $Newbranch
     
 Style_Check_AixLib:
     stage: StyleCheck
