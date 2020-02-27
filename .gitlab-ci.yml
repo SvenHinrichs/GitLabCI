@@ -788,18 +788,18 @@ Style_Check_AixLib:
         - merge_requests
 
         
-Push_To_GitHub:
+#Push_To_GitHub:
 
-    stage: deploy
-    services:
-        -  docker
-    script:
-       - git remote add github https://github.com/SvenHinrichs/GitLabCI.git
-       - git push github $TARGET_BRANCH 
+#    stage: deploy
+#    services:
+#        -  docker
+#    script:
+#       - git remote add github https://github.com/SvenHinrichs/GitLabCI.git
+#       - git push github $TARGET_BRANCH 
        
-    only: 
+#    only: 
         # $Newbranch   
-        - merge_requests
+#        - merge_requests
 
 Merge_To_Branch:
     stage: deploy
