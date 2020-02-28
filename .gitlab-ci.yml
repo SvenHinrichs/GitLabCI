@@ -750,7 +750,7 @@ mrpost:
     script:
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="**HTML Correction** on your branch $TARGET_BRANCH 
+        # msg2="**HTML Correction** on your branch $TARGET_BRANCH 
         # msg3="**Pyint score** on branch $CI_COMMIT_REF_NAME [![pylint]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
         # msg4="You can view the **Pylint Log** by clicking on the badges  "
         # msg=$msg1$msg2$newline$msg3$newline$msg4
