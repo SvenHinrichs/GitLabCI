@@ -742,7 +742,7 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH 
+            - $CI_COMMIT_BRANCH == $Newbranch 
     
 mrpost:
     stage: post
@@ -803,7 +803,8 @@ Style_Check_AixLib:
     allow_failure: true 
     
     only:
-        - merge_requests
+        variables:
+            - $CI_COMMIT_BRANCH == $TARGET_BRANCH 
 
         
 #Push_To_GitHub:
