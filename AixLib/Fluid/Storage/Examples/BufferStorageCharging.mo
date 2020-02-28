@@ -77,14 +77,18 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Interval=60),
-    Documentation(info="<html>
-<p><b><span style=\"color: #008000;\">Overview</span></b> </p>
-<p>This is a simple example of a buffer storage that is charged with a mass flow with a higher temperature than the initial temperature.</p>
-</html>",  revisions="<html>
- <ul>
- <li><i>October 11,2016</i>
-       by Sebastian Stinner:<br/>
-      implemented</li>
- </ul>
- </html>"));
+    Documentation(info="<html><p>
+  <b><span style=\"color: #008000;\">Overview</span></b>
+</p>
+<p>
+  This is a simple example of a buffer storage that is charged with a
+  mass flow with a higher temperature than the initial temperature.
+</p>
+<ul>
+  <li>
+    <i>October 11,2016</i> by Sebastian Stinner:<br/>
+    implemented
+  </li>
+</ul>
+</html>"));
 end BufferStorageCharging;
