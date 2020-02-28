@@ -5,6 +5,7 @@ stages:
     - build
     - HTMLCheck
     - openMR
+    - post
     - deploy
     - StyleCheck
     - Check
@@ -741,9 +742,27 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $Newbranch
+            - $CI_COMMIT_BRANCH == $TARGET_BRANCH 
     
-  
+mrpost:
+    stage: post
+    script:
+        - newline=$' \n '
+        - msg1=$'## This is a CI-Post \n '
+        - msg2="**HTML Correction** on your branch $TARGET_BRANCH 
+        # msg3="**Pyint score** on branch $CI_COMMIT_REF_NAME [![pylint]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
+        # msg4="You can view the **Pylint Log** by clicking on the badges  "
+        # msg=$msg1$msg2$newline$msg3$newline$msg4
+        - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes 
+        # mapfile -t ids < <(jq '.[].id' notes.json)
+        # mapfile -t bodys < <(jq '.[].body' notes.json)
+        # len=${#ids[@]}
+        # for i in $(seq 0 $len); do if [[ ${bodys[i]} == *"This is a CI-Post"* ]]; then id=${ids[i]}; break; fi; done
+        # if [ -z ${id+x} ]; then curl -d "body=$msg" --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes?body=note; else curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note; fi
+        # curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note
+    only:
+        - merge_requests
+
 
 Open_Merge_Request:
     stage: openMR

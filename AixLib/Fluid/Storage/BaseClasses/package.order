@@ -11,5 +11,6 @@ PartialHeatTransferLayers
 PartialStratified
 StorageCover
 StorageMantle
+StorageWall
 ThirdOrderStratifier
 Examples

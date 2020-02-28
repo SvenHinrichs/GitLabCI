@@ -1,7 +1,7 @@
 within AixLib.Systems.HydraulicModules.BaseClasses;
 model PumpInterface_SpeedControlledNrpm
   "Interface for the SpeedControlled_Nrpm pump model"
-  extends AixLib.Systems.HydraulicModules.BaseClasses.BasicPumpInterface;
+  extends BasicPumpInterface;
   Fluid.Movers.SpeedControlled_Nrpm pump(redeclare package Medium = Medium)
     annotation (Dialog(enable=true), Placement(transformation(extent={{-10,-10},
             {10,10}})));
