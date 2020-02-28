@@ -696,8 +696,6 @@ HTML_Check:
           else 
             exit 0; 
           fi
-    
-        
     artifacts:
         when: on_failure
         paths:
@@ -706,6 +704,13 @@ HTML_Check:
     only:
         variables:
             - $CI_COMMIT_BRANCH == $TARGET_BRANCH       
+
+
+            
+            
+            
+            
+            
 trigger_branch:
     stage: build
     services:
@@ -744,6 +749,10 @@ trigger_branch:
     only:
         variables:
             - $CI_COMMIT_BRANCH == $Newbranch 
+    
+
+    
+    
     
 mrpost:
     stage: post
