@@ -12,6 +12,9 @@ stages:
     - Simulate
     - RegressionTest
 
+variables:
+    Newbranch: Correct_HTML
+    TARGET_BRANCH: test-branch
 
 
 Check_AixLib_Airflow:
