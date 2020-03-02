@@ -426,6 +426,33 @@ Simulate_AixLib_ThermalZones:
         variables:
             - $CI_COMMIT_BRANCH != $Newbranch
 
+Regression_overall_coverage:
+    stage: RegressionTest
+    services:
+        - docker
+        
+    before_script:
+        - printenv
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - export PYTHONIOENCODING=utf-8 # just in case
+
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --coverage-only
+
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/simulator-dymola.log
+
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        variables:
+            - $CI_COMMIT_BRANCH != $Newbranch
+            
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
     services:
@@ -436,6 +463,7 @@ Regressiontest_AixLib_Airflow:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     
     script:
@@ -461,6 +489,7 @@ Regressiontest_AixLib_BoundaryConditions:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola
@@ -485,6 +514,7 @@ Regressiontest_AixLib_Controls:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     
     script:
@@ -552,6 +582,7 @@ Regressiontest_AixLib_Fluid:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola
@@ -576,6 +607,7 @@ Regressiontest_AixLib_Media:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola
@@ -600,6 +632,7 @@ Regressiontest_AixLib_Systems:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola
@@ -624,6 +657,7 @@ Regressiontest_AixLib_ThermalZones:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola
@@ -648,6 +682,7 @@ Regressiontest_AixLib_Utilities:
         - source activate python36
         - python -V               # Print out python version for debugging
         - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Utilities --tool dymola
@@ -663,11 +698,6 @@ Regressiontest_AixLib_Utilities:
             - $CI_COMMIT_BRANCH != $Newbranch      
     
 
-
-            
-            
-            
-            
             
 trigger_branch:
     stage: build
@@ -761,7 +791,7 @@ Style_Check_AixLib:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "AixLib" -p AixLib/package.mo
+        - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "AixLib.Airflow.Multizone.DoorDiscretizedOpen" -p AixLib/package.mo
     artifacts:
         when: on_failure
         paths:

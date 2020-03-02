@@ -57,11 +57,19 @@ class StyleCheck(object):
 		ErrorLog = codecs.open(outputfile, "w", encoding='utf8')
 		ErrorCount = 0
 		for line in Logfile:
+			line = line.strip()
 			if line.find("Check ok") > -1 :
+				continue
+			if line.find("Library style check log") > -1:
+				continue
+			if line.find("HTML style check log for "+ self.Package) > -1:
+				continue
+			if len(line) == 0:
 				continue
 			else:
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
+			
 		Logfile.close()
 		ErrorLog.close()
 		if ErrorCount == 0:
