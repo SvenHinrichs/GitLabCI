@@ -1,4 +1,4 @@
-within AixLib.Fluid.BoilerCHP.Examples;
+﻿within AixLib.Fluid.BoilerCHP.Examples;
 model ModularCHPSystem
   "Example of the modular CHP power unit model inside a heating circuit"
   extends Modelica.Icons.Example;
@@ -230,6 +230,7 @@ equation
   exchanger to run the model, because of a background calculation for
   the nominal flow.
 </p>
+</html>", revisions="<html>
 <ul>
   <li>
     <i>April, 2019&#160;</i> by Julian Matthes:<br/>

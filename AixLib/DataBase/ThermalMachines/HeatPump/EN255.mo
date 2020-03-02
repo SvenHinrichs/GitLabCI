@@ -14,14 +14,11 @@ package EN255
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(info="<html><p>
-  According to data from WPZ Buchs, Swiss; EN 255.
-</p>
+      Documentation(info="<html>
+<p>According to data from WPZ Buchs, Swiss; EN 255. </p>
+</html>",   revisions="<html>
 <ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to AixLib.
-  </li>
+ <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
 </ul>
 </html>"));
   end AlphaInnotec_SW170I;
@@ -40,14 +37,11 @@ package EN255
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(info="<html><p>
-  According to manufacturer's data; EN 255.
-</p>
+      Documentation(info="<html>
+<p>According to manufacturer&apos;s data; EN 255. </p>
+</html>",   revisions="<html>
 <ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to AixLib.
-  </li>
+ <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
 </ul>
 </html>"));
   end NibeFighter1140_15;
@@ -74,16 +68,11 @@ package EN255
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(info="<html><p>
-  Data from manufacturer's data sheet (Viessmann). These exact curves
-  are given in the data sheet for measurement procedure according to EN
-  255.
-</p>
+      Documentation(info="<html>
+<p>Data from manufacturer&apos;s data sheet (Viessmann). These exact curves are given in the data sheet for measurement procedure according to EN 255. </p>
+</html>",   revisions="<html>
 <ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to AixLib.
-  </li>
+ <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
 </ul>
 </html>"));
   end Vitocal350AWI114;
@@ -104,16 +93,11 @@ package EN255
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(info="<html><p>
-  Data from manufacturer's data sheet (Viessmann). These exact curves
-  are given in the data sheet for measurement procedure according to EN
-  255.
-</p>
+      Documentation(info="<html>
+<p>Data from manufacturer&apos;s data sheet (Viessmann). These exact curves are given in the data sheet for measurement procedure according to EN 255. </p>
+</html>",   revisions="<html>
 <ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to AixLib.
-  </li>
+ <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
 </ul>
 </html>"));
   end Vitocal350BWH110;
@@ -134,16 +118,11 @@ package EN255
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(info="<html><p>
-  Data from manufacturer's data sheet (Viessmann). These exact curves
-  are given in the data sheet for measurement procedure according to EN
-  255.
-</p>
+      Documentation(info="<html>
+<p>Data from manufacturer&apos;s data sheet (Viessmann). These exact curves are given in the data sheet for measurement procedure according to EN 255. </p>
+</html>",   revisions="<html>
 <ul>
-  <li>
-    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
-    Transferred to AixLib.
-  </li>
+ <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
 </ul>
 </html>"));
   end Vitocal350BWH113;

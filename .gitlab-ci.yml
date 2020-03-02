@@ -664,15 +664,10 @@ Regressiontest_AixLib_Utilities:
     
 
 HTML_Check:
-    image: conda/miniconda3
     stage: HTMLCheck
     services:
         -  docker
     before_script:
-        - apt-get update
-        - apt-get upgrade -y
-        - apt-get install git -y
-        - apt-get install python3.6 -y
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
