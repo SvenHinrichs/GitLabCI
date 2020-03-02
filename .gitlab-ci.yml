@@ -727,7 +727,6 @@ trigger_branch:
           else 
             exit 0; 
           fi
-
     artifacts:
         when: on_failure
         paths:
