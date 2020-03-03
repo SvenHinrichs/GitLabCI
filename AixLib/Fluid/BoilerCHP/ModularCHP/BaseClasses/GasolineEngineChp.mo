@@ -144,6 +144,7 @@ equation
   exchanger and electric motor, it can be connected to form the power
   unit of a combined heat and power unit.
 </p>
+</html>", revisions="<html>
 <ul>
   <li>
     <i>April, 2019&#160;</i> by Julian Matthes:<br/>
