@@ -743,6 +743,8 @@ HTML_Check:
                 git branch -D $Newbranch; 
                 echo $?;
                 echo "$Newbranch exists and will delete";
+            else
+                echo "$Newbranch does not exist";
             fi;
             git checkout -b $Newbranch;
             message="Correct HTML AixLib";
