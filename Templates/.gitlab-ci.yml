@@ -1,0 +1,29 @@
+image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+
+stages:
+    - build
+    - HTMLCheck
+    - openMR
+    - post
+    - deploy
+    - StyleCheck
+    - Check
+    - Simulate
+    - RegressionTest
+
+variables:
+    Newbranch: Correct_HTML
+    TARGET_BRANCH: test-branch
+
+include:
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'SyntaxTests/html_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'SyntaxTests/style_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'UnitTests/check_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'UnitTests/regression_test.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'UnitTests/simulate_model.gitlab-ci.yml'
+  

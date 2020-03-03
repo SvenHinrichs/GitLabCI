@@ -729,7 +729,7 @@ HTML_Check:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - git diff --raw HEAD^1
+        
     script:
         # python bin/CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log --align --font 
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
@@ -815,6 +815,7 @@ Style_Check_AixLib:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
+        - git diff --raw HEAD^1
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "AixLib.Airflow.Multizone.DoorDiscretizedOpen" -p AixLib/package.mo
     artifacts:
         when: on_failure
