@@ -688,13 +688,10 @@ trigger_branch:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        # python bin/02_CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log  --align --font
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
-        # python bin/02_CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log  --align --font
     after_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then message="Correct HTML AixLib"; else message="[skip ci] Correct HTML AixLib"; fi
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             message="Correct HTML AixLib";         
             git add AixLib; 
@@ -714,7 +711,50 @@ trigger_branch:
     only:
         variables:
             - $CI_COMMIT_BRANCH == $Newbranch 
-    
+
+      
+HTML_Check:
+    stage: HTMLCheck
+    services:
+        -  docker
+    before_script:
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - git diff --raw HEAD^1
+    script:
+        # python bin/CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log --align --font 
+        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
+        # python bin/02_CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log  --align --font
+        # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then git checkout -b $Newbranch; else echo exit 0 ; fi
+        # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font; else echo exit 0 ; fi
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
+            git branch;
+            git show-branch $Newbranch &>/dev/null && git checkout $Newbranch || git checkout -b $Newbranch
+            message="Correct HTML AixLib";
+            git add AixLib;
+            echo $message;
+            git commit -m "$message" ;
+            git push http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git "HEAD:${Newbranch}";
+            rm bin/06_Configfiles/exit.sh;
+            exit 1;
+          else 
+            exit 0; 
+          fi
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/HTML-logfile.txt
+        expire_in: 2 day 
+    only:
+        variables:
+            - $CI_COMMIT_BRANCH != $Newbranch       
+
+            
 
     
     
@@ -811,46 +851,7 @@ Merge_To_Branch:
     only: 
         # $Newbranch   
         - Branch
+  
+            
         
-HTML_Check:
-    stage: HTMLCheck
-    services:
-        -  docker
-    before_script:
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-    script:
-        # python bin/CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log --align --font 
-        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
-        # python bin/02_CITests/SyntaxTests/html_tidy_errors.py -p "AixLib" --correct-overwrite --log  --align --font
-        # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then git checkout -b $Newbranch; else echo exit 0 ; fi
-        # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font; else echo exit 0 ; fi
-        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
-            git branch;
-            git checkout -b $Newbranch;
-            message="Correct HTML AixLib";
-            git add AixLib;
-            echo $message;
-            git commit -m "$message" ;
-            git push http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git "HEAD:${Newbranch}";
-            rm bin/06_Configfiles/exit.sh;
-            exit 1;
-          else 
-            exit 0; 
-          fi
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/HTML-logfile.txt
-        expire_in: 2 day 
-    only:
-        variables:
-            - $CI_COMMIT_BRANCH != $Newbranch       
-
-
             
