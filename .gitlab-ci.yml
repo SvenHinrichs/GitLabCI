@@ -735,10 +735,7 @@ HTML_Check:
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git branch;
             git show-branch $Newbranch 
-            if [ $? = 0 ] 
-            then
-                git branch -D $Newbranch;
-            fi
+            if [ $? = 0 ];  then git branch -D $Newbranch; fi;
             git checkout -b $Newbranch;
             message="Correct HTML AixLib";
             git add AixLib;
