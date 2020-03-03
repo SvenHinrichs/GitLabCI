@@ -734,7 +734,7 @@ HTML_Check:
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git branch;
-            git show-branch $Newbranch &>/dev/null && git checkout $Newbranch || git checkout -b $Newbranch
+            git checkout foo 2>/dev/null || git checkout -b foo
             message="Correct HTML AixLib";
             git add AixLib;
             echo $message;
