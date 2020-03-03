@@ -712,7 +712,12 @@ trigger_branch:
         variables:
             - $CI_COMMIT_BRANCH == $Newbranch 
 
-      
+
+            
+
+    
+    
+          
 HTML_Check:
     stage: HTMLCheck
     services:
@@ -734,7 +739,7 @@ HTML_Check:
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git branch;
-            git show-branch $Newbranch 
+            git show-branch $Newbranch; 
             if [ $? = 0 ];  then git branch -D $Newbranch; fi;
             git checkout -b $Newbranch;
             message="Correct HTML AixLib";
@@ -756,11 +761,6 @@ HTML_Check:
         variables:
             - $CI_COMMIT_BRANCH != $Newbranch       
 
-            
-
-    
-    
-    
 mrpost:
     stage: post
     script:
