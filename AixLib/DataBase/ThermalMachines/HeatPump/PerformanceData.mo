@@ -1,4 +1,4 @@
-﻿within AixLib.DataBase.ThermalMachines.HeatPump;
+within AixLib.DataBase.ThermalMachines.HeatPump;
 package PerformanceData "Different models used for a black box heat pump model"
   model IcingBlock
     "Block which decreases evaporator power by an icing factor"
@@ -279,31 +279,31 @@ package PerformanceData "Different models used for a black box heat pump model"
   Furthermore, the design of a heat pump is modeled via a scaling
   factor. As a result, the equations follow below:
 </p>
-<p align=\"center\">
+<p style=\"text-align:center;\">
   <i>QCon,n = n * scalingFactor * TableQCon.y</i>
 </p>
-<p align=\"center\">
+<p style=\"text-align:center;\">
   <i>P_el = n * scalingFactor * TablePel.y</i>
 </p>
-<p align=\"justify\">
+<p style=\"text-align:justify;\">
   To simulate possible icing of the evaporator on air-source heat
   pumps, the icing factor is used to influence the output as well. As
   the factor resembles the reduction of heat transfer between
   refrigerant and source, the factor is implemented as follows:
 </p>
-<p align=\"center\">
+<p style=\"text-align:center;\">
   <i>QEva = iceFac * (QCon,n-P_el,n)</i>
 </p>
 <p>
   With <i>iceFac</i> as a relative value between 0 and 1:
 </p>
-<p align=\"center\">
+<p style=\"text-align:center;\">
   <i>iceFac = kA/kA_noIce</i>
 </p>
 <p>
   Finally, to follow the first law of thermodynamics:
 </p>
-<p align=\"center\">
+<p style=\"text-align:center;\">
   <i>QCon = P_el,n + QEva</i>
 </p>
 <h4>
@@ -581,7 +581,6 @@ package PerformanceData "Different models used for a black box heat pump model"
   electrical power and condenser depend on other inputs, such as
   ambient temperature.
 </p>
-</html>",   revisions="<html>
 <ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
