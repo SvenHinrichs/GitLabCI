@@ -738,9 +738,12 @@ HTML_Check:
         # if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font; else echo exit 0 ; fi
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
-            git branch;
             git show-branch $Newbranch; 
-            if [ $? = 0 ];  then git branch -D $Newbranch; fi;
+            if [ $? == 0 ];  then 
+                git branch -D $Newbranch; 
+                echo $?;
+                echo "$Newbranch exists and will delete";
+            fi;
             git checkout -b $Newbranch;
             message="Correct HTML AixLib";
             git add AixLib;
