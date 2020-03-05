@@ -64,6 +64,7 @@ HTML_Check:
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             echo "Check if $Newbranch exists";
             git show-ref --quiet refs/head/$Newbranch; 
+            echo "Check if $Newbranch exists";
             if [ $? == 0 ];  then 
                 git branch -D $Newbranch; 
                 echo $?;
