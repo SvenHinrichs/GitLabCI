@@ -16,14 +16,14 @@ variables:
     TARGET_BRANCH: test-branch
 
 include:
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file: 'SyntaxTests/html_check.gitlab-ci.yml'
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file: 'SyntaxTests/style_check.gitlab-ci.yml'
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file: 'UnitTests/check_model.gitlab-ci.yml'
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file: 'UnitTests/regression_test.gitlab-ci.yml'
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file: 'UnitTests/simulate_model.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file:  'Templates/SyntaxTests/html_check.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file:  'Templates/SyntaxTests/style_check.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file: 'Templates/UnitTests/check_model.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file: 'Templates/UnitTests/regression_test.gitlac-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file: 'Templates/UnitTests/simulate_model.gitlab-ci.yml'
   
