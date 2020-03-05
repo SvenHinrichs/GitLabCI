@@ -1,4 +1,4 @@
-within AixLib.DataBase.ThermalMachines.HeatPump;
+﻿within AixLib.DataBase.ThermalMachines.HeatPump;
 package Functions "Functions for AixLib.Fluid.HeatPumps"
 extends Modelica.Icons.Package;
   package Characteristics
@@ -18,16 +18,12 @@ extends Modelica.Icons.Package;
     algorithm
       Char:= {powerCompressor,powerCompressor*CoP};
 
-      annotation (Documentation(info="<html><p>
-  Carnot CoP and constant electric power, no dependency on speed or
-  mass flow rates!
-</p>
+      annotation (Documentation(info="<html>
+<p>Carnot CoP and constant electric power, no dependency on speed or mass flow rates!</p>
 </html>",
-        revisions="<html><ul>
-  <li>
-    <i>June 21, 2015&#160;</i> by Kristian Huchtemann:<br/>
-    implemented
-  </li>
+        revisions="<html>
+<ul>
+<li><i>June 21, 2015&nbsp;</i> by Kristian Huchtemann:<br/>implemented</li>
 </ul>
 </html>
 "));
@@ -51,16 +47,12 @@ extends Modelica.Icons.Package;
       CoP_C:=T_con/(T_con - T_eva);
       Char:= {P_com,P_com*CoP_C*qualityGrade};
 
-      annotation (Documentation(info="<html><p>
-  Carnot CoP multiplied with constant quality grade and constant
-  electric power, no dependency on speed or mass flow rates!
-</p>
+      annotation (Documentation(info="<html>
+<p>Carnot CoP multiplied with constant quality grade and constant electric power, no dependency on speed or mass flow rates! </p>
 </html>",
-        revisions="<html><ul>
-  <li>
-    <i>June 21, 2015&#160;</i> by Kristian Huchtemann:<br/>
-    implemented
-  </li>
+        revisions="<html>
+<ul>
+<li><i>June 21, 2015&nbsp;</i> by Kristian Huchtemann:<br/>implemented</li>
 </ul>
 </html>
 "));
@@ -75,18 +67,12 @@ extends Modelica.Icons.Package;
       input Real mFlow_con "Mass flow rate at condenser";
       output Real Char[2] "Array with [Pel, QCon]";
 
-      annotation (Documentation(info="<html><p>
-  Base funtion used in HeatPump model. It defines the inputs speed N
-  (1/min), condenser outlet temperature T_co (K) and evaporator inlet
-  temperature T_ev (K). The output is the vector Char: first value is
-  compressor power, second value is the condenser heat flow rate.
-</p>
+      annotation (Documentation(info="<html>
+<p>Base funtion used in HeatPump model. It defines the inputs speed N (1/min), condenser outlet temperature T_co (K) and evaporator inlet temperature T_ev (K). The output is the vector Char: first value is compressor power, second value is the condenser heat flow rate. </p>
 </html>",
-        revisions="<html><ul>
-  <li>
-    <i>December 10, 2013&#160;</i> by Ole Odendahl:<br/>
-    Formatted documentation appropriately
-  </li>
+        revisions="<html>
+<ul>
+<li><i>December 10, 2013&nbsp;</i> by Ole Odendahl:<br/>Formatted documentation appropriately</li>
 </ul>
 </html>
 "));
@@ -116,19 +102,15 @@ extends Modelica.Icons.Package;
       COP :=etaCarnot_nominal*etaPartLoad*COP_carnot;
       Char[1] :=Pel;
       Char[2] :=COP*Pel;
-      annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+      annotation (Documentation(revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>",     info="<html>
-<p>
-  This function emulated the the Carnot model (<a href=
-  \"modelica://AixLib.Fluid.Chillers.BaseClasses.Carnot\">AixLib.Fluid.Chillers.BaseClasses.Carnot</a>).
-  See this description for more info on assumptions etc.
-</p>
+<p>This function emulated the the Carnot model (<a href=\"modelica://AixLib.Fluid.Chillers.BaseClasses.Carnot\">AixLib.Fluid.Chillers.BaseClasses.Carnot</a>). See this description for more info on assumptions etc.</p>
 </html>"));
     end CarnotFunction;
 
@@ -151,36 +133,19 @@ extends Modelica.Icons.Package;
         Char[1] := 0;
         Char[2] := 0;
       end if;
-      annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+      annotation (Documentation(revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>",     info="<html>
-<p>
-  Based on the work of Afjej and Wetter, 1997 [1] and the TRNYS Type
-  401 heat pump model, this function uses a six-coefficient polynom to
-  calculate the electrical power and the heat flow to the condenser.
-  The coefficients are calculated based on the data in DIN EN 14511
-  with a minimization-problem in python using the
-  root-mean-square-error.
-</p>
-<p>
-  The normalized input temperatures are calculated with the formular:
-</p>
-<p style=\"text-align:center;\">
-  <i>T_n = (T/273.15) + 1</i>
-</p>
-<p>
-  The coefficients for the polynomal functions are stored inside the
-  record for heat pumps in <a href=
-  \"modelica://AixLib.DataBase.HeatPump\">AixLib.DataBase.HeatPump</a>.
-</p>
-<p>
-  [1]: https://www.trnsys.de/download/en/ts_type_401_en.pdf
-</p>
+<p>Based on the work of Afjej and Wetter, 1997 [1] and the TRNYS Type 401 heat pump model, this function uses a six-coefficient polynom to calculate the electrical power and the heat flow to the condenser. The coefficients are calculated based on the data in DIN EN 14511 with a minimization-problem in python using the root-mean-square-error.</p>
+<p>The normalized input temperatures are calculated with the formular:</p>
+<p align=\"center\"><i>T_n = (T/273.15) + 1</i></p>
+<p>The coefficients for the polynomal functions are stored inside the record for heat pumps in <a href=\"modelica://AixLib.DataBase.HeatPump\">AixLib.DataBase.HeatPump</a>.</p>
+<p>[1]: https://www.trnsys.de/download/en/ts_type_401_en.pdf</p>
 </html>"));
     end PolynomalApproach;
   end Characteristics;
@@ -196,15 +161,12 @@ extends Modelica.Icons.Package;
     algorithm
     f_CoPicing:=1;
 
-      annotation (Documentation(info="<html><p>
-  No correction factor for icing/defrosting: f_cop_icing=1.
-</p>
+      annotation (Documentation(info="<html>
+<p>No correction factor for icing/defrosting: f_cop_icing=1. </p>
 </html>",
-      revisions="<html><ul>
-  <li>
-    <i>December 10, 2013&#160;</i> by Ole Odendahl:<br/>
-    Formatted documentation appropriately
-  </li>
+      revisions="<html>
+<ul>
+<li><i>December 10, 2013&nbsp;</i> by Ole Odendahl:<br/>Formatted documentation appropriately</li>
 </ul>
 </html>"));
     end NoModel;
@@ -214,16 +176,12 @@ extends Modelica.Icons.Package;
       extends Modelica.Icons.Function;
       input Real T_eva;
       output Real f_CoPicing;
-      annotation (Documentation(info="<html><p>
-  Base funtion used in HeatPump model. Input is the evaporator inlet
-  temperature, output is a CoP-correction factor f_cop_icing.
-</p>
+      annotation (Documentation(info="<html>
+<p>Base funtion used in HeatPump model. Input is the evaporator inlet temperature, output is a CoP-correction factor f_cop_icing. </p>
 </html>",
-      revisions="<html><ul>
-  <li>
-    <i>December 10, 2013&#160;</i> by Ole Odendahl:<br/>
-    Formatted documentation appropriately
-  </li>
+      revisions="<html>
+<ul>
+<li><i>December 10, 2013&nbsp;</i> by Ole Odendahl:<br/>Formatted documentation appropriately</li>
 </ul>
 </html>"));
     end PartialBaseFct;
@@ -252,15 +210,12 @@ extends Modelica.Icons.Package;
       factor:=gauss_curve;
     end if;
     f_CoPicing:=1-factor;
-      annotation (Documentation(info="<html><p>
-  Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996.
-</p>
+      annotation (Documentation(info="<html>
+<p>Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996. </p>
 </html>",
-      revisions="<html><ul>
-  <li>
-    <i>December 10, 2013&#160;</i> by Ole Odendahl:<br/>
-    Formatted documentation appropriately
-  </li>
+      revisions="<html>
+<ul>
+<li><i>December 10, 2013&nbsp;</i> by Ole Odendahl:<br/>Formatted documentation appropriately</li>
 </ul>
 </html>"));
     end WetterAfjei1996;
@@ -274,18 +229,15 @@ extends Modelica.Icons.Package;
       //Just a placeholder for a future icing function
       iceFac :=1;
 
-      annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+      annotation (Documentation(revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>",     info="<html>
-<p>
-  This function can be used to implement a simple icing approach, e.g.
-  based on outdoor air temperature or time based.
-</p>
+<p>This function can be used to implement a simple icing approach, e.g. based on outdoor air temperature or time based.</p>
 </html>"));
     end BasicIcingApproach;
 
@@ -297,19 +249,15 @@ extends Modelica.Icons.Package;
       input Modelica.SIunits.MassFlowRate m_flow_ev "Mass flow rate at the evaporator";
       output Real iceFac(min=0, max=1) "Icing factor, normalized value between 0 and 1";
 
-      annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+      annotation (Documentation(revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>",     info="<html>
-<p>
-  Base function for calculation of the icing factor. The normalized
-  value represents reduction of heat exchange as a result of icing of
-  the evaporator.
-</p>
+<p>Base function for calculation of the icing factor. The normalized value represents reduction of heat exchange as a result of icing of the evaporator.</p>
 </html>"));
     end PartialBaseFct;
 
@@ -336,33 +284,27 @@ extends Modelica.Icons.Package;
       factor:=gauss_curve;
     end if;
     iceFac:=1-factor;
-      annotation (Documentation(info="<html><p>
-  Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996.
-</p>
+      annotation (Documentation(info="<html>
+<p>Correction of CoP (Icing, Defrost) according to Wetter,Afjei 1996.</p>
 </html>",
-      revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+      revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>"));
     end WetterAfjei1996;
-  annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-  </li>
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
+First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+</li>
 </ul>
 </html>",   info="<html>
-<p>
-  This package contains functions for calculation of an icing factor
-  used in <a href=
-  \"modelica://AixLib.Fluid.HeatPumps.BaseClasses.PerformanceData.IcingBlock\">
-  AixLib.Fluid.HeatPumps.BaseClasses.PerformanceData.IcingBlock</a>.
-</p>
+<p>This package contains functions for calculation of an icing factor used in <a href=\"modelica://AixLib.Fluid.HeatPumps.BaseClasses.PerformanceData.IcingBlock\">AixLib.Fluid.HeatPumps.BaseClasses.PerformanceData.IcingBlock</a>.</p>
 </html>"));
   end IcingFactor;
 end Functions;
