@@ -12,8 +12,8 @@ stages:
     - RegressionTest
 
 variables:
-    Newbranch: Correct_HTML-branch
-    TARGET_BRANCH: master
+    Newbranch: Correct_HTML
+    TARGET_BRANCH: test-branch
 
 include:
   - project: 'sven.hinrichs/GitLabCI'

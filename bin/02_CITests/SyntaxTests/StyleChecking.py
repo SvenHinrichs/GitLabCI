@@ -8,6 +8,39 @@ import os
 import sys 
 import platform
 
+
+from git import Repo
+
+
+
+class Git_Repository_Clone(object):
+	"""work with Repository in Git"""
+	def __init__(self, Repository):
+		self.Repository = Repository
+
+	def  _CloneRepository(self):
+		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
+		repo_dir = "IBPSA"
+		repo = Repo.clone_from(git_url, repo_dir)
+		print(repo)
+
+	def _git_push_WhiteList(self):
+		WhiteList_file = "bin"+os.sep+"03_WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
+		repo_dir = ""
+		try:
+			repo = Repo(repo_dir)
+			commit_message = "Update new WhiteList [ci skip]"
+			repo.git.add(WhiteList_file)
+			repo.index.commit(commit_message)
+			origin = repo.remote('origin')
+			origin.push('master')
+			repo.git.add(update=True)
+			print("repo push succesfully")
+		except Exception as e:
+			print(str(e))
+		
+
+
 class StyleCheck(object):
 	""" Class to Check the Style of Packages and Models
 	Export a HTML-Log File"""
@@ -57,11 +90,19 @@ class StyleCheck(object):
 		ErrorLog = codecs.open(outputfile, "w", encoding='utf8')
 		ErrorCount = 0
 		for line in Logfile:
+			line = line.strip()
 			if line.find("Check ok") > -1 :
+				continue
+			if line.find("Library style check log") > -1:
+				continue
+			if line.find("HTML style check log for "+ self.Package) > -1:
+				continue
+			if len(line) == 0:
 				continue
 			else:
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
+			
 		Logfile.close()
 		ErrorLog.close()
 		if ErrorCount == 0:
