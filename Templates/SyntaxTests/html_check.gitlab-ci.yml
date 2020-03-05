@@ -62,17 +62,7 @@ HTML_Check:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
-            echo "Check if $Newbranch exists";
-            git show-ref --quiet refs/head/$Newbranch; 
-            echo "Check if $Newbranch exists";
-            if [ $? == 0 ];  then 
-                git branch -D $Newbranch; 
-                echo $?;
-                echo "$Newbranch exists and will delete";
-            else
-                echo "$Newbranch does not exist";
-            fi;
-            git checkout -b $Newbranch;
+            git checkout -B $Newbranch;
             message="Correct HTML AixLib";
             git add AixLib;
             echo $message;
