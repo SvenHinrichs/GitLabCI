@@ -66,6 +66,9 @@ class ValidateTest(object):
 			raise ValueError(
                 "Value of 'tool' of constructor 'Tester' must be 'dymola', 'omc' or 'jmodelica'. Received '{}'.".format(tool))
 		
+
+		
+	''' Write a new Whitelist with all models in IBPSA Library of those models who have not passed the Check Test'''
 	def _WriteWhiteList(self):
 		#_listAllModel
 		#rootdir = r"D:\Gitlab\modelica-ibpsa\IBPSA"
@@ -147,7 +150,9 @@ class ValidateTest(object):
 			file.write(i+"\n"+str(List)+"\n"+"\n")
 		file.close()
 		print("Write Whitelist")
-	
+
+
+	''' Write a Error log with all models, that don´t pass the check '''
 	def _WriteErrorlog(self,logfile):
 		package = self.Package
 		logfile = "AixLib"+ os.sep+logfile
@@ -180,6 +185,9 @@ class ValidateTest(object):
 				falseList = []
 		file.close()
 		Errorlog.close()
+		
+	''' Compare AixLib models with IBPSA models of those have not  passed the Check.
+		Remove all models from the WhiteList and will not be checked'''
 	def _CompareWhiteList(self):
 		WhiteList = ValidateTest._IgnoreWhiteList(self)
 		AixLibModels   = ValidateTest._listAllModel(self)
@@ -194,6 +202,7 @@ class ValidateTest(object):
 			AixLibModels.remove(i)
 		return AixLibModels
 	
+	''' Return a List with all models from the Whitelist '''
 	def _IgnoreWhiteList(self):
 		#Package = "AixLib.Fluid.Actuators"
 		Package = self.Package
@@ -225,7 +234,7 @@ class ValidateTest(object):
 				break
 		file.close()
 		return WhiteListPackage
-			
+	''' List all models in AixLib Library '''		
 	def _listAllModel(self):
 		rootdir = self.Package
 		rootdir = rootdir.replace(".",os.sep)
@@ -238,7 +247,7 @@ class ValidateTest(object):
 					model = model[model.rfind("AixLib"):model.rfind(".mo")]
 					ModelList.append(model)
 		return ModelList
-	
+	''' List all Examples and Validation examples '''
 	def _listAllExamples(self):
 		Package = self.Package
 		rootdir = Package.replace(".",os.sep)
@@ -255,7 +264,7 @@ class ValidateTest(object):
 		return ModelList
 		
 	
-	
+	''' Check models and return a Error Log, if the check failed '''
 	def _CheckModelAixLib(self):
 		from dymola.dymola_interface import DymolaInterface
 		from dymola.dymola_exception import DymolaException
@@ -312,7 +321,7 @@ class ValidateTest(object):
 		ValidateTest._WriteErrorlog(self,logfile)
 		return ErrorList
 
-	
+	''' Simulate examples and validation and return a Error log, if the check failed. '''
 	def _SimulateModel(self):
 		from dymola.dymola_interface import DymolaInterface
 		from dymola.dymola_exception import DymolaException
