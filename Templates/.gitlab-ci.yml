@@ -13,7 +13,7 @@ stages:
 
 variables:
     Newbranch: Correct_HTML
-    TARGET_BRANCH: master
+    TARGET_BRANCH: test-branch
 
 include:
   - project: 'sven.hinrichs/GitLabCI'
