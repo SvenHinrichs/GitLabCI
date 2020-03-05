@@ -62,7 +62,7 @@ HTML_Check:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
-            git show-branch $Newbranch; 
+            git show-ref --verify --quiet refs/head/$Newbranch; 
             if [ $? == 0 ];  then 
                 git branch -D $Newbranch; 
                 echo $?;
