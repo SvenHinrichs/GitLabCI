@@ -71,7 +71,7 @@ end when;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Documentation(info="<html><h4>
-  <span style=\"color:#008000\">Overview</span>
+  <font color=\"#008000\">Overview</font>
 </h4>
 <p>
   Model for heat transfer between buffer storage layers. Models
@@ -81,7 +81,7 @@ end when;
   exists.
 </p>
 <h4>
-  <span style=\"color:#008000\">Sources</span>
+  <font color=\"#008000\">Sources</font>
 </h4>
 <p>
   Equations and parameters for calculating the buoyancy heatflow are
