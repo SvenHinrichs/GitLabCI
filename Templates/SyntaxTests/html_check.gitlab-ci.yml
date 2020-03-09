@@ -81,7 +81,7 @@ HTML_Check:
         expire_in: 2 day 
     only:
         variables:
-            - $CI_COMMIT_BRANCH != $Newbranch       
+            - ${CI_COMMIT_BRANCH} != ${Newbranch}       
 
 mrpost:
     stage: post
