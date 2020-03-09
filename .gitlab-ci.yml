@@ -13,8 +13,8 @@ stages:
 
 variables:
     TARGET_BRANCH: master
-    Newbranch: $TARGET_BRANCH_Correct_HTML
-
+    Newbranch: ${TARGET_BRANCH}_Correct_HTML
+${Newbranch}
 include:
   - project: 'sven.hinrichs/GitLabCI'
     file:  'Templates/SyntaxTests/html_check.gitlab-ci.yml'
