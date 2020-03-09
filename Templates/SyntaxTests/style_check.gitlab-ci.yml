@@ -27,6 +27,6 @@ Style_Check_AixLib:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH != $Newbranch 
+            - $CI_COMMIT_BRANCH == $TARGET_BRANCH 
 
      
