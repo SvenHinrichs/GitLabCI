@@ -44,7 +44,7 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $Newbranch 
+            - $CI_COMMIT_BRANCH != $TARGET_BRANCH 
         
 HTML_Check:
     stage: HTMLCheck
