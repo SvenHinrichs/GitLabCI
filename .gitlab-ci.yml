@@ -13,7 +13,7 @@ stages:
 
 variables:
     TARGET_BRANCH: issue802_CleanCI_Infrastructure
-    Newbranch: ${TARGET_BRANCH}_Correct_HTML
+    Newbranch: Correct_HTML_${TARGET_BRANCH}
 
 include:
   - project: 'sven.hinrichs/GitLabCI'
