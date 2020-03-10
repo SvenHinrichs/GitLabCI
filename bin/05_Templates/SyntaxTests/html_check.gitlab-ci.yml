@@ -44,7 +44,7 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_REF_NAME ==  $Newbranch
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML AixLib/
         
 HTML_Check:
     stage: HTMLCheck
