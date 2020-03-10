@@ -2,12 +2,12 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
-    - CheckVariables
+    - CheckSettings
    
 
     
-HTML_Check:
-    stage: CheckVariables
+Configuration_Check:
+    stage: CheckSettings
     only:
         - /^feature\/*/
     services:
