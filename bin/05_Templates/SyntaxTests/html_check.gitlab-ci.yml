@@ -9,6 +9,7 @@ stages:
     - deploy
     - StyleCheck
 
+
  
             
 trigger_branch:
