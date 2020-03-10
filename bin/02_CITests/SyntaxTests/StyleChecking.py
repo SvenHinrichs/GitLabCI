@@ -104,6 +104,7 @@ class StyleCheck(object):
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
 			
+			
 		Logfile.close()
 		ErrorLog.close()
 		if ErrorCount == 0:
