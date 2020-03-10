@@ -27,7 +27,7 @@ BODY="{
     \"title\": \"WIP: ${CI_COMMIT_REF_NAME}\",
     \"assignee_id\":\"${GITLAB_USER_ID}\"
 }";
-echo "$source_branch"
+echo "$BODY"
 # Require a list of all the merge request and take a look if there is already
 # one with the same source branch
 LISTMR=`curl --silent "${HOST}${CI_PROJECT_ID}/merge_requests?state=opened" --header "PRIVATE-TOKEN:${GL_TOKEN}"`;
