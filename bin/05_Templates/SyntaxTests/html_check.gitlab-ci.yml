@@ -42,8 +42,8 @@ trigger_branch:
             - AixLib/HTML-logfile.txt
         expire_in: 2 day 
     
-    only:
-        - $Newbranch
+    rules:
+        - if: $CI_COMMIT_BRANCH ==  $Newbranch
         
 HTML_Check:
     stage: HTMLCheck
@@ -78,9 +78,8 @@ HTML_Check:
         paths:
             - AixLib/HTML-logfile.txt
         expire_in: 2 day 
-    only:
-        - $TARGET_BRANCH
-
+    rules:
+        - if : $CI_COMMIT_BRANCH ==  $TARGET_BRANCH
 mrpost:
     stage: post
     script:
@@ -103,8 +102,7 @@ mrpost:
 
 Open_Merge_Request:
     stage: openMR
-    only:
-        - /^feature\/*/
+ 
     services:
         -  docker
     before_script:
@@ -114,9 +112,8 @@ Open_Merge_Request:
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
        - bin/06_Configfiles/autoMergeRequest.sh
-    only:
-        variables:
-            - $CI_COMMIT_BRANCH == $Newbranch
+    rules:
+       - if: $CI_COMMIT_BRANCH ==  $Newbranch
     
 Style_Check_AixLib:
     stage: StyleCheck
