@@ -12,7 +12,7 @@ stages:
     - RegressionTest
 
 variables:
-    TARGET_BRANCH: issue802_CleanCI_Infrastructure
+    TARGET_BRANCH: master
     Newbranch: Correct_HTML_${TARGET_BRANCH}
 
 include:
