@@ -16,7 +16,7 @@ Style_Check_AixLib:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - git diff --raw HEAD^1
-        - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "AixLib.Airflow.Multizone.DoorDiscretizedOpen" -p AixLib/package.mo
+        - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "$StyleModel" -p AixLib/package.mo
     artifacts:
         when: on_failure
         paths:

@@ -14,6 +14,8 @@ stages:
 variables:
     TARGET_BRANCH: master
     Newbranch: "Correct_HTML_$TARGET_BRANCH"
+    StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
+
 include:
   - project: 'sven.hinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
