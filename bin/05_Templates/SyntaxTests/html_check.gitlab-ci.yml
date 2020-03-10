@@ -69,7 +69,7 @@ HTML_Check:
             git add AixLib;
             echo $message;
             git commit -m "$message" ;
-            git push http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git "HEAD:${Newbranch}";
+            git push --force http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git "HEAD:${Newbranch}";
             rm bin/06_Configfiles/exit.sh;
             exit 1;
           else 

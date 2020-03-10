@@ -76,6 +76,7 @@ class StyleCheck(object):
 			dymola.ExecuteCommand('cd("/opt/dymola-'+DymolaVersion+'-x86_64/Modelica/Library/ModelManagement 1.1.8/package.moe");')
 		# Start CheckLibrary in ModelManagement
 		print("Start Style Check")
+		print("Check package or model "+ self.Package)
 		dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+self.Package+'", translationStructure=false);')
 		dymola.close()
 		print("Style Check Complete")
@@ -106,7 +107,7 @@ class StyleCheck(object):
 		Logfile.close()
 		ErrorLog.close()
 		if ErrorCount == 0:
-			print("Style Check was successful")
+			print("Style Check of model or package "+self.Package+ " was successful")
 			exit(0)
 		elif ErrorCount > 0 :
 			print("Test failed. Look in "+ self.Package + "_StyleErrorLog.html")
