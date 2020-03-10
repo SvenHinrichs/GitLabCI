@@ -21,7 +21,7 @@ echo "GL_TOKEN is set"
 # been closed
 BODY="{
     \"id\": ${CI_PROJECT_ID},
-    \"source_branch\": \"${CI_COMMIT_REF_NAME}\",
+    \"source_branch\": \"${Newbranch}\",
     \"target_branch\": \"${TARGET_BRANCH}\",
     \"remove_source_branch\": true,
     \"title\": \"WIP: ${CI_COMMIT_REF_NAME}\",
