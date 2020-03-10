@@ -44,7 +44,7 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Source Commit $CI_COMMIT_MESSAGE Correct HTML Code/
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
         
 HTML_Check:
     stage: HTMLCheck
@@ -65,7 +65,7 @@ HTML_Check:
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
-            message="Source Commit $CI_COMMIT_MESSAGE Correct HTML Code";
+            message="Correct HTML Code";
             git add AixLib;
             echo $message;
             git commit -m "$message" ;
@@ -118,7 +118,7 @@ Open_Merge_Request:
        - bin/06_Configfiles/autoMergeRequest.sh
     only:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Source Commit $CI_COMMIT_MESSAGE Correct HTML Code/
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
     
 
 
