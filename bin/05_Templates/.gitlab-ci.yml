@@ -12,18 +12,18 @@ stages:
     - RegressionTest
 
 variables:
-    TARGET_BRANCH: issue802_CleanCI_Infrastructure
-    Newbranch: Correct_HTML_${TARGET_BRANCH}
+    Newbranch: Correct_HTML
+    TARGET_BRANCH: test-branch
 
 include:
   - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
+    file:  'Templates/SyntaxTests/html_check.gitlab-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
+    file:  'Templates/SyntaxTests/style_check.gitlab-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
+    file: 'Templates/UnitTests/check_model.gitlab-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/regression_test.gitlac-ci.yml'
+    file: 'Templates/UnitTests/regression_test.gitlac-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
+    file: 'Templates/UnitTests/simulate_model.gitlab-ci.yml'
   
