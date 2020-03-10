@@ -44,7 +44,7 @@ trigger_branch:
     
     only:
         variables:
-            - $CI_COMMIT_BRANCH ==  $Newbranch
+            - $CI_COMMIT_REF_NAME ==  $Newbranch
         
 HTML_Check:
     stage: HTMLCheck
@@ -58,7 +58,8 @@ HTML_Check:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo $Newbranch
-        - echo $CI_COMMIT_BRANCH 
+        - echo $CI_COMMIT_BRANCH
+        - echo $CI_COMMIT_REF_NAME
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
@@ -81,7 +82,7 @@ HTML_Check:
         expire_in: 2 day 
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $TARGET_BRANCH 
+            - $CI_COMMIT_REF_NAME == $TARGET_BRANCH 
 mrpost:
     stage: post
     script:
