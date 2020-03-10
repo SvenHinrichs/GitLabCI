@@ -43,3 +43,4 @@ if [ ${COUNTBRANCHES} -eq "0" ]; then
 fi
 
 echo "Merge Request ist already open. No new merge request opened";
+exit 1
