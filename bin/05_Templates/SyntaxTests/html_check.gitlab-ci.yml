@@ -118,7 +118,7 @@ Open_Merge_Request:
        - bin/06_Configfiles/autoMergeRequest.sh
     only:
         variables:
-            - $CI_COMMIT_BRANCH == $Newbranch
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML AixLib/
     
 Style_Check_AixLib:
     stage: StyleCheck
