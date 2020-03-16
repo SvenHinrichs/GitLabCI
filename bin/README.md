@@ -85,6 +85,27 @@ This folder contains [Config files](https://git.rwth-aachen.de/sven.hinrichs/Git
 
 For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 
+# How Configure the CI Tests with Corrected Code
+
+## Configure Variables
+
+### Protected Branches: 
+Wildcards "issue *": Will push all Branches to Github with the Namespace issue* . This is necessaryto push the corrected code to the Github 
+Repository.
+
+
+### TARGET-Branches: 
+Please paste your Branch. It is necessary for the push the corrected code to your branch and will later create a new HTML_Correct-branch 
+where the code will corrected and merge in the TARGET-BRANCHES.
+
+### StyleModel:
+
+This variable is necessary for the StyleCheck und will check the Style e.g. "StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen"
+
+
+## Push - Mirroring
+
+## Pull - Mirroring 
 
 
 # What is done?
