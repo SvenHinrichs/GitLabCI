@@ -27,6 +27,7 @@ trigger_branch:
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - shopt -s globstar        
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
+        - mv "AixLib/HTML-logfile.txt" "public/"
     after_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
