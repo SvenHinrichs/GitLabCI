@@ -5,6 +5,7 @@ stages:
     - build
     - HTMLCheck
     - openMR
+    - log
     - post
     - deploy
     - StyleCheck
@@ -78,7 +79,29 @@ Check_HTML:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
-        
+
+pages:
+    stage: log
+    dependencies: 
+        - trigger_branch
+    before_script:
+        - apt-get update -y
+        - apt-get install zip unzip -y
+    script:
+        - set +e
+        - curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
+        - if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
+        - set -e
+        # Add/update content
+        - mkdir -p .public/$CI_COMMIT_REF_NAME
+        - cp -r public/* .public
+        # Zip the content and publish the zip again
+        - zip -r "content.zip" "public"
+        - mv "content.zip" "public/"
+    artifacts:
+        paths:
+        - public
+            
 HTML_Check:
     stage: HTMLCheck
     services:
