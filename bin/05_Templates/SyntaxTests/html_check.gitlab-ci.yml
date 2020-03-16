@@ -181,6 +181,7 @@ mrpost:
     artifacts:
         paths:
             - public
+            - notes.json
     only:
         - merge_requests
 
