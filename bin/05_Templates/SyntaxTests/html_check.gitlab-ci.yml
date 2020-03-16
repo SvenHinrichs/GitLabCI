@@ -46,7 +46,6 @@ trigger_branch:
             exit 0; 
           fi
     artifacts:
-        when: on_failure
         paths:
             - public
         expire_in: 1 day 
