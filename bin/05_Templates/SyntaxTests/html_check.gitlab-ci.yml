@@ -4,8 +4,8 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 stages:
     - build
     - HTMLCheck
-    - openMR
     - log
+    - openMR
     - post
     - deploy
     - StyleCheck
@@ -23,6 +23,7 @@ trigger_branch:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
+        - mkdir public
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - shopt -s globstar        
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
