@@ -23,6 +23,8 @@ trigger_branch:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
+        - mkdir -p public/$CI_COMMIT_REF_NAME
+        - shopt -s globstar        
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
     after_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
@@ -100,7 +102,11 @@ pages:
         - mv "content.zip" "public/"
     artifacts:
         paths:
-        - public
+            - public
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
+
             
 HTML_Check:
     stage: HTMLCheck
@@ -142,6 +148,8 @@ HTML_Check:
             - $CI_COMMIT_REF_NAME == $TARGET_BRANCH 
 mrpost:
     stage: post
+    dependencies: 
+        - pages
     before_script:
         - apt-get update -y
         - apt-get install jq -y
