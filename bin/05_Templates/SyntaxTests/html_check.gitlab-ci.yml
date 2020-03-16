@@ -98,6 +98,7 @@ pages:
         - set -e
         # Add/update content
         - mkdir -p .public/$CI_COMMIT_REF_NAME
+        - ls 
         - cp -r public/* .public
         # Zip the content and publish the zip again
         - zip -r "content.zip" "public"
