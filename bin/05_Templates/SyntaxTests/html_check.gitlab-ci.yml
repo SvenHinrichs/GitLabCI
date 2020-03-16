@@ -44,8 +44,8 @@ trigger_branch:
     artifacts:
         when: on_failure
         paths:
-            - AixLib/HTML-logfile.txt
-        expire_in: 2 day 
+            - public
+        expire_in: 1 day 
     
     only:
         variables:
