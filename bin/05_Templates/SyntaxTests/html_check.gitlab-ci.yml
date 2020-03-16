@@ -161,6 +161,7 @@ mrpost:
         - apt-get install jq -y
 
     script:
+        - ls 
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
         - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/public/HTML-logfile.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/public/HTML-logfile.txt ) "
