@@ -125,9 +125,10 @@ mrpost:
     script:
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="**Pyint score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![pylint]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
-        - msg3="**Pyint score** on branch $CI_COMMIT_REF_NAME [![pylint]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
-        - msg4="You can view the **Pylint Log** by clicking on the badges  "
+        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
+        - echo "$CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg "
+        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![pylint]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
+        - msg4="You can view the **HTML-logfile** by clicking on the badges  "
         - msg=$msg1$msg2$newline$msg3$newline$msg4
         - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes 
         - mapfile -t ids < <(jq '.[].id' notes.json)
