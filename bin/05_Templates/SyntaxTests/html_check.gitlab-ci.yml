@@ -91,6 +91,7 @@ pages:
         - apt-get update -y
         - apt-get install zip unzip -y
     script:
+        - export
         - set +e
         - curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
         - if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
@@ -154,14 +155,16 @@ mrpost:
     before_script:
         - apt-get update -y
         - apt-get install jq -y
-
+        - pip install anybadge
     script:
+        - anybadge -l HTML-logfile -v 2.22. -f public/HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/-/jobs/716305/artifacts/browse/public/) "
-        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![HTML-logfile]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
+        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![[HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
+        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![HTML-logfile](public/HTML-logfile.svg)]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
         - msg4="You can view the **HTML-logfile** by clicking on the badges  "
-        - msg=$msg1$msg2$newline$msg3$newline$msg4
+        - msg5="Please **pull** your Repository" 
+        - msg=$msg1$msg2$newline$msg3$newline$msg4$newline$msg5
         - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes | tee notes.json
         - mapfile -t ids < <(jq '.[].id' notes.json)
         - mapfile -t bodys < <(jq '.[].body' notes.json)
