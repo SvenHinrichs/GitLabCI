@@ -25,13 +25,9 @@ trigger_branch:
     script:
         - mkdir public
         - mkdir -p public/$CI_COMMIT_REF_NAME
-        - ls 
         - shopt -s globstar        
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
         - mv "AixLib/HTML-logfile.txt" "public/"
-        - cd public
-        - ls
-        - cd .. 
     after_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
@@ -101,7 +97,6 @@ pages:
         - set -e
         # Add/update content
         - mkdir -p .public/$CI_COMMIT_REF_NAME
-        - ls 
         - cp -r public/* .public
         # Zip the content and publish the zip again
         - zip -r "content.zip" "public"
@@ -164,9 +159,8 @@ mrpost:
         - ls 
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/public/HTML-logfile.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/public/HTML-logfile.txt ) "
-        - echo "$CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg "
-        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![pylint]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
+        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/-/jobs/716305/artifacts/browse/public/) "
+        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![HTML-logfile]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
         - msg4="You can view the **HTML-logfile** by clicking on the badges  "
         - msg=$msg1$msg2$newline$msg3$newline$msg4
         - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes | tee notes.json
