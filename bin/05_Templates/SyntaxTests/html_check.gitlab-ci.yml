@@ -158,6 +158,7 @@ mrpost:
         - pip install anybadge
     script:
         - anybadge -l HTML-logfile -v 2.22. -f HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
+        - ls 
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
         - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![[HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
