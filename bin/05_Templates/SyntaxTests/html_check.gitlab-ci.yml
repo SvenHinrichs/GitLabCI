@@ -156,7 +156,6 @@ mrpost:
         - apt-get install jq -y
 
     script:
-        - ls 
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
         - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![HTML-logfile]( https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/-/jobs/716305/artifacts/browse/public/) "
@@ -169,9 +168,8 @@ mrpost:
         - len=${#ids[@]}
         - for i in $(seq 0 $len); do if [[ ${bodys[i]} == *"This is a CI-Post"* ]]; then id=${ids[i]}; break; fi; done
         - if [ -z ${id+x} ]; then curl -d "body=$msg" --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes?body=note; else curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note; fi
-        - ls
         - curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note
-        - ls
+        
     artifacts:
         paths:
             - public
@@ -198,7 +196,9 @@ Open_Merge_Request:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
         
-    
+    artifacts:
+        paths:
+            - public
 
 
   
