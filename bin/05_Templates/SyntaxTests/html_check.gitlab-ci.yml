@@ -85,8 +85,7 @@ Check_HTML:
 
 pages:
     stage: log
-    variables:
-        HTML_Correct_Artifacts: $CI_JOB_URL
+   
     dependencies: 
         - trigger_branch
     before_script:
@@ -116,9 +115,7 @@ HTML_Check:
     stage: HTMLCheck
     services:
         -  docker
-    variables:
-        
-        TARGET_BRANCH_Artifacts: $CI_JOB_URL
+  
     
     before_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
@@ -164,14 +161,15 @@ mrpost:
         - pip install anybadge
     script:
         - anybadge -l HTML-logfile -v 2.22. -f HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
-        - ls 
-        - export
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![[HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
-        - msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![HTML-logfile](HTML-logfile.svg)]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
-        - msg4="You can view the **HTML-logfile** by clicking on the badges  "
-        - msg5="Please **pull** your Repository" 
+        # msg2="**HTML-Code score** on your branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME [![[HTML-logfile]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.svg )]( $CI_PAGES_URL/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME/pylint.html )  "
+        - msg2="Correct **HTML-Code** on your branch $CI_COMMIT_REF_NAME "
+        # msg3="**HTML-logfile** on branch $CI_COMMIT_REF_NAME [![HTML-logfile](HTML-logfile.svg)]( $CI_PAGES_URL/$CI_COMMIT_REF_NAME/pylint.html ) .  "
+        - msg3=" Merge request Push Corrected **HTML code** on branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME   "
+        # msg4="You can view the **HTML-logfile** by clicking on the badges  "
+        - msg4="Merge your corrected HTML code by press the Merge button  "
+        - msg5="After merge request **pull** your Repository" 
         - msg=$msg1$msg2$newline$msg3$newline$msg4$newline$msg5
         - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes | tee notes.json
         - mapfile -t ids < <(jq '.[].id' notes.json)
@@ -180,8 +178,7 @@ mrpost:
         - for i in $(seq 0 $len); do if [[ ${bodys[i]} == *"This is a CI-Post"* ]]; then id=${ids[i]}; break; fi; done
         - if [ -z ${id+x} ]; then curl -d "body=$msg" --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes?body=note; else curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note; fi
         - curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note
-        - echo $HTML_Correct_Artifacts
-        - echo $TARGET_BRANCH_Artifacts
+        
     artifacts:
         paths:
             - public
