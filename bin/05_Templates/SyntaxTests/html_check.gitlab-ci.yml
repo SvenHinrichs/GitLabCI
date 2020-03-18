@@ -114,7 +114,8 @@ pages:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
 
-            
+        
+        
 HTML_Check:
     stage: HTMLCheck
     services:
