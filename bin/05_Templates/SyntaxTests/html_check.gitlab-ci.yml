@@ -84,7 +84,7 @@ Check_HTML:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
 
 pages:
-    stage: log
+    stage: deploy
    
     dependencies: 
         - trigger_branch
@@ -92,17 +92,21 @@ pages:
         - apt-get update -y
         - apt-get install zip unzip -y
     script:
-        - export
-        - set +e
-        - curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
-        - if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
-        - set -e
+        # export
+        # set +e
+        # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
+        # if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
+        # set -e
         # Add/update content
-        - mkdir -p .public/$CI_COMMIT_REF_NAME
-        - cp -r public/* .public
+        # mkdir -p .public/$CI_COMMIT_REF_NAME
+        # cp -r public/* .public
         # Zip the content and publish the zip again
-        - zip -r "content.zip" "public"
-        - mv "content.zip" "public/"
+        # zip -r "content.zip" "public"
+        # mv "content.zip" "public/"
+        - mkdir .public
+        - cp -r public/* .public
+        - cp -r index.html .public
+        - mv .public public
     artifacts:
         paths:
             - public
