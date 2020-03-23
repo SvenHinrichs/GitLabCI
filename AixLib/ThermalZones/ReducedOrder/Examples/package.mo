@@ -7,8 +7,7 @@ package Examples
 
 
 
-  annotation (Documentation(info="<html><p>
-  This packages contains examples for Reduced Order Model applications.
-</p>
-</html>"));
+  annotation (Documentation(info="<html>
+  <p>This packages contains examples for Reduced Order Model applications.</p>
+  </html>"));
 end Examples;
