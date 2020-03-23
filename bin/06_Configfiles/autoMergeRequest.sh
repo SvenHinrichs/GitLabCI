@@ -24,6 +24,7 @@ BODY="{
     \"remove_source_branch\": true,
     \"title\": \"WIP: ${CI_COMMIT_REF_NAME}\",
     \"assignee_id\":\"${GITLAB_USER_ID}\"
+	\"labels\":\"~Fix HTML Code\"
 }";
 
 # Require a list of all the merge request and take a look if there is already
@@ -37,7 +38,7 @@ if [ ${COUNTBRANCHES} -eq "0" ]; then
         --header "PRIVATE-TOKEN:${GL_TOKEN}" \
         --header "Content-Type: application/json" \
         --data "${BODY}";
-
+	
     echo "Opened a new merge request: WIP: ${CI_COMMIT_REF_NAME} and assigned to you";
     exit;
 fi
