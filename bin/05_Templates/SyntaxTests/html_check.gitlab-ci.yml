@@ -133,6 +133,7 @@ HTML_Check:
         - echo $CI_COMMIT_BRANCH
         - echo $CI_COMMIT_REF_NAME
         - pip install anybadge
+        - export
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
