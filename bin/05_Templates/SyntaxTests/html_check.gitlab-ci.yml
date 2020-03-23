@@ -184,7 +184,6 @@ mrpost:
         - if [ -z ${id+x} ]; then curl -d "body=$msg" --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes?body=note; else curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note; fi
         - curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note
         
-    
     artifacts:
         paths:
             - public
