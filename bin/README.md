@@ -77,6 +77,42 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 		- file: 'bin/05_Templates/style_check.gitlab-ci.yml'
 
 
+	image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+
+	stages:
+		- CheckSettings
+		- build
+		- HTMLCheck
+		- log
+		- deploy
+		- openMR
+		- post
+		- StyleCheck
+		- Check
+		- Simulate
+		- RegressionTest
+
+	variables:
+		TARGET_BRANCH: master
+		Newbranch: "Correct_HTML_$TARGET_BRANCH"
+		StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
+
+	include:
+	  - project: 'sven.hinrichs/GitLabCI'
+		file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
+	  - project: 'sven.hinrichs/GitLabCI'
+		file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
+	  - project: 'sven.hinrichs/GitLabCI'
+		file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
+	  - project: 'sven.hinrichs/GitLabCI'
+		file: 'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
+	  - project: 'sven.hinrichs/GitLabCI'
+		file: 'bin/05_Templates/UnitTests/regression_test.gitlac-ci.yml'
+	  - project: 'sven.hinrichs/GitLabCI'
+		file: 'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
+			
+		
+
 The templates are also implemented under the following repository [Templates](https://git.rwth-aachen.de/EBC/EBC_all/gitlab_ci/templates)
 
 ### 6 Configfiles
@@ -104,9 +140,10 @@ This variable is necessary for the StyleCheck und will check the Style e.g. "Sty
 
 
 ## Push - Mirroring
+All protected branches in gitlab will push to github. This included all branches with wildcard *issue and will after merge push the correctedhtml code to your current branch
 
 ## Pull - Mirroring 
-
+Pull all branches from github to gitlab. 
 
 # What is done?
 
