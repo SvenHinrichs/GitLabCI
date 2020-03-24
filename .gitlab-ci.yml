@@ -5,7 +5,6 @@ stages:
     - CheckSettings
     - build
     - HTMLCheck
-    - log
     - deploy
     - openMR
     - post
