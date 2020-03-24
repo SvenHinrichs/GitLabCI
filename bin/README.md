@@ -51,6 +51,7 @@ This folder contains [documentation](https://git.rwth-aachen.de/sven.hinrichs/Gi
 This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/05_Templates) for the CI tests implemented so far. The following example can be used to implement the tests in the CI. 
 
 
+
 	#!/bin/bash
 	image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
@@ -66,50 +67,17 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 
 	include:
 		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/check_model.gitlab-ci.yml'
+		- file: 'ci-tests/CheckConfiguration/check_settings.gitlab-ci.yml'
 		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/check_simulate.gitlab-ci.yml'
+		- file: 'ci-tests/SyntaxTests/html_check.gitlab-ci.yml'
 		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/regression_test.gitlab-ci.yml'
+		- file: 'ci-tests/SyntaxTests/style_check.gitlab-ci.yml'
 		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/html_check.gitlab-ci.yml'
+		- file: 'ci-tests/UnitTests/check_model.gitlab-ci.yml'
 		- project: 'EBC/EBC_all/gitlab_ci/templates'
-		- file: 'bin/05_Templates/style_check.gitlab-ci.yml'
-
-
-	image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
-
-	stages:
-		- CheckSettings
-		- build
-		- HTMLCheck
-		- deploy
-		- openMR
-		- post
-		- StyleCheck
-		- Check
-		- Simulate
-		- RegressionTest
-
-	variables:
-		TARGET_BRANCH: master
-		Newbranch: "Correct_HTML_$TARGET_BRANCH"
-		StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
-
-	include:
-	  - project: 'sven.hinrichs/GitLabCI'
-		file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
-	  - project: 'sven.hinrichs/GitLabCI'
-		file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
-	  - project: 'sven.hinrichs/GitLabCI'
-		file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
-	  - project: 'sven.hinrichs/GitLabCI'
-		file: 'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
-	  - project: 'sven.hinrichs/GitLabCI'
-		file: 'bin/05_Templates/UnitTests/regression_test.gitlac-ci.yml'
-	  - project: 'sven.hinrichs/GitLabCI'
-		file: 'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
-			
+		- file: 'ci-tests/UnitTests/regression_test.gitlac-ci.yml'
+		- project: 'EBC/EBC_all/gitlab_ci/templates'
+		- file: 'ci-tests/UnitTests/simulate_model.gitlab-ci.yml'	
 		
 
 The templates are also implemented under the following repository [Templates](https://git.rwth-aachen.de/EBC/EBC_all/gitlab_ci/templates)

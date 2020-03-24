@@ -7,7 +7,7 @@ The folder contains the following templates:
 	- html_check.gitlab-ci.yml: html check and correct the html code
 	- style_check.gitlab-ci.yml: check style of modelica models
 
-The templates are in this [Repsitory](https://git.rwth-aachen.de/EBC/EBC_all/gitlab_ci/templates) implemented.
+The templates are in this [Repository](https://git.rwth-aachen.de/EBC/EBC_all/gitlab_ci/templates) implemented.
 ## What is implemented? 
 Add the following lines to your gitlab.ci.yml:
  
