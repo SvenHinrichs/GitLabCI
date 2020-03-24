@@ -1,6 +1,7 @@
 #!/usr/bin/env 
 
 set -e
+echo "Check Variables"
 
 if [ -z "$GL_TOKEN" ]; then
   echo "GL_TOKEN not set"
