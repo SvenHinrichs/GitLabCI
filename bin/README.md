@@ -113,7 +113,7 @@ All protected branches in gitlab will push to github. This included all branches
 Pull all branches from github to gitlab. 
 
 ## Test CI Setting
-To test if all necessary Variables are set push your Code with the commit "Test Setting". 
+To test if all necessary variables are set push your Code with the commit "Check Settings". 
 
 
 
