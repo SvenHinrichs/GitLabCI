@@ -23,11 +23,8 @@ trigger_branch:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - mkdir public
-        - mkdir -p public/$CI_COMMIT_REF_NAME
-        - shopt -s globstar        
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
-        - mv "AixLib/HTML-logfile.txt" "public/"
+        
     after_script:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
@@ -43,7 +40,7 @@ trigger_branch:
           fi
     artifacts:
         paths:
-            - public
+            - AixLib/HTML-logfile.txt
         expire_in: 1 day 
     
     only:
@@ -83,15 +80,15 @@ Check_HTML:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
 
-pages:
-    stage: deploy
-   
-    dependencies: 
-        - trigger_branch
-    before_script:
-        - apt-get update -y
-        - apt-get install zip unzip -y
-    script:
+#pages:
+#    stage: deploy
+#   
+#    dependencies: 
+#        - trigger_branch
+#    before_script:
+#        - apt-get update -y
+#        - apt-get install zip unzip -y
+#    script:
         # export
         # set +e
         # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
@@ -103,16 +100,16 @@ pages:
         # Zip the content and publish the zip again
         # zip -r "content.zip" "public"
         # mv "content.zip" "public/"
-        - mkdir .public
-        - cp -r public/* .public
-        - cp -r index.html .public
-        - mv .public public
-    artifacts:
-        paths:
-            - public
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
+#        - mkdir .public
+#        - cp -r public/* .public
+#        - cp -r index.html .public
+#        - mv .public public
+#   artifacts:
+#        paths:
+#            - public
+#    only:
+#        variables:
+#            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
 
         
         
@@ -159,8 +156,6 @@ HTML_Check:
             - $CI_COMMIT_REF_NAME == $TARGET_BRANCH 
 mrpost:
     stage: post
-    dependencies: 
-        - pages
     before_script:
         - apt-get update -y
         - apt-get install jq -y
@@ -185,10 +180,6 @@ mrpost:
         - if [ -z ${id+x} ]; then curl -d "body=$msg" --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes?body=note; else curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note; fi
         - curl -d "body=$msg" --request PUT --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes/$id/?body=note
         
-    artifacts:
-        paths:
-            - public
-            - notes.json
     only:
         - merge_requests
 
@@ -211,9 +202,7 @@ Open_Merge_Request:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
         
-    artifacts:
-        paths:
-            - public
+  
 
 
   

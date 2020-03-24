@@ -16,6 +16,7 @@ if [ -z "$TARGET_BRANCH " ]; then
   echo "Please set your current branch in .gitlab-ci.yml "
   exit 1
 fi
+echo "Your current brach is $TARGET_BRANCH"
 echo "TARGET_BRANCH is set"
 echo "All required Variables are set. CI-Tests can run. "
 exit 0
