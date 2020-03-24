@@ -11,9 +11,9 @@ The whole process is automatically triggered by checking into the version contro
 In our case we mirror a github repository in GitLab. This way the repository can be tested and corrected with the CI in Gitlab. 
 We also use the Docker service to create an image containing Dymola and thus be able to simulate models in Dymola.
 
-For more information read the [General Documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/blob/master/bin/04_Documentation/Documentation_GitLab.md)
+For more information read the [General Documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/blob/master/bin/04_Documentation/Documentation_GitLab.md) and the Repository [Dymola-Docker](https://git.rwth-aachen.de/EBC/EBC_intern/dymola-docker)
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/GITLABCI.png)
-and the Repository [Dymola-Docker](https://git.rwth-aachen.de/EBC/EBC_intern/dymola-docker)
+
 
 ## What CI Tests are implement?
 #### Check, Simulate and Regressiontest: [UnitTests](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/UnitTests)
@@ -83,7 +83,6 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 		- CheckSettings
 		- build
 		- HTMLCheck
-		- log
 		- deploy
 		- openMR
 		- post
@@ -121,7 +120,7 @@ This folder contains [Config files](https://git.rwth-aachen.de/sven.hinrichs/Git
 
 For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 
-# How Configure the CI Tests with Corrected Code
+# How Configure the CI Tests
 
 ## Configure Variables
 
@@ -136,16 +135,26 @@ where the code will corrected and merge in the TARGET-BRANCHES.
 
 ### StyleModel:
 
-This variable is necessary for the StyleCheck und will check the Style e.g. "StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen"
+This variable is necessary for the StyleCheck und will check the Style of a modelica model (e.g. "StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen")
 
 
-## Push - Mirroring
-All protected branches in gitlab will push to github. This included all branches with wildcard *issue and will after merge push the correctedhtml code to your current branch
+### Push - Mirroring
+All protected branches in gitlab will push to github. This included all branches with wildcard *issue and will after a merge push the corrected html code to your current branch.
 
-## Pull - Mirroring 
+### Pull - Mirroring 
 Pull all branches from github to gitlab. 
 
-# What is done?
+## Test CI Setting
+To test if all necessary Variables are set push your Code with the commit "Test Setting". 
 
 
 
+
+# To Do
+
+- Add Gitlab Page
+- Slack Notification in case of merge request in gitlab
+- Add a gitlab bot
+- Add $GL_Token
+- Add label CI and fix HTML code
+- Add Wildcard for protected branches with issue*
