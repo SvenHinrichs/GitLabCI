@@ -13,6 +13,7 @@ stages:
     - Simulate
     - RegressionTest
 
+
 variables:
     TARGET_BRANCH: master
     Newbranch: "Correct_HTML_$TARGET_BRANCH"
