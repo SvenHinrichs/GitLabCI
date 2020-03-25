@@ -16,11 +16,10 @@ if [ -z "$TARGET_BRANCH " ]; then
   echo "Please set your current branch in .gitlab-ci.yml "
   exit 1
 fi
-echo "$CI_COMMIT_REF_NAME"
 
 
 if [ "$TARGET_BRANCH" == "$CI_COMMIT_REF_NAME" ]; then
-	echo "Correct"
+	
 	echo "Your current branch is $TARGET_BRANCH"
 	echo "Variable TARGET_BRANCH is set"
 	echo "All required Variables are set. CI-Tests can run. "
