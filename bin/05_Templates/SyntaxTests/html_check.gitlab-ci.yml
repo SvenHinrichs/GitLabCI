@@ -163,11 +163,11 @@ mrpost:
         - anybadge -l HTML-logfile -v 2.22. -f HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
-        - msg2="Correct **HTML-Code** on your branch $CI_COMMIT_REF_NAME "
-        - msg3=" Do a merge request to push  your corrected **HTML code** on branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME   "
-        - msg4=" To merge your corrected HTML code press the **Resolve WIP status** button and merge your **$CI_COMMIT_REF_NAME** into  **$CI_MERGE_REQUEST_TARGET_BRANCH_NAME** "
-        - msg5=" The branch **$CI_MERGE_REQUEST_TARGET_BRANCH_NAME** will be deleted " 
-        - msg6=" After merge request **pull** your Repository " 
+        - msg2="Correct **HTML-Code** on your branch **$CI_COMMIT_REF_NAME**. "
+        - msg3=" Do a merge request to push  your corrected **HTML code** on branch **$CI_MERGE_REQUEST_TARGET_BRANCH_NAME**   "
+        - msg4=" To merge your corrected HTML code press the **Resolve WIP status** button and merge your **$CI_COMMIT_REF_NAME** into  **$CI_MERGE_REQUEST_TARGET_BRANCH_NAME**. "
+        - msg5=" The branch **$CI_COMMIT_REF_NAME** will be deleted. " 
+        - msg6=" After merge request **pull** your Repository in Github. " 
         - msg=$msg1$msg2$newline$msg3$newline$msg4$newline$msg5$newline$msg6
         - curl --request GET --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes | tee notes.json
         - mapfile -t ids < <(jq '.[].id' notes.json)
