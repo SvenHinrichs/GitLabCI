@@ -128,9 +128,6 @@ HTML_Check:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo $Newbranch
-        - echo $CI_COMMIT_BRANCH
-        - echo $CI_COMMIT_REF_NAME
         - pip install anybadge
         - export
     script:
@@ -155,7 +152,7 @@ HTML_Check:
         expire_in: 2 day 
     only:
         variables:
-            - $CI_COMMIT_REF_NAME == $TARGET_BRANCH 
+            -$CI_COMMIT_MESSAGE != /Correct HTML Code/
 mrpost:
     stage: post
     before_script:
