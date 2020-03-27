@@ -7,20 +7,12 @@ stages:
     - deploy
     - openMR
     - post
-    
-
- 
             
 trigger_branch:
     stage: build
     services:
         -  docker
     before_script:
-        
-        - Newbranch=${Newbranch#Correct_HTML_}
-        - TARGET_BRANCH=${TARGET_BRANCH#Correct_HTML_}
-        - echo $Newbranch
-        - echo $TARGET_BRANCH
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
@@ -30,7 +22,6 @@ trigger_branch:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
         
     after_script:
-        
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
@@ -47,7 +38,6 @@ trigger_branch:
         paths:
             - AixLib/HTML-logfile.txt
         expire_in: 1 day 
-    
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
@@ -122,8 +112,6 @@ HTML_Check:
     stage: HTMLCheck
     services:
         -  docker
-  
-    
     before_script:
         
         - git config --global user.name "${GITLAB_USER_NAME}" 
@@ -195,8 +183,11 @@ Open_Merge_Request:
     before_script:
         - sudo apt-get install jq -y
     script:
-       - Newbranch=${Newbranch#Correct_HTML_}
-       - TARGET_BRANCH=${TARGET_BRANCH#Correct_HTML_}
+       # Newbranch=${Newbranch#Correct_HTML_}
+       # TARGET_BRANCH=${TARGET_BRANCH#Correct_HTML_}
+       - Newbranch=${Newbranch#${Präfix_Branch}}
+       - TARGET_BRANCH=${TARGET_BRANCH#${Präfix_Branch}}
+       
        - echo $Newbranch
        - echo $TARGET_BRANCH
        - sudo chmod +x bin/06_Configfiles/autoMergeRequest.sh
