@@ -16,7 +16,7 @@ stages:
 
 variables:
     Branch: $CI_BUILD_REF_NAME
-    TARGET_BRANCH: ${CI_BUILD_REF_NAME#Correct_HTML_}
+    TARGET_BRANCH: ${$Branch#Correct_HTML_}
     Newbranch: "Correct_HTML_$TARGET_BRANCH"
     StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
 
