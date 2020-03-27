@@ -15,9 +15,9 @@ stages:
 
 
 variables:
-    Präfix_Branch: "Correct_HTML_"
+    Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
-    Newbranch: ${Präfix_Branch}${CI_COMMIT_REF_NAME}
+    Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
 
     
