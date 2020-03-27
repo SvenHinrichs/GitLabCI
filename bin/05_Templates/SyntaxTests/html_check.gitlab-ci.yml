@@ -16,7 +16,8 @@ trigger_branch:
     services:
         -  docker
     before_script:
-        - export
+        - echo $Newbranch
+        - echo $TARGET_BRANCH
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
@@ -121,7 +122,7 @@ HTML_Check:
   
     
     before_script:
-        - export
+        
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -129,7 +130,8 @@ HTML_Check:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
         - pip install anybadge
-        - export
+        - echo $Newbranch
+        - echo $TARGET_BRANCH
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
