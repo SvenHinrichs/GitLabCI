@@ -165,7 +165,6 @@ mrpost:
         - apt-get install jq -y
         - pip install anybadge
     script:
-        - export
         - anybadge -l HTML-logfile -v 2.22. -f HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
@@ -196,6 +195,10 @@ Open_Merge_Request:
     before_script:
         - sudo apt-get install jq -y
     script:
+       - Newbranch=${Newbranch#Correct_HTML_}
+       - TARGET_BRANCH=${TARGET_BRANCH#Correct_HTML_}
+       - echo $Newbranch
+       - echo $TARGET_BRANCH
        - sudo chmod +x bin/06_Configfiles/autoMergeRequest.sh
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
