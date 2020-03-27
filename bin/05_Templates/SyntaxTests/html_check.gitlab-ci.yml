@@ -16,8 +16,9 @@ trigger_branch:
     services:
         -  docker
     before_script:
-        - echo $Newbranch
-        - echo $TARGET_BRANCH
+        - 
+        - echo ${Newbranch#Correct_HTML_}
+        - echo ${TARGET_BRANCH#Correct_HTML_}
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
