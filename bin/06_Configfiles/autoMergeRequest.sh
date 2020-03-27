@@ -23,7 +23,9 @@ BODY="{
     \"target_branch\": \"${TARGET_BRANCH}\",
     \"remove_source_branch\": true,
     \"title\": \"WIP: ${CI_COMMIT_REF_NAME}\",
-    \"assignee_id\":\"${GITLAB_USER_ID}\"
+    \"assignee_id\":\"${GITLAB_USER_ID}\",
+	\"labels\": [\"fix HTML code\" , \"CI\" 	]
+	
 }";
 
 # Require a list of all the merge request and take a look if there is already
@@ -37,9 +39,10 @@ if [ ${COUNTBRANCHES} -eq "0" ]; then
         --header "PRIVATE-TOKEN:${GL_TOKEN}" \
         --header "Content-Type: application/json" \
         --data "${BODY}";
-
+	
     echo "Opened a new merge request: WIP: ${CI_COMMIT_REF_NAME} and assigned to you";
     exit;
 fi
 
 echo "Merge Request ist already open. No new merge request opened";
+exit 1
