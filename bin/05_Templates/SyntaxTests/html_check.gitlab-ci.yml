@@ -16,6 +16,7 @@ trigger_branch:
     services:
         -  docker
     before_script:
+        - export
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
@@ -25,6 +26,7 @@ trigger_branch:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --log  --align --font
         
     after_script:
+        
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
@@ -119,6 +121,7 @@ HTML_Check:
   
     
     before_script:
+        - export
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -160,6 +163,7 @@ mrpost:
         - apt-get install jq -y
         - pip install anybadge
     script:
+        - export
         - anybadge -l HTML-logfile -v 2.22. -f HTML-logfile.svg 2=red 4=orange 8=yellow 10=green
         - newline=$' \n '
         - msg1=$'## This is a CI-Post \n '
