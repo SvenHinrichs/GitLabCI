@@ -16,7 +16,7 @@ trigger_branch:
     services:
         -  docker
     before_script:
-        - 
+        
         - echo ${Newbranch#Correct_HTML_}
         - echo ${TARGET_BRANCH#Correct_HTML_}
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
