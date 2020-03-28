@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+set -e
 
 
 echo "Create a Pull Request ${Newbranch} to ${TARGET_BRANCH}"
