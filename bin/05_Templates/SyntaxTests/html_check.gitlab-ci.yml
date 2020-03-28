@@ -206,15 +206,21 @@ Open_Pull_Request:
         -  docker
     before_script:
         - sudo apt-get install jq -y
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+  
     script:
-       - git config --global user.email "${GITLAB_USER_EMAIL}"
-       - git config --global user.name  "${GITLAB_USER_NAME}" 
+       - export
        - Newbranch=${Newbranch#${Praefix_Branch}}
        - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
        - git status
        - git branch
-       # git clone --single-branch --branch $Newbranch https://git.rwth-aachen.de/sven.hinrichs/GitLabCI.git
-       # cd GitLabCI
+       #  git push --force http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git "HEAD:${Newbranch}";
+           
+       # git clone --single-branch --branch $Newbranch https://git.rwth-aachen.de/${GITLAB_USER_NAME}/GitLabCI.git
+       - git clone --single-branch --branch $Newbranch http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git
+       
+       - cd GitLabCI
        - git remote add mine https://github.com/SvenHinrichs/GitLabCI.git
        - git push -u mine; git push --tags -u mine
        - sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
