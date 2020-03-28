@@ -145,7 +145,7 @@ HTML_Check:
         expire_in: 2 day 
     only:
         variables:
-            - $CI_COMMIT_MESSAGE != /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
 mrpost:
     stage: post
     before_script:
