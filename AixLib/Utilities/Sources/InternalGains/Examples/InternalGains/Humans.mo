@@ -23,23 +23,13 @@ equation
       pattern=LinePattern.Solid));
   connect(combiTimeTable.y[1], humanSensibleHeat.Schedule) annotation (Line(
         points={{-61,-16},{-42,-16},{-42,3.14},{-21.93,3.14}}, color={0,0,127}));
-  annotation (experiment(StopTime = 86400),Documentation(info = "<html><h4>
-  <span style=\"color:#008000\">Overview</span>
-</h4>
-<p>
-  Simulation to check the functionality of the human heat sources. It
-  only consists of one human (VDI 2078).
-</p>
-<p>
-  The timetable represents typical working hours with one hour lunch
-  time. The room temperature follows a sine input varying between 18
-  and 22 degrees over a 24 hour time period.
-</p>
-<ul>
-  <li>
-    <i>May 31, 2013&#160;</i> by Ole Odendahl:<br/>
-    Implemented, added documentation and formatted appropriately
-  </li>
-</ul>
-</html>"));
+  annotation (experiment(StopTime = 86400),Documentation(info = "<html>
+ <h4><font color=\"#008000\">Overview</font></h4>
+ <p>Simulation to check the functionality of the human heat sources. It only consists of one human (VDI 2078). </p>
+ <p>The timetable represents typical working hours with one hour lunch time. The room temperature follows a sine input varying between 18 and 22 degrees over a 24 hour time period.</p>
+ </html>", revisions = "<html>
+ <ul>
+ <li><i>May 31, 2013&nbsp;</i> by Ole Odendahl:<br/>Implemented, added documentation and formatted appropriately</li>
+ </ul>
+ </html>"));
 end Humans;
