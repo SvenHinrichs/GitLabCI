@@ -1,6 +1,9 @@
 
+
+echo "Create a Pull Request ${Newbranch} to ${TARGET_BRANCH}"
+
 curl --location --request POST 'https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls' \
---header 'Authorization: $GITHUB_API_TOKEN' \
+--header 'Authorization: Bearer ${GITHUB_API_TOKEN}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "title": "HTML Correction",
