@@ -113,7 +113,6 @@ HTML_Check:
     services:
         -  docker
     before_script:
-        
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -121,8 +120,7 @@ HTML_Check:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
         - pip install anybadge
-        - echo $Newbranch
-        - echo $TARGET_BRANCH
+         
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
