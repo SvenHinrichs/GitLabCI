@@ -2,11 +2,11 @@
 set -e
 
 
-echo "Create a Pull Request ${Newbranch} to ${TARGET_BRANCH}"
+echo "Create a Pull request ${Newbranch} to ${TARGET_BRANCH}"
 echo $GITHUB_API_TOKEN
 
 curl --location --request POST 'https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls' \
---header 'Authorization: Bearer ${GITHUB_API_TOKEN}' \
+--header 'Authorization:${GITHUB_API_TOKEN}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "title": "HTML Correction",
@@ -14,3 +14,6 @@ curl --location --request POST 'https://api.github.com/repos/SvenHinrichs/GitLab
     "head": "SvenHinrichs:${Newbranch}",
     "base": "${TARGET_BRANCH}"
 }'
+
+echo "Create pull request. Merge ${Newbranch} into ${TARGET_BRANCH}."
+
