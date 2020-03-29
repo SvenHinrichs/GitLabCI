@@ -10,10 +10,10 @@ curl -X POST "https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls" \
 	--header "Content-Type: application/json" \
 	--data "{
 		\"title\": \"HTML Correction\",
-		\"body\": \"Correct the HTML Code\",
+		\"body\": \"Merge the Corrected HTML Code\",
 		\"head\": \"SvenHinrichs:${Newbranch}\",
 		\"base\": \"${TARGET_BRANCH}\"
 }"
 
 echo "Create pull request. Merge ${Newbranch} into ${TARGET_BRANCH}."
-
+exit 0 
