@@ -11,8 +11,8 @@ curl --location --request POST 'https://api.github.com/repos/SvenHinrichs/GitLab
 --data '{
     "title": "HTML Correction",
     "body": "Correct the HTML Code",
-    "head": "SvenHinrichs:${Newbranch}",
-    "base": "${TARGET_BRANCH}"
+    "head": "SvenHinrichs:Correct_HTML_master",
+    "base": "master"
 }'
 
 echo "Create pull request. Merge ${Newbranch} into ${TARGET_BRANCH}."
