@@ -8,7 +8,7 @@ echo $GITHUB_API_TOKEN
 curl --location --request POST 'https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls' \
 --header 'Authorization:${GITHUB_API_TOKEN}' \
 --header 'Content-Type: application/json' \
---data-raw '{
+--data '{
     "title": "HTML Correction",
     "body": "Correct the HTML Code",
     "head": "SvenHinrichs:${Newbranch}",
