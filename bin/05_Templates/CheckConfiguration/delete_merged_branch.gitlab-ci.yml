@@ -6,7 +6,7 @@ stages:
    
 
     
-Setting_Check:
+on-pull-requests:
     stage: deleteBranch
     only:
         - /^feature\/*/
