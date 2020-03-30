@@ -15,7 +15,8 @@ on-pull-requests:
     before_script:
         - sudo apt-get install jq -y
     script:
-       - export
+       - Newbranch=${Newbranch#${Praefix_Branch}}
+       - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
        - sudo chmod +x bin/06_Configfiles/delete_merged_branches.sh
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
@@ -25,4 +26,4 @@ on-pull-requests:
     only:
         # external_pull_requests
         - pull_request 
-        - merge_requests
+        
