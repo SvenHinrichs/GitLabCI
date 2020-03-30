@@ -6,7 +6,7 @@ stages:
    
 
     
-on-pull-requests:
+Delte_merge_Branches:
     stage: deleteBranch
     only:
         - /^feature\/*/

@@ -3,7 +3,6 @@ set -e
 
 
 echo "Create a Pull request ${Newbranch} to ${TARGET_BRANCH}"
-echo $GITHUB_API_TOKEN
 
 curl -X POST "https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls" \
 	--header "Authorization:Bearer ${GITHUB_API_TOKEN}" \

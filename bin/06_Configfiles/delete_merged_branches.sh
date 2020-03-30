@@ -10,4 +10,4 @@ set -e
 
 curl --request DELETE --header "PRIVATE-TOKEN:${GL_TOKEN}"	$CI_API_V4_URL/projects/${CI_PROJECT_ID}/repository/branches/${Newbranch}
 
-echo "${Newbranch} was deleted"
+echo "Branch ${Newbranch} was deleted"
