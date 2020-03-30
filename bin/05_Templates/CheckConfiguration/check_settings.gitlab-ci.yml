@@ -15,6 +15,7 @@ Setting_Check:
     before_script:
         - sudo apt-get install jq -y
     script:
+       - export
        - sudo chmod +x bin/06_Configfiles/checkVariables.sh
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
