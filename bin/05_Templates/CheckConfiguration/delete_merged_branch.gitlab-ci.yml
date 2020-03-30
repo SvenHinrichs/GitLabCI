@@ -7,7 +7,7 @@ stages:
 
     
 Setting_Check:
-    stage: CheckSettings
+    stage: deleteBranch
     only:
         - /^feature\/*/
     services:
@@ -23,5 +23,4 @@ Setting_Check:
  
     
     only:
-        variables:
-            - $CI_COMMIT_MESSAGE =~ /Check Settings/
+        - external_pull_requests
