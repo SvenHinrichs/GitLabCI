@@ -1,4 +1,4 @@
-﻿within AixLib.DataBase.ThermalMachines.HeatPump;
+within AixLib.DataBase.ThermalMachines.HeatPump;
 package EN14511
 
   record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
@@ -18,12 +18,17 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to manufacturer&apos;s data which was inter- and extrapolated linearly; EN14511 </p>
+<p>
+  According to manufacturer's data which was inter- and extrapolated
+  linearly; EN14511
+</p>
 </html>"));
   end AlphaInnotec_LW80MA;
 
@@ -41,12 +46,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to data from Dimplex data sheets; EN14511</p>
+<p>
+  According to data from Dimplex data sheets; EN14511
+</p>
 </html>"));
   end Dimplex_LA11AS;
 
@@ -62,12 +71,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to data from Ochsner data sheets; EN14511</p>
+<p>
+  According to data from Ochsner data sheets; EN14511
+</p>
 </html>"));
   end Ochsner_GMLW_19;
 
@@ -85,12 +98,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to data from Ochsner data sheets; EN14511</p>
+<p>
+  According to data from Ochsner data sheets; EN14511
+</p>
 </html>"));
   end Ochsner_GMLW_19plus;
 
@@ -108,12 +125,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to data from WPZ Buchs, Swiss; EN14511 </p>
+<p>
+  According to data from WPZ Buchs, Swiss; EN14511
+</p>
 </html>"));
   end Ochsner_GMSW_15plus;
 
@@ -132,12 +153,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",   info="<html>
-<p>According to data from WPZ Buchs, Swiss; EN14511</p>
+<p>
+  According to data from WPZ Buchs, Swiss; EN14511
+</p>
 </html>"));
   end StiebelEltron_WPL18;
 
@@ -156,13 +181,16 @@ package EN14511
 
     annotation(preferedView="text", DymolaStoredErrors,
       Icon,
-      Documentation(revisions="<html>
-<ul>
- <li><i>Oct 14, 2016&nbsp;</i> by Philipp Mehrfeld:<br/>Transferred to AixLib.</li>
+      Documentation(revisions="<html><ul>
+  <li>
+    <i>Oct 14, 2016&#160;</i> by Philipp Mehrfeld:<br/>
+    Transferred to AixLib.
+  </li>
 </ul>
 </html>",
-     info="<html>
-<p>According to data from Vaillant data sheets; EN14511 </p>
+     info="<html><p>
+  According to data from Vaillant data sheets; EN14511
+</p>
 </html>"));
   end Vaillant_VWL_101;
 
@@ -184,14 +212,17 @@ package EN14511
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=false)),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
-      Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data&nbsp;record&nbsp;for&nbsp;type&nbsp;AWO-M/AWO-M-E-AC&nbsp;201.A04, obtained from the technical guide in the UK.</span></p>
-</html>",   revisions="<html>
+      Documentation(info="<html><p>
+  <span style=
+  \"font-family: Courier New; color: #006400;\">Data&#160;record&#160;for&#160;type&#160;AWO-M/AWO-M-E-AC&#160;201.A04,
+  obtained from the technical guide in the UK.</span>
+</p>
 <ul>
-<li>
-<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
-First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-</li>
+  <li>
+    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+  </li>
 </ul>
 </html>"));
   end Vitocal200AWO201;
