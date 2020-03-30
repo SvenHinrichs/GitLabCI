@@ -191,9 +191,33 @@ Open_Merge_Request:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
-        
-
+            
+Open_Pull_Request:
+    stage: openMR
+    only:
+        - /^feature\/*/
+    services:
+        -  docker
+    before_script:
+        - sudo apt-get install jq -y
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
   
-
-  
-     
+    script:
+       - Newbranch=${Newbranch#${Praefix_Branch}}
+       - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
+       # git clone --single-branch --branch $Newbranch https://git.rwth-aachen.de/${GITLAB_USER_NAME}/GitLabCI.git
+       - git clone --single-branch --branch $Newbranch http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git
+       - cd ${CI_PROJECT_TITLE}
+       # git remote add mine https://github.com/SvenHinrichs/GitLabCI.git
+       - git remote add mine http://SvenHinrichs:${GITHUB_API_TOKEN}@github.com/SvenHinrichs/GitLabCI.git
+       - git push -u mine; git push --tags -u mine
+       - sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
+       - bin/06_Configfiles/autoPullRequest.sh
+       
+       
+       
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
