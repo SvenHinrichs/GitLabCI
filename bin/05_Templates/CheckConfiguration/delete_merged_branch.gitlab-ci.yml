@@ -16,10 +16,10 @@ Setting_Check:
         - sudo apt-get install jq -y
     script:
        - export
-       - sudo chmod +x bin/06_Configfiles/checkVariables.sh
+       - sudo chmod +x bin/06_Configfiles/delete_merged_branches.sh
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
-       - bin/06_Configfiles/checkVariables.sh
+       - bin/06_Configfiles/delete_merged_branches.sh
  
     
     only:
