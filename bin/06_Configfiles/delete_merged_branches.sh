@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 #Note: 	DELETE /projects/:id/repository/branches/:branch
-
+#$CI_API_V4_URL="https://git.rwth-aachen.de/api/v4"
+# curl --request DELETE --header "PRIVATE-TOKEN: <your_access_token>" https://gitlab.example.com/api/v4/projects/5/repository/branches/newbranch
 set -e
 
 
-curl --request DELETE 
-	--header "PRIVATE-TOKEN:${GL_TOKEN}"
-	https://gitlab.example.com/api/v4/projects/}${CI_PROJECT_ID}/repository/branches/${Newbranch}
+curl --request DELETE --header "PRIVATE-TOKEN:${GL_TOKEN}"	$CI_API_V4_URL/projects/${CI_PROJECT_ID}/repository/branches/${Newbranch}
