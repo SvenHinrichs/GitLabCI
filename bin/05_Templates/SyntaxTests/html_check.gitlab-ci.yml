@@ -210,7 +210,7 @@ Open_Pull_Request:
        - git clone --single-branch --branch $Newbranch http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git
        - cd ${CI_PROJECT_TITLE}
        # git remote add mine https://github.com/SvenHinrichs/GitLabCI.git
-       - git remote add mine http://SvenHinrichs:${GITHUB_API_TOKEN}@github.com/SvenHinrichs/GitLabCI.git
+       - git remote add mine http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${full_name}.git
        - git push -u mine; git push --tags -u mine
        - sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
        - bin/06_Configfiles/autoPullRequest.sh
