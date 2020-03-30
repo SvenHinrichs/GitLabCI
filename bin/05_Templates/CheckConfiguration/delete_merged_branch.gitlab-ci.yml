@@ -23,4 +23,5 @@ on-pull-requests:
  
     
     only:
-        - external_pull_requests
+        # external_pull_requests
+        - pull_request 
