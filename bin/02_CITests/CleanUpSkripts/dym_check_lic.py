@@ -14,16 +14,14 @@ def dym_check_lic():
 		dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
 	dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 	dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-	#dymola.ExecuteCommand("if not dym_sta_lic_available then")
 	if not dym_sta_lic_available:
 		dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
-		#dymola.ExecuteCommand("Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");")
 		print("No Dymola License is available")
-		#dymola.ExecuteCommand("exit();")
 		dymola.close()
 	else:
 		print("Dymola License is available")
-	#dymola.ExecuteCommand("end if;")
+	
+	
 def _setEnvironmentVariables(var,value):
 	import os
 	import platform
@@ -63,7 +61,7 @@ if  __name__ == '__main__':
 							'Library',
 							'python_interface',
 							'dymola.egg'))
+	
 	sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
-
 	dym_check_lic()
 	

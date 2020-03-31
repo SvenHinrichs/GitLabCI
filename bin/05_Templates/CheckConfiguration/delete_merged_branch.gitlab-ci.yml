@@ -24,6 +24,4 @@ Delte_merge_Branches:
  
     
     only:
-        # external_pull_requests
-        # pull_request 
         - merge_requests

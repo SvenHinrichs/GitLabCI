@@ -33,7 +33,6 @@ class GET_API_GITHUB(object):
 		headers= {}
 
 		response = requests.request("GET", url, headers=headers, data = payload)
-
 		branch = response.json()
 		commit = branch["commit"]
 		author = commit["author"]
@@ -81,7 +80,7 @@ if  __name__ == '__main__':
 	
 	GET_API_DATA = GET_API_GITHUB(GITHUB_REPOSITORY = args.GITHUB_REPOSITORY, Correct_Branch = args.Correct_Branch, Working_Branch = args.Working_Branch)
 	Username = GET_API_DATA.get_GitHub_Username()
-	print("USERNAME is"+ Username)
+	print("USERNAME is "+ Username)
 	sys.stdout.write(Username)
 	sys.exit(0)					
 	

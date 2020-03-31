@@ -8,24 +8,26 @@ if [ -z "$GL_TOKEN" ]; then
   echo "Please set the GitLab Private Token as GL_TOKEN"
   exit 1
 fi
+
+
 echo "GL_TOKEN is set"
 
 
-if [ -z "$TARGET_BRANCH " ]; then
-  echo "TARGET_BRANCH  not set"
-  echo "Please set your current branch in .gitlab-ci.yml "
+
+if [ -z "$GITHUB_API_TOKEN" ]; then
+  echo "GITHUB_API_TOKEN not set"
+  echo "Please set the GitLab Private Token as GITHUB_API_TOKEN"
   exit 1
 fi
 
+echo "GITHUB_API_TOKEN is set"
 
-if [ "$TARGET_BRANCH" == "$CI_COMMIT_REF_NAME" ]; then
-	
-	echo "Your current branch is $TARGET_BRANCH"
-	echo "Variable TARGET_BRANCH is set"
-	echo "All required Variables are set. CI-Tests can run. "
-	exit 0
+if [ -z "$Github_Repository" ]; then
+  echo "Github_Repository not set"
+  echo "Please set the GitLab Private Token as Github_Repository"
+  exit 1
 fi
 
-echo "$TARGET_BRANCH is not correct"
-exit 1
+echo "Github_Repository is set"
 
+exit 0 
