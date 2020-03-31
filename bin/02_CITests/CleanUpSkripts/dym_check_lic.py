@@ -1,0 +1,58 @@
+import argparse
+import os
+import sys 
+import platform
+
+
+
+def dym_check_lic():
+	if platform.system()  == "Windows":
+		dymola = DymolaInterface()
+	else:
+		dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+	dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
+	dymola.ExecuteCommand("dym_sta_lic_available = RequestOption("Standard");")
+	dymola.ExecuteCommand("if not dym_sta_lic_available then")
+	dymola.ExecuteCommand("DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");")
+	dymola.ExecuteCommand("Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");")
+	dymola.ExecuteCommand("exit();")
+	dymola.ExecuteCommand("end if;")
+	
+	
+if  __name__ == '__main__':
+
+	parser = argparse.ArgumentParser(description = "Check and Validate single Packages")
+	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
+	args = parser.parse_args()
+	
+
+	if platform.system()  == "Windows":
+		_setEnvironmentVariables("PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
+		sys.path.insert(0, os.path.join('C:\\',
+                            'Program Files',
+                            'Dymola '+ args.DymolaVersion,
+                            'Modelica',
+                            'Library',
+                            'python_interface',
+                            'dymola.egg'))
+		print("operating system Windows")
+	else:
+		print("operating system Linux")
+		_setEnvironmentVariables("LD_LIBRARY_PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32") + ":" +
+								os.path.join(os.path.abspath('.'),"Resources","Library","linux64"))
+		sys.path.insert(0, os.path.join('opt',
+							'dymola-'+args.DymolaVersion+'-x86_64',
+							'Modelica',
+							'Library',
+							'python_interface',
+							'dymola.egg'))
+	sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
+
+	dym_check_lic()
+	
+#dym_sta_lic_available = RequestOption("Standard");
+#if not dym_sta_lic_available then
+#  DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");
+#  Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");
+  
+#end if;
