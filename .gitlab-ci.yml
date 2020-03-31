@@ -22,7 +22,7 @@ variables:
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     #GitHub_Username: "SvenHinrichs"
     StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
-    #full_name : "SvenHinrichs/GitLabCI"
+    Github_Repository : "SvenHinrichs/GitLabCI"
     
 include:
   - project: 'sven.hinrichs/GitLabCI'
