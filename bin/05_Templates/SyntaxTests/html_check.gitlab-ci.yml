@@ -1,6 +1,6 @@
 #!/bin/bash
-#image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:Dymola2020-miniconda
+image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+
 stages:
     - build
     - HTMLCheck
