@@ -20,9 +20,9 @@ variables:
     Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
-    GitHub_Username: "SvenHinrichs"
+    #GitHub_Username: "SvenHinrichs"
     StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
-    full_name : "SvenHinrichs/GitLabCI"
+    #full_name : "SvenHinrichs/GitLabCI"
     
 include:
   - project: 'sven.hinrichs/GitLabCI'

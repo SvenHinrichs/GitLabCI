@@ -4,24 +4,41 @@ import sys
 import platform
 
 
-
 def dym_check_lic():
+	from dymola.dymola_interface import DymolaInterface
+	from dymola.dymola_exception import DymolaException
+
 	if platform.system()  == "Windows":
 		dymola = DymolaInterface()
 	else:
 		dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
 	dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-	dymola.ExecuteCommand("dym_sta_lic_available = RequestOption("Standard");")
-	dymola.ExecuteCommand("if not dym_sta_lic_available then")
-	dymola.ExecuteCommand("DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");")
-	dymola.ExecuteCommand("Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");")
-	dymola.ExecuteCommand("exit();")
-	dymola.ExecuteCommand("end if;")
-	
+	dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
+	#dymola.ExecuteCommand("if not dym_sta_lic_available then")
+	if not dym_sta_lic_available:
+		dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
+		#dymola.ExecuteCommand("Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");")
+		print("No Dymola License is available")
+		#dymola.ExecuteCommand("exit();")
+		dymola.close()
+	else:
+		print("Dymola License is available")
+	#dymola.ExecuteCommand("end if;")
+def _setEnvironmentVariables(var,value):
+	import os
+	import platform
+	if var in os.environ:
+		if platform.system() == "Windows":
+			os.environ[var] = value + ";" + os.environ[var]
+		else:
+			os.environ[var] = value + ":" + os.environ[var]
+	else:
+		os.environ[var] = value			
 	
 if  __name__ == '__main__':
 
-	parser = argparse.ArgumentParser(description = "Check and Validate single Packages")
+	parser = argparse.ArgumentParser(description = "Check Dymola License")
+	check_test_group = parser.add_argument_group("arguments to run check tests")
 	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
 	args = parser.parse_args()
 	
@@ -50,9 +67,3 @@ if  __name__ == '__main__':
 
 	dym_check_lic()
 	
-#dym_sta_lic_available = RequestOption("Standard");
-#if not dym_sta_lic_available then
-#  DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");
-#  Modelica.Utilities.Streams.print("Log_NO_DYM_STANDARD_LIC_AVAILABLE");
-  
-#end if;
