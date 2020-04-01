@@ -37,3 +37,4 @@ success
 .idea/
 #Ignore files create by HTML Check
 HTML-logfile.txt
+#Ignore Dymola License log

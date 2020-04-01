@@ -119,6 +119,10 @@ All protected branches in gitlab will push to github. This included all branches
 ### Pull - Mirroring 
 Pull all branches from github to gitlab. 
 
+### GITHUB_API_TOKEN
+
+### GL_TOKEN
+
 ## Test CI Setting
 To test if all necessary variables are set push your Code with the commit "Check Settings". 
 

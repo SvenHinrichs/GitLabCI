@@ -21,7 +21,7 @@ variables:
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     #GitHub_Username: "SvenHinrichs"
-    StyleModel: "AixLib.Airflow.Multizone.DoorDiscretizedOpen"
+    StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
     Github_Repository : "SvenHinrichs/GitLabCI"
     
 include:

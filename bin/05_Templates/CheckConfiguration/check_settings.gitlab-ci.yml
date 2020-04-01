@@ -2,12 +2,12 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
-    - deleteBranch
+    - CheckSettings
    
 
     
 Setting_Check:
-    stage: deleteBranch
+    stage: CheckSettings
     only:
         - /^feature\/*/
     services:
