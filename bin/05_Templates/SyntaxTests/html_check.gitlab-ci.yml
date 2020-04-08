@@ -122,8 +122,8 @@ HTML_Check:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - mkdir -p ~/.ssh
-        - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+        # mkdir -p ~/.ssh
+        # cat gitlab-known-hosts >> ~/.ssh/known_hosts
        
          
     script:
