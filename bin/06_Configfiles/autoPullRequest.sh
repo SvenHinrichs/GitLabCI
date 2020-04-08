@@ -11,7 +11,7 @@ set -e
 
 echo "Create a Pull request ${Newbranch} to ${TARGET_BRANCH}"
 
-curl -X POST "https://api.github.com/repos/${full_name}/pulls" \
+curl -X POST "https://api.github.com/repos/${Github_Repository}/pulls" \
 	--header "Authorization:Bearer ${GITHUB_API_TOKEN}" \
 	--header "Content-Type: application/json" \
 	--data "{
