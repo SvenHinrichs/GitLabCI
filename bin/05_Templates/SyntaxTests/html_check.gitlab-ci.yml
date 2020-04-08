@@ -130,8 +130,8 @@ HTML_Check:
         - export
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            git clone --single-branch --branch $TARGET_BRANCH http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${Github_Repository}.git
-            cd ${CI_PROJECT_NAME}
+            git clone --single-branch --branch $TARGET_BRANCH http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${Github_Repository}.git;
+            cd ${CI_PROJECT_NAME};
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
             message="Correct HTML Code";
