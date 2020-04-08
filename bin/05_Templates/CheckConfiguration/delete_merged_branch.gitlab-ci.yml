@@ -21,7 +21,7 @@ Delte_merge_Branches:
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
        - bin/06_Configfiles/delete_merged_branches.sh
- 
     
     only:
-        - merge_requests
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /^Merge pull request/
