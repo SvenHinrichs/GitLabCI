@@ -127,7 +127,9 @@ Pull all branches from github to gitlab.
 To test if all necessary variables are set push your Code with the commit "Check Settings". 
 
 
+## Add a Deploy keys
 
+[Setup Deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
 
 # To Do
 
