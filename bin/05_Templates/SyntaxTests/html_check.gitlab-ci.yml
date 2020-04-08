@@ -116,8 +116,8 @@ HTML_Check:
         # 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         # eval $(ssh-agent -s)
         # ssh-add <(echo "$GIT_SSH_PRIV_KEY")
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        # git config --global user.name "${GITLAB_USER_NAME}" 
+        # git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - python -V               # Print out python version for debugging
@@ -218,7 +218,8 @@ Open_Pull_Request:
        - Newbranch=${Newbranch#${Praefix_Branch}}
        - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
        # git clone --single-branch --branch $Newbranch https://git.rwth-aachen.de/${GITLAB_USER_NAME}/GitLabCI.git
-       - GitHub_Username =  `python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}`
+       - Username="python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}"
+       - echo ${Username}
        - git clone --single-branch --branch $Newbranch http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git
        - cd ${CI_PROJECT_TITLE}
        # git remote add mine https://github.com/SvenHinrichs/GitLabCI.git
