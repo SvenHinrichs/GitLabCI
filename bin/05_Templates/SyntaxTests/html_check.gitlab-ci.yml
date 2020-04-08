@@ -113,9 +113,9 @@ HTML_Check:
     services:
         -  docker
     before_script:
-        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-        - eval $(ssh-agent -s)
-        - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
+        # 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        # eval $(ssh-agent -s)
+        # ssh-add <(echo "$GIT_SSH_PRIV_KEY")
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
