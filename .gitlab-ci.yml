@@ -2,6 +2,7 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
+    - deleteBranch
     - SetSettings
     - CheckSettings
     - build
@@ -9,7 +10,6 @@ stages:
     - deploy
     - openMR
     - post
-    - deleteBranch
     - StyleCheck
     - Check
     - Simulate

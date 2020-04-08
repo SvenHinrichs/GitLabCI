@@ -17,7 +17,7 @@ curl -X POST "https://api.github.com/repos/${Github_Repository}/pulls" \
 	--header "Authorization:Bearer ${GITHUB_API_TOKEN}" \
 	--header "Content-Type: application/json" \
 	--data "{
-		\"title\": \"Correct HTML in branch ${TARGET_BRANCH}\",
+		\"title\": \"Correct the HTML Code in branch ${TARGET_BRANCH}\",
 		\"body\": \"Merge the Corrected HTML Code\",
 		\"head\": \"${GitHub_Username}:${Newbranch}\",
 		\"base\": \"${TARGET_BRANCH}\"
