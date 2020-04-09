@@ -128,6 +128,18 @@ To test if all necessary variables are set push your Code with the commit "Check
 
 
 ## Add a Deploy keys
+You can launch projects from a GitHub repository to your server by using a deploy key, which is an SSH key that grants access to a single repository. 
+GitHub attaches the public part of the key directly to your repository instead of a personal user account, and the private part of the key remains on your server. 
+For more information, see ["Delivering deployments"](https://developer.github.com/v3/guides/delivering-deployments/)
+
+	1. Run the ssh-keygen procedure on your server, and remember where you save the generated public/private rsa key pair.
+	2. In the upper-right corner of any GitHub page, click your profile photo, then click Your profile. 
+	3. On your profile page, click Repositories, then click the name of your repository.
+	4. From your repository, click Settings. 
+	5. In the sidebar, click Deploy Keys, then click Add deploy key. 
+	6. Provide a title, paste in your public key. 
+	7. Select Allow write access if you want this key to have write access to the repository. A deploy key with write access lets a deployment push to the repository.
+	8. Click Add key.
 
 [Setup Deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
 

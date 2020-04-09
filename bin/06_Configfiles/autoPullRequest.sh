@@ -10,15 +10,14 @@ set -e
 
 
 echo "Create a Pull request ${Newbranch} to ${TARGET_BRANCH}"
-echo "${Github_Repository}"
-echo "${GitHub_Username}:${Newbranch}"
+
 
 curl -X POST "https://api.github.com/repos/${Github_Repository}/pulls" \
 	--header "Authorization:Bearer ${GITHUB_API_TOKEN}" \
 	--header "Content-Type: application/json" \
 	--data "{
-		\"title\": \"Correct the HTML Code in branch ${TARGET_BRANCH}\",
-		\"body\": \"Merge the Corrected HTML Code\",
+		\"title\": \"Merge the corrected HTML Code in branch ${TARGET_BRANCH}\",
+		\"body\": \"Merge the Corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository.\",
 		\"head\": \"${GitHub_Username}:${Newbranch}\",
 		\"base\": \"${TARGET_BRANCH}\"
 }"

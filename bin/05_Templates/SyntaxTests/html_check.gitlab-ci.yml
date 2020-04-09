@@ -2,12 +2,19 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
+    - deleteBranch
     - build
     - HTMLCheck
     - deploy
     - openMR
     - post
-            
+
+
+
+
+
+
+    
 trigger_branch:
     stage: build
     services:
@@ -37,11 +44,13 @@ trigger_branch:
     artifacts:
         paths:
             - AixLib/HTML-logfile.txt
-        expire_in: 1 day 
+        expire_in: 1 h 
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             
+            
+
             
 Check_HTML:
     stage: HTMLCheck
@@ -69,12 +78,45 @@ Check_HTML:
         when: on_failure
         paths:
             - AixLib/HTML-logfile.txt
-        expire_in: 2 day 
+        expire_in: 1 h 
     
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
 
+            
+Merge_Checks:
+    stage: HTMLCheck
+    services:
+        -  docker
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
+    script:
+        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            echo "HTML Check was not successfully"
+            echo "Read HTML - logfile!"
+            exit 1;
+          else 
+            exit 0; 
+          fi
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/HTML-logfile.txt
+        expire_in: 1 h 
+    
+    only:
+        - merge_requests
+            
+            
 #pages:
 #    stage: deploy
 #   
@@ -148,7 +190,7 @@ HTML_Check:
         when: on_failure
         paths:
             - AixLib/HTML-logfile.txt
-        expire_in: 2 day 
+        expire_in: 1 h 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -217,22 +259,35 @@ Open_Pull_Request:
     script:
        - Newbranch=${Newbranch#${Praefix_Branch}}
        - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
-       # git clone --single-branch --branch $Newbranch https://git.rwth-aachen.de/${GITLAB_USER_NAME}/GitLabCI.git
-       # Username=
-       - python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       - Username=$(python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN})
        - echo ${Username}
-       # git clone --single-branch --branch $Newbranch http://${GITLAB_USER_LOGIN}:${GL_TOKEN}@${CI_SERVER_HOST}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}.git
-       # cd ${CI_PROJECT_TITLE}
-       # git remote add mine https://github.com/SvenHinrichs/GitLabCI.git
-       # git remote add mine http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${Github_Repository}.git
-       # git push -u mine; git push --tags -u mine
        - sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
        - bin/06_Configfiles/autoPullRequest.sh
-       # python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
-       
-       
-       
+      
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
+            
+            
+            
+    
+Delte_merge_Branches:
+    stage: deleteBranch
+    only:
+        - /^feature\/*/
+    services:
+        -  docker
+    before_script:
+        - sudo apt-get install jq -y
+    script:
+       # Newbranch=${Newbranch#${Praefix_Branch}}
+       # TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
+       - sudo chmod +x bin/06_Configfiles/delete_merged_branches.sh
+       - git config --global user.email "${GITLAB_USER_EMAIL}"
+       - git config --global user.name  "${GITLAB_USER_NAME}" 
+       - bin/06_Configfiles/delete_merged_branches.sh
+    
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /^Merge pull request/
