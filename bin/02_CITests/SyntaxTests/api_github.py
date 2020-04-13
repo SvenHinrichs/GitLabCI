@@ -54,7 +54,7 @@ class PULL_REQUEST_GITHUB(object):
 		payload = "{\n    \"title\": \"Correct HTML master\",\n    \"body\": \"Merge the Corrected HTML Code\",\n    \"head\": \"SvenHinrichs:issue802_CleanCI_Infrastructure\",\n    \"base\": \"master\"\n}"
 		headers = {'Authorization': 'Bearer '+self.GITHUB_TOKEN,'Content-Type': 'application/json'}
 		response = requests.request("POST", url, headers=headers, data = payload)
-		print(response.text.encode('utf8'))
+		#print(response.text.encode('utf8'))
 
 
 
@@ -80,7 +80,7 @@ if  __name__ == '__main__':
 	
 	GET_API_DATA = GET_API_GITHUB(GITHUB_REPOSITORY = args.GITHUB_REPOSITORY, Correct_Branch = args.Correct_Branch, Working_Branch = args.Working_Branch)
 	Username = GET_API_DATA.get_GitHub_Username()
-	print("USERNAME is "+ Username)
+	#print("USERNAME is "+ Username)
 	sys.stdout.write(Username)
 	sys.exit(0)					
 	
