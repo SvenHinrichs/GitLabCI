@@ -98,6 +98,7 @@ Merge_Checks:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         
+        
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
@@ -157,7 +158,7 @@ HTML_Check:
     before_script:
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
-        - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
+        - ssh-add ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
