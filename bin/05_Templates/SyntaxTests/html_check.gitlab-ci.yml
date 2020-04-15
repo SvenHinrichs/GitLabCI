@@ -158,23 +158,24 @@ HTML_Check:
     before_script:
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
-        - ssh-add ~/.ssh/id_rsa
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - mkdir -p ~/.ssh
-        - cat gitlab-known-hosts >> ~/.ssh/known_hosts
- 
- 
+       
          
     script:
         - export
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            git clone --single-branch --branch $TARGET_BRANCH http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${Github_Repository}.git;
+            git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git;
             cd ${CI_PROJECT_NAME};
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
@@ -182,7 +183,7 @@ HTML_Check:
             git add . ;
             echo $message;
             git commit -m "$message" ;
-            git push http://${GitHub_Username}:${GITHUB_API_TOKEN}@github.com/${Github_Repository}.git "HEAD:${Newbranch}";
+            git push git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
             exit 1;
           else 
