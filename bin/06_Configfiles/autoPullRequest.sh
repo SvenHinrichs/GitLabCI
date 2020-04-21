@@ -17,8 +17,8 @@ curl -X POST "https://api.github.com/repos/${Github_Repository}/pulls" \
 	--header "Content-Type: application/json" \
 	--data "{
 		\"title\": \"Merge the corrected HTML Code in branch ${TARGET_BRANCH}\",
-		\"body\": \"Merge the Corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository.\",
-		\"head\": \"${GitHub_Username}:${Newbranch}\",
+		\"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository.\",
+		\"head\": \"${GITLAB_USER_NAME}:${Newbranch}\",
 		\"base\": \"${TARGET_BRANCH}\"
 }"
 
