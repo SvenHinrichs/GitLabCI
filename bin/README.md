@@ -102,7 +102,7 @@ For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 ## Configure Variables
 
 ### Protected Branches: 
-Wildcards "issue *": Will push all branches to Github with the namespace issue* . This is necessaryto push the corrected code to the Github 
+Wildcards "issue *": Will push all branches to Github with the namespace issue* . This is necessary to push the corrected code to the Github 
 repository.
 
 ### TARGET-Branches: 
@@ -119,9 +119,32 @@ All protected branches in gitlab will push to github. This included all branches
 ### Pull - Mirroring 
 Pull all branches from github to gitlab. 
 
-### GITHUB_API_TOKEN
+### [GITHUB_API_TOKEN](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+Creating a personal access token for the command line
 
-### GL_TOKEN
+	1. Verify your email address, if it hasn't been verified yet.
+	2. In the upper-right corner of any page, click your profile photo, then click Settings. 
+	3. In the left sidebar, click Developer settings. 
+	4. In the left sidebar, click Personal access tokens. 
+	5. Click Generate new token. 
+	6. Give your token a descriptive name. 
+	7. Select the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, select repo. 
+	8. Click Generate token. 
+	9. Click to copy the token to your clipboard. For security reasons, after you navigate off the page, you will not be able to see the token again. 
+	10. Add to your Variable GITHUB_API_TOKEN
+
+### [GL_TOKEN](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
+Creating a personal access token
+
+You can create as many personal access tokens as you like from your GitLab profile.
+
+    1. Log in to GitLab.
+    2. In the upper-right corner, click your avatar and select Settings.
+    3. On the User Settings menu, select Access Tokens.
+    4. Choose a name and optional expiry date for the token.
+    5. Choose the desired scopes.
+    6. Click the Create personal access token button.
+    7. Save the personal access token somewhere safe. Once you leave or refresh the page, you won’t be able to access it again.
 
 ## Test CI Setting
 To test if all necessary variables are set push your Code with the commit "Check Settings". 
