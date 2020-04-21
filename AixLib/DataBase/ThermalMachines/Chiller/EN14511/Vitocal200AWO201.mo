@@ -1,4 +1,4 @@
-﻿within AixLib.DataBase.ThermalMachines.Chiller.EN14511;
+within AixLib.DataBase.ThermalMachines.Chiller.EN14511;
 record Vitocal200AWO201 "Vitocal200AWO201Chilling"
   extends
     AixLib.DataBase.ThermalMachines.Chiller.ChillerBaseDataDefinition(
@@ -14,14 +14,18 @@ record Vitocal200AWO201 "Vitocal200AWO201Chilling"
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-<p>Data&nbsp;record&nbsp;for&nbsp;type&nbsp;AWO-M/AWO-M-E-AC&nbsp;201.A04, obtained from the technical guide in the UK. <a href=\"https://professionals.viessmann.co.uk/content/dam/vi-brands/UK/PDFs/Datasheets/Vitocal%20Technical%20Guide.PDF/_jcr_content/renditions/original.media_file.download_attachment.file/Vitocal%20Technical%20Guide.PDF\">Link</a> to the datasheet</p>
-</html>", revisions="<html>
+    Documentation(info="<html><p>
+  Data&#160;record&#160;for&#160;type&#160;AWO-M/AWO-M-E-AC&#160;201.A04,
+  obtained from the technical guide in the UK. <a href=
+  \"https://professionals.viessmann.co.uk/content/dam/vi-brands/UK/PDFs/Datasheets/Vitocal%20Technical%20Guide.PDF/_jcr_content/renditions/original.media_file.download_attachment.file/Vitocal%20Technical%20Guide.PDF\">
+  Link</a> to the datasheet
+</p>
 <ul>
-<li>
-<i>November 26, 2018&nbsp;</i> by Fabian Wüllhorst: <br/>
-First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
-</li>
+  <li>
+    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+  </li>
 </ul>
 </html>"));
 end Vitocal200AWO201;
