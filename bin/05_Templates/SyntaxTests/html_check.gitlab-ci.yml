@@ -251,18 +251,16 @@ Open_Pull_Request:
     script:
        - Newbranch=${Newbranch#${Praefix_Branch}}
        - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
-       - Username=$(python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN})
-       - GitHub_Username=${Username}
-       - sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
-       - bin/06_Configfiles/autoPullRequest.sh
+       - python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       # Username=$(python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN})
+       # GitHub_Username=${Username}
+       # sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
+       # bin/06_Configfiles/autoPullRequest.sh
       
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
-            
-   
-   
             
     
 Delte_merge_Branches:
