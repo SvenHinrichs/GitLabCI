@@ -28,7 +28,7 @@ class GET_API_GITHUB(object):
 
 	def get_GitHub_Username(self):
 		url = "https://api.github.com/repos/"+self.GITHUB_REPOSITORY+"/branches/"+self.Working_Branch
-		print(url)
+		#print(url)
 		payload = {}
 		headers= {}
 
