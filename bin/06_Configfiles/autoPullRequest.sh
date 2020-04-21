@@ -21,6 +21,6 @@ curl -X POST "https://api.github.com/repos/${Github_Repository}/pulls" \
 		\"head\": \"${GitHub_Username}:${Newbranch}\",
 		\"base\": \"${TARGET_BRANCH}\"
 }"
-
+echo ${GitHub_Username}
 echo "Create pull request. Merge ${Newbranch} into ${TARGET_BRANCH}. "
 exit 0 
