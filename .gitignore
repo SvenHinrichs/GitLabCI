@@ -38,3 +38,4 @@ success
 #Ignore files create by HTML Check
 HTML-logfile.txt
 #Ignore Dymola License log
+Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt

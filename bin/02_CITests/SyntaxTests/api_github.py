@@ -49,7 +49,7 @@ class PULL_REQUEST_GITHUB(object):
 	
 	def post_pull_request(self):
 		url = "https://api.github.com/repos/"+self.GITHUB_REPOSITORY+"/pulls"
-		payload = '{\n    \"title\": \"Corrected HTML Code in branch '+self.Working_Branch+'\",\n    \"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository.\",\n    \"head\": \"'+self.GITHUB_USERNAME+":"+self.Correct_Branch+'\",\n    \"base\": \"'+self.Working_Branch+'\"\n  \n}'
+		payload = '{\n    \"title\": \"Corrected HTML Code in branch '+self.Working_Branch+'\",\n    \"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository.\n **Delete** the Branch ' +self.Correct_Branch+ '\",\n    \"head\": \"'+self.GITHUB_USERNAME+":"+self.Correct_Branch+'\",\n    \"base\": \"'+self.Working_Branch+'\"\n  \n}'
 		
 		headers = {
 			'Authorization': 'Bearer '+self.GITHUB_TOKEN,

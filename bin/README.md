@@ -104,9 +104,10 @@ For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 
 ## Configure Variables
 
+### Github_Repository : 
+This variable consists of owner/repo (e.g. RWTH-EBC/AixLib) and is used for code that was changed by the CI. (git@github.com:RWTH-EBC/AixLib.git)
 
-### TARGET-Branches: 
-Your current working branch. 
+
 
 ### StyleModel:
 
@@ -128,7 +129,7 @@ If you’re mirroring over SSH (that is, using an ssh:// URL), you can authentic
 To get started:
 
 1. Navigate to your project’s Settings > Repository and expand the Mirroring repositories section.
-2. Enter an ssh :// - URL for mirroring (e.g ssh://github.com/"owner"/"reop".git. )
+2. Enter an ssh :// - URL for mirroring (e.g ssh://github.com/"owner"/"repo".git. )
 
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/Mirroring_ssh.PNG)
 
@@ -187,11 +188,31 @@ For more information, see ["Delivering deployments"](https://developer.github.co
 
 [Setup Deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
 
+## [SSH-Agent](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)/ Use [Deploy Keys](https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions) 
+##### Install ssh-agent client:
+
+	- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+##### Ensure the ssh-agent is running:
+ 	
+	- eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+	
+##### ssh-keyscan detect GitHub´s SSH host keys	
+
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    
+##### start the ssh-agent , binding it to a predictable socket location, and finally import the SSH private key into the agent.
+	- ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+    - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+        
+## [Setup SSH-KEy for GitHub Repository](https://www.heise.de/tipps-tricks/SSH-Key-fuer-GitHub-Repositories-einrichten-4627459.html)
+Add your public key to your Github Account or add as a deploy Key to your Repository.
+
+
 # To Do
 
-- Add Gitlab Page
 - Slack Notification in case of merge request in gitlab
-- Add a gitlab bot
-- Add $GL_Token
 - Add label CI and fix HTML code
-- Add Wildcard for protected branches with issue*
+- Image with Private key
