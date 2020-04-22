@@ -53,8 +53,8 @@ Then log in to your created instance and do the following points.
 		Please enter the Docker image (eg. ruby:2.6):
 		ubuntu:18.04
 		
-![E.ON EBC RWTH Aachen University](Images/GITLABCI.png)
+![E.ON EBC RWTH Aachen University](Images/Register_Runner.PNG)
 
 ### Start the GitLab Runner service.
 
-	gitlab-runner start
+	sudo gitlab-runner start

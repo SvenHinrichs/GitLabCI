@@ -53,8 +53,10 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 
 	#!/bin/bash
 	image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
-	
+
 	stages:
+		- deleteBranch
+		- SetSettings
 		- CheckSettings
 		- build
 		- HTMLCheck
@@ -65,12 +67,13 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 		- Check
 		- Simulate
 		- RegressionTest
-
-	
+	 
 	variables:
-		TARGET_BRANCH: master
-		Newbranch: "Correct_HTML_$TARGET_BRANCH"
+		Praefix_Branch: "Correct_HTML_"
+		TARGET_BRANCH: $CI_COMMIT_REF_NAME
+		Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
 		StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
+		Github_Repository : SvenHinrichs/GitLabCI
 	
 	
 
@@ -101,9 +104,6 @@ For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 
 ## Configure Variables
 
-### Protected Branches: 
-Wildcards "issue *": Will push all branches to Github with the namespace issue* . This is necessary to push the corrected code to the Github 
-repository.
 
 ### TARGET-Branches: 
 Your current working branch. 
@@ -112,14 +112,35 @@ Your current working branch.
 
 This variable is necessary for the StyleCheck und will check the Style of a modelica model (e.g. "StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen")
 
+## Mirroring
+Repository mirroring allows for mirroring of repositories to and from external sources. It can be used to mirror branches, tags, and commits between repositories.
 
-### Push - Mirroring
-All protected branches in gitlab will push to github. This included all branches with namespace *issue. 
+### Pull - [Mirroring](https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html) 
+Pull: for mirroring a repository from another location to GitLab. . 
 
-### Pull - Mirroring 
-Pull all branches from github to gitlab. 
+##### SSH authentication
 
-### [GITHUB_API_TOKEN](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+If you’re mirroring over SSH (that is, using an ssh:// URL), you can authenticate using:
+
+- Password-based authentication, just as over HTTPS.
+- Public key authentication. This is often more secure than password authentication, especially when the other repository supports Deploy Keys.
+
+To get started:
+
+1. Navigate to your project’s Settings > Repository and expand the Mirroring repositories section.
+2. Enter an ssh :// - URL for mirroring (e.g ssh://github.com/"owner"/"reop".git. )
+
+![E.ON EBC RWTH Aachen University](04_Documentation/Images/Mirroring_ssh.PNG)
+
+Now GitLab should recognize Host Keys and you can mirror your repository.
+After this copy the ssh public key and add the key as de deploy key to your gitlab and github repository.
+
+In GitLab:  General -> CI/CD -> Deploy Keys (Activate Write access allowed button)
+In Github: Settings -> Deploy keys (Allow write access)
+
+![E.ON EBC RWTH Aachen University](04_Documentation/Images/public_key.PNG)
+
+### [GITHUB_API_TOKEN](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) 
 Creating a personal access token for the command line
 
 	1. Verify your email address, if it hasn't been verified yet.
