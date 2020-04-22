@@ -107,8 +107,6 @@ For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 ### Github_Repository : 
 This variable consists of owner/repo (e.g. RWTH-EBC/AixLib) and is used for code that was changed by the CI. (git@github.com:RWTH-EBC/AixLib.git)
 
-
-
 ### StyleModel:
 
 This variable is necessary for the StyleCheck und will check the Style of a modelica model (e.g. "StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen")
