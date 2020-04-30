@@ -186,7 +186,7 @@ For more information, see ["Delivering deployments"](https://developer.github.co
 
 [Setup Deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
 
-## [SSH-Agent](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)/ Use [Deploy Keys](https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions) 
+## [SSH-Agent](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)/ [Use Deploy Keys in Docker](https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions) 
 ##### Install ssh-agent client:
 
 	- 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -205,7 +205,7 @@ For more information, see ["Delivering deployments"](https://developer.github.co
     - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
         
-## [Setup SSH-KEy for GitHub Repository](https://www.heise.de/tipps-tricks/SSH-Key-fuer-GitHub-Repositories-einrichten-4627459.html)
+## [Setup SSH-Key for GitHub Repository](https://www.heise.de/tipps-tricks/SSH-Key-fuer-GitHub-Repositories-einrichten-4627459.html)
 Add your public key to your Github Account or add as a deploy Key to your Repository.
 
 

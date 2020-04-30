@@ -105,7 +105,7 @@ Merge_Checks:
         expire_in: 1 h 
     
     only:
-        - external_pull_requests
+        - merge_requests
             
             
 #pages:
@@ -163,6 +163,8 @@ HTML_Check:
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            mkdir CorrectedVersion;
+            cd  CorrectedVersion;
             git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git;
             cd ${CI_PROJECT_NAME};
             python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-overwrite --align --font --log;

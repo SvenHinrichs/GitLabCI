@@ -41,8 +41,8 @@ model Cooler "Cooler register example"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-60,-60})));
-  Fluid.Sources.Boundary_pT boundaryWaterSink(nPorts=1, redeclare package
-      Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sources.Boundary_pT boundaryWaterSink(nPorts=1, redeclare package Medium =
+               MediumWater) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={40,-60})));
@@ -88,15 +88,11 @@ equation
       thickness=0.5));
   connect(ctrBasic.Tset, Tset.y)
     annotation (Line(points={{-74,0},{-79,0}},     color={0,0,127}));
-  annotation (Documentation(info="<html><p>
-  This example demonstrates the use of the RegsterModule for a cooling
-  register with throttle circuit. The controller gets an external set
-  point temperature and controls the outflow air temperature.
-</p>
+  annotation (Documentation(info="<html>
+<p>This example demonstrates the use of the RegsterModule for a cooling register with throttle circuit. The controller gets an external set point temperature and controls the outflow air temperature.</p>
+</html>", revisions="<html>
 <ul>
-  <li>August 30, 2019, by Alexander Kümpel:<br/>
-    First implementation.
-  </li>
+<li>August 30, 2019, by Alexander K&uuml;mpel:<br/>First implementation.</li>
 </ul>
 </html>"), experiment(StopTime=3600));
 end Cooler;

@@ -15,8 +15,8 @@ model AHU2_Heater "Heating register of ahu 2 in E.ON ERC testhall"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-20,-80})));
-  Fluid.Sources.Boundary_pT boundaryWaterSink(          redeclare package
-      Medium = MediumWater, nPorts=1)
+  Fluid.Sources.Boundary_pT boundaryWaterSink(          redeclare package Medium =
+               MediumWater, nPorts=1)
                             annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -151,15 +151,11 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Documentation(info="<html><p>
-  This example compares the simulated behavior with measured data. The
-  input filter of the valve is deactivated because the measured actual
-  opening (includes opening delay already) is used.
-</p>
+  annotation (Documentation(info="<html>
+<p>This example compares the simulated behavior with measured data. The input filter of the valve is deactivated because the measured actual opening (includes opening delay already) is used.</p>
+</html>", revisions="<html>
 <ul>
-  <li>November 4, 2019, by Alexander Kümpel:<br/>
-    First implementation.
-  </li>
+<li>November 4, 2019, by Alexander K&uuml;mpel:<br/>First implementation.</li>
 </ul>
 </html>"),
     experiment(
