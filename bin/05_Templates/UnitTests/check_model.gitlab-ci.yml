@@ -7,6 +7,8 @@ stages:
 
 Check_AixLib_Airflow:
     stage: Check
+    tags: 
+        - external_pull_requests
     services:
         -  docker
     before_script:
@@ -24,8 +26,8 @@ Check_AixLib_Airflow:
             - AixLib/AixLib.Airflow-Errorlog.txt
         expire_in: 2 day 
     allow_failure: true 
-    only:
-        - external_pull_requests
+
+
 
 Check_AixLib_BoundaryConditions:
     stage: Check
