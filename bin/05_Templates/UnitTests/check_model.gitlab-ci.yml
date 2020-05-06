@@ -31,6 +31,9 @@ Check_AixLib_Airflow:
 
 Check_AixLib_BoundaryConditions:
     stage: Check
+    tags: 
+        - external_pull_requests
+  
     services:
         -  docker
     before_script:
