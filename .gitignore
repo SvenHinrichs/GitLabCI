@@ -22,7 +22,6 @@ dist
 ###########
 .idea/
 
-
 # Modelica / Dymola #
 #####################
 *.bak-mo
@@ -54,7 +53,6 @@ stat
 status
 stop
 success
-
 
 # Ignore files created by BuildingsPy #
 #######################################
