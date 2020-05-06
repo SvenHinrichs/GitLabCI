@@ -36,6 +36,8 @@ trigger_branch:
         paths:
             - AixLib/HTML-logfile.txt
         expire_in: 1 h 
+    except:
+        - external_pull_requests 
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
@@ -105,7 +107,7 @@ Merge_Checks:
         expire_in: 1 h 
     
     only:
-        - merge_requests
+        - external_pull_requests
             
             
 #pages:
@@ -259,6 +261,9 @@ Open_Pull_Request:
        # sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
        # bin/06_Configfiles/autoPullRequest.sh
       
+    except:
+        - external_pull_requests 
+    
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
@@ -280,6 +285,7 @@ Delte_merge_Branches:
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
        - bin/06_Configfiles/delete_merged_branches.sh
+    
     
     only:
         variables:

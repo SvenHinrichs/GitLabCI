@@ -25,8 +25,7 @@ Check_AixLib_Airflow:
         expire_in: 2 day 
     allow_failure: true 
     only:
-        variables:
-            - $CI_EXTERNAL_PULL_REQUEST_IID
+        - external_pull_requests
 
 
 
