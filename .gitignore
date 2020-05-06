@@ -18,7 +18,6 @@
 dist
 *.pypirc
 
-
 # PyCharm #
 ###########
 .idea/
