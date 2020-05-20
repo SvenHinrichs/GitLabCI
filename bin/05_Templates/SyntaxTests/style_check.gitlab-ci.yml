@@ -15,7 +15,8 @@ Style_Check_AixLib:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - git diff --raw HEAD^1
+        - model=$(git diff --raw HEAD^1)
+        - echo $model
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s "$StyleModel" -p AixLib/package.mo
     artifacts:
         when: on_failure
