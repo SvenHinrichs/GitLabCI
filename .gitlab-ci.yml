@@ -21,7 +21,8 @@ variables:
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
     Github_Repository : SvenHinrichs/GitLabCI
-    
+ 
+ 
 include:
   - project: 'sven.hinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'

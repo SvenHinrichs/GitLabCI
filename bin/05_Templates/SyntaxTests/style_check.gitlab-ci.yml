@@ -18,6 +18,7 @@ Style_Check_AixLib:
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s AixLib -p AixLib/package.mo
     
     artifacts:
+        when: on_failure
         paths:
             - AixLib/AixLib_StyleCheckLog.html
             - AixLib/AixLib_StyleErrorLog.html
@@ -45,6 +46,7 @@ Style_Check_ChangedModel:
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s AixLib -p AixLib/package.mo -CM
     
     artifacts:
+        when: on_failure
         paths:
             - AixLib/ChangedModels_StyleCheckLog.html
             - AixLib/ChangedModels_StyleErrorLog.html

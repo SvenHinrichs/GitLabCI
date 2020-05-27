@@ -3,6 +3,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
   extends AixLib.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.65,
     final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
+
 	
   parameter Modelica.SIunits.PressureDifference dpRat(
     min=0,
