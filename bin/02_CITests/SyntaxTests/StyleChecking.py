@@ -84,7 +84,7 @@ class StyleCheck(object):
 			Logfile = self.Library.replace("package.mo",self.Package+"_StyleCheckLog.html")
 		else:
 			changed_model_list=[]
-			list_mo_models = git_models(".mo")
+			list_mo_models = git_models(".mo",self.Package)
 			model_list= list_mo_models.sort_mo_models()
 			for l in model_list:
 				print("Check package or model "+ l)
