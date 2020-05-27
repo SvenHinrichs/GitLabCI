@@ -129,6 +129,8 @@ class StyleCheck(object):
 			if self.Changedmodels == True:
 				for l in model_list:
 					if line.find("HTML style check log for "+ l) > -1:
+						print("test")
+						print(line)
 						continue
 					else:
 						continue
@@ -152,10 +154,11 @@ class StyleCheck(object):
 				exit(1)
 		else:
 			if ErrorCount == 0:
-				print("Style Check of model or package "+self.Package+ " was successful")
-				exit(0)
+				for l in model_list:
+					print("Style Check of model or package "+l+ " was successful")
+					exit(0)
 			elif ErrorCount > 0 :
-				print("Test failed. Look in "+ self.Package + "_StyleErrorLog.html")
+				print("Test failed. Look in "+ outputfile + "_StyleErrorLog.html")
 				exit(1)
 			
 		
