@@ -325,11 +325,11 @@ class ValidateTest(object):
 			print("Library Path is wrong. Please Check Path of AixLib Library Path")
 			exit(1)
 		## Check the Package	
-		
+		ErrorList = []	
+			
 		if self.Changedmodels == False:
 		
 			ModelList = ValidateTest._CompareWhiteList(self)
-			ErrorList = []	
 			if len(ModelList) == 0:
 				print("Wrong Path")
 				exit(1)
@@ -416,9 +416,10 @@ class ValidateTest(object):
 		elif PackageCheck == None:
 			print("Library Path is wrong. Please Check Path of AixLib Library Path")
 			exit(1)
+		
+		ErrorList = []
 		if self.Changedmodels == False:	
 			ModelList = ValidateTest._listAllExamples(self)
-			ErrorList = []
 			if len(ModelList) == 0:
 				print("Wrong Path")
 				exit(0)
