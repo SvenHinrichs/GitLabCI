@@ -138,6 +138,7 @@ class StyleCheck(object):
 			if len(line) == 0:
 				continue
 			else:
+				print("fehler")
 				print(line)
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)

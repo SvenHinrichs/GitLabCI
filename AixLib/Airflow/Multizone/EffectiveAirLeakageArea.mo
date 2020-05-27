@@ -12,6 +12,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     max=1) = 1 "Discharge coefficient"
     annotation (Dialog(group="Rating conditions"));
 
+	
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
 equation
