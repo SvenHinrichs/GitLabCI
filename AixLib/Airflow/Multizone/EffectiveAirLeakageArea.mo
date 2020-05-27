@@ -4,7 +4,8 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     m=0.65,
     final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.PressureDifference dpRat(
+
+	parameter Modelica.SIunits.PressureDifference dpRat(
     min=0,
     displayUnit="Pa") = 4 "Pressure drop"
     annotation (Dialog(group="Rating conditions"));

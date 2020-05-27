@@ -13,8 +13,11 @@ class git_models(object):
 		changed_models = open(list_path, "r")
 		modelica_models = [] 
 		Lines =  changed_models.readlines()
+		counter = 0
 		for i in Lines:
-			
+			print(counter)
+			print(i)
+			counter = counter + 1
 			if i.rfind(".mo")>-1:
 				#define modelica models
 				model_number = i.rfind(" ")
