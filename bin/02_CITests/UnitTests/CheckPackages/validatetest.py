@@ -232,7 +232,9 @@ class ValidateTest(object):
 	def _IgnoreWhiteList(self):
 		#Package = "AixLib.Fluid.Actuators"
 		Package = self.Package
-		Package = Package.split(".")[1]
+		if len(Package) > 1:
+			Package = Package.split(".")[1]
+		
 		filename= r"bin/03_WhiteLists/WhiteList_CheckModel.txt"
 		#if platform.system()  == "Windows":
 		#				model = model.replace("\\",".")
