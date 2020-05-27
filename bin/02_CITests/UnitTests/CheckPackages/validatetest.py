@@ -10,7 +10,7 @@ import platform
 import buildingspy.development.regressiontest as u
 from pathlib import Path
 from git import Repo
-
+from sort_models import git_models
 
 class Git_Repository_Clone(object):
 	"""work with Repository in Git"""
@@ -45,7 +45,7 @@ class Git_Repository_Clone(object):
 class ValidateTest(object):
 	"""Class to Check Packages and run CheckModel Tests"""
 	"""Import Python Libraries"""
-	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples):
+	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels):
 		self.Package = Package
 		self.Library = Library
 		self.batch = batch
@@ -54,6 +54,7 @@ class ValidateTest(object):
 		self.show_gui = show_gui
 		self.CreateWhiteList = WhiteList
 		self.SimulateExamples = SimulateExamples
+		self.Changedmodels = Changedmodels
 		
 		#self.path = path 
 		###Set Dymola Tool		
@@ -324,31 +325,55 @@ class ValidateTest(object):
 			print("Library Path is wrong. Please Check Path of AixLib Library Path")
 			exit(1)
 		## Check the Package	
-		 
 		
-		ModelList = ValidateTest._CompareWhiteList(self)
-		ErrorList = []	
-		if len(ModelList) == 0:
-			print("Wrong Path")
-			exit(1)
-		for i in ModelList:
-			result=dymola.checkModel(i)
-
-			#result=dymola.checkModel(i,simulate=True)
-			if result == True:
-				print('\n Successful: '+i+'\n')
-				#continue
-			if result == False:
-				print("Second Check Test")
+		self.Changedmodels == False:
+		
+			ModelList = ValidateTest._CompareWhiteList(self)
+			ErrorList = []	
+			if len(ModelList) == 0:
+				print("Wrong Path")
+				exit(1)
+			
+			for i in ModelList:
 				result=dymola.checkModel(i)
+				#result=dymola.checkModel(i,simulate=True)
 				if result == True:
 					print('\n Successful: '+i+'\n')
-			
+					#continue
 				if result == False:
-					ErrorList.append(i)
-					Log = dymola.getLastError()
-					print('\n Error: '+i+'\n')
-					print(Log)
+					print("Second Check Test")
+					result=dymola.checkModel(i)
+					if result == True:
+						print('\n Successful: '+i+'\n')
+				
+					if result == False:
+						ErrorList.append(i)
+						Log = dymola.getLastError()
+						print('\n Error: '+i+'\n')
+						print(Log)
+		
+		self.Changedmodels == True:
+			list_mo_models = git_models(".mo",self.Package)
+			for i in list_mo_models:
+				result=dymola.checkModel(i)
+				#result=dymola.checkModel(i,simulate=True)
+				if result == True:
+					print('\n Successful: '+i+'\n')
+					#continue
+				if result == False:
+					print("Second Check Test")
+					result=dymola.checkModel(i)
+					if result == True:
+						print('\n Successful: '+i+'\n')
+				
+					if result == False:
+						ErrorList.append(i)
+						Log = dymola.getLastError()
+						print('\n Error: '+i+'\n')
+						print(Log)
+		
+			
+		
 		dymola.savelog(self.Package+"-log.txt")
 		dymola.close()
 		logfile = self.Package+"-log.txt"
@@ -390,26 +415,44 @@ class ValidateTest(object):
 		elif PackageCheck == None:
 			print("Library Path is wrong. Please Check Path of AixLib Library Path")
 			exit(1)
-		ModelList = ValidateTest._listAllExamples(self)
-		ErrorList = []
-		if len(ModelList) == 0:
-			print("Wrong Path")
-			exit(0)
-		for i in ModelList:
-			result=dymola.checkModel(i,simulate=True)
-			if result == True:
-				print('\n Successful: '+i+'\n')
-			if result == False:
-				print("Second Check Test")
+		self.Changedmodels == False:	
+			ModelList = ValidateTest._listAllExamples(self)
+			ErrorList = []
+			if len(ModelList) == 0:
+				print("Wrong Path")
+				exit(0)
+			for i in ModelList:
 				result=dymola.checkModel(i,simulate=True)
 				if result == True:
 					print('\n Successful: '+i+'\n')
 				if result == False:
-					ErrorList.append(i)
-					Log = dymola.getLastError()
-					print('\n Error: '+i+'\n')
-					print(Log)
-				
+					print("Second Check Test")
+					result=dymola.checkModel(i,simulate=True)
+					if result == True:
+						print('\n Successful: '+i+'\n')
+					if result == False:
+						ErrorList.append(i)
+						Log = dymola.getLastError()
+						print('\n Error: '+i+'\n')
+						print(Log)
+		
+		self.Changedmodels == True:
+			list_mo_models = git_models(".mo",self.Package)
+			ErrorList = []
+			for i in list_mo_models:
+				result=dymola.checkModel(i,simulate=True)
+				if result == True:
+					print('\n Successful: '+i+'\n')
+				if result == False:
+					print("Second Check Test")
+					result=dymola.checkModel(i,simulate=True)
+					if result == True:
+						print('\n Successful: '+i+'\n')
+					if result == False:
+						ErrorList.append(i)
+						Log = dymola.getLastError()
+						print('\n Error: '+i+'\n')
+						print(Log)		
 		dymola.savelog(self.Package+"-log.txt")
 		dymola.close()
 		logfile = self.Package+"-log.txt"
@@ -559,6 +602,7 @@ if  __name__ == '__main__':
 	check_test_group.add_argument("-WL", "--WhiteList", help="Create a WhiteList of IBPSA Library: y: Create WhiteList, n: Don´t create WhiteList" , action="store_true")
 	check_test_group.add_argument("-SE", "--SimulateExamples", help="Check and Simulate Examples in the Package" , action="store_true")
 	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
+	check_test_group.add_argument("-CM", "--Changedmodels",default="Tests only models that were changed or added during the push", action="store_true")
 	
 	
 	# Parse the arguments
@@ -572,7 +616,8 @@ if  __name__ == '__main__':
 								n_pro = args.number_of_processors,
 								show_gui = args.show_gui,
 								WhiteList = args.WhiteList,
-								SimulateExamples = args.SimulateExamples)
+								SimulateExamples = args.SimulateExamples,
+								Changedmodels = args.Changedmodels)
 								
 	Git_Operation_Class = Git_Repository_Clone(Repository="Repo")
 	### Checks the Operating System, Important for the Python-Dymola Interface 							

@@ -35,7 +35,9 @@ include:
   - project: 'sven.hinrichs/GitLabCI'
     file: 'bin/05_Templates/UnitTests/regression_test.gitlac-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
+    file: 'bin/05_Templates/UnitTests/changed_simulate_model.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file: 'bin/05_Templates/UnitTests/changed_check_model.gitlab-ci.yml'
   
   
   

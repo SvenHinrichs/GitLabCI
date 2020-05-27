@@ -86,7 +86,6 @@ class StyleCheck(object):
 			changed_model_list=[]
 			list_mo_models = git_models(".mo",self.Package)
 			model_list= list_mo_models.sort_mo_models()
-			print(model_list)
 			for l in model_list:
 				print("Check package or model "+ l)
 				path = self.Library.replace("package.mo", "")
