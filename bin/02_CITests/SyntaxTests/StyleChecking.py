@@ -126,7 +126,7 @@ class StyleCheck(object):
 			if self.Changedmodels == False:
 				if line.find("HTML style check log for "+ self.Package) > -1:
 					continue
-			else:
+			if self.Changedmodels == True:
 				for l in model_list:
 					if line.find("HTML style check log for "+ l) > -1:
 						continue
