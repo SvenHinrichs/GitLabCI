@@ -27,6 +27,10 @@ class git_models(object):
 				continue
 			else:
 				continue
+		changed_models.close()
+		if len(modelica_models) == 0:
+			print("No Models to check")
+			exit(0)
 		return modelica_models
 
 if  __name__ == '__main__':

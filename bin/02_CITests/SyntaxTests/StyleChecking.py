@@ -108,7 +108,7 @@ class StyleCheck(object):
 
 	def _StyleCheckLog_Check(self):
 		inputfile = StyleCheck._CheckStyle(self)
-		print(inputfile)
+		#print(inputfile)
 		#outputfile = self.Package+"_StyleErrorLog.html"
 		outputfile = inputfile.replace("_StyleCheckLog.html", "_StyleErrorLog.html")
 		Logfile = codecs.open(inputfile, "r", encoding='utf8')
