@@ -326,7 +326,7 @@ class ValidateTest(object):
 			exit(1)
 		## Check the Package	
 		
-		self.Changedmodels == False:
+		if self.Changedmodels == False:
 		
 			ModelList = ValidateTest._CompareWhiteList(self)
 			ErrorList = []	
@@ -352,7 +352,7 @@ class ValidateTest(object):
 						print('\n Error: '+i+'\n')
 						print(Log)
 		
-		self.Changedmodels == True:
+		if self.Changedmodels == True:
 			list_mo_models = git_models(".mo",self.Package)
 			for i in list_mo_models:
 				result=dymola.checkModel(i)
@@ -415,7 +415,7 @@ class ValidateTest(object):
 		elif PackageCheck == None:
 			print("Library Path is wrong. Please Check Path of AixLib Library Path")
 			exit(1)
-		self.Changedmodels == False:	
+		if self.Changedmodels == False:	
 			ModelList = ValidateTest._listAllExamples(self)
 			ErrorList = []
 			if len(ModelList) == 0:
@@ -436,7 +436,7 @@ class ValidateTest(object):
 						print('\n Error: '+i+'\n')
 						print(Log)
 		
-		self.Changedmodels == True:
+		if self.Changedmodels == True:
 			list_mo_models = git_models(".mo",self.Package)
 			ErrorList = []
 			for i in list_mo_models:
