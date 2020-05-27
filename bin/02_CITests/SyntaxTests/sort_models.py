@@ -27,7 +27,6 @@ class git_models(object):
 				continue
 			else:
 				continue
-		print(modelica_models)
 		return modelica_models
 
 if  __name__ == '__main__':
