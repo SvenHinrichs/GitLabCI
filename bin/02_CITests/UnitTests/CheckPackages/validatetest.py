@@ -354,7 +354,8 @@ class ValidateTest(object):
 		
 		if self.Changedmodels == True:
 			list_mo_models = git_models(".mo",self.Package)
-			for i in list_mo_models:
+			model_list= list_mo_models.sort_mo_models()
+			for i in model_list:
 				result=dymola.checkModel(i)
 				#result=dymola.checkModel(i,simulate=True)
 				if result == True:
@@ -438,8 +439,9 @@ class ValidateTest(object):
 		
 		if self.Changedmodels == True:
 			list_mo_models = git_models(".mo",self.Package)
+			model_list= list_mo_models.sort_mo_models()
 			ErrorList = []
-			for i in list_mo_models:
+			for i in model_list:
 				result=dymola.checkModel(i,simulate=True)
 				if result == True:
 					print('\n Successful: '+i+'\n')

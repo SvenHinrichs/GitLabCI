@@ -34,6 +34,7 @@ class git_models(object):
 		if len(modelica_models) == 0:
 			print("No Models to check")
 			exit(0)
+		print(modelica_models)
 		return modelica_models
 
 if  __name__ == '__main__':
