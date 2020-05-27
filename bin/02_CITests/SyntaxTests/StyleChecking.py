@@ -104,40 +104,60 @@ class StyleCheck(object):
 			Logfile = path+path_outfile
 		dymola.close()
 		print("Style Check Complete")
-		return Logfile
+		return Logfile, model_list
 
 	def _StyleCheckLog_Check(self):
-		inputfile = StyleCheck._CheckStyle(self)
+		result = StyleCheck._CheckStyle(self)
+		inputfile = result[0]
+		model_list = result[1]
 		#print(inputfile)
 		#outputfile = self.Package+"_StyleErrorLog.html"
 		outputfile = inputfile.replace("_StyleCheckLog.html", "_StyleErrorLog.html")
 		Logfile = codecs.open(inputfile, "r", encoding='utf8')
 		ErrorLog = codecs.open(outputfile, "w", encoding='utf8')
 		ErrorCount = 0
+		
 		for line in Logfile:
 			line = line.strip()
 			if line.find("Check ok") > -1 :
 				continue
 			if line.find("Library style check log") > -1:
 				continue
-			if line.find("HTML style check log for "+ self.Package) > -1:
-				continue
+			if self.Changedmodels == False:
+				if line.find("HTML style check log for "+ self.Package) > -1:
+					continue
+			else:
+				for l in model_list:
+					if line.find("HTML style check log for "+ l) > -1:
+						continue
+					else:
+						continue
+				
 			if len(line) == 0:
 				continue
 			else:
+				print(line)
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
 			
 			
 		Logfile.close()
 		ErrorLog.close()
-		if ErrorCount == 0:
-			print("Style Check of model or package "+self.Package+ " was successful")
-			exit(0)
-		elif ErrorCount > 0 :
-			print("Test failed. Look in "+ self.Package + "_StyleErrorLog.html")
-			exit(1)
-		
+		if self.Changedmodels == False:
+			if ErrorCount == 0:
+				print("Style Check of model or package "+self.Package+ " was successful")
+				exit(0)
+			elif ErrorCount > 0 :
+				print("Test failed. Look in "+ self.Package + "_StyleErrorLog.html")
+				exit(1)
+		else:
+			if ErrorCount == 0:
+				print("Style Check of model or package "+self.Package+ " was successful")
+				exit(0)
+			elif ErrorCount > 0 :
+				print("Test failed. Look in "+ self.Package + "_StyleErrorLog.html")
+				exit(1)
+			
 		
 
 ### Add to the environemtn variable 'var' the value 'value'
