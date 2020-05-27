@@ -6,9 +6,6 @@ model DoorDiscretizedOpen
   parameter Real CD=0.65 "Discharge coefficient"
     annotation (Dialog(group="Orifice characteristics"));
 
-
-	
-	
 	
 	
 protected
