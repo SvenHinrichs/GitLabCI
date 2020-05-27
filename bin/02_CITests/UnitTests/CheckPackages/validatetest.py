@@ -686,10 +686,11 @@ if  __name__ == '__main__':
 	
 	else:
 		Error = CheckModelTest._CheckModelAixLib()
-		IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
-		print("\n"+"\n")
-		if len(IBPSA_Model) > 0:
-			print("Don´t Check these Models "+IBPSA_Model)
+		if self.Changedmodels == False:
+			IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
+			print("\n"+"\n")
+			if len(IBPSA_Model) > 0:
+				print("Don´t Check these Models "+IBPSA_Model)
 		if len(Error)  == 0:
 			print("Test was Successful!")
 			exit(0)
