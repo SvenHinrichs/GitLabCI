@@ -15,6 +15,7 @@ model DoorDiscretizedOperable
     "Discharge coefficient at rating conditions of closed door"
       annotation (Dialog(group="Rating conditions"));
 
+	  
   parameter Modelica.SIunits.Area LClo(min=0)
     "Effective leakage area of closed door"
       annotation (Dialog(group="Closed door"));

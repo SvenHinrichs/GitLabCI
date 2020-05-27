@@ -686,7 +686,7 @@ if  __name__ == '__main__':
 	
 	else:
 		Error = CheckModelTest._CheckModelAixLib()
-		if self.Changedmodels == False:
+		if args.Changedmodels == False:
 			IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
 			print("\n"+"\n")
 			if len(IBPSA_Model) > 0:
