@@ -86,6 +86,7 @@ class StyleCheck(object):
 			changed_model_list=[]
 			list_mo_models = git_models(".mo",self.Package)
 			model_list= list_mo_models.sort_mo_models()
+			print(model_list)
 			for l in model_list:
 				print("Check package or model "+ l)
 				path = self.Library.replace("package.mo", "")
@@ -127,19 +128,20 @@ class StyleCheck(object):
 				if line.find("HTML style check log for "+ self.Package) > -1:
 					continue
 			if self.Changedmodels == True:
+				correct = 0
 				for l in model_list:
 					if line.find("HTML style check log for "+ l) > -1:
-						print("test")
-						print(line)
-						continue
-					else:
-						continue
+						correct = correct + 1
+						break 
+				if correct > 0 :
+					continue
+						
+					
 				
 			if len(line) == 0:
 				continue
 			else:
-				print("fehler")
-				print(line)
+				print("Error in model: \n \n"+line.lstrip())
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
 			
@@ -156,10 +158,11 @@ class StyleCheck(object):
 		else:
 			if ErrorCount == 0:
 				for l in model_list:
-					print("Style Check of model or package "+l+ " was successful")
-					exit(0)
+					print("\n Style Check of model or package "+l+ " was successful")
+					continue
+				exit(0)
 			elif ErrorCount > 0 :
-				print("Test failed. Look in "+ outputfile + "_StyleErrorLog.html")
+				print("\nTest failed. Look in "+ outputfile.lstrip() )
 				exit(1)
 			
 		

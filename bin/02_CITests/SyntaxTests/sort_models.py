@@ -1,6 +1,7 @@
 import os
 import sys
 
+import codecs
 
 class git_models(object):
 
@@ -11,7 +12,7 @@ class git_models(object):
 	def sort_mo_models(self):
 		list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt' 
 		#print(list_path)
-		changed_models = open(list_path, "r")
+		changed_models = codecs.open(list_path, "r", encoding='utf8')
 		modelica_models = [] 
 		Lines =  changed_models.readlines()
 		Line= str(Lines)
@@ -22,15 +23,14 @@ class git_models(object):
 				model_number = i.rfind(self.package)
 				model_name = i[model_number:]
 				model_name = model_name.lstrip()
-				#model_name = model_name.replace(os.sep,".")
 				model_name = model_name.replace(os.sep,".")
 				model_name = model_name[:model_name.rfind(".mo")]
+				model_name = model_name.replace("..",".")
 				modelica_models.append(model_name)
 				continue
 			else:
 				continue
 		changed_models.close()
-		print(modelica_models)
 		if len(modelica_models) == 0:
 			print("No Models to check")
 			exit(0)

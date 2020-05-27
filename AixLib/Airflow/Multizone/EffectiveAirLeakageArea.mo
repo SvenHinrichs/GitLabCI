@@ -13,6 +13,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     annotation (Dialog(group="Rating conditions"));
 
 	
+	
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
 equation
