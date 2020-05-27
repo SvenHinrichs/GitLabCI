@@ -40,6 +40,7 @@ Style_Check_ChangedModel:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
+        - git diff --raw HEAD^1
         - model=$(git diff --raw HEAD^1)
         - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
