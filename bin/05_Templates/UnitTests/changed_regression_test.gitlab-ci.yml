@@ -11,7 +11,6 @@ Regression_changed_overall_coverage:
         - docker
         
     before_script:
-        - printenv
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
@@ -50,6 +49,7 @@ Regressiontest_changed_AixLib_Airflow:
     
     script:
         - model=$(git diff --raw HEAD^1)
+        . echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --tool dymola --modified-models -s AixLib.Airflow 
     artifacts:
