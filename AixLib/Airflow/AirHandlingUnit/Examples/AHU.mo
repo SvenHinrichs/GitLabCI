@@ -4,10 +4,6 @@ model AHU
     extends Modelica.Icons.Example;
 
 	
-	
-	
-	
-	
   Modelica.Blocks.Sources.Sine     tempOutside(
     amplitude=10,
     freqHz=1/86400,
