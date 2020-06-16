@@ -72,6 +72,7 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 	ut = u.Tester(tool=tool)
 	ut.batchMode(batch)
 	ut.setLibraryRoot(path)
+	Errorlist = []
 	if modified_models == False:
 		if package is not None:
 			ut.setSinglePackage(package)
@@ -112,10 +113,15 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 			# Run the regression tests
 
 			retVal = ut.run()
-			print(retVal)
+			if retVal == 1:
+				Errorlist.append(l)
+				print("Regression test for model "+l+ " was not successfull")
+				
 			# comment out this line for local usage
 			ut.get_test_example_coverage()
-		
+		if len(Errorlist) > 0:
+			retVal = 1
+			print("Regression test for changed models failed")
 		
 		return retVal
 
@@ -254,7 +260,6 @@ if __name__ == '__main__':
                            n_pro = args.number_of_processors,
                            show_gui = args.show_gui,
 						   modified_models = args.modified_models)
-	print(retVal)
 	exit(retVal)
 
 #   _runOpenModelicaUnitTests()
