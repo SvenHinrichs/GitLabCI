@@ -97,6 +97,7 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 	if modified_models == True:
 		regression_models = func_list_models.list_regression_tests()
 		for l in regression_models:
+			print("Regression test for model: "+l) 
 			model_package = l[:l.rfind(".")]
 			ut.setSinglePackage(model_package)
 			ut.setNumberOfThreads(n_pro)
