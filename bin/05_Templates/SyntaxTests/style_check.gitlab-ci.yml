@@ -23,7 +23,7 @@ Style_Check_AixLib:
             - AixLib/AixLib_StyleCheckLog.html
             - AixLib/AixLib_StyleErrorLog.html
         
-        expire_in: 2 day 
+        expire_in: 7 day 
     allow_failure: true 
     
     only:
@@ -50,7 +50,7 @@ Style_Check_ChangedModel:
             - AixLib/ChangedModels_StyleCheckLog.html
             - AixLib/ChangedModels_StyleErrorLog.html
             - bin/03_WhiteLists/changedmodels.txt
-        expire_in: 2 day 
+        expire_in: 7 day 
     allow_failure: true 
     
     only:
