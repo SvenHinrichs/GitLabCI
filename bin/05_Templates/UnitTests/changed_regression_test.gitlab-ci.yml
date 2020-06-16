@@ -49,7 +49,7 @@ Regressiontest_changed_AixLib_Airflow:
     
     script:
         - model=$(git diff --raw HEAD^1)
-        . echo $model
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --tool dymola --modified-models -s AixLib.Airflow 
     artifacts:
