@@ -62,8 +62,10 @@ model testPumpHeadCalculation
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
   annotation (
-    experiment(StopTime=5),
-    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/ControlPump/Examples/testPumpHeadCalculation.mos"),
+    experiment(StopTime=5,
+	  Interval=60,
+      Tolerance=1e-06),
+    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/PumpPolynomialBased/Examples/testPumpHeadCalculation.mos"),
     Documentation(info="<html><p>
   simulate and plot script
 </p>

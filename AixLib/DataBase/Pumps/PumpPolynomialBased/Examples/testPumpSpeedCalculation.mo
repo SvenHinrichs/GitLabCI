@@ -64,7 +64,9 @@ model testPumpSpeedCalculation
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
   annotation (
-    experiment(StopTime=5),
+    experiment(StopTime=5,
+	  Interval=60,
+      Tolerance=1e-06),
     Documentation(info="<html><p>
   simulate and plot script
 </p>
@@ -108,5 +110,5 @@ model testPumpSpeedCalculation
           horizontalAlignment=TextAlignment.Left,
           textString="Select parameter record \"param\" in text view.
 Test is not fully functional anymore due to missing cNQH coefficient matrix.")}),
-    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/ControlPump/Examples/testPumpSpeedCalculation.mos"));
+    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/PumpPolynomialBased/Examples/testPumpSpeedCalculation.mos"));
 end testPumpSpeedCalculation;

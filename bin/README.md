@@ -11,22 +11,23 @@ The whole process is automatically triggered by checking into the version contro
 In our case we mirror a github repository in GitLab. This way the repository can be tested and corrected with the CI in Gitlab. 
 We also use the Docker service to create an image containing Dymola and thus be able to simulate models in Dymola.
 
-For more information read the [General Documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/blob/master/bin/04_Documentation/Documentation_GitLab.md) and the Repository [Dymola-Docker](https://git.rwth-aachen.de/EBC/EBC_intern/dymola-docker)
+For more information read the [General Documentation](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/04_Documentation/Documentation_GitLab.md) and the Repository [Dymola-Docker](https://git.rwth-aachen.de/EBC/EBC_intern/dymola-docker)
+
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/GITLABCI.png)
 
 
 ## What CI Tests are implement?
-#### Check, Simulate and Regressiontest: [UnitTests](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/UnitTests)
+#### Check, Simulate and Regressiontest: [UnitTests](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/02_CITests/UnitTests)
 
 With these tests, models are validated or simulated or models will  compared and evaluated with stored values by means of a unit test.
 
-#### Correct HTML and Style Check: [SyntaxTest](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/SyntaxTests)
+#### Correct HTML and Style Check: [SyntaxTest](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/02_CITests/SyntaxTests)
 
-The html code (documentation) is tested and corrected if necessary. Thus the deposited HTML code is checked for correctness and correct
+The html code (documentation) is tested and corrected if necessary. Thus the deposited HTML code is checked for correctness and corrected.
 
 With the ModelManagement library in dymola the style of the models is checked. 
 
-#### Clean the Modelica [CleanUpSkripts](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests/CleanUpSkripts)
+#### Clean the Modelica [CleanUpSkripts](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/02_CITests/CleanUpSkripts)
 Removes any files that were created when running simulations in Dymola, such as *.mat or dymola.log 
 
 ## Folder 
@@ -37,17 +38,17 @@ This folder contains tests and functions that are builded for the CI Tests.
 
 ### 2 CITests
 This folder contains all CI tests for AixLib in GitLab with unitTests, syntaxTest and cleanUpScripts
-For more information view this [CI Tests](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/02_CITests).
+For more information view this [CI Tests](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/02_CITests).
 
 ### 3 WhiteLists
-This folder contains models in [WhiteLists](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/03_WhiteLists), which will not test in the CITests.
+This folder contains models in [WhiteLists](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/03_WhiteLists), which will not test in the CITests.
 
 
 ### 4 Documentation
-This folder contains [documentation](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/04_Documentation) for CI, e.g. how new tests can be integrated or relevant commands for the CI 
+This folder contains [documentation](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/04_Documentation) for CI, e.g. how new tests can be integrated or relevant commands for the CI 
 
 ### 5 Templates
-This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/05_Templates) for the CI tests implemented so far. The following example can be used to implement the tests in the CI. 
+This folder contains [Templates](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/05_Templates) for the CI tests implemented so far. The following example can be used to implement the tests in the CI. 
 
 
 
@@ -73,7 +74,7 @@ This folder contains [Templates](https://git.rwth-aachen.de/sven.hinrichs/GitLab
 		TARGET_BRANCH: $CI_COMMIT_REF_NAME
 		Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
 		StyleModel: AixLib.Airflow.Multizone.DoorDiscretizedOpen
-		Github_Repository : SvenHinrichs/GitLabCI
+		Github_Repository : RWTH-EBC/AixLib
 	
 	
 
@@ -96,7 +97,7 @@ The templates are also implemented under the following repository [Templates](ht
 
 ### 6 Configfiles
 
-This folder contains [Config files](https://git.rwth-aachen.de/sven.hinrichs/GitLabCI/tree/master/bin/06_Configfiles) which are used for the CI. 
+This folder contains [Config files](https://github.com/RWTH-EBC/AixLib/tree/issue802_CleanCI_Infrastructure/bin/06_Configfiles) which are used for the CI. 
 
 For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 
@@ -105,7 +106,8 @@ For question ask [Sven Hinrichs](https://git.rwth-aachen.de/sven.hinrichs)
 ## Configure Variables
 
 ### Github_Repository : 
-This variable consists of owner/repo (e.g. RWTH-EBC/AixLib) and is used for code that was changed by the CI. (git@github.com:RWTH-EBC/AixLib.git)
+This variable consists of owner/repo (e.g. RWTH-EBC/AixLib).
+The variable is used for creating a pull request as well as create a new branch and push into that branch.
 
 ### StyleModel:
 
@@ -131,11 +133,11 @@ To get started:
 
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/Mirroring_ssh.PNG)
 
-Now GitLab should recognize Host Keys and you can mirror your repository.
-After this copy the ssh public key and add the key as de deploy key to your gitlab and github repository.
+Now GitLab should recognize a host key and you can mirror your repository.
+After this copy the ssh public key and add the key as a deploy key to your gitlab and github repository.
 
 In GitLab:  General -> CI/CD -> Deploy Keys (Activate Write access allowed button)
-In Github: Settings -> Deploy keys (Allow write access)
+In Github: Settings -> Deploy keys 
 
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/public_key.PNG)
 
@@ -166,8 +168,20 @@ You can create as many personal access tokens as you like from your GitLab profi
     6. Click the Create personal access token button.
     7. Save the personal access token somewhere safe. Once you leave or refresh the page, you won’t be able to access it again.
 
+## git-config
+
+Before you push to your branch, please be sure that your git configs are covered with your datas in your github account. 
+
+Set your username:
+	git config --global user.name "FIRST_NAME LAST_NAME"
+
+Set your email address:
+	git config --global user.email "MY_NAME@example.com"
+	
+It is important that these settings are correct, because the github_api.py script creates a pull request and declares you as Assigneed to this pull_request. 
+	
 ## Test CI Setting
-To test if all necessary variables are set push your Code with the commit "Check Settings". 
+To test if all necessary variables are set push your Code with the commit "Check Settings". This template will look for the Variables GL_TOKEN, GITHUB_API_TOKEN, Github_Repository and GITHUB_PRIVATE_KEY.
 
 
 ## Add a Deploy keys
@@ -185,6 +199,9 @@ For more information, see ["Delivering deployments"](https://developer.github.co
 	8. Click Add key.
 
 [Setup Deploy keys](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)
+After the public key is configured and added as a deploy key, the private key must be added as a variable in Gitlab. 
+The name of the variable is GITHUB_PRIVATE_KEY.
+
 
 ## [SSH-Agent](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)/ [Use Deploy Keys in Docker](https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions) 
 ##### Install ssh-agent client:
@@ -209,12 +226,18 @@ For more information, see ["Delivering deployments"](https://developer.github.co
 Add your public key to your Github Account or add as a deploy Key to your Repository.
 
 ## GitHub Webhook
-To trigger the pipeline for every push and a pull_request u have to setup webhook. Activate the options "Pushes" and "Pull requests"
+To trigger the pipeline for every push and a pull_request u have to setup a webhook. Activate the options "Pushes" and "Pull requests".
+To setup webhook you have to follow these steps:
+	1. URL_ https://git.rwth-aachen.de/api/v4/projects/$RepositoryID/mirror/pull?private_token=&GL_Token	
+	2. Content Type: application/json
+	3. Enable SSL verification 
+	4. Select individual events
+
 ![E.ON EBC RWTH Aachen University](04_Documentation/Images/Webhook_trigger.PNG)
 
 
 # To Do
 
-- Slack Notification in case of merge request in gitlab
-- Add label CI and fix HTML code
+- Slack Notification in case of pull_request in github
 - Image with Private key
+- Create a new image in case Dymola is not necessary

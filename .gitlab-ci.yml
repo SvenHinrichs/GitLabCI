@@ -5,6 +5,7 @@ stages:
     - deleteBranch
     - SetSettings
     - CheckSettings
+    - Ref_Check
     - build
     - HTMLCheck
     - deploy
@@ -26,6 +27,8 @@ variables:
 include:
   - project: 'sven.hinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
+  - project: 'sven.hinrichs/GitLabCI'
+    file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
   - project: 'sven.hinrichs/GitLabCI'

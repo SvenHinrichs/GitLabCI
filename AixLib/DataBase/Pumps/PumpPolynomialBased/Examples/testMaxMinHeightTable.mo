@@ -52,6 +52,9 @@ equation
   as defined in the maxMinHeight parameter matrix.
 </p>
 </html>"),
-    experiment,
-    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/ControlPump/Examples/testMaxMinHeightTable.mos"));
+    experiment(
+      StopTime=86400,
+      Interval=60,
+      Tolerance=1e-06),
+    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/DataBase/Pumps/PumpPolynomialBased/Examples/testMaxMinHeightTable.mos"));
 end testMaxMinHeightTable;

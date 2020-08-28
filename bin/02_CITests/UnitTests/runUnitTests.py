@@ -65,6 +65,65 @@ def _setEnvironmentVariables(var, value):
     else:
         os.environ[var] = value
 
+
+def create_ReferenceResults( tool, package, path, n_pro, show_gui):
+	from reference_check import Reg_Reference
+	import buildingspy.development.regressiontest as u
+	ref_check = Reg_Reference(package = args.single_package,
+									  library = args.path)
+	mos_list = ref_check.compare_ref_mos()
+		
+	ut = u.Tester(tool=tool)
+	ut.batchMode(False)
+	ut.setLibraryRoot(".")
+	
+	Ref_List = []
+	'''if mos_list is not None:
+		ut.setSinglePackage(self.package)
+		ut.setNumberOfThreads(self.n_pro)
+		ut.pedanticModelica(False)
+		ut.showGUI(True)
+		#ut.showGUI(self.show_gui)
+		retVal = ut.run()'''
+			
+		
+	if mos_list is not None:
+		
+		for i in mos_list:
+			name = i
+			name = name[:name.rfind(".")]
+			
+			Ref_List.append(name)
+		Ref = list(set(Ref_List))
+		for i in Ref:
+			if i.find("DataBase")> -1:
+				continue
+			if i.find("Obsolete") > -1:
+				continue
+			if i.find("Types") >-1: 
+				continue
+			if i.find("UsersGuide") > -1:
+				continue
+			if i.find("Utilities") > -1:
+				continue			
+			
+			print("Generate new Reference File for "+i)
+			#name = i.replace("_",".")
+			#name = name[:name.rfind(".")]
+			ut.setSinglePackage(i)
+			ut.setNumberOfThreads(n_pro)
+			ut.pedanticModelica(False)
+			ut.showGUI(True)
+			
+			#ut.showGUI(self.show_gui)
+			retVal = ut.run()
+			continue
+	if len(mos_list) == 0:
+		print("All Reference files exists. Now the CI Tests will starts")
+		exit(0)
+		
+
+
 def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 	
 	import buildingspy.development.regressiontest as u
@@ -73,12 +132,16 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 	ut.batchMode(batch)
 	ut.setLibraryRoot(path)
 	Errorlist = []
+	 
+	
+	
 	if modified_models == False:
 		if package is not None:
 			ut.setSinglePackage(package)
 		ut.setNumberOfThreads(n_pro)
 		ut.pedanticModelica(False)
 		ut.showGUI(show_gui)
+		#ut._check_fmu_statistics("y")
 		# ut.get_test_example_coverage()
 		# Below are some option that may occassionally be used.
 		# These are currently not exposed as command line arguments.
@@ -95,35 +158,68 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
 		return retVal
 	
 	if modified_models == True:
-		regression_models = func_list_models.list_regression_tests()
-		for l in regression_models:
-			print("Regression test for model: "+l) 
-			model_package = l[:l.rfind(".")]
-			ut.setSinglePackage(model_package)
+		#regression_models = func_list_models.list_regression_tests()
+		regression_models = func_list_models._remove_duplicate()
+		
+		if len(regression_models) == 0:
+			print("No models to start a regression test")
+			retVal = 0
+		
+		if len(regression_models) > 0:
+			print("Number of checked packages: "+ str(len(regression_models)))
+			print("Check examples : ")
+			for l in regression_models:
+				print(l)
+		if len(regression_models) > 10:
+			print("Over 10 changed models. Check all models in AixLib package "+package)
+			if package is not None:
+				ut.setSinglePackage(package)
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
 			ut.showGUI(show_gui)
-			# ut.get_test_example_coverage()
-			# Below are some option that may occassionally be used.
-			# These are currently not exposed as command line arguments.
-		#    ut.setNumberOfThreads(1)
-		#    ut.deleteTemporaryDirectories(False)
-		#    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
-
-		#    ut.writeOpenModelicaResultDictionary()
-			# Run the regression tests
-
 			retVal = ut.run()
-			if retVal == 1:
-				Errorlist.append(l)
-				print("Regression test for model "+l+ " was not successfull")
-				
-			# comment out this line for local usage
 			ut.get_test_example_coverage()
-		if len(Errorlist) > 0:
-			retVal = 1
-			print("Regression test for changed models failed")
-		
+			#return retVal
+		else:
+			for l in regression_models:
+				if l.rfind("package")> -1:
+					print("packages")
+					continue
+				#print("\n*****************************\nRegression test for model: "+l) 
+				#model_package = l[:l.rfind(".")]
+				model_package = l
+				ut.setSinglePackage(model_package)
+				ut.setNumberOfThreads(n_pro)
+				ut.pedanticModelica(False)
+				ut.showGUI(show_gui)
+				# ut.get_test_example_coverage()
+				# Below are some option that may occassionally be used.
+				# These are currently not exposed as command line arguments.
+			    # ut.setNumberOfThreads(1)
+			    # ut.deleteTemporaryDirectories(False)
+			    # ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
+
+			    # ut.writeOpenModelicaResultDictionary()
+				# Run the regression tests
+
+				retVal = ut.run()
+				if retVal == 1:
+					Errorlist.append(l)
+					print("Regression test for model "+l+ " was not successfull")
+				if retVal != 0:
+					print("Regression test for model "+l+ " was successful")
+				# comment out this line for local usage
+				ut.get_test_example_coverage()
+			if len(Errorlist) > 0:
+				retVal = 1
+				print("Regression test failed")
+				print("The following packages failed")
+				for l in Errorlist:
+					print("		Error: "+l)
+			else:
+				retVal = 0
+				print("Regression test was successful")
+			
 		return retVal
 
 
@@ -186,7 +282,10 @@ if __name__ == '__main__':
                         help='Only run the coverage test',
                         action="store_true")
 
-
+	unit_test_group.add_argument("--check-ref",
+                        help='checks if all reference files exist',
+                        action="store_true")
+	
 	unit_test_group.add_argument("--modified-models",
                         help='Regression test only for modified models',
 						default=False,
@@ -244,6 +343,17 @@ if __name__ == '__main__':
 	else:
 		single_package = None
 
+	if args.check_ref:
+		print("Bin Drin")
+		ret_val = create_ReferenceResults(tool = args.tool,
+                           package = single_package,
+                           path = args.path,
+                           n_pro = args.number_of_processors,
+                           show_gui = args.show_gui)
+		exit(0)
+
+	
+	
 	if args.coverage_only:
 		ret_val = _run_coverage_only(batch = args.batch,
                            tool = args.tool,

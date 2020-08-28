@@ -1,0 +1,32 @@
+#!/bin/bash
+image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+
+stages:
+    - Ref_Check
+    
+
+RegressionTest_Check_References:
+    stage: Ref_Check
+    services:
+        -  docker
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+       cd AixLib && python ..\bin\02_CITests\UnitTests\runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ..\bin\06_Configfiles\EOF
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/AixLib.Airflow-log.txt
+            - AixLib/AixLib.Airflow-Errorlog.txt
+        expire_in: 7 day 
+    allow_failure: true 
+    except:
+        - external_pull_requests
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
+

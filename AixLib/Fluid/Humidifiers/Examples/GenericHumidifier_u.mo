@@ -119,5 +119,5 @@ equation
   </li>
 </ul>
 </html>"),
-    experiment(StopTime=1400, Tolerance=1e-06));
+    experiment(StopTime=1400, Interval=60,Tolerance=1e-06));
 end GenericHumidifier_u;

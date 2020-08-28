@@ -82,26 +82,35 @@ class StyleCheck(object):
 			print("Check package or model "+ self.Package)
 			dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+self.Package+'", translationStructure=false);')
 			Logfile = self.Library.replace("package.mo",self.Package+"_StyleCheckLog.html")
+			model_list = []
 		else:
 			changed_model_list=[]
 			list_mo_models = git_models(".mo",self.Package)
 			model_list= list_mo_models.sort_mo_models()
-			for l in model_list:
-				print("Check package or model "+ l)
-				path = self.Library.replace("package.mo", "")
-				dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+l+'", translationStructure=false);')
-				inputfile = path+l+"_StyleCheckLog.html"
-				log = codecs.open(inputfile,"r",encoding='utf8')
-				for line in log:
-					changed_model_list.append(line)
-				log.close()	
-				os.remove(inputfile)
-			path_outfile = 	"ChangedModels_StyleCheckLog.html"
-			all_logs = codecs.open(path+path_outfile, "w", encoding='utf8')
-			for i in changed_model_list:
-				all_logs.write(i)
-			all_logs.close()
-			Logfile = path+path_outfile
+			#print(model_list)
+			if len(model_list) > 100:
+				print("Over 100 changed models. Check all models in AixLib Library")
+				print("Check AixLib Library: "+ self.Package)
+				dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+self.Package+'", translationStructure=false);')
+				Logfile = self.Library.replace("package.mo",self.Package+"_StyleCheckLog.html")
+				self.Changedmodels = False
+			else:
+				for l in model_list:
+					#print("Check package or model "+ l)
+					path = self.Library.replace("package.mo", "")
+					dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+l+'", translationStructure=false);')
+					inputfile = path+l+"_StyleCheckLog.html"
+					log = codecs.open(inputfile,"r",encoding='utf8')
+					for line in log:
+						changed_model_list.append(line)
+					log.close()	
+					os.remove(inputfile)
+				path_outfile = 	"ChangedModels_StyleCheckLog.html"
+				all_logs = codecs.open(path+path_outfile, "w", encoding='utf8')
+				for i in changed_model_list:
+					all_logs.write(i)
+				all_logs.close()
+				Logfile = path+path_outfile
 		dymola.close()
 		print("Style Check Complete")
 		return Logfile, model_list
@@ -134,13 +143,11 @@ class StyleCheck(object):
 						break 
 				if correct > 0 :
 					continue
-						
-					
 				
 			if len(line) == 0:
 				continue
 			else:
-				print("Error in model: \n \n"+line.lstrip())
+				#print("Error in model: \n \n"+line.lstrip())
 				ErrorCount = ErrorCount + 1 
 				ErrorLog.write(line)
 			
@@ -189,7 +196,7 @@ if  __name__ == '__main__':
 	check_test_group.add_argument('-s',"--single-package",metavar="AixLib.Package", help="Test only the Modelica package AixLib.Package")
 	check_test_group.add_argument("-p","--path", default=".", help = "Path where top-level package.mo of the library is located")
 	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
-	check_test_group.add_argument("-CM", "--Changedmodels",default="Tests only models that were changed or added during the push", action="store_true")
+	check_test_group.add_argument("-CM", "--Changedmodels",default=False, action="store_true")
 	
 	# Parse the arguments
 	args = parser.parse_args()

@@ -1,12 +1,12 @@
 within AixLib.DataBase.Pipes.Insulation;
-record Iso0pc "Coating, no insulation"
+record Iso0pc "No insulation"
   extends InsulationBaseDataDefinition(
-    factor=0.04,
+    factor=0.001,
     d=1000,
-    lambda=0.5,
-    c=1600);
+    lambda=100,
+    c=1);
   // Constant chemical Values assumed
-  // would yield ~1mm coating for a DN25 pipe
+  // neglectable heat capacity and resistance
 
   annotation (Documentation(info="<html><h4>
   <span style=\"color: #008000\">Overview</span>
