@@ -13,11 +13,7 @@ This example uses the AixLib.Airflow.FacadeVentilationUnit.Examples.FacadeVentil
 	  package Medium1 = AixLib.Media.Air;
 	  package Medium2 = AixLib.Media.Water;
 
-	  AixLib.Controls.AirHandling.FVUController FVUController(
-		  maxSupFanPower=0.6,
-		  maxExFanPower=0.6)
-		"Comprehensive rule-based controller for the facade ventilation unit"
-		annotation (Placement(transformation(extent={{-46,-30},{-6,10}})));
+	
 	  AixLib.Airflow.FacadeVentilationUnit.FacadeVentilationUnit FVU(redeclare
 		  package Air = Medium1, redeclare package Water = Medium2)
 		"The facade ventilation unit to be tested in this example"
