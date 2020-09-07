@@ -4,7 +4,7 @@ You can use the [editor on GitHub](https://github.com/SvenHinrichs/GitLabCI/edit
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-[Ergebnisse](https://github.com/SvenHinrichs/GitLabCI/edit/master/docs/test.html)
+[Ergebnisse](https://svenhinrichs.github.io/GitLabCI/test.html)
 
 ### Markdown
 
