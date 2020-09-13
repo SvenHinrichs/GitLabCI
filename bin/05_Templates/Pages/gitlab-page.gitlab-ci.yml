@@ -1,5 +1,6 @@
 stages:
 - compile
+- deploy
 - log
 - post
 
@@ -47,7 +48,7 @@ pylint:
 
         
 pages:
-    stage: log
+    stage: deploy
     dependencies: 
         - pylint
     before_script:
