@@ -2,6 +2,7 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
+    - deploy
     - compile
     - log
     - post
