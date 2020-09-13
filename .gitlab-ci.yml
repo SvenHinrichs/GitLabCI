@@ -2,19 +2,10 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
-    - deleteBranch
-    - SetSettings
-    - CheckSettings
-    - Ref_Check
-    - build
-    - HTMLCheck
-    - deploy
-    - openMR
+    - compile
+    - log
     - post
-    - StyleCheck
-    - Check
-    - Simulate
-    - RegressionTest
+
  
  
  
@@ -28,22 +19,4 @@ variables:
  
 include:
   - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/regression_test.gitlac-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/changed_simulate_model.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/changed_check_model.gitlab-ci.yml'
-  - project: 'sven.hinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/changed_regression_test.gitlab-ci.yml'
-  
-  
+    file:  'bin/05_Templates/Pages/gitlab-page.gitlab-ci.yml'

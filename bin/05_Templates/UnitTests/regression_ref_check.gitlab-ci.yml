@@ -16,13 +16,16 @@ RegressionTest_Check_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-       cd AixLib && python ..\bin\02_CITests\UnitTests\runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ..\bin\06_Configfiles\EOF
+       - cd AixLib && python ..\bin\02_CITests\UnitTests\runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ..\bin\06_Configfiles\EOF
+       #cp -r /home/user/ /tmp/
+    
+    
     artifacts:
         when: on_failure
         paths:
-            - AixLib/AixLib.Airflow-log.txt
-            - AixLib/AixLib.Airflow-Errorlog.txt
-        expire_in: 7 day 
+            - public
+           
+        
     allow_failure: true 
     except:
         - external_pull_requests
