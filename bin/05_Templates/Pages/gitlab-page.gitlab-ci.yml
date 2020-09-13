@@ -49,26 +49,18 @@ pylint:
         
 pages:
     stage: deploy
-    dependencies: 
-        - pylint
-    before_script:
-        - apt-get update -y
-        - apt-get install zip unzip -y
+    
     script:
         - mkdir .public 
-        - set +e
-        - curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
-        - if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
-        - set -e
-        # Add/update content
-        - mkdir -p .public/$CI_COMMIT_REF_NAME
-        - cp -r public/* .public
-        # Zip the content and publish the zip again
-        - zip -r content.zip .public
+        - cp index.html .public
         - mv .public public
+        
+        
     artifacts:
         paths:
         - public
+
+
 
 
 mrpost:
