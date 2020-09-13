@@ -18,5 +18,5 @@ variables:
  
  
 include:
-  - project: 'sven.hinrichs/GitLabCI'
+  - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/Pages/gitlab-page.gitlab-ci.yml'
