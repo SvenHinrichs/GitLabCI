@@ -123,7 +123,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 					print("Don´t create Reference File for "+ "'"+i+"' " +".This Package is on the WhiteList.")
 					#WhiteList.remove(x)
 					#Ref.remove(i)
-					break
+					continue
 			'''if i.find("DataBase")> -1:
 				continue
 			if i.find("Obsolete") > -1:
