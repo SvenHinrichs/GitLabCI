@@ -105,20 +105,25 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
 		
-		print((Ref))
-		print(len(Ref))
+		
+		'''
+		for i in Ref:
+			for x in WhiteList:
+				if i.find(x)> -1 :
+					print("Don´t create Reference File for "+ "'"+i+"' " +".This Package is on the WhiteList.")
+					#WhiteList.remove(x)
+					Ref.remove(i)'''
+					
+		
+		
 		
 		for i in Ref:
 			for x in WhiteList:
 				if i.find(x)> -1 :
-					print("Don´t create Reference File for "+ i +".Model is on the WhiteList.")
+					print("Don´t create Reference File for "+ "'"+i+"' " +".This Package is on the WhiteList.")
 					#WhiteList.remove(x)
-					Ref.remove(i)
+					#Ref.remove(i)
 					break
-		
-		print(len(Ref))
-		
-		for i in Ref:
 			'''if i.find("DataBase")> -1:
 				continue
 			if i.find("Obsolete") > -1:
