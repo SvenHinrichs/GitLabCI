@@ -105,8 +105,18 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
 		
-		
-	
+		for i in WhiteList:
+			print(i)
+			for x in Ref:
+				if x.find(i)> -1 :
+					print("Don´t create Reference File for "+ "'"+x+"' " +".This Package is on the WhiteList.")
+					#WhiteList.remove(x)
+					Ref.remove(x)
+					continue
+				else:
+					continue
+		'''
+		print(Ref)
 		for i in Ref:
 			print(i)
 			for x in WhiteList:
@@ -117,8 +127,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 					break
 				else:
 					continue
-		
-		
+		'''
 		
 		for i in Ref:
 			
