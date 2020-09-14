@@ -344,7 +344,7 @@ if __name__ == '__main__':
 		single_package = None
 
 	if args.check_ref:
-		print("Bin Drin")
+		
 		ret_val = create_ReferenceResults(tool = args.tool,
                            package = single_package,
                            path = args.path,

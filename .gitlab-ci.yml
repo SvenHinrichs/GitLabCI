@@ -65,6 +65,8 @@ RegressionTest_Check_References:
         expire_in: 7 day 
     allow_failure: true 
     except:
+        - master
+        - development
         - external_pull_requests
     only:
         variables:
