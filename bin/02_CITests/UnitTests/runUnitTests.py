@@ -112,8 +112,9 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			for x in WhiteList:
 				if i.find(x)> -1 :
 					print("Don´t create Reference File for "+ i +".Model is on the WhiteList.")
+					#WhiteList.remove(x)
 					Ref.remove(i)
-					continue
+					break
 		
 		print(len(Ref))
 		
