@@ -89,26 +89,42 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			
 	Ref_Whitelist = open(".."+os.sep+"bin"+os.sep+"03_WhiteLists"+os.sep+"ref_Whitelist.txt", "r")
 	WhiteList = []
+	'''
+	line = Ref_Whitelist.readline()
+	if len(line) == 0:
+		print("Leere Zeile")
+		print(line)
+	else:
+		line = line.replace('\n','')
+		line = line.replace("'",'')
+		WhiteList.append(line)
+	Ref_Whitelist.close()'''
 	for x in Ref_Whitelist:
-		x = x.replace('\n','')
-		x = x.replace("'",'')
-		
-		WhiteList.append(x)
-		
+		x = x.strip()
+		if len(x) == 0:
+			continue
+		else:
+			WhiteList.append(x)
 	
-	
+	Ref_Whitelist.close()
 	if mos_list is not None:
-		
 		for i in mos_list:
 			name = i
 			name = name[:name.rfind(".")]
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
-		print(Ref)
+		for z in WhiteList:
+			for i in Ref:
+				if  i.find(z) > -1:
+					Ref.remove(i)
+		
+		
+		'''
 		for i in WhiteList:
 			print(i)
 			for x in Ref:
 				if x.find(i)> -1 :
+					print("Aussortiert")
 					print(i)
 					print(x)
 					print("Don´t create Reference File for "+ "'"+x+"' " +".This Package is on the WhiteList.")
@@ -116,7 +132,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 					Ref.remove(x)
 					continue
 				else:
-					continue
+					continue'''
 		print(Ref)
 		'''
 		print(Ref)
