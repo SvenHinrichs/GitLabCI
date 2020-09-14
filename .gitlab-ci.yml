@@ -52,7 +52,7 @@ RegressionTest_Check_References:
         - cd ${CI_PROJECT_NAME}
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ../bin/06_Configfiles/EOF
         - if cat ../bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            model=$(git diff --raw HEAD^1);
+            model=$(git status);
             echo $model; 
             message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
             git status; 
