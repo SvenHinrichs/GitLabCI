@@ -76,7 +76,8 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	ut = u.Tester(tool=tool)
 	ut.batchMode(False)
 	ut.setLibraryRoot(".")
-	
+	exitFile = ".."+os.sep+"bin"+os.sep+"06_Configfiles"+os.sep+"exit.sh"
+	Exit = open(exitFile, "w")
 	Ref_List = []
 	'''if mos_list is not None:
 		ut.setSinglePackage(self.package)
@@ -86,7 +87,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		#ut.showGUI(self.show_gui)
 		retVal = ut.run()'''
 			
-	Ref_Whitelist = open("../bin/03_WhiteLists/ref_Whitelist.txt", "r")
+	Ref_Whitelist = open(".."+os.sep+"bin"+os.sep+"03_WhiteLists"+os.sep+"ref_Whitelist.txt", "r")
 	WhiteList = []
 	for x in Ref_Whitelist:
 		WhiteList.append(x)
@@ -134,8 +135,12 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue
+		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 1")
+        Exit.close()	
 	if len(mos_list) == 0:
 		print("All Reference files exists. Now the CI Tests will starts")
+		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
+        Exit.close()
 		sys.exit(0)
 		
 
