@@ -51,9 +51,9 @@ RegressionTest_Check_References:
         - git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Airflow  --tool dymola -n 2 --check-ref -p AixLib < ../bin/06_Configfiles/EOF
-        - message="Automatic push of the CI with new regression reference files"
+        - message="Automatic push of the CI with new regression reference files. Pull the new Files before push."
         - git add .
-        - git commit -m "message"
+        - git commit -m "$message"
         - git push git@github.com:${Github_Repository}.git
         - exit 1
     
