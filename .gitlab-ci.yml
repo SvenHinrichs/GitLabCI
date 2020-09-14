@@ -2,6 +2,7 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
+    - Ref_Check
     - deleteBranch
     - SetSettings
     - CheckSettings
@@ -21,8 +22,52 @@ variables:
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
     
-include:
-  - project: 'EBC/EBC_all/gitlab_ci/templates'
-    file:  'modelica-ci-tests/CheckConfiguration/check_settings.gitlab-ci.yml'
-  
-  
+
+RegressionTest_Check_References:
+    stage: Ref_Check
+    services:
+        -  docker
+    before_script:
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        
+        ## Push new Reference files to Branch
+        - mkdir CorrectedVersion
+        - cd  CorrectedVersion
+        - git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
+        - cd AixLib && python ..\bin\02_CITests\UnitTests\runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ..\bin\06_Configfiles\EOF
+        - message="Automatic push of the CI with new regression reference files"
+        - git add .
+        - git commit -m "message"
+        - git push git@github.com:${Github_Repository}.git
+        - exit 1
+    
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/AixLib.Airflow-log.txt
+            - AixLib/AixLib.Airflow-Errorlog.txt
+        expire_in: 7 day 
+    allow_failure: true 
+    except:
+        - external_pull_requests
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
+
+
