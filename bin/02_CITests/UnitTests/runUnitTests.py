@@ -90,6 +90,9 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	Ref_Whitelist = open(".."+os.sep+"bin"+os.sep+"03_WhiteLists"+os.sep+"ref_Whitelist.txt", "r")
 	WhiteList = []
 	for x in Ref_Whitelist:
+		x = x.replace('\n','')
+		x = x.replace("'",'')
+		
 		WhiteList.append(x)
 		
 	print(WhiteList)
