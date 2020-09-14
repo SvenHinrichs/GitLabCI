@@ -136,11 +136,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			retVal = ut.run()
 			continue
 		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 1")
-        Exit.close()	
+		Exit.close()	
 	if len(mos_list) == 0:
 		print("All Reference files exists. Now the CI Tests will starts")
 		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
-        Exit.close()
+		Exit.close()
 		sys.exit(0)
 		
 
