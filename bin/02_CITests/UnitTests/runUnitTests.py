@@ -86,17 +86,35 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		#ut.showGUI(self.show_gui)
 		retVal = ut.run()'''
 			
+	Ref_Whitelist = open("../bin/03_WhiteLists/ref_Whitelist.txt", "r")
+	WhiteList = []
+	for x in Ref_Whitelist:
+		WhiteList.append(x)
 		
+	print(WhiteList)
+	
 	if mos_list is not None:
 		
 		for i in mos_list:
 			name = i
 			name = name[:name.rfind(".")]
-			
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
+		
+		print((Ref))
+		print(len(Ref))
+		
 		for i in Ref:
-			if i.find("DataBase")> -1:
+			for x in WhiteList:
+				if i.find(x)> -1 :
+					print("Don´t create Reference File for "+ i +".Model is on the WhiteList."
+					Ref.remove(i)
+					continue
+		
+		print(len(Ref))
+		
+		for i in Ref:
+			'''if i.find("DataBase")> -1:
 				continue
 			if i.find("Obsolete") > -1:
 				continue
@@ -105,22 +123,21 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			if i.find("UsersGuide") > -1:
 				continue
 			if i.find("Utilities") > -1:
-				continue			
-			
+				continue'''			
 			print("Generate new Reference File for "+i)
 			#name = i.replace("_",".")
 			#name = name[:name.rfind(".")]
 			ut.setSinglePackage(i)
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
-			ut.showGUI(True)
+			ut.showGUI(False)
 			
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue
 	if len(mos_list) == 0:
 		print("All Reference files exists. Now the CI Tests will starts")
-		exit(0)
+		sys.exit(0)
 		
 
 
