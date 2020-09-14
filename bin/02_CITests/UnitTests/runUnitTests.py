@@ -95,7 +95,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		
 		WhiteList.append(x)
 		
-	print(WhiteList)
+	
 	
 	if mos_list is not None:
 		
@@ -114,6 +114,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 					continue
 				else:
 					continue
+		print(Ref)
 		'''
 		print(Ref)
 		for i in Ref:
