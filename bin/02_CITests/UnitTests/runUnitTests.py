@@ -107,6 +107,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			WhiteList.append(x)
 	
 	Ref_Whitelist.close()
+	
 	if mos_list is not None:
 		for i in mos_list:
 			name = i
@@ -116,37 +117,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		for z in WhiteList:
 			for i in Ref:
 				if  i.find(z) > -1:
+					print("Don´t Create Reference files for Package "+z+ ". This Package is on the WhiteList") 
+					
 					Ref.remove(i)
 		
 		
-		'''
-		for i in WhiteList:
-			print(i)
-			for x in Ref:
-				if x.find(i)> -1 :
-					print("Aussortiert")
-					print(i)
-					print(x)
-					print("Don´t create Reference File for "+ "'"+x+"' " +".This Package is on the WhiteList.")
-					#WhiteList.remove(x)
-					Ref.remove(x)
-					continue
-				else:
-					continue'''
-		print(Ref)
-		'''
-		print(Ref)
-		for i in Ref:
-			print(i)
-			for x in WhiteList:
-				if i.find(x)> -1 :
-					print("Don´t create Reference File for "+ "'"+i+"' " +".This Package is on the WhiteList.")
-					#WhiteList.remove(x)
-					Ref.remove(i)
-					break
-				else:
-					continue
-		'''
 		if len(Ref) == 0:
 			print("All Reference files exists, except the Models on WhiteList.")
 			Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
