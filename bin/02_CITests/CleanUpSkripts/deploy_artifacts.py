@@ -40,12 +40,12 @@ def sort_mo_models():
 
 	
 def copy_txt(reffile):
-	os.mkdir('Artifacts')
+	os.mkdir('Referencefiles')
 	for i in reffile:
 		refName = i.split(os.sep)
 		refName = refName[len(refName)-1]
 		print(refName)
-		shutil.copy(i, 'Artifacts'+os.sep+refName)
+		shutil.copy(i, 'Referencefiles'+os.sep+refName)
 	
 if  __name__ == '__main__':
 	'''parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')

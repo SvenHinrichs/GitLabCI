@@ -56,6 +56,7 @@ RegressionTest_Check_References:
             echo $model;
             echo $model >  ../bin/03_WhiteLists/changedmodels.txt;
             cd .. && python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
+            ls ;
             message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
             git add AixLib/Resources/ReferenceResults/Dymola;
             git commit -m "$message";
@@ -68,7 +69,7 @@ RegressionTest_Check_References:
     artifacts:
         when: on_failure
         paths:
-            - Artifacts
+            - Referencefiles
         expire_in: 7 day 
     allow_failure: true 
     except:
