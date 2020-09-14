@@ -107,7 +107,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		for i in Ref:
 			for x in WhiteList:
 				if i.find(x)> -1 :
-					print("Don´t create Reference File for "+ i +".Model is on the WhiteList."
+					print("Don´t create Reference File for "+ i +".Model is on the WhiteList.")
 					Ref.remove(i)
 					continue
 		
@@ -131,7 +131,6 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
 			ut.showGUI(False)
-			
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue

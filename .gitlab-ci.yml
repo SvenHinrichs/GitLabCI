@@ -55,8 +55,7 @@ RegressionTest_Check_References:
         - git add .
         - git commit -m "$message"
         - git push git@github.com:${Github_Repository}.git
-        - exit 1
-    
+        
     artifacts:
         when: on_failure
         paths:
