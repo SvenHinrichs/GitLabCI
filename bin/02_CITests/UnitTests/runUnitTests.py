@@ -106,8 +106,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		Ref = list(set(Ref_List))
 		print(Ref)
 		for i in WhiteList:
+			print(i)
 			for x in Ref:
 				if x.find(i)> -1 :
+					print(i)
+					print(x)
 					print("Don´t create Reference File for "+ "'"+x+"' " +".This Package is on the WhiteList.")
 					#WhiteList.remove(x)
 					Ref.remove(x)
