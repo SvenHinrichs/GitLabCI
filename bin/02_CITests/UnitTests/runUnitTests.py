@@ -104,9 +104,8 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			name = name[:name.rfind(".")]
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
-		
+		print(Ref)
 		for i in WhiteList:
-			print(i)
 			for x in Ref:
 				if x.find(i)> -1 :
 					print("Don´t create Reference File for "+ "'"+x+"' " +".This Package is on the WhiteList.")
@@ -128,7 +127,12 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 				else:
 					continue
 		'''
-		
+		if len(Ref) == 0:
+			print("All Reference files exists, except the Models on WhiteList.")
+			Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
+			Exit.close()
+			exit(0)
+			
 		for i in Ref:
 			
 			'''if i.find("DataBase")> -1:
@@ -154,7 +158,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 1")
 		Exit.close()	
 	if len(mos_list) == 0:
-		print("All Reference files exists. Now the CI Tests will starts")
+		print("All Reference files exists.")
 		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
 		Exit.close()
 		sys.exit(0)
