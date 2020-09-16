@@ -62,7 +62,7 @@ RegressionTest_Check_References:
             git push git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
             ls ;
-            cd .. &&  mv /${CI_PROJECT_NAME}/Referencefiles /Referencefiles; 
+            mv /Referencefiles ../Referencefiles; 
             ls;
             exit 1;
           else
