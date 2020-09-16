@@ -70,8 +70,8 @@ RegressionTest_Check_References:
     artifacts:
         when: on_failure
         paths:
-            - Referencefiles
-            - GitLabCI/Referencefiles
+            - public
+            
         expire_in: 7 day 
     allow_failure: true 
     except:
