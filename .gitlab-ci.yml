@@ -46,6 +46,7 @@ RegressionTest_Check_References:
     script:
         
         ## Push new Reference files to Branch
+        - mkdir public
         - mkdir CorrectedVersion
         - cd  CorrectedVersion
         - git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git
@@ -61,9 +62,7 @@ RegressionTest_Check_References:
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
-            ls ;
-            mv Referencefiles/ ../Referencefiles; 
-            ls;
+            mv Referencefiles/ ../../public/Referencefiles;
             exit 1;
           else
             exit 0 ;
