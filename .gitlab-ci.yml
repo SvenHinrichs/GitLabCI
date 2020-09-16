@@ -61,7 +61,9 @@ RegressionTest_Check_References:
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
-            cd .. &&  mv ${CI_PROJECT_NAME}/Referencefiles Referencefiles; 
+            ls ;
+            cd .. &&  mv /${CI_PROJECT_NAME}/Referencefiles /Referencefiles; 
+            ls;
             exit 1;
           else
             exit 0 ;
@@ -70,6 +72,7 @@ RegressionTest_Check_References:
         when: on_failure
         paths:
             - Referencefiles
+            - GitLabCI/Referencefiles
         expire_in: 7 day 
     allow_failure: true 
     except:
