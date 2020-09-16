@@ -74,10 +74,8 @@ RegressionTest_Check_References:
             
         expire_in: 7 day 
     allow_failure: true 
-    except:
-        - external_pull_requests
+   
     only:
-        variables:
-            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
-
+        - external_pull_requests
+       
 
