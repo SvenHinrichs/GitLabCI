@@ -15,6 +15,7 @@ variables:
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
+
 pylint:
     stage: compile
     image: python:3.6
@@ -46,7 +47,7 @@ pylint:
         - echo "Pylint score was $score"
         - anybadge --value=$score --file=.public/$CI_COMMIT_REF_NAME/pylint.svg pylint
         - pylint --output-format=jsonextended --disable=import-error --load-plugins=pylint_json2html **/*.py | tee .public/$CI_COMMIT_REF_NAME/pylint.json || pylint-exit $?
-        - pylint-json2html -f jsonextended -o .public/$CI_COMMIT_REF_NAME/pylint.html < .public/$CI_COMMIT_REF_NAME/pylint.json
+        - pylint-json2html -f jsonextended -o .public/$CI_COMMIT_REF_NAME/index.html < .public/$CI_COMMIT_REF_NAME/pylint.json
         # todo integrate, that batch in readme.md is changed automaticly for branches
         # - sed -i 's/pylint](.*)/pylint]( test )/g' README.md
 
@@ -62,7 +63,7 @@ pages:
     
     script:
         - mkdir public 
-        - cp index.html public
+        - cp .public/$CI_COMMIT_REF_NAME/index.html .public
         - mv .public public
         
         
