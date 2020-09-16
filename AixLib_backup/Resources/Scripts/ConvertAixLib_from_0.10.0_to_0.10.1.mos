@@ -1,6 +1,0 @@
-clear
-
-convertClear();
-
-convertClass("AixLib.DataBase.ThermalMachines.HeatPump", "AixLib.DataBase.HeatPump");
-convertClass("AixLib.DataBase.ThermalMachines.Chiller", "AixLib.DataBase.Chiller");

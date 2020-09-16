@@ -6,9 +6,11 @@
 .project
 .pydevproject
 
+
 # Windows Office #
 ##################
 ~$*
+
 
 # pip install #
 ###############
@@ -17,6 +19,7 @@
 *.eggs
 dist
 *.pypirc
+
 
 # PyCharm #
 ###########
@@ -67,6 +70,3 @@ success
 HTML-logfile.txt
 #Ignore Dymola License log
 Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt
-# Ignore StyleLogs
-*StyleCheckLog.html
-*StyleErrorLog.html

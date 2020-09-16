@@ -17,7 +17,6 @@ class Reg_Reference(object):
 		Name = Name.replace("AixLib","")
 		Name = Name.replace(".",os.sep)
 		resource_file_path = "Resources"+os.sep+"Scripts"+os.sep+"Dymola"+os.sep+Name
-		print(resource_file_path)
 		#resource_file_path = "Resources"+os.sep+"Scripts"+os.sep+"Dymola"
 		
 		mos_list = []
@@ -83,13 +82,13 @@ class Reg_Reference(object):
 								if ref_txt == t:
 									mos_list.remove(t)
 									
-								
+		'''						
 		if len(mos_list) > 0:
 			for i in mos_list:
 				print("Reference file " + i.replace(".","_")+".txt does not yet exist")
 				continue
 			print("Create new Reference files")
-		
+		'''
 		return mos_list
 	
 	def create_ReferenceResults(self):

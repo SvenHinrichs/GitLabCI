@@ -76,7 +76,8 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	ut = u.Tester(tool=tool)
 	ut.batchMode(False)
 	ut.setLibraryRoot(".")
-	
+	exitFile = ".."+os.sep+"bin"+os.sep+"06_Configfiles"+os.sep+"exit.sh"
+	Exit = open(exitFile, "w")
 	Ref_List = []
 	'''if mos_list is not None:
 		ut.setSinglePackage(self.package)
@@ -86,17 +87,50 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		#ut.showGUI(self.show_gui)
 		retVal = ut.run()'''
 			
-		
+	Ref_Whitelist = open(".."+os.sep+"bin"+os.sep+"03_WhiteLists"+os.sep+"ref_Whitelist.txt", "r")
+	WhiteList = []
+	'''
+	line = Ref_Whitelist.readline()
+	if len(line) == 0:
+		print("Leere Zeile")
+		print(line)
+	else:
+		line = line.replace('\n','')
+		line = line.replace("'",'')
+		WhiteList.append(line)
+	Ref_Whitelist.close()'''
+	for x in Ref_Whitelist:
+		x = x.strip()
+		if len(x) == 0:
+			continue
+		else:
+			WhiteList.append(x)
+	
+	Ref_Whitelist.close()
+	
 	if mos_list is not None:
-		
 		for i in mos_list:
 			name = i
 			name = name[:name.rfind(".")]
-			
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
+		for z in WhiteList:
+			for i in Ref:
+				if  i.find(z) > -1:
+					print("Don´t Create Reference files for Package "+z+ ". This Package is on the WhiteList") 
+					
+					Ref.remove(i)
+		
+		
+		if len(Ref) == 0:
+			print("All Reference files exists, except the Models on WhiteList.")
+			Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
+			Exit.close()
+			exit(0)
+			
 		for i in Ref:
-			if i.find("DataBase")> -1:
+			
+			'''if i.find("DataBase")> -1:
 				continue
 			if i.find("Obsolete") > -1:
 				continue
@@ -105,22 +139,24 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			if i.find("UsersGuide") > -1:
 				continue
 			if i.find("Utilities") > -1:
-				continue			
-			
+				continue'''			
 			print("Generate new Reference File for "+i)
 			#name = i.replace("_",".")
 			#name = name[:name.rfind(".")]
 			ut.setSinglePackage(i)
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
-			ut.showGUI(True)
-			
+			ut.showGUI(False)
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue
+		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 1")
+		Exit.close()	
 	if len(mos_list) == 0:
-		print("All Reference files exists. Now the CI Tests will starts")
-		exit(0)
+		print("All Reference files exists.")
+		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
+		Exit.close()
+		sys.exit(0)
 		
 
 
@@ -344,7 +380,7 @@ if __name__ == '__main__':
 		single_package = None
 
 	if args.check_ref:
-		print("Bin Drin")
+		
 		ret_val = create_ReferenceResults(tool = args.tool,
                            package = single_package,
                            path = args.path,
