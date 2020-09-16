@@ -63,7 +63,7 @@ pages:
     
     script:
         - mkdir public 
-        - cp .public/$CI_COMMIT_REF_NAME/index.html .public
+        - cp .public/$CI_COMMIT_REF_NAME/index.html public
         - mv .public public
         
         
