@@ -56,7 +56,7 @@ RegressionTest_Check_References:
             echo $model;
             echo $model >  ../bin/03_WhiteLists/changedmodels.txt;
             cd .. && python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
-            cd .. &&  mv {CI_PROJECT_NAME}/Referencefiles Referencefiles; 
+            cd .. &&  mv ${CI_PROJECT_NAME}/Referencefiles Referencefiles; 
             message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
             git add AixLib/Resources/ReferenceResults/Dymola;
             git commit -m "$message";
