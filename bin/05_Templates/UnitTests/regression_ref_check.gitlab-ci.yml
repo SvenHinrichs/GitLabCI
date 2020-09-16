@@ -5,6 +5,7 @@ stages:
     - Ref_Check
     
 
+
 RegressionTest_Check_References:
     stage: Ref_Check
     services:
@@ -28,28 +29,36 @@ RegressionTest_Check_References:
     script:
         
         ## Push new Reference files to Branch
+        - mkdir public
         - mkdir CorrectedVersion
         - cd  CorrectedVersion
         - git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
-        - info yes
-        - cd AixLib && python ..\bin\02_CITests\UnitTests\runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib 
-        - message="Automatic push of the CI with new regression reference files"
-        - git add .
-        - git commit -m "$message"
-        - git push git@github.com:${Github_Repository}.git
-        - exit 1
-    
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ../bin/06_Configfiles/EOF
+        - if cat ../bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            model=$(git diff --raw HEAD^1);
+            echo $model;
+            echo $model >  ../bin/03_WhiteLists/changedmodels.txt;
+            cd .. && python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
+            message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
+            git add AixLib/Resources/ReferenceResults/Dymola;
+            git commit -m "$message";
+            git push git@github.com:${Github_Repository}.git;
+            rm bin/06_Configfiles/exit.sh;
+            mv Referencefiles/ ../../public/Referencefiles;
+            exit 1;
+          else
+            exit 0 ;
+          fi
     artifacts:
         when: on_failure
         paths:
-            - AixLib/AixLib.Airflow-log.txt
-            - AixLib/AixLib.Airflow-Errorlog.txt
+            - public
+            
         expire_in: 7 day 
-    allow_failure: true 
-    except:
-        - external_pull_requests
+    
+   
     only:
-        variables:
-            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
+        - external_pull_requests
+       
 
