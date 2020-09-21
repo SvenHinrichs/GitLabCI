@@ -109,11 +109,16 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	Ref_Whitelist.close()
 	
 	if mos_list is not None:
+		for z in mos_list:
+			print("No Reference files for Model " +z)
+		
 		for i in mos_list:
 			name = i
 			name = name[:name.rfind(".")]
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
+		
+		
 		for z in WhiteList:
 			for i in Ref:
 				if  i.find(z) > -1:
