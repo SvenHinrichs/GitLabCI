@@ -22,7 +22,7 @@ Check_Model_Change:
             echo "Skip CI Tests";
             exit 1;
           fi
-    allow_failure: true  
+    #allow_failure: true  
     except:
         - external_pull_requests
     only:
