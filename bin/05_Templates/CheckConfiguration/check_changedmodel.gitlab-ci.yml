@@ -24,6 +24,7 @@ Check_Model_Change:
             echo "No Modelica .mo Models was changed";
             echo "Skip CI Tests";
             exit 1;
+          fi
     allow_failure: true  
     except:
         - external_pull_requests
