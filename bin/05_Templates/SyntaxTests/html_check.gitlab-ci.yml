@@ -191,7 +191,7 @@ HTML_Check:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-
+    when: always 
             
 #mrpost:
 #    stage: post
