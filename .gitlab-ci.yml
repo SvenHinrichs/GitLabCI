@@ -27,6 +27,8 @@ include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/CheckConfiguration/check_changedmodel.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
