@@ -1,0 +1,32 @@
+#!/bin/bash
+image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+
+stages:
+    - ChangedModels
+
+
+Check_Model_Change:
+    stage: ChangedModels
+    services:
+        - docker
+        
+   
+
+    script:
+        - model=$(git diff --raw HEAD^1)
+        - echo $model
+        - echo $model >  bin/03_WhiteLists/changedmodels.txt
+        - if cat bin/03_WhiteLists/changedmodels.txt | grep ".mo"; then
+            echo "Modelica .mo Models was changed in last Push";
+            echo "Start CI Tests for changed models";
+            exit 0;
+          else
+            echo "No Modelica .mo Models was changed";
+            echo "Skip CI Tests";
+            exit 1;
+    allow_failure: true  
+    except:
+        - external_pull_requests
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/

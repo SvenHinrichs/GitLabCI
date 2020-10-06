@@ -54,7 +54,7 @@ RegressionTest_Check_References:
         when: on_failure
         paths:
             - public
-            
+            - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
     
    

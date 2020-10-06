@@ -175,7 +175,7 @@ HTML_Check:
             git add . ;
             echo $message;
             git commit -m "$message" ;
-            git push git@github.com:${Github_Repository}.git;
+            git push --force git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
             exit 1;
           else 
