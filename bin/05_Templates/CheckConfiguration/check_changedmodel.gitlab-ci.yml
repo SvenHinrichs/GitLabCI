@@ -20,7 +20,7 @@ Check_Model_Change:
           else
             echo "No Modelica .mo Models was changed";
             echo "Skip CI Tests";
-            exit 1;
+            exit 2;
           fi
     #allow_failure: true  
     except:
