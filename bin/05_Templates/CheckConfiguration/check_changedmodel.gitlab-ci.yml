@@ -9,14 +9,11 @@ Check_Model_Change:
     stage: ChangedModels
     services:
         - docker
-        
-   
-
     script:
         - model=$(git diff --raw HEAD^1)
         - echo $model
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - if cat bin/03_WhiteLists/changedmodels.txt | grep ".mo"; then
+        - echo $model >  bin/03_WhiteLists/changed_model.sh
+        - if cat bin/06_Configfiles/changed_model.sh | grep ".mo"; then
             echo "Modelica .mo Models was changed in last Push";
             echo "Start CI Tests for changed models";
             exit 0;
