@@ -33,6 +33,10 @@ Check_Airflow_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
  
 Check_BoundaryConditions_changed_models:
     stage: Check
@@ -62,7 +66,11 @@ Check_BoundaryConditions_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
             
+        
 Check_Controls_changed_models:
     stage: Check
     services:
@@ -91,7 +99,11 @@ Check_Controls_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-            
+    retry:
+        max: 2
+        when: runner_system_failure  
+        
+    
 Check_Electrical_changed_models:
     stage: Check
     services:
@@ -120,6 +132,9 @@ Check_Electrical_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
             
             
 Check_FastHVAC_changed_models:
@@ -150,7 +165,11 @@ Check_FastHVAC_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-            
+    retry:
+        max: 2
+        when: runner_system_failure  
+        
+    
 Check_Fluid_changed_models:
     stage: Check
     services:
@@ -179,6 +198,11 @@ Check_Fluid_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+            
             
 Check_Media_changed_models:
     stage: Check
@@ -208,6 +232,10 @@ Check_Media_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             -  AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 #Check_Systems_changed_models:
 #    stage: Check
 #    services:
@@ -263,3 +291,7 @@ Check_ThermalZones_changed_models:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    

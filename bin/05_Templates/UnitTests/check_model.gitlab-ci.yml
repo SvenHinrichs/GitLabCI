@@ -27,7 +27,10 @@ Check_AixLib_Airflow:
     only:
         - external_pull_requests
 
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 
 
 Check_AixLib_BoundaryConditions:
@@ -52,7 +55,11 @@ Check_AixLib_BoundaryConditions:
     
     only:
         - external_pull_requests
-            
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+ 
 Check_AixLib_Controls:
     stage: Check
     services:
@@ -74,7 +81,11 @@ Check_AixLib_Controls:
      
     only:
         - external_pull_requests
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+        
 Check_AixLib_Electrical:
     stage: Check
     services:
@@ -96,7 +107,11 @@ Check_AixLib_Electrical:
     
     only:
         - external_pull_requests
-            
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+ 
 Check_AixLib_FastHVAC:
     stage: Check
     services:
@@ -118,7 +133,11 @@ Check_AixLib_FastHVAC:
      
     only:
         - external_pull_requests
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+    
 Check_AixLib_Fluid:
     stage: Check
     services:
@@ -140,7 +159,10 @@ Check_AixLib_Fluid:
      
     only:
         - external_pull_requests
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Check_AixLib_Media:
     stage: Check
     services:
@@ -162,7 +184,10 @@ Check_AixLib_Media:
      
     only:
         - external_pull_requests
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
         
         
 #Check_AixLib_Systems:
@@ -209,4 +234,7 @@ Check_AixLib_ThermalZones:
      
     only:
         - external_pull_requests
- 
+    retry:
+        max: 2
+        when: runner_system_failure  
+    

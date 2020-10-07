@@ -25,7 +25,11 @@ Simulate_AixLib_Airflow:
         expire_in: 7 day 
    
     only:
-        - external_pull_requests    
+        - external_pull_requests   
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 
 Simulate_AixLib_BoundaryConditions:
     stage: Simulate
@@ -48,7 +52,10 @@ Simulate_AixLib_BoundaryConditions:
     
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Simulate_AixLib_Controls:
     stage: Simulate
     services:
@@ -70,7 +77,10 @@ Simulate_AixLib_Controls:
      
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Simulate_AixLib_Electrical:
     stage: Simulate
     services:
@@ -92,7 +102,10 @@ Simulate_AixLib_Electrical:
      
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Simulate_AixLib_FastHVAC:
     stage: Simulate
     services:
@@ -114,7 +127,10 @@ Simulate_AixLib_FastHVAC:
     
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Simulate_AixLib_Fluid:
     stage: Simulate
     services:
@@ -136,7 +152,10 @@ Simulate_AixLib_Fluid:
     
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 Simulate_AixLib_Media:
     stage: Simulate
     services:
@@ -158,7 +177,10 @@ Simulate_AixLib_Media:
          
     only:
         - external_pull_requests    
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 #Simulate_AixLib_Systems:
 #    stage: Simulate
 #    services:
@@ -202,3 +224,7 @@ Simulate_AixLib_ThermalZones:
           
     only:
         - external_pull_requests    
+    retry:
+        max: 2
+        when: runner_system_failure  
+    

@@ -33,6 +33,10 @@ Simulate_Airflow_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 
 Simulate_BoundaryConditions_Changed_model:
     stage: Simulate
@@ -62,7 +66,11 @@ Simulate_BoundaryConditions_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
             - AixLib/**/*
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+            
 Simulate_Controls_Changed_model:
     stage: Simulate
     services:
@@ -91,7 +99,10 @@ Simulate_Controls_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
         changes:
             - AixLib/**/*
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
             
 Simulate_Electrical_Changed_model:
     stage: Simulate
@@ -121,6 +132,10 @@ Simulate_Electrical_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
             
 Simulate_FastHVAC_Changed_model:
     stage: Simulate
@@ -150,6 +165,10 @@ Simulate_FastHVAC_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
             
 Simulate_Fluid_Changed_model:
     stage: Simulate
@@ -179,7 +198,11 @@ Simulate_Fluid_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
             - AixLib/**/*
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+            
 Simulate_Media_Changed_model:
     stage: Simulate
     services:
@@ -208,6 +231,11 @@ Simulate_Media_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+            
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 #Simulate_Systems_Changed_model:
 #    stage: Simulate
 #    services:
@@ -261,3 +289,7 @@ Simulate_ThermalZones_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
