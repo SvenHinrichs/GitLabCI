@@ -32,7 +32,7 @@ Check_Airflow_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
  
 Check_BoundaryConditions_changed_models:
     stage: Check
@@ -61,7 +61,7 @@ Check_BoundaryConditions_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
             
 Check_Controls_changed_models:
     stage: Check
@@ -90,7 +90,7 @@ Check_Controls_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
             
 Check_Electrical_changed_models:
     stage: Check
@@ -119,7 +119,7 @@ Check_Electrical_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*"
+            - AixLib/**/*
             
             
 Check_FastHVAC_changed_models:
@@ -149,7 +149,7 @@ Check_FastHVAC_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
             
 Check_Fluid_changed_models:
     stage: Check
@@ -178,7 +178,7 @@ Check_Fluid_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
             
 Check_Media_changed_models:
     stage: Check
@@ -207,7 +207,7 @@ Check_Media_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            -  AixLib/*
+            -  AixLib/**/*
 #Check_Systems_changed_models:
 #    stage: Check
 #    services:
@@ -262,4 +262,4 @@ Check_ThermalZones_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/*
+            - AixLib/**/*
