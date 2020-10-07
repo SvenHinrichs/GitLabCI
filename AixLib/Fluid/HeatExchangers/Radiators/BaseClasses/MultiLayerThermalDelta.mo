@@ -130,12 +130,12 @@ dT_R=TOut - TAir;
       points={{-11,27.52},{-11,32},{-17,32},{-17,41.1}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radiator_wall.port_b, twoStar_RadEx.conv) annotation (Line(
-      points={{-11,27.52},{-11,32},{41,32},{41,40.88}},
+  connect(radiator_wall.port_b, twoStar_RadEx.convPort) annotation (Line(
+      points={{-11,27.52},{-11,32},{41,32},{41,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(twoStar_RadEx.rad, radiative) annotation (Line(
-      points={{41,61.01},{41,68.505},{31,68.505},{31,81}},
+  connect(twoStar_RadEx.radPort, radiative) annotation (Line(
+      points={{41,62.11},{41,68.505},{31,68.505},{31,81}},
       color={95,95,95},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -269,12 +269,13 @@ dT_R=TOut - TAir;
   </li>
 </ul>
 </html>
-", info="<html><h4>
+", info=
+    "<html><h4>
   <span style=\"color:#008000\">Overview</span>
 </h4>
 <p>
   Model of the multi layers of heat exchanger. From the water flow is
   the convective and radiative heat output calculated.
-</p>
+</p>l l l l
 </html>"));
 end MultiLayerThermalDelta;

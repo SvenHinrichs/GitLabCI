@@ -96,11 +96,12 @@ equation
   </li>
 </ul>
 </html>
-", info="<html><h4>
+", info=
+    "<html><h4>
   <span style=\"color:#008000\">Overview</span>
 </h4>
 <p>
   Simple one layer wall for a radiator
-</p>
+</p>l l l l
 </html>"));
 end RadiatorWall;

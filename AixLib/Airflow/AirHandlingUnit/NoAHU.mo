@@ -8,19 +8,18 @@ model NoAHU "No AHU"
   Modelica.Blocks.Sources.Constant dummyT_supplyAirOut(k=293)
     annotation (Placement(transformation(extent={{38,48},{56,66}})));
   Modelica.Blocks.Sources.CombiTimeTable zeroPowerElAndHeat1(
-    tableOnFile=true,
+    tableOnFile=false,
     table=[0,0.0],
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
 equation
   connect(dummyPhi_supply.y, phi_supply)
-    annotation (Line(points={{56.9,9},{78,9},{78,5},{99,5}},
-                                                       color={0,0,127}));
+    annotation (Line(points={{56.9,9},{99,9}},         color={0,0,127}));
   connect(zeroVFlowOut.y, Vflow_out)
     annotation (Line(points={{63,-66},{54,-66},{54,-100}}, color={0,0,127}));
   connect(dummyT_supplyAirOut.y, T_supplyAirOut)
-    annotation (Line(points={{56.9,57},{99,57},{99,49}},    color={0,0,127}));
+    annotation (Line(points={{56.9,57},{99,57},{99,57}},    color={0,0,127}));
   connect(zeroPowerElAndHeat1.y[1], QflowC) annotation (Line(points={{-73,-66},
           {-66,-66},{-62,-66},{-62,-100}}, color={0,0,127}));
   connect(zeroPowerElAndHeat1.y[1], QflowH) annotation (Line(points={{-73,-66},
