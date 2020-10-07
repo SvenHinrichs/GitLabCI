@@ -62,7 +62,6 @@ model AHU
   Modelica.SIunits.MassFraction X_eta(start=0.008);
   Real phi_sup(start=0.5);
 
-
   inner Modelica.SIunits.HeatFlowRate Q_dot_C(start=1e-3);
   inner Modelica.SIunits.HeatFlowRate Q_dot_H(start=1e-3);
   Modelica.SIunits.Power P_el_sup(start=1e-3);
