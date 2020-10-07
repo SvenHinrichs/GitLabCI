@@ -36,9 +36,8 @@ Regression_changed_overall_coverage:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
             
     
             
@@ -74,9 +73,8 @@ Regressiontest_changed_AixLib_Airflow:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
             
 Regressiontest_changed_AixLib_BoundaryConditions:
     stage: RegressionTest
@@ -110,9 +108,8 @@ Regressiontest_changed_AixLib_BoundaryConditions:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
 
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
             
 Regressiontest_changed_AixLib_Controls:
     stage: RegressionTest
@@ -146,9 +143,8 @@ Regressiontest_changed_AixLib_Controls:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -223,9 +219,8 @@ Regressiontest_changed_AixLib_Fluid:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
 
 Regressiontest_changed_AixLib_Media:
     stage: RegressionTest
@@ -258,9 +253,8 @@ Regressiontest_changed_AixLib_Media:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/    
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
 
 Regressiontest_changed_AixLib_Systems:
     stage: RegressionTest
@@ -293,9 +287,8 @@ Regressiontest_changed_AixLib_Systems:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            
 
 Regressiontest_changed_AixLib_ThermalZones:
     stage: RegressionTest
@@ -328,6 +321,5 @@ Regressiontest_changed_AixLib_ThermalZones:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
         changes:
-            - "*.mo"
-            - "*.mos"
-            - "*.txt"
+            - AixLib/*
+            

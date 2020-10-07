@@ -41,8 +41,7 @@ Style_Check_ChangedModel:
         - export PYTHONIOENCODING=utf-8 # just in case
     only:
         changes:
-            - "*.mo"
-            - /AixLib/*
+            - AixLib/*
             
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
