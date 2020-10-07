@@ -163,6 +163,8 @@ HTML_Check:
         - export PYTHONIOENCODING=utf-8 # just in case
 
     script:
+        - model=$(git diff --raw HEAD^1)
+        - echo $model
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             mkdir CorrectedVersion;
@@ -191,7 +193,7 @@ HTML_Check:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    when: always 
+    
             
 #mrpost:
 #    stage: post
