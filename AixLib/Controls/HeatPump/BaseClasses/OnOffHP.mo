@@ -1,4 +1,4 @@
-﻿within AixLib.Controls.HeatPump.BaseClasses;
+within AixLib.Controls.HeatPump.BaseClasses;
 model OnOffHP "Converts a desired temperature to a certain compressor speed"
   extends AixLib.Controls.HeatPump.BaseClasses.PartialTSetToNSet;
   parameter Real hys "Hysteresis of controller";

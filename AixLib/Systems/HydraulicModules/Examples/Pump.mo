@@ -1,4 +1,4 @@
-﻿within AixLib.Systems.HydraulicModules.Examples;
+within AixLib.Systems.HydraulicModules.Examples;
 model Pump "Test for unmixed pump circuit"
   extends Modelica.Icons.Example;
 
