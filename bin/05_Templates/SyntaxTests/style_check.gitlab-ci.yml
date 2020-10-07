@@ -42,8 +42,8 @@ Style_Check_ChangedModel:
     only:
         changes:
             - "*.mo"
-            - AixLib/*
-
+            - /AixLib/*
+            
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         
