@@ -1,4 +1,4 @@
-﻿within AixLib.Systems.HydraulicModules.BaseClasses;
+within AixLib.Systems.HydraulicModules.BaseClasses;
 partial model BasicPumpInterface "Pump interface for different pump types"
  extends AixLib.Fluid.Interfaces.PartialTwoPortInterface;
 
@@ -9,7 +9,7 @@ partial model BasicPumpInterface "Pump interface for different pump types"
 
 
   // Initialization
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter Modelica.SIunits.Temperature T_start=303.15
     "Initialization temperature" annotation(Dialog(tab="Initialization"));
 
   // Dynamics

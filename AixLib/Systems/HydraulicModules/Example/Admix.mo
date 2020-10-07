@@ -88,9 +88,7 @@ equation
     Icon(graphics,
          coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=800,
-	 outputInterval=60,
-	 Tolerance=1e-06),
+    experiment(StopTime=800),
     Documentation(revisions="<html><ul>
   <li>October 25, 2017, by Alexander Kümpel:<br/>
     Transfer from ZUGABE to AixLib.

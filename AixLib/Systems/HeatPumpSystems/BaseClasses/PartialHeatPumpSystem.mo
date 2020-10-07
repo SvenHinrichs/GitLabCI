@@ -1,4 +1,4 @@
-﻿within AixLib.Systems.HeatPumpSystems.BaseClasses;
+within AixLib.Systems.HeatPumpSystems.BaseClasses;
 partial model PartialHeatPumpSystem
   "Partial model containing the basic heat pump block and different control blocks(optional)"
     extends AixLib.Fluid.Interfaces.PartialFourPortInterface(
@@ -275,8 +275,8 @@ partial model PartialHeatPumpSystem
     "Fixed ambient temperature for heat transfer of sensors at the condenser side"
     annotation (Dialog(tab="Assumptions", group="Temperature sensors",enable=transferHeat));
 
-  replaceable Fluid.Interfaces.PartialFourPortInterface heatPump constrainedby
-    Fluid.Interfaces.PartialFourPortInterface annotation (Placement(
+  replaceable Fluid.Interfaces.PartialFourPortInterface heatPump constrainedby Fluid.Interfaces.PartialFourPortInterface
+                                              annotation (Placement(
         transformation(extent={{-26,-24},{18,20}})),
       __Dymola_choicesAllMatching=true);
   Fluid.Movers.SpeedControlled_y           pumSin(
@@ -386,6 +386,7 @@ partial model PartialHeatPumpSystem
     final tableUpp=tableUpp,
     final use_deFro=use_deFro,
     final minIceFac=minIceFac,
+    final deltaIceFac=deltaIceFac,
     final use_chiller=use_chiller,
     final calcPel_deFro=calcPel_deFro,
     final use_antFre=use_antFre,

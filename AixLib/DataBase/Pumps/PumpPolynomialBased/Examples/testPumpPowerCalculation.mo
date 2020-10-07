@@ -52,10 +52,8 @@ model testPumpPowerCalculation
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
   annotation (
-    experiment(StopTime=5,
- Interval=60,
-      Tolerance=1e-06),
-    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/PumpPolynomialBased/Examples/testPumpPowerCalculation.mos"),
+    experiment(StopTime=5),
+    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/ControlPump/Examples/testPumpPowerCalculation.mos"),
     Documentation(info="<html><p>
   simulate and plot script
 </p>

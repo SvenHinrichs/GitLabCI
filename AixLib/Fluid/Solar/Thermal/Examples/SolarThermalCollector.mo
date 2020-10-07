@@ -3,8 +3,8 @@ model SolarThermalCollector
   "Example to demonstrate the function of the solar thermal collector model"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = AixLib.Media.Water constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium model";
+  replaceable package Medium = AixLib.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium model";
 
   Sources.Boundary_pT                source(
     nPorts=1,
@@ -72,10 +72,8 @@ equation
   connect(hotSummerDay.y[2], solarThermal.Irradiation)
     annotation (Line(points={{-5,72},{10,72},{10,10}},   color={0,0,127}));
   annotation (
-    experiment(StopTime=82600, Interval=3600,  Tolerance=1e-06),
- __Dymola_experimentSetupOutput(events=false),
- __Dymola_Commands(file="modelica://AixLib/Resources/Scripts/Dymola/Fluid/Solar/Thermal/Examples/SolarThermalCollector.mos"
-        "Simulate and plot"),
+    experiment(StopTime=82600, Interval=3600),
+    __Dymola_experimentSetupOutput(events=false),
     Documentation(info="<html><p>
   <b><span style=\"color: #008000;\">Overview</span></b>
 </p>
@@ -119,5 +117,7 @@ equation
     Implemented
   </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file(ensureSimulated=true)=
+        "Resources/Scripts/Dymola/Fluid/Solar/Thermal/Examples/SolarThermalCollector.mos"));
 end SolarThermalCollector;

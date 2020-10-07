@@ -1,4 +1,4 @@
-﻿within AixLib.Airflow.AirHandlingUnit;
+within AixLib.Airflow.AirHandlingUnit;
 model AHU
   "Air Handling Unit with Heat Recovery System, Cooling, Heating, Humidification (adiabatic), Dehumidification"
   extends AixLib.Airflow.AirHandlingUnit.BaseClasses.PartialAHU;
@@ -49,8 +49,6 @@ model AHU
   inner Modelica.SIunits.Temp_K T_sup(start=295.15);
   inner Modelica.SIunits.Temp_K T_eta(start=296.15);
   inner Modelica.SIunits.Temp_K T_6;//(start=296.15);
-
-
 
   inner Modelica.SIunits.MassFraction X_oda(start=0.007);
   Modelica.SIunits.MassFraction X_odaSat(start=0.007);

@@ -183,11 +183,13 @@ equation
     for i in 1:numZones loop
       if zoneParam[i].HeaterOn then
         connect(zone[i].PHeater, PHeater[i]);
+        connect(TSetHeat[i], zone[i].TSetHeat);
       else
         PHeater[i] = 0;
       end if;
       if zoneParam[i].CoolerOn then
         connect(zone[i].PCooler, PCooler[i]);
+        connect(TSetCool[i], zone[i].TSetCool);
       else
         PCooler[i] = 0;
       end if;
@@ -223,12 +225,6 @@ equation
           90,67.45},{90,-76},{60,-76},{-90,-76},{-90,-40},{-100,-40}},
                                                                    color={191,0,
           0}));
-  connect(TSetHeat, zone.TSetHeat) annotation (Line(points={{-40,-100},{69.5,
-          -100},{69.5,51.05}},
-                         color={0,0,127}));
-  connect(TSetCool, zone.TSetCool) annotation (Line(points={{-80,-100},{64.88,
-          -100},{64.88,51.05}},
-                          color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

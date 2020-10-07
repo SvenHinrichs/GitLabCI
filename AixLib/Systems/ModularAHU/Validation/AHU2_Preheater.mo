@@ -1,4 +1,4 @@
-﻿within AixLib.Systems.ModularAHU.Validation;
+within AixLib.Systems.ModularAHU.Validation;
 model AHU2_Preheater "Heating register of ahu 2 in E.ON ERC testhall"
   extends Modelica.Icons.Example;
     package MediumWater = AixLib.Media.Water
@@ -166,8 +166,8 @@ equation
 </html>"),
     experiment(
       StopTime=7200,
-   Interval=60,
-      Tolerance=1e-06),
-    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/Systems/ModularAHU/Validation/AHU2_Preheater.mos"
+      __Dymola_fixedstepsize=1,
+      __Dymola_Algorithm="Dassl"),
+    __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/Systems/ModularAHU/Validation/Preheater.mos"
         "Simulate and Plot"));
 end AHU2_Preheater;
