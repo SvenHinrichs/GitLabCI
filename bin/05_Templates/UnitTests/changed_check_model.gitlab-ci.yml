@@ -31,8 +31,8 @@ Check_Airflow_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
  
 Check_BoundaryConditions_changed_models:
     stage: Check
@@ -60,9 +60,8 @@ Check_BoundaryConditions_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change        
-            
+        changes:
+            - "*.mo"
             
 Check_Controls_changed_models:
     stage: Check
@@ -90,8 +89,8 @@ Check_Controls_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change        
+        changes:
+            - "*.mo"
             
 Check_Electrical_changed_models:
     stage: Check
@@ -119,8 +118,8 @@ Check_Electrical_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change        
+        changes:
+            - "*.mo"
             
             
 Check_FastHVAC_changed_models:
@@ -149,8 +148,8 @@ Check_FastHVAC_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change        
+        changes:
+            - "*.mo"
             
 Check_Fluid_changed_models:
     stage: Check
@@ -178,9 +177,9 @@ Check_Fluid_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
-        
+        changes:
+            - "*.mo"
+            
 Check_Media_changed_models:
     stage: Check
     services:
@@ -207,8 +206,8 @@ Check_Media_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
 #Check_Systems_changed_models:
 #    stage: Check
 #    services:
@@ -262,5 +261,5 @@ Check_ThermalZones_changed_models:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
