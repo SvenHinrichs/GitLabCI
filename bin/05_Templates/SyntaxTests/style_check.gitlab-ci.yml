@@ -43,8 +43,7 @@ Style_Check_ChangedModel:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - "*.mo"
-            - AixLib/*
+            - AixLib/*.{mo}
     except:
         - external_pull_requests
     
