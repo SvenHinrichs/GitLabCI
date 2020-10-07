@@ -1,4 +1,4 @@
-within AixLib.ThermalZones.ReducedOrder.ThermalZone;
+﻿within AixLib.ThermalZones.ReducedOrder.ThermalZone;
 model ThermalZoneMoistAirExchange
   "Thermal zone model considering moisture balance with ventilation, infiltration and internal gains"
   extends ThermalZoneMoistAir(SumQLat_flow(nu=3));

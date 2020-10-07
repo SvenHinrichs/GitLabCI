@@ -89,7 +89,6 @@ equation
          coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=800,
- 
   Tolerance=1e-06),
     Documentation(revisions="<html><ul>
   <li>October 25, 2017, by Alexander Kümpel:<br/>

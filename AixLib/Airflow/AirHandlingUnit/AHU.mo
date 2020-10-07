@@ -50,6 +50,8 @@ model AHU
   inner Modelica.SIunits.Temp_K T_eta(start=296.15);
   inner Modelica.SIunits.Temp_K T_6;//(start=296.15);
 
+
+
   inner Modelica.SIunits.MassFraction X_oda(start=0.007);
   Modelica.SIunits.MassFraction X_odaSat(start=0.007);
   Modelica.SIunits.MassFraction X_odaRaw(start=0.007);

@@ -63,7 +63,7 @@ model testPumpHeadCalculation
 
   annotation (
     experiment(StopTime=5,
-	  Interval=60,
+   Interval=60,
       Tolerance=1e-06),
     __Dymola_Commands(file(ensureSimulated=true) = "Resources/Scripts/Dymola/DataBase/Pumps/PumpPolynomialBased/Examples/testPumpHeadCalculation.mos"),
     Documentation(info="<html><p>

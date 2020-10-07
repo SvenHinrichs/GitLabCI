@@ -86,7 +86,6 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     experiment(StopTime=600,
-
   Tolerance=1e-06),
     Documentation(revisions="<html><ul>
   <li>October 25, 2017, by Alexander Kümpel:<br/>

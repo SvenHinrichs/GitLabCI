@@ -65,7 +65,7 @@ model testPumpSpeedCalculation
 
   annotation (
     experiment(StopTime=5,
-	  Interval=60,
+   Interval=60,
       Tolerance=1e-06),
     Documentation(info="<html><p>
   simulate and plot script

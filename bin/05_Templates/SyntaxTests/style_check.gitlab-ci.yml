@@ -39,6 +39,15 @@ Style_Check_ChangedModel:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
+        changes:
+            - "*.mo"
+    except:
+        - external_pull_requests
+    
+    
     script:
         - model=$(git diff --raw HEAD^1)
         - echo $model
@@ -56,12 +65,6 @@ Style_Check_ChangedModel:
         expire_in: 7 day 
     allow_failure: true 
     
-    except:
-        - external_pull_requests
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - "*.mo"
+  
                 
      
