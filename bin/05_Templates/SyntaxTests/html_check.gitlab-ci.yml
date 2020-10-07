@@ -27,7 +27,7 @@ trigger_branch:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            echo "Test was not successful!"
+            echo "Test was not successful!";
             exit 1;
           else 
             exit 0; 
@@ -61,8 +61,8 @@ Check_HTML:
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            echo "Second test was not successful!"
-            echo "Read HTML - logfile!"
+            echo "Second test was not successful!" ;
+            echo "Read HTML - logfile!" ;
             exit 1;
           else 
             exit 0; 
@@ -78,7 +78,7 @@ Check_HTML:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
 
             
-Merge_Checks:
+Merge_HTML_Check:
     stage: HTMLCheck
     services:
         -  docker
@@ -94,10 +94,11 @@ Merge_Checks:
     script:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s "AixLib" --correct-view --log  --align --font
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            echo "HTML Check was not successfully"
-            echo "Read HTML - logfile!"
+            echo "HTML Check was not successfully";
+            echo "Read HTML - logfile!";
             exit 1;
           else 
+            "HTML Check was successful!";
             exit 0; 
           fi
     artifacts:
