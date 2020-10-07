@@ -40,10 +40,13 @@ Style_Check_ChangedModel:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     only:
+        changes:
+            - "*.mo"
+            - AixLib/*
+
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/*
+        
     except:
         - external_pull_requests
     

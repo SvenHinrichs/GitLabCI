@@ -1,8 +1,7 @@
 within AixLib;
 package Airflow "Package to compute airflow and contaminant transport between rooms"
   extends Modelica.Icons.Package;
-
-
+ 
 annotation (
   preferredView="info",
   Documentation(info="<html>This package provides models to compute the air flow between different
