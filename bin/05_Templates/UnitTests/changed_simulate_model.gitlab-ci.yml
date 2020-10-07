@@ -31,8 +31,8 @@ Simulate_Airflow_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
 
 Simulate_BoundaryConditions_Changed_model:
     stage: Simulate
@@ -60,8 +60,8 @@ Simulate_BoundaryConditions_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
 
 Simulate_Controls_Changed_model:
     stage: Simulate
@@ -89,8 +89,8 @@ Simulate_Controls_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
 
             
 Simulate_Electrical_Changed_model:
@@ -119,8 +119,8 @@ Simulate_Electrical_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
             
 Simulate_FastHVAC_Changed_model:
     stage: Simulate
@@ -148,8 +148,8 @@ Simulate_FastHVAC_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
             
 Simulate_Fluid_Changed_model:
     stage: Simulate
@@ -177,8 +177,8 @@ Simulate_Fluid_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
 
 Simulate_Media_Changed_model:
     stage: Simulate
@@ -206,8 +206,8 @@ Simulate_Media_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change       
+        changes:
+            - "*.mo"
 #Simulate_Systems_Changed_model:
 #    stage: Simulate
 #    services:
@@ -259,5 +259,5 @@ Simulate_ThermalZones_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"

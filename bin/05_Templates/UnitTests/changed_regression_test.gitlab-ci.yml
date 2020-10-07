@@ -35,8 +35,11 @@ Regression_changed_overall_coverage:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
+            
     
             
 Regressiontest_changed_AixLib_Airflow:
@@ -70,8 +73,10 @@ Regressiontest_changed_AixLib_Airflow:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
             
 Regressiontest_changed_AixLib_BoundaryConditions:
     stage: RegressionTest
@@ -104,8 +109,10 @@ Regressiontest_changed_AixLib_BoundaryConditions:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
 
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
             
 Regressiontest_changed_AixLib_Controls:
     stage: RegressionTest
@@ -138,8 +145,10 @@ Regressiontest_changed_AixLib_Controls:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -213,8 +222,10 @@ Regressiontest_changed_AixLib_Fluid:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
 
 Regressiontest_changed_AixLib_Media:
     stage: RegressionTest
@@ -246,8 +257,10 @@ Regressiontest_changed_AixLib_Media:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/    
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
 
 Regressiontest_changed_AixLib_Systems:
     stage: RegressionTest
@@ -279,8 +292,10 @@ Regressiontest_changed_AixLib_Systems:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
 
 Regressiontest_changed_AixLib_ThermalZones:
     stage: RegressionTest
@@ -312,5 +327,7 @@ Regressiontest_changed_AixLib_ThermalZones:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
-    needs:
-        - Check_Model_Change
+        changes:
+            - "*.mo"
+            - "*.mos"
+            - "*.txt"
