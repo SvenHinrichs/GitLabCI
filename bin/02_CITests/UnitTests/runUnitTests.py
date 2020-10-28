@@ -76,6 +76,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	ut = u.Tester(tool=tool)
 	ut.batchMode(False)
 	ut.setLibraryRoot(".")
+	
 	exitFile = ".."+os.sep+"bin"+os.sep+"06_Configfiles"+os.sep+"exit.sh"
 	Exit = open(exitFile, "w")
 	Ref_List = []
@@ -109,18 +110,25 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	Ref_Whitelist.close()
 	
 	if mos_list is not None:
+		for z in mos_list:
+			print("No Reference result for Model " +z)
+		
 		for i in mos_list:
 			name = i
 			name = name[:name.rfind(".")]
 			Ref_List.append(name)
 		Ref = list(set(Ref_List))
-		for z in WhiteList:
-			for i in Ref:
-				if  i.find(z) > -1:
-					print("Don´t Create Reference files for Package "+z+ ". This Package is on the WhiteList") 
-					
-					Ref.remove(i)
 		
+		Err_List = []
+		for z in Ref:
+			for i in WhiteList:
+				if  z.find(i) > -1:
+					print("Don´t Create Reference results for Package "+z+ " : This Package is on the WhiteList") 
+					Err_List.append(z)
+				else:
+					continue
+		for x in Err_List:
+			Ref.remove(x)
 		
 		if len(Ref) == 0:
 			print("All Reference files exists, except the Models on WhiteList.")
@@ -149,7 +157,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			ut.showGUI(False)
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
+			# Create new file? - y
+			# accept new file and update reference files? - n
 			continue
+			
+			
 		Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 1")
 		Exit.close()	
 	if len(mos_list) == 0:

@@ -17,6 +17,7 @@ Check_Airflow_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Airflow" -p AixLib/package.mo -CM
     artifacts:
@@ -25,19 +26,13 @@ Check_Airflow_changed_models:
             - AixLib/AixLib.Airflow-log.txt
             - AixLib/AixLib.Airflow-Errorlog.txt
         expire_in: 7 day 
-     
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-    
- 
+                
 Check_BoundaryConditions_changed_models:
     stage: Check
     services:
@@ -50,6 +45,7 @@ Check_BoundaryConditions_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.BoundaryConditions" -p AixLib/package.mo -CM
     artifacts:
@@ -58,19 +54,15 @@ Check_BoundaryConditions_changed_models:
             - AixLib/AixLib.BoundaryConditions-log.txt
             - AixLib/AixLib.BoundaryConditions-Errorlog.txt
         expire_in: 7 day 
-     
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
             
-        
+            
+            
 Check_Controls_changed_models:
     stage: Check
     services:
@@ -83,6 +75,7 @@ Check_Controls_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Controls" -p AixLib/package.mo -CM
     artifacts:
@@ -91,19 +84,13 @@ Check_Controls_changed_models:
             - AixLib/AixLib.Controls-log.txt
             - AixLib/AixLib.Controls-Errorlog.txt
         expire_in: 7 day 
-     
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-        
-    
+            
 Check_Electrical_changed_models:
     stage: Check
     services:
@@ -116,6 +103,7 @@ Check_Electrical_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Electrical" -p AixLib/package.mo -CM
     artifacts:
@@ -124,17 +112,13 @@ Check_Electrical_changed_models:
             - AixLib/AixLib.Electrical-log.txt
             - AixLib/AixLib.Electrical-Errorlog.txt
         expire_in: 7 day 
-     
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
+            
             
             
 Check_FastHVAC_changed_models:
@@ -149,6 +133,7 @@ Check_FastHVAC_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.FastHVAC" -p AixLib/package.mo -CM
     artifacts:
@@ -157,19 +142,14 @@ Check_FastHVAC_changed_models:
             - AixLib/AixLib.FastHVAC-log.txt
             - AixLib/AixLib.FastHVAC-Errorlog.txt
         expire_in: 7 day 
-     
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-        
-    
+            
+            
 Check_Fluid_changed_models:
     stage: Check
     services:
@@ -182,6 +162,7 @@ Check_Fluid_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Fluid" -p AixLib/package.mo -CM
     artifacts:
@@ -190,20 +171,13 @@ Check_Fluid_changed_models:
             - AixLib/AixLib.Fluid-log.txt
             - AixLib/AixLib.Fluid-Errorlog.txt
         expire_in: 7 day 
-    
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-    
-            
-            
+
 Check_Media_changed_models:
     stage: Check
     services:
@@ -216,6 +190,7 @@ Check_Media_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Media" -p AixLib/package.mo -CM
     artifacts:
@@ -224,18 +199,13 @@ Check_Media_changed_models:
             - AixLib/AixLib.Media-log.txt
             - AixLib/AixLib.Media-Errorlog.txt
         expire_in: 7 day 
-    
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            -  AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-    
+
 #Check_Systems_changed_models:
 #    stage: Check
 #    services:
@@ -248,6 +218,7 @@ Check_Media_changed_models:
 #        - export PYTHONIOENCODING=utf-8 # just in case
 #    script:
 #        - model=$(git diff --raw HEAD^1)
+#        - echo $model
 #        - echo $model >  bin/03_WhiteLists/changedmodels.txt
 #        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Systems" -p AixLib/package.mo -CM
 #    artifacts:
@@ -275,6 +246,7 @@ Check_ThermalZones_changed_models:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw HEAD^1)
+        - echo $model
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.ThermalZones" -p AixLib/package.mo -CM
     artifacts:
@@ -283,15 +255,9 @@ Check_ThermalZones_changed_models:
             - AixLib/AixLib.ThermalZones-log.txt
             - AixLib/AixLib.ThermalZones-Errorlog.txt
         expire_in: 7 day 
-    
+    allow_failure: true 
     except:
         - external_pull_requests
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-    

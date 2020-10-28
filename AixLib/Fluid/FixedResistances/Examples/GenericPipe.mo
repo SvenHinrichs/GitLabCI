@@ -1,4 +1,4 @@
-within AixLib.Fluid.FixedResistances.Examples;
+﻿within AixLib.Fluid.FixedResistances.Examples;
 model GenericPipe
 
   extends Modelica.Icons.Example;
@@ -45,6 +45,8 @@ model GenericPipe
     redeclare package Medium = Medium,
     pipeModel="SimplePipe",
     length=10,
+    withInsulation=true,
+    withConvection=true,
     T_start=323.15,
     m_flow_nominal=0.3,
     parameterPipe=DataBase.Pipes.Copper.Copper_28x1(),
@@ -95,7 +97,7 @@ equation
     experiment(Tolerance=1e-6,
       StopTime=10800,
       Interval=60,
-      __Dymola_Algorithm="Lsodar"),
+      __Dymola_Algorithm="dassl"),
     experimentSetupOutput(events=false),
     __Dymola_Commands(file(ensureSimulated=true)=
         "Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/GenericPipe.mos"

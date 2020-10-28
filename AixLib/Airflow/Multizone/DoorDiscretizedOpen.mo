@@ -1,6 +1,6 @@
 within AixLib.Airflow.Multizone;
 model DoorDiscretizedOpen
-  "The Doors model using discretization along height coordinate"
+  "Door model using discretization along height coordinate"
   extends AixLib.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
   parameter Real CD=0.65 "Discharge coefficient"
