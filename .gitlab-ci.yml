@@ -49,7 +49,7 @@ RegressionTest_Check_References:
             echo $pushmodel;
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
-            message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
+            message="Automatic push of CI - *ebc-aixlib-bot* with new regression reference files. Pull the new Files before push. ";
             git add $pushmodel;
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git;
