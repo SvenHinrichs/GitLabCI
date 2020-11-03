@@ -42,7 +42,7 @@ RegressionTest_Check_References:
         - if cat ../bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             pushmodel=$(git ls-files --others --exclude-standard);
             model=$(git diff --raw HEAD^1);
-            echo $model;
+            echo $pushmodel;
             echo $model >  ../bin/03_WhiteLists/changedmodels.txt;
             cd .. && python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
             message="Automatic push of the CI with new regression reference files. Pull the new Files before push. [skip ci]";
