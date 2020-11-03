@@ -1,3 +1,9 @@
 #!/bin/sh
-y
+Y
+Y
+Y
+Y
+Y
+Y
+
 
