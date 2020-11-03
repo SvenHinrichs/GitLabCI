@@ -58,6 +58,10 @@ status
 stop
 success
 
+### funnel_comp
+
+
+
 
 # Ignore files created by BuildingsPy #
 #######################################
@@ -65,6 +69,7 @@ success
 *simulator*.log
 *unitTests*.log
 *comparison*.log
+AixLib/funnel_comp/*.csv
 
 #Ignore files create by HTML Check
 HTML-logfile.txt
