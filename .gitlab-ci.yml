@@ -43,6 +43,7 @@ RegressionTest_Check_References:
         - pwd
         - git ls-files --others --exclude-standard
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            rm -r AixLib/funnel_comp ;
             pushmodel=$(git ls-files --others --exclude-standard);
             model=$(git diff --raw HEAD^1);
             echo $pushmodel;
