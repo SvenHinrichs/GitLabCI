@@ -2,70 +2,48 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
+    - deleteBranch
+    - SetSettings
+    - CheckSettings
     - Ref_Check
-    
+    - build
+    - HTMLCheck
+    - deploy
+    - openMR
+    - post
+    - StyleCheck
+    - Check
+    - Simulate
+    - RegressionTest
+ 
 variables:
     Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
+  
+include:
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/CheckConfiguration/check_settings.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/regression_ref_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/SyntaxTests/html_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/SyntaxTests/style_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/check_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/regression_test.gitlac-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/simulate_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/changed_simulate_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/changed_check_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'modelica-ci-tests/UnitTests/changed_regression_test.gitlab-ci.yml'
 
-RegressionTest_Check_References:
-    stage: Ref_Check
-    services:
-        -  docker
-    before_script:
-        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-        - eval $(ssh-agent -s)
-        - mkdir -p ~/.ssh
-        - ssh-keyscan github.com >> ~/.ssh/known_hosts
-        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
-        - chmod 600 ~/.ssh/id_rsa
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
-        
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-    script:
-        
-        ## Push new Reference files to Branch
-        - mkdir public
-        - mkdir CorrectedVersion
-        - cd  CorrectedVersion
-        - git clone --single-branch --branch $TARGET_BRANCH git@github.com:${Github_Repository}.git
-        - cd ${CI_PROJECT_NAME}
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib  --tool dymola -n 2 --check-ref -p AixLib < ../bin/06_Configfiles/EOF.sh
-        - cd ..
-        - pwd
-        - git ls-files --others --exclude-standard
-        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
-            rm -r AixLib/funnel_comp ;
-            pushmodel=$(git ls-files --others --exclude-standard);
-            model=$(git diff --raw HEAD^1);
-            echo $pushmodel;
-            echo $model >  bin/03_WhiteLists/changedmodels.txt;
-            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
-            message="Automatic push of CI - *ebc-aixlib-bot* with new regression reference files. Pull the new Files before push. ";
-            git add $pushmodel;
-            git commit -m "$message";
-            git push git@github.com:${Github_Repository}.git;
-            rm bin/06_Configfiles/exit.sh;
-            mv Referencefiles/ ../../public/Referencefiles;
-            exit 1;
-          else
-            exit 0 ;
-          fi
-    artifacts:
-        when: on_failure
-        paths:
-            - public
-            - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
-        expire_in: 7 day 
-    
-   
-    only:
-        - external_pull_requests
+  
+  
+  
