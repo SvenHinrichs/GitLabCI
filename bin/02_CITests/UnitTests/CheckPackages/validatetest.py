@@ -45,10 +45,8 @@ class Git_Repository_Clone(object):
 class ValidateTest(object):
 	"""Class to Check Packages and run CheckModel Tests"""
 	"""Import Python Libraries"""
-	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels,dymola):
-		from dymola.dymola_interface import DymolaInterface
-		from dymola.dymola_exception import DymolaException
-
+	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels,dymola,dymola_exception):
+		
 		self.Package = Package
 		self.Library = Library
 		self.batch = batch
@@ -59,6 +57,7 @@ class ValidateTest(object):
 		self.SimulateExamples = SimulateExamples
 		self.Changedmodels = Changedmodels
 		self.dymola = dymola
+		self.dymola_exception = dymola_exception
 		#self.path = path 
 		###Set Dymola Tool		
 		if tool	 == 'jmodelica':
@@ -71,9 +70,7 @@ class ValidateTest(object):
 			raise ValueError(
                 "Value of 'tool' of constructor 'Tester' must be 'dymola', 'omc' or 'jmodelica'. Received '{}'.".format(tool))
 		
-		RED = '\033[31m'
-		GREEN =  '\033[32m' # Green Text
-	
+		
 		
 	def dym_check_lic(self):
 		from dymola.dymola_interface import DymolaInterface
@@ -289,7 +286,7 @@ class ValidateTest(object):
 		''' Check models and return a Error Log, if the check failed '''
 	def _CheckModelAixLib(self):
 		dymola = self.dymola										
-		
+		dymola_exception = self.dymola_exception
 		try:
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
@@ -329,7 +326,7 @@ class ValidateTest(object):
 				list_mo_models = git_models(".mo",self.Package,list_path)
 				model_list = list_mo_models.sort_mo_models()
 				if len(model_list) == 0:
-					print("No changed models in Package :"+self.Package)
+					print("No changed models in Package: "+self.Package)
 					exit(0)
 				for i in model_list:
 					print("Check Model: "+i)
@@ -357,7 +354,7 @@ class ValidateTest(object):
 			logfile = self.Package+"-log.txt"
 			ValidateTest._WriteErrorlog(self,logfile)
 			return ErrorList
-		except DymolaException as ex:
+		except dymola_exception as ex:
 			print(("2: Error: " + str(ex)))
 		finally:
 			if dymola is not None:
@@ -367,7 +364,10 @@ class ValidateTest(object):
 
 	''' Simulate examples and validation and return a Error log, if the check failed. '''
 	def _SimulateModel(self):
+		
 		dymola = self.dymola
+		dymola_exception = self.dymola_exception
+		
 		### Sets the Dymola path to activate the GUI
 		try:
 			
@@ -436,7 +436,7 @@ class ValidateTest(object):
 			ValidateTest._WriteErrorlog(self,logfile)
 			return ErrorList
 		
-		except DymolaException as ex:
+		except dymola_exception as ex:
 			print(("2: Error: " + str(ex)))
 		finally:
 			if dymola is not None:
@@ -616,8 +616,10 @@ if  __name__ == '__main__':
 	
 	from dymola.dymola_interface import DymolaInterface
 	from dymola.dymola_exception import DymolaException
+	
 	dymola = None
 	try:
+		dymola_exception = DymolaException
 		print("1: Starting Dymola instance")
 		if platform.system()  == "Windows":
 			dymola = DymolaInterface()
@@ -628,7 +630,7 @@ if  __name__ == '__main__':
 		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
 		lic_counter = 0
-		
+		'''
 		while dym_sta_lic_available == False:
 			print("No Dymola License is available")
 			dymola.close()
@@ -645,7 +647,7 @@ if  __name__ == '__main__':
 				if dym_sta_lic_available == False:
 					print("There are currently no available Dymola licenses available. Please try again later.")
 					dymola.close()
-					exit(1)
+					exit(1)'''
 		print(("2: Using Dymola port " + str(dymola._portnumber)))
 		print("Dymola License is available")
 		
@@ -661,7 +663,8 @@ if  __name__ == '__main__':
 								WhiteList = args.WhiteList,
 								SimulateExamples = args.SimulateExamples,
 								Changedmodels = args.Changedmodels,
-								dymola = dymola)
+								dymola = dymola,
+								dymola_exception = dymola_exception)
 								
 		Git_Operation_Class = Git_Repository_Clone(Repository="Repo")
 	
