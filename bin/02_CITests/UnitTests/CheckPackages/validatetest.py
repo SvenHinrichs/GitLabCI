@@ -285,6 +285,10 @@ class ValidateTest(object):
 		
 		''' Check models and return a Error Log, if the check failed '''
 	def _CheckModelAixLib(self):
+		CRED = '\033[91m'
+		CEND = '\033[0m'
+		green = "\033[0;32m"
+		
 		dymola = self.dymola										
 		dymola_exception = self.dymola_exception
 		try:
@@ -305,23 +309,23 @@ class ValidateTest(object):
 				for i in ModelList:
 					result=dymola.checkModel(i)
 					if result == True:
-						print('\n Successful: '+i+'\n')
+						print('\n'+green+' Successful: '+CEND+i+'\n')
 						continue
 					if result == False:
-						print("Check for Model "+i+" failed!")
+						print("Check for Model "+i+CRED" failed!"+CEND)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
-							print('\n Successful: '+i+'\n')
+							print('\n'+ green+ ' Successful: '+CEND+i+'\n')
 							continue
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
-							print('\n Error: '+i+'\n')
+							print('\n'+ CRED+' Error: '+CEND+i+'\n')
 							print(Log)
 			
 			if self.Changedmodels == True:
-				print("Test only changed or new models")
+				print("	Test only changed or new models")
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
 				list_mo_models = git_models(".mo",self.Package,list_path)
 				model_list = list_mo_models.sort_mo_models()
@@ -333,18 +337,18 @@ class ValidateTest(object):
 					result=dymola.checkModel(i)
 					#result=dymola.checkModel(i,simulate=True)
 					if result == True:
-						print('\n Successful: '+i+'\n')
-						#continue
+						print('\n'+green+' Successful: '+CEND+i+'\n')
+						continue
 					if result == False:
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
-							print('\n Successful: '+i+'\n')
+							print('\n'+green+' Successful: '+CEND+i+'\n')
 					
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
-							print('\n Error: '+i+'\n')
+							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							print(Log)
 			
 				
