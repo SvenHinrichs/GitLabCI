@@ -46,6 +46,9 @@ class ValidateTest(object):
 	"""Class to Check Packages and run CheckModel Tests"""
 	"""Import Python Libraries"""
 	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels,dymola):
+		from dymola.dymola_interface import DymolaInterface
+		from dymola.dymola_exception import DymolaException
+
 		self.Package = Package
 		self.Library = Library
 		self.batch = batch
@@ -304,16 +307,16 @@ class ValidateTest(object):
 					exit(1)
 				for i in ModelList:
 					result=dymola.checkModel(i)
-					#result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n Successful: '+i+'\n')
-						#continue
+						continue
 					if result == False:
+						print("Check for Model "+i+" failed!")
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
 							print('\n Successful: '+i+'\n')
-					
+							continue
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
@@ -613,8 +616,8 @@ if  __name__ == '__main__':
 	
 	from dymola.dymola_interface import DymolaInterface
 	from dymola.dymola_exception import DymolaException
+	dymola = None
 	try:
-		
 		print("1: Starting Dymola instance")
 		if platform.system()  == "Windows":
 			dymola = DymolaInterface()
