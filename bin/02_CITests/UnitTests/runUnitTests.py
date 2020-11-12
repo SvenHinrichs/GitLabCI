@@ -301,6 +301,7 @@ if __name__ == '__main__':
 	import argparse
 	import os
 	import sys
+	import time
 	
 	# Configure the argument parser
 	parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
@@ -404,7 +405,7 @@ if __name__ == '__main__':
 
 	
 	
-	if args.coverage_only:
+	elif args.coverage_only:
 		ret_val = _run_coverage_only(batch = args.batch,
                            tool = args.tool,
                            package = single_package,
@@ -412,15 +413,57 @@ if __name__ == '__main__':
                            n_pro = args.number_of_processors,
                            show_gui = args.show_gui)
 		exit(ret_val)
-
-
-	retVal = _runUnitTests(batch = args.batch,
-                           tool = args.tool,
-                           package = single_package,
-                           path = args.path,
-                           n_pro = args.number_of_processors,
-                           show_gui = args.show_gui,
-						   modified_models = args.modified_models)
-	exit(retVal)
-
-#   _runOpenModelicaUnitTests()
+	else:
+		from dymola.dymola_interface import DymolaInterface
+		from dymola.dymola_exception import DymolaException
+		
+		dymola = None
+		try:
+			
+			print("1: Starting Dymola instance")
+			if platform.system()  == "Windows":
+				dymola = DymolaInterface()
+			else:
+				dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+				
+			### Writes all information in the log file, not only the last entries
+			dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
+			dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
+			lic_counter = 0
+			
+			CRED = '\033[91m'
+			CEND = '\033[0m'
+			while dym_sta_lic_available == False:
+				print(CRED+"No Dymola License is available"+CEND)
+				dymola.close()
+				print("Check Dymola license after 60.0 seconds")
+				time.sleep(180.0)
+				### Sets the Dymola path to activate the GUI
+				if platform.system()  == "Windows":
+					dymola = DymolaInterface()
+				else:
+					dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+				dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
+				lic_counter = lic_counter +1 	
+				if lic_counter > 30:
+					if dym_sta_lic_available == False:
+						print("There are currently no available Dymola licenses available. Please try again later.")
+						dymola.close()
+						exit(1)
+			print(("2: Using Dymola port " + str(dymola._portnumber)))
+			print("Dymola License is available")
+			retVal = _runUnitTests(batch = args.batch,
+								   tool = args.tool,
+								   package = single_package,
+								   path = args.path,
+								   n_pro = args.number_of_processors,
+								   show_gui = args.show_gui,
+								   modified_models = args.modified_models)
+			exit(retVal)
+		except DymolaException as ex:
+			print(("2: Error: " + str(ex)))
+		finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
+			#   _runOpenModelicaUnitTests()

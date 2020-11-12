@@ -458,49 +458,35 @@ class ValidateTest(object):
 		cmd = "cd modelica-ibpsa-master"
 		os.system(cmd)
 		Library = IBPSA/package.mo
-		ut = u.Tester(tool = self.tool)
-		### Set Number of Threads
-		ut.setNumberOfThreads(self.n_pro)
-		### Set GUI Show
-		ut.showGUI(self.show_gui)
-		### Set in Batch Mode
-		ut.batchMode(self.batch)
-		### Sets the Dymola path to activate the GUI
+		dymola = self.dymola
+		dymola_exception = self.dymola_exception
+		try:
 		
-		dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-		### Writes all information in the log file, not only the last entries
-		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-		if not dym_sta_lic_available:
-			dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
-			print("No Dymola License is available")
-			dymola.close()
-			exit(1)
-		else:
-			print("Dymola License is available")
-	
-		
-		PackageCheck = dymola.openModel(Library)
-		if PackageCheck == True:
-			print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
-		elif PackageCheck == None:
-			print("Library Path is wrong. Please Check Path of AixLib Library Path")
-			exit(1)
-		result=dymola.checkModel(self.Package)
-		dymola.savelog(self.Package+"-log.txt")
-		Log = dymola.getLastError()
-		if result == True:
-			print('\n Check of Package '+self.Package+' was Successful! \n')
-			dymola.close()
-			#exit(0)
-		if result == False:
-			print('\n ModelCheck Failed in Package ' + self.Package+ ' Show Savelog \n')
-			print(Log)
-			dymola.clearlog()
-			dymola.close()
-			#exit(1)
-		
-	
+			PackageCheck = dymola.openModel(Library)
+			if PackageCheck == True:
+				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
+			elif PackageCheck == None:
+				print("Library Path is wrong. Please Check Path of AixLib Library Path")
+				exit(1)
+			result=dymola.checkModel(self.Package)
+			dymola.savelog(self.Package+"-log.txt")
+			Log = dymola.getLastError()
+			if result == True:
+				print('\n Check of Package '+self.Package+' was Successful! \n')
+				dymola.close()
+				#exit(0)
+			if result == False:
+				print('\n ModelCheck Failed in Package ' + self.Package+ ' Show Savelog \n')
+				print(Log)
+				dymola.clearlog()
+				dymola.close()
+				#exit(1)
+		except dymola_exception as ex:
+			print(("2: Error: " + str(ex)))
+		finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
 	
 	
 	
@@ -630,9 +616,11 @@ if  __name__ == '__main__':
 		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
 		lic_counter = 0
-		'''
+		
+		CRED = '\033[91m'
+		CEND = '\033[0m'
 		while dym_sta_lic_available == False:
-			print("No Dymola License is available")
+			print(CRED+"No Dymola License is available"+CEND)
 			dymola.close()
 			print("Check Dymola license after 60.0 seconds")
 			time.sleep(180.0)
@@ -647,7 +635,7 @@ if  __name__ == '__main__':
 				if dym_sta_lic_available == False:
 					print("There are currently no available Dymola licenses available. Please try again later.")
 					dymola.close()
-					exit(1)'''
+					exit(1)
 		print(("2: Using Dymola port " + str(dymola._portnumber)))
 		print("Dymola License is available")
 		
