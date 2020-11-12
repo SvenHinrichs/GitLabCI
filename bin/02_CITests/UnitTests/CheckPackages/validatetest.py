@@ -40,13 +40,12 @@ class Git_Repository_Clone(object):
 			print(str(e))
 		
 
-
-
+#class colors(object):
 			  
 class ValidateTest(object):
 	"""Class to Check Packages and run CheckModel Tests"""
 	"""Import Python Libraries"""
-	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels):
+	def __init__(self,Package,Library, batch, tool, n_pro, show_gui, WhiteList,SimulateExamples, Changedmodels,dymola):
 		self.Package = Package
 		self.Library = Library
 		self.batch = batch
@@ -56,7 +55,7 @@ class ValidateTest(object):
 		self.CreateWhiteList = WhiteList
 		self.SimulateExamples = SimulateExamples
 		self.Changedmodels = Changedmodels
-		
+		self.dymola = dymola
 		#self.path = path 
 		###Set Dymola Tool		
 		if tool	 == 'jmodelica':
@@ -68,6 +67,10 @@ class ValidateTest(object):
 		else:
 			raise ValueError(
                 "Value of 'tool' of constructor 'Tester' must be 'dymola', 'omc' or 'jmodelica'. Received '{}'.".format(tool))
+		
+		RED = '\033[31m'
+		GREEN =  '\033[32m' # Green Text
+	
 		
 	def dym_check_lic(self):
 		from dymola.dymola_interface import DymolaInterface
@@ -101,79 +104,58 @@ class ValidateTest(object):
 					model = model.replace(os.sep,".")
 					model = model[model.rfind("IBPSA"):model.rfind(".mo")]
 					ModelList.append(model)
-		#_CheckModel
-		from dymola.dymola_interface import DymolaInterface
-		from dymola.dymola_exception import DymolaException
-		import buildingspy.development.regressiontest as u
+		
+		dymola = self.dymola
+		try:
+			PackageCheck = dymola.openModel(Library)
 			
-		ut = u.Tester(tool = self.tool)
-		### Set Number of Threads
-		ut.setNumberOfThreads(self.n_pro)
-		### Set GUI Show
-		ut.showGUI(self.show_gui)
-		### Set in Batch Mode
-		ut.batchMode(self.batch)
-		### Sets the Dymola path to activate the GUI
-		if platform.system()  == "Windows":
-			dymola = DymolaInterface()
-		else:
-			dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-		### Writes all information in the log file, not only the last entries
-		#dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-		Library = "IBPSA"+os.sep+"IBPSA"+os.sep+"package.mo"
-		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-		if not dym_sta_lic_available:
-			dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
-			print("No Dymola License is available")
+			if PackageCheck == True:
+				print("Found IBPSA Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
+			elif PackageCheck == False:
+				print("Library Path is wrong. Please Check Path of IBPSA Library Path")
+				exit(1)
+			## Check the Package
+			if len(ModelList) == 0:
+				print("Wrong path")
+				exit(1)
+			ErrorList = []	
+			for i in ModelList:
+				result=dymola.checkModel(i)
+				if result == True:
+					print('\n Successful: '+i+'\n')
+				if result == False:
+					print('\ Error: '+i+'\n')
+					Log = dymola.getLastError()
+					print(Log)
+					ErrorList.append(i)
+			dymola.savelog("IBPSA-log.txt")
 			dymola.close()
-			exit(1)
-		else:
-			print("Dymola License is available")
-	
-		PackageCheck = dymola.openModel(Library)
-		
-		if PackageCheck == True:
-			print("Found IBPSA Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
-		elif PackageCheck == False:
-			print("Library Path is wrong. Please Check Path of IBPSA Library Path")
-			exit(1)
-		## Check the Package
-		if len(ModelList) == 0:
-			print("Wrong path")
-			exit(1)
-		ErrorList = []	
-		for i in ModelList:
-			result=dymola.checkModel(i)
-			if result == True:
-				print('\n Successful: '+i+'\n')
-			if result == False:
-				print('\ Error: '+i+'\n')
-				Log = dymola.getLastError()
-				print(Log)
-				ErrorList.append(i)
-		dymola.savelog("IBPSA-log.txt")
-		dymola.close()
-		IBPSA_PackageName = []
-		### Write the Package Names of IBPSA
-		for i in ModelList:
-			i = i.split(".")
-			i = i[1]
-			if i not in IBPSA_PackageName:
-				IBPSA_PackageName.append(i)
-		filename= "bin"+os.sep+"03_WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
-		file = open(filename,"w")
-		
-		
-		for i in IBPSA_PackageName:
-			List  = []
-			for l in ErrorList:
-				Package = l.split(".")[1]
-				if Package == i:
-					List.append(l)
-			file.write(i+"\n"+str(List)+"\n"+"\n")
-		file.close()
-		print("Write Whitelist")
+			IBPSA_PackageName = []
+			### Write the Package Names of IBPSA
+			for i in ModelList:
+				i = i.split(".")
+				i = i[1]
+				if i not in IBPSA_PackageName:
+					IBPSA_PackageName.append(i)
+			filename= "bin"+os.sep+"03_WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
+			file = open(filename,"w")
+			
+			
+			for i in IBPSA_PackageName:
+				List  = []
+				for l in ErrorList:
+					Package = l.split(".")[1]
+					if Package == i:
+						List.append(l)
+				file.write(i+"\n"+str(List)+"\n"+"\n")
+			file.close()
+			print("Write Whitelist")
+		except DymolaException as ex:
+			print(("2: Error: " + str(ex)))
+		finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
 
 
 	''' Write a Error log with all models, that don´t pass the check '''
@@ -303,238 +285,160 @@ class ValidateTest(object):
 		
 		''' Check models and return a Error Log, if the check failed '''
 	def _CheckModelAixLib(self):
-		from dymola.dymola_interface import DymolaInterface
-		from dymola.dymola_exception import DymolaException
-		import buildingspy.development.regressiontest as u
-		ut = u.Tester(tool = self.tool)
-		### Set Number of Threads
-		ut.setNumberOfThreads(self.n_pro)
-		### Set GUI Show
-		ut.showGUI(self.show_gui)
-		### Set in Batch Mode
-		ut.batchMode(self.batch)
-		### Sets the Dymola path to activate the GUI
-		if platform.system()  == "Windows":
-			dymola = DymolaInterface(showwindow=True)
-		else:
-			dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-		### Writes all information in the log file, not only the last entries
-		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-		lic_counter = 0
-		while dym_sta_lic_available == False:
-			print("No Dymola License is available")
-			dymola.close()
-			print("Check Dymola license after 180.0 seconds")
-			time.sleep(180.0)
-			### Sets the Dymola path to activate the GUI
-			if platform.system()  == "Windows":
-				dymola = DymolaInterface(showwindow=True)
-			else:
-				dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-			dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-			lic_counter = lic_counter +1 	
-			if lic_counter > 30:
-				if dym_sta_lic_available == False:
-					print("There are currently no available Dymola licenses available. Please try again later.")
-					dymola.close()
-					exit(1)
-		print("Dymola License is available")
-		'''
-		if not dym_sta_lic_available:
-			dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
-			print("No Dymola License is available")
-			dymola.close()
-			exit(1)
-		else:
-			print("Dymola License is available")'''
-													
+		dymola = self.dymola										
 		
-		
-		PackageCheck = dymola.openModel(self.Library)
-		if PackageCheck == True:
-			print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
-		elif PackageCheck == False:
-			print("Library Path is wrong. Please Check Path of AixLib Library Path")
-			exit(1)
-		## Check the Package	
-		ErrorList = []	
-		if self.Changedmodels == False:
-		
-			ModelList = ValidateTest._CompareWhiteList(self)
-			if len(ModelList) == 0:
-				print("Wrong Path")
+		try:
+			PackageCheck = dymola.openModel(self.Library)
+			if PackageCheck == True:
+				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
+			elif PackageCheck == False:
+				print("Library Path is wrong. Please Check Path of AixLib Library Path")
 				exit(1)
+			## Check the Package	
+			ErrorList = []	
+			if self.Changedmodels == False:
 			
-			for i in ModelList:
-				result=dymola.checkModel(i)
-				#result=dymola.checkModel(i,simulate=True)
-				if result == True:
-					print('\n Successful: '+i+'\n')
-					#continue
-				if result == False:
-					print("Second Check Test for model "+i)
+				ModelList = ValidateTest._CompareWhiteList(self)
+				if len(ModelList) == 0:
+					print("Wrong Path")
+					exit(1)
+				for i in ModelList:
 					result=dymola.checkModel(i)
+					#result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n Successful: '+i+'\n')
-				
+						#continue
 					if result == False:
-						ErrorList.append(i)
-						Log = dymola.getLastError()
-						print('\n Error: '+i+'\n')
-						print(Log)
-		
-		if self.Changedmodels == True:
-			print("Test only changed or new models")
-			list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
-			list_mo_models = git_models(".mo",self.Package,list_path)
-			model_list = list_mo_models.sort_mo_models()
-			if len(model_list) == 0:
-				print("No changed models in Package :"+self.Package)
-				exit(0)
-			for i in model_list:
-				print("Check Model: "+i)
-				result=dymola.checkModel(i)
-				#result=dymola.checkModel(i,simulate=True)
-				if result == True:
-					print('\n Successful: '+i+'\n')
-					#continue
-				if result == False:
-					print("Second Check Test for model "+i)
+						print("Second Check Test for model "+i)
+						result=dymola.checkModel(i)
+						if result == True:
+							print('\n Successful: '+i+'\n')
+					
+						if result == False:
+							ErrorList.append(i)
+							Log = dymola.getLastError()
+							print('\n Error: '+i+'\n')
+							print(Log)
+			
+			if self.Changedmodels == True:
+				print("Test only changed or new models")
+				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
+				list_mo_models = git_models(".mo",self.Package,list_path)
+				model_list = list_mo_models.sort_mo_models()
+				if len(model_list) == 0:
+					print("No changed models in Package :"+self.Package)
+					exit(0)
+				for i in model_list:
+					print("Check Model: "+i)
 					result=dymola.checkModel(i)
+					#result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n Successful: '+i+'\n')
-				
+						#continue
 					if result == False:
-						ErrorList.append(i)
-						Log = dymola.getLastError()
-						print('\n Error: '+i+'\n')
-						print(Log)
-		
+						print("Second Check Test for model "+i)
+						result=dymola.checkModel(i)
+						if result == True:
+							print('\n Successful: '+i+'\n')
+					
+						if result == False:
+							ErrorList.append(i)
+							Log = dymola.getLastError()
+							print('\n Error: '+i+'\n')
+							print(Log)
 			
-		
-		dymola.savelog(self.Package+"-log.txt")
-		dymola.close()
-		logfile = self.Package+"-log.txt"
-		ValidateTest._WriteErrorlog(self,logfile)
-		return ErrorList
+				
+			
+			dymola.savelog(self.Package+"-log.txt")
+			dymola.close()
+			logfile = self.Package+"-log.txt"
+			ValidateTest._WriteErrorlog(self,logfile)
+			return ErrorList
+		except DymolaException as ex:
+			print(("2: Error: " + str(ex)))
+		finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
+	
 
 	''' Simulate examples and validation and return a Error log, if the check failed. '''
 	def _SimulateModel(self):
-		from dymola.dymola_interface import DymolaInterface
-		from dymola.dymola_exception import DymolaException
-		import buildingspy.development.regressiontest as u
-		ut = u.Tester(tool = self.tool)
-		### Set Number of Threads
-		ut.setNumberOfThreads(self.n_pro)
-		### Set GUI Show
-		ut.showGUI(self.show_gui)
-		### Set in Batch Mode
-		ut.batchMode(self.batch)
+		dymola = self.dymola
 		### Sets the Dymola path to activate the GUI
-		if platform.system()  == "Windows":
-			dymola = DymolaInterface()
-		else:
-			dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-		### Writes all information in the log file, not only the last entries
-		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-		lic_counter = 0
-		while dym_sta_lic_available == False:
-			print("No Dymola License is available")
-			dymola.close()
-			print("Check Dymola license after 60.0 seconds")
-			time.sleep(180.0)
-			### Sets the Dymola path to activate the GUI
-			if platform.system()  == "Windows":
-				dymola = DymolaInterface(showwindow=True)
-			else:
-				dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-			dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
-			lic_counter = lic_counter +1 	
-			if lic_counter > 30:
-				if dym_sta_lic_available == False:
-					print("There are currently no available Dymola licenses available. Please try again later.")
-					dymola.close()
-					exit(1)
-		print("Dymola License is available")
-		
-		'''
-		if not dym_sta_lic_available:
-			dymola.ExecuteCommand('DymolaCommands.System.savelog("Log_NO_DYM_STANDARD_LIC_AVAILABLE.txt");')
-			print("No Dymola License is available")
-			dymola.close()
-			exit(1)
-		else:
-			print("Dymola License is available")
-		'''
-		
-		PackageCheck = dymola.openModel(self.Library)
-		if PackageCheck == True:
-			print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
-		elif PackageCheck == None:
-			print("Library Path is wrong. Please Check Path of AixLib Library Path")
-			exit(1)
-		
-		ErrorList = []
-		if self.Changedmodels == False:	
-			ModelList = ValidateTest._listAllExamples(self)
+		try:
 			
-			if len(ModelList) == 0:
-				print("Found no Examples")
-				exit(0)
-			for i in ModelList:
-				result=dymola.checkModel(i,simulate=True)
-				if result == True:
-					print('\n Successful: '+i+'\n')
-				if result == False:
-					print("Second Check Test for model "+i)
-					result=dymola.checkModel(i,simulate=True)
-					if result == True:
-						print('\n Successful: '+i+'\n')
-					if result == False:
-						ErrorList.append(i)
-						Log = dymola.getLastError()
-						print('\n Error: '+i+'\n')
-						print(Log)
 		
-		if self.Changedmodels == True:
-			list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
-			list_mo_models = git_models(".mo",self.Package, list_path)
-			model_list= list_mo_models.sort_mo_models()
-			examplelist= []
-			for e in model_list:
-				examples = e.split(".")
-				if examples[len(examples)-2] == "Examples" or examples[len(examples)-2] == "Validation":
-					examplelist.append(e)
-			
+		
+			PackageCheck = dymola.openModel(self.Library)
+			if PackageCheck == True:
+				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
+			elif PackageCheck == None:
+				print("Library Path is wrong. Please Check Path of AixLib Library Path")
+				exit(1)
+		
 			ErrorList = []
-				
-			if len(examplelist) == 0:
-				print("No changed examples in Package: "+self.Package)
-				exit(0)	
-			for i in examplelist:
-				result=dymola.checkModel(i,simulate=True)
-				if result == True:
-					print('\n Successful: '+i+'\n')
-				if result == False:
-					print("Second Check Test")
+			if self.Changedmodels == False:	
+				ModelList = ValidateTest._listAllExamples(self)
+				if len(ModelList) == 0:
+					print("Found no Examples")
+					exit(0)
+				for i in ModelList:
 					result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n Successful: '+i+'\n')
 					if result == False:
-						ErrorList.append(i)
-						Log = dymola.getLastError()
-						print('\n Error: '+i+'\n')
-						print(Log)		
-		dymola.savelog(self.Package+"-log.txt")
-		dymola.close()
-		logfile = self.Package+"-log.txt"
-		ValidateTest._WriteErrorlog(self,logfile)
-		return ErrorList
-	
-	
-	
+						print("Second Check Test for model "+i)
+						result=dymola.checkModel(i,simulate=True)
+						if result == True:
+							print('\n Successful: '+i+'\n')
+						if result == False:
+							ErrorList.append(i)
+							Log = dymola.getLastError()
+							print('\n Error: '+i+'\n')
+							print(Log)
+			
+			if self.Changedmodels == True:
+				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
+				list_mo_models = git_models(".mo",self.Package, list_path)
+				model_list= list_mo_models.sort_mo_models()
+				examplelist= []
+				for e in model_list:
+					examples = e.split(".")
+					if examples[len(examples)-2] == "Examples" or examples[len(examples)-2] == "Validation":
+						examplelist.append(e)
+			
+				ErrorList = []
+				
+				if len(examplelist) == 0:
+					print("No changed examples in Package: "+self.Package)
+					exit(0)	
+				for i in examplelist:
+					result=dymola.checkModel(i,simulate=True)
+					if result == True:
+						print('\n Successful: '+i+'\n')
+					if result == False:
+						print("Second Check Test")
+						result=dymola.checkModel(i,simulate=True)
+						if result == True:
+							print('\n Successful: '+i+'\n')
+						if result == False:
+							ErrorList.append(i)
+							Log = dymola.getLastError()
+							print('\n Error: '+i+'\n')
+							print(Log)		
+			dymola.savelog(self.Package+"-log.txt")
+			dymola.close()
+			logfile = self.Package+"-log.txt"
+			ValidateTest._WriteErrorlog(self,logfile)
+			return ErrorList
+		
+		except DymolaException as ex:
+			print(("2: Error: " + str(ex)))
+		finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
 	
 	
 	"""Create a LogFIle from a package in IPBSA Library"""
@@ -681,19 +585,6 @@ if  __name__ == '__main__':
 	
 	# Parse the arguments
 	args = parser.parse_args()
-	from validatetest import  ValidateTest
-	# Set environment variables
-	CheckModelTest = ValidateTest(Package = args.single_package, 
-								Library = args.path, 
-								batch = args.batch,
-								tool = args.tool,
-								n_pro = args.number_of_processors,
-								show_gui = args.show_gui,
-								WhiteList = args.WhiteList,
-								SimulateExamples = args.SimulateExamples,
-								Changedmodels = args.Changedmodels)
-								
-	Git_Operation_Class = Git_Repository_Clone(Repository="Repo")
 	### Checks the Operating System, Important for the Python-Dymola Interface 							
 	if platform.system()  == "Windows":
 		_setEnvironmentVariables("PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
@@ -717,57 +608,109 @@ if  __name__ == '__main__':
 							'dymola.egg'))
 	sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
 
-	"""Start Check and Validate Test"""
-	if args.single_package:
-		single_package = args.single_package
-	else:
-		single_package = None
 	
-	"""Write a new WhiteList"""
-	if args.WhiteList == True:
-		print("Write new Writelist from IBPSA Library")
-		Git_Operation_Class._CloneRepository()
-		CheckModelTest._WriteWhiteList()
-		#Git_Operation_Class._git_push_WhiteList()
-		#filename= "bin"+os.sep+"WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
-		#filename= "CheckModel.txt"
-		#print(filename)
-		#file = open(filename,"w")
-		#file.write("test")
+	
+	
+	from dymola.dymola_interface import DymolaInterface
+	from dymola.dymola_exception import DymolaException
+	try:
 		
-		#file.close()
-		exit(0)
+		print("1: Starting Dymola instance")
+		if platform.system()  == "Windows":
+			dymola = DymolaInterface()
+		else:
+			dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+			
+		### Writes all information in the log file, not only the last entries
+		dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
+		dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
+		lic_counter = 0
 		
-	"""Simulate all Examples and Validation in a Package"""
-	if args.SimulateExamples == True:
-		print("Simulate")
-		Error = CheckModelTest._SimulateModel()
+		while dym_sta_lic_available == False:
+			print("No Dymola License is available")
+			dymola.close()
+			print("Check Dymola license after 60.0 seconds")
+			time.sleep(180.0)
+			### Sets the Dymola path to activate the GUI
+			if platform.system()  == "Windows":
+				dymola = DymolaInterface()
+			else:
+				dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+			dym_sta_lic_available = dymola.ExecuteCommand('RequestOption("Standard");')
+			lic_counter = lic_counter +1 	
+			if lic_counter > 30:
+				if dym_sta_lic_available == False:
+					print("There are currently no available Dymola licenses available. Please try again later.")
+					dymola.close()
+					exit(1)
+		print(("2: Using Dymola port " + str(dymola._portnumber)))
+		print("Dymola License is available")
 		
-		if len(Error) == 0:
-			print("Simulate of all Examples was successful!")
+		
+		from validatetest import  ValidateTest
+		# Set environment variables
+		CheckModelTest = ValidateTest(Package = args.single_package, 
+								Library = args.path, 
+								batch = args.batch,
+								tool = args.tool,
+								n_pro = args.number_of_processors,
+								show_gui = args.show_gui,
+								WhiteList = args.WhiteList,
+								SimulateExamples = args.SimulateExamples,
+								Changedmodels = args.Changedmodels,
+								dymola = dymola)
+								
+		Git_Operation_Class = Git_Repository_Clone(Repository="Repo")
+	
+		"""Start Check and Validate Test"""
+		if args.single_package:
+			single_package = args.single_package
+		else:
+			single_package = None
+		
+		"""Write a new WhiteList"""
+		if args.WhiteList == True:
+			print("Write new Writelist from IBPSA Library")
+			Git_Operation_Class._CloneRepository()
+			CheckModelTest._WriteWhiteList()
 			exit(0)
-		elif len(Error) > 0:
-			print("Simulate Failed")
-			for i in Error:
-				print("Error: Check Model "+i)
-			exit(1)
-	#Check all Models in a Package
+			
+		"""Simulate all Examples and Validation in a Package"""
+		if args.SimulateExamples == True:
+			print("Simulate examples and validations")
+			Error = CheckModelTest._SimulateModel()
+			
+			if len(Error) == 0:
+				print("Simulate of all Examples was successful!")
+				exit(0)
+			elif len(Error) > 0:
+				print("Simulate Failed")
+				for i in Error:
+					print("Error: Check Model "+i)
+				exit(1)
+		
+		#Check all Models in a Package
+		else:
+			Error = CheckModelTest._CheckModelAixLib()
+			if args.Changedmodels == False:
+				IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
+				print("\n"+"\n")
+				if len(IBPSA_Model) > 0:
+					print("Don´t Check these Models "+IBPSA_Model)
+			if len(Error)  == 0:
+				print("Test was Successful!")
+				exit(0)
+			elif len(Error)  > 0:
+				print("Test failed!")
+				for i in Error:
+					print("Error:Check Model "+i)
+				exit(1)										
 	
-	else:
-		Error = CheckModelTest._CheckModelAixLib()
-		if args.Changedmodels == False:
-			IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
-			print("\n"+"\n")
-			if len(IBPSA_Model) > 0:
-				print("Don´t Check these Models "+IBPSA_Model)
-		if len(Error)  == 0:
-			print("Test was Successful!")
-			exit(0)
-		elif len(Error)  > 0:
-			print("Test failed!")
-			for i in Error:
-				print("Error:Check Model "+i)
-			exit(1)
-	
+	except DymolaException as ex:
+		print(("2: Error: " + str(ex)))
+	finally:
+			if dymola is not None:
+				dymola.close()
+				dymola = None
 	
 	
