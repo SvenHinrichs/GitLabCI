@@ -312,7 +312,7 @@ class ValidateTest(object):
 						print('\n'+green+' Successful: '+CEND+i+'\n')
 						continue
 					if result == False:
-						print("Check for Model "+i+CRED" failed!"+CEND)
+						print("Check for Model "+i+CRED+" failed!"+CEND)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -374,9 +374,6 @@ class ValidateTest(object):
 		
 		### Sets the Dymola path to activate the GUI
 		try:
-			
-		
-		
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
 				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
