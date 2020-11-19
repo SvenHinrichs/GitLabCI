@@ -1,5 +1,0 @@
-
---------------------------------------
-checkModel("AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleAachen", false, false)
-
---------------------------------------

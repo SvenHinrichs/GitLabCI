@@ -400,16 +400,20 @@ class ValidateTest(object):
 					if result == False:
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
-						if result == True:
-							print('\n '+green+'Successful: '+CEND+i+'\n')
+						try:
+							if result == True:
+								print('\n '+green+'Successful: '+CEND+i+'\n')
+								continue
+							if result == False:
+								ErrorList.append(i)
+								Log = dymola.getLastError()
+								print('\n '+CRED+'Error: '+CEND+i+'\n')
+								print(Log)
+								continue
+						except dymola_exception as ex:
+							print(("2: Error: " + str(ex)))
 							continue
-						if result == False:
-							ErrorList.append(i)
-							Log = dymola.getLastError()
-							print('\n '+CRED+'Error: '+CEND+i+'\n')
-							print(Log)
-							continue
-			
+						
 			if self.Changedmodels == True:
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
 				list_mo_models = git_models(".mo",self.Package, list_path)
