@@ -683,7 +683,7 @@ if  __name__ == '__main__':
 		if args.SimulateExamples == True:
 			print("Simulate examples and validations")
 			Error = CheckModelTest._SimulateModel()
-			if Error = None:
+			if Error is None:
 				exit(1)
 			if len(Error) == 0:
 				print(green+"Simulate of all Examples was successful!"+CEND)
@@ -697,7 +697,7 @@ if  __name__ == '__main__':
 		#Check all Models in a Package
 		else:
 			Error = CheckModelTest._CheckModelAixLib()
-			if Error = None:
+			if Error is None:
 				exit(1)
 			if args.Changedmodels == False:
 				IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
