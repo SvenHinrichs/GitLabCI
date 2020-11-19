@@ -12,6 +12,7 @@ from pathlib import Path
 from git import Repo
 from sort_models import git_models
 import time 
+import threading
 
 class Git_Repository_Clone(object):
 	"""work with Repository in Git"""
@@ -369,6 +370,9 @@ class ValidateTest(object):
 	''' Simulate examples and validation and return a Error log, if the check failed. '''
 	def _SimulateModel(self):
 		
+		CRED = '\033[91m'
+		CEND = '\033[0m'
+		green = "\033[0;32m"
 		dymola = self.dymola
 		dymola_exception = self.dymola_exception
 		
@@ -385,22 +389,26 @@ class ValidateTest(object):
 			if self.Changedmodels == False:	
 				ModelList = ValidateTest._listAllExamples(self)
 				if len(ModelList) == 0:
-					print("Found no Examples")
+					print(CRED+"Error: "+CEND+"Found no Examples")
 					exit(0)
 				for i in ModelList:
 					result=dymola.checkModel(i,simulate=True)
+					
 					if result == True:
-						print('\n Successful: '+i+'\n')
+						print('\n '+green+'Successful: '+CEND+i+'\n')
+						continue
 					if result == False:
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
-							print('\n Successful: '+i+'\n')
+							print('\n '+green+'Successful: '+CEND+i+'\n')
+							continue
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
-							print('\n Error: '+i+'\n')
+							print('\n '+CRED+'Error: '+CEND+i+'\n')
 							print(Log)
+							continue
 			
 			if self.Changedmodels == True:
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
@@ -420,16 +428,16 @@ class ValidateTest(object):
 				for i in examplelist:
 					result=dymola.checkModel(i,simulate=True)
 					if result == True:
-						print('\n Successful: '+i+'\n')
+						print('\n'+green+ 'Successful: '+CEND+i+'\n')
 					if result == False:
-						print("Second Check Test")
+						print("Second simulate Test")
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
-							print('\n Successful: '+i+'\n')
+							print('\n'+green+ 'Successful: '+CEND+i+'\n')
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
-							print('\n Error: '+i+'\n')
+							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							print(Log)		
 			dymola.savelog(self.Package+"-log.txt")
 			dymola.close()
@@ -670,43 +678,46 @@ if  __name__ == '__main__':
 			Git_Operation_Class._CloneRepository()
 			CheckModelTest._WriteWhiteList()
 			exit(0)
-			
+		
 		"""Simulate all Examples and Validation in a Package"""
 		if args.SimulateExamples == True:
 			print("Simulate examples and validations")
 			Error = CheckModelTest._SimulateModel()
-			
+			if Error = None:
+				exit(1)
 			if len(Error) == 0:
-				print("Simulate of all Examples was successful!")
+				print(green+"Simulate of all Examples was successful!"+CEND)
 				exit(0)
 			elif len(Error) > 0:
-				print("Simulate Failed")
+				print(CRED+"Simulate Failed"+CEND)
 				for i in Error:
-					print("Error: Check Model "+i)
+					print(CRED+"Error: "+CEND+"Check Model "+i)
 				exit(1)
 		
 		#Check all Models in a Package
 		else:
 			Error = CheckModelTest._CheckModelAixLib()
+			if Error = None:
+				exit(1)
 			if args.Changedmodels == False:
 				IBPSA_Model = str(CheckModelTest._IgnoreWhiteList())
 				print("\n"+"\n")
 				if len(IBPSA_Model) > 0:
 					print("Don´t Check these Models "+IBPSA_Model)
 			if len(Error)  == 0:
-				print("Test was Successful!")
+				print("Test was "+green+"Successful!"+CEND)
 				exit(0)
 			elif len(Error)  > 0:
-				print("Test failed!")
+				print("Test "+CRED+ "failed!"+CEND)
 				for i in Error:
-					print("Error:Check Model "+i)
+					print(CRED+"Error: "+CEND+"Check Model "+i)
 				exit(1)										
 	
 	except DymolaException as ex:
 		print(("2: Error: " + str(ex)))
 	finally:
-			if dymola is not None:
-				dymola.close()
-				dymola = None
+		if dymola is not None:
+			dymola.close()
+			dymola = None
 	
 	
