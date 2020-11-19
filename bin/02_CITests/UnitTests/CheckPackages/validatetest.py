@@ -392,6 +392,7 @@ class ValidateTest(object):
 					print(CRED+"Error: "+CEND+"Found no Examples")
 					exit(0)
 				for i in ModelList:
+					print("Check Model: "+i) 
 					result=dymola.checkModel(i,simulate=True)
 					
 					if result == True:
