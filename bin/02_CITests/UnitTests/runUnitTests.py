@@ -127,7 +127,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		for z in Ref:
 			for i in WhiteList:
 				if  z.find(i) > -1:
-					print("Don´t Create Reference results for Package "+z+ " : This Package is on the WhiteList") 
+					print(green+"Don´t Create Reference results for Package "+CEND+z+ green+" : This Package is on the WhiteList"+CEND) 
 					Err_List.append(z)
 				else:
 					continue
@@ -139,7 +139,12 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			Exit.write("#!/bin/bash"+"\n"+"\n"+"exit 0")
 			Exit.close()
 			exit(0)
-			
+		
+		print(green+"Create reference results for following Examples:"+CEND)
+		for x in Ref:
+			print('		'+x)
+			 
+		
 		for i in Ref:
 			
 			'''if i.find("DataBase")> -1:

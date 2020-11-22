@@ -20,18 +20,35 @@ class Reg_Reference(object):
 		#resource_file_path = "Resources"+os.sep+"Scripts"+os.sep+"Dymola"
 		
 		mos_list = []
-		
+		wmos_list = []
 		
 		for subdir, dirs, files in os.walk(resource_file_path):
 				for file in files:
 					filepath = subdir + os.sep + file
-					if filepath.endswith(".mos"):
-						mos_script = filepath[filepath.find("Dymola"):]
-						mos_script = mos_script.replace("Dymola",self.library)
-						mos_script = mos_script.replace(os.sep, ".")
-						mos_script = mos_script.replace(".mos", "")
-						mos_list.append(mos_script)
-		#print(mos_list)
+					f = open(filepath, "r")
+					str = f.read()
+					if str.find("simulateModel") > -1: 
+						if filepath.endswith(".mos"):
+							mos_script = filepath[filepath.find("Dymola"):]
+							mos_script = mos_script.replace("Dymola",self.library)
+							mos_script = mos_script.replace(os.sep, ".")
+							mos_script = mos_script.replace(".mos", "")
+							mos_list.append(mos_script)
+					if str.find("simulateModel") > -1: 
+						if filepath.endswith(".mos"):
+							print("\nThis mos script is not suitable for regression testing: "+filepath+"\n")
+							
+							'''
+							mos_script = filepath[filepath.find("Dymola"):]
+							mos_script = mos_script.replace("Dymola",self.library)
+							mos_script = mos_script.replace(os.sep, ".")
+							mos_script = mos_script.replace(".mos", "")
+							wmos_list.append(mos_script)
+							'''
+					
+					f.close()
+					continue
+		
 		return mos_list
 	
 	def _check_ref(self):
@@ -51,6 +68,7 @@ class Reg_Reference(object):
 	def compare_ref_mos(self):
 		# Mos Scripts
 		mos_list = Reg_Reference._sort_mos_scripts(self)
+		
 		# Reference files 
 		ref_list = Reg_Reference._check_ref(self)
 		
