@@ -71,6 +71,10 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	import buildingspy.development.regressiontest as u
 	ref_check = Reg_Reference(package = args.single_package,
 									  library = args.path)
+	
+	CRED = '\033[91m'
+	CEND = '\033[0m'
+	green = "\033[0;32m"	
 	mos_list = ref_check.compare_ref_mos()
 		
 	ut = u.Tester(tool=tool)
@@ -111,7 +115,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	
 	if mos_list is not None:
 		for z in mos_list:
-			print("No Reference result for Model " +z)
+			print(CRED+"No Reference result for Model "+CEND +z)
 		
 		for i in mos_list:
 			name = i
@@ -148,7 +152,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 				continue
 			if i.find("Utilities") > -1:
 				continue'''			
-			print("Generate new Reference File for "+i)
+			print(green+"Generate new Reference File for "+CEND+i)
 			#name = i.replace("_",".")
 			#name = name[:name.rfind(".")]
 			ut.setSinglePackage(i)

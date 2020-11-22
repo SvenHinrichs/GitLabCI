@@ -45,8 +45,12 @@ def copy_txt(reffile):
 		refName = i.split(os.sep)
 		refName = refName[len(refName)-1]
 		#print(refName)
-		shutil.copy(i, 'Referencefiles'+os.sep+refName)
-	
+		try:
+			shutil.copy(i, 'Referencefiles'+os.sep+refName)
+		except ValueError:
+			print("Cant find Referencefiles"+os.sep+refName)
+			continue
+			
 if  __name__ == '__main__':
 	try:
 		'''parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
