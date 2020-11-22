@@ -157,9 +157,6 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			ut.showGUI(False)
 			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
-			#retVal = ut._checkReferencePoints("y")
-			# Create new file? - y
-			# accept new file and update reference files? - n
 			continue
 			
 			

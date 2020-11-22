@@ -12,9 +12,10 @@ from pathlib import Path
 from git import Repo
 from sort_models import git_models
 import time 
-import threading
 
-
+from threading import Thread, Event
+import time
+ 
 class Git_Repository_Clone(object):
 	"""work with Repository in Git"""
 	def __init__(self, Repository):
@@ -394,8 +395,8 @@ class ValidateTest(object):
 					exit(0)
 				for i in ModelList:
 					print("Check Model: "+i) 
-					result=dymola.checkModel(i,simulate=True)
 					
+					result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n '+green+'Successful: '+CEND+i+'\n')
 						continue
@@ -570,6 +571,25 @@ def _setEnvironmentVariables(var,value):
 	else:
 		os.environ[var] = value				
 
+def timeout(time):		
+	# Register a function to raise a TimeoutError on the signal.
+    signal.signal(signal.SIGALRM, raise_timeout)
+    # Schedule the signal to be sent after ``time``.
+    signal.alarm(time)
+
+    try:
+        yield
+    except TimeoutError:
+        pass
+    finally:
+        # Unregister the signal so it won't be triggered
+        # if the timeout is not reached.
+        signal.signal(signal.SIGALRM, signal.SIG_IGN)
+
+def raise_timeout(signum, frame):
+    raise TimeoutError		
+
+		
 if  __name__ == '__main__':
 	"""Parser"""
 	# Configure the argument parser
@@ -635,6 +655,7 @@ if  __name__ == '__main__':
 		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
+		
 		while dym_sta_lic_available == False:
 			print(CRED+"No Dymola License is available"+CEND)
 			dymola.close()
@@ -688,6 +709,7 @@ if  __name__ == '__main__':
 		"""Simulate all Examples and Validation in a Package"""
 		if args.SimulateExamples == True:
 			print("Simulate examples and validations")
+			
 			Error = CheckModelTest._SimulateModel()
 			if Error is None:
 				exit(1)
