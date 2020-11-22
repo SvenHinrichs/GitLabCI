@@ -34,7 +34,7 @@ class Reg_Reference(object):
 							mos_script = mos_script.replace(os.sep, ".")
 							mos_script = mos_script.replace(".mos", "")
 							mos_list.append(mos_script)
-					if str.find("simulateModel") > -1: 
+					if str.find("simulateModel") == -1: 
 						if filepath.endswith(".mos"):
 							print("\nThis mos script is not suitable for regression testing: "+filepath+"\n")
 							
