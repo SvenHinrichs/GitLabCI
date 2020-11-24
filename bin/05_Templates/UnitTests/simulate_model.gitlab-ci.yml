@@ -26,12 +26,11 @@ Simulate_AixLib_Airflow:
    
     only:
         - external_pull_requests  
-        - created
-        - reviewed        
+                
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
 
 Simulate_AixLib_BoundaryConditions:
     stage: Simulate
@@ -54,12 +53,11 @@ Simulate_AixLib_BoundaryConditions:
     
     only:
         - external_pull_requests   
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
     
 Simulate_AixLib_Controls:
     stage: Simulate
@@ -82,12 +80,11 @@ Simulate_AixLib_Controls:
      
     only:
         - external_pull_requests   
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+  
     
 Simulate_AixLib_Electrical:
     stage: Simulate
@@ -110,12 +107,11 @@ Simulate_AixLib_Electrical:
      
     only:
         - external_pull_requests   
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
     
 Simulate_AixLib_FastHVAC:
     stage: Simulate
@@ -138,12 +134,11 @@ Simulate_AixLib_FastHVAC:
     
     only:
         - external_pull_requests    
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
     
 Simulate_AixLib_Fluid:
     stage: Simulate
@@ -166,12 +161,11 @@ Simulate_AixLib_Fluid:
     
     only:
         - external_pull_requests   
-        - created
-        - reviewed    
+            
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
     
 Simulate_AixLib_Media:
     stage: Simulate
@@ -194,12 +188,11 @@ Simulate_AixLib_Media:
          
     only:
         - external_pull_requests 
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2    
+       
 #Simulate_AixLib_Systems:
 #    stage: Simulate
 #    services:
@@ -243,12 +236,11 @@ Simulate_AixLib_ThermalZones:
           
     only:
         - external_pull_requests  
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
     
 
 Simulate_Airflow_Changed_model:
@@ -282,7 +274,7 @@ Simulate_Airflow_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
 
 Simulate_BoundaryConditions_Changed_model:
     stage: Simulate
@@ -315,7 +307,7 @@ Simulate_BoundaryConditions_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
             
 Simulate_Controls_Changed_model:
     stage: Simulate
@@ -348,8 +340,7 @@ Simulate_Controls_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
-            
+   
 Simulate_Electrical_Changed_model:
     stage: Simulate
     services:
@@ -381,7 +372,7 @@ Simulate_Electrical_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
             
 Simulate_FastHVAC_Changed_model:
     stage: Simulate
@@ -414,7 +405,7 @@ Simulate_FastHVAC_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
             
 Simulate_Fluid_Changed_model:
     stage: Simulate
@@ -447,7 +438,7 @@ Simulate_Fluid_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
             
 Simulate_Media_Changed_model:
     stage: Simulate
@@ -481,7 +472,7 @@ Simulate_Media_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
 #Simulate_Systems_Changed_model:
 #    stage: Simulate
 #    services:
@@ -538,4 +529,4 @@ Simulate_ThermalZones_Changed_model:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   

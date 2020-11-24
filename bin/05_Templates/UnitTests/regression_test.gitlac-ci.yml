@@ -29,9 +29,7 @@ Regression_overall_coverage:
         when: runner_system_failure
     only:
         - external_pull_requests
-        - created
-        - reviewed
-    parallel: 2
+        
             
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
@@ -58,10 +56,7 @@ Regressiontest_AixLib_Airflow:
         when: runner_system_failure
     only:
         - external_pull_requests
-        - created
-        - reviewed
-    parallel: 2
-    
+        
 Regressiontest_AixLib_BoundaryConditions:
     stage: RegressionTest
     services:
@@ -86,9 +81,7 @@ Regressiontest_AixLib_BoundaryConditions:
         when: runner_system_failure
     only:
         - external_pull_requests
-        - created
-        - reviewed
-    parallel: 2
+        
 
 Regressiontest_AixLib_Controls:
     stage: RegressionTest
@@ -115,9 +108,7 @@ Regressiontest_AixLib_Controls:
         when: runner_system_failure       
     only:
         - external_pull_requests   
-        - created
-        - reviewed
-    parallel: 2
+        
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -185,9 +176,7 @@ Regressiontest_AixLib_Fluid:
         when: runner_system_failure  
     only:
         - external_pull_requests
-        - created
-        - reviewed
-    parallel: 2
+        
 
 Regressiontest_AixLib_Media:
     stage: RegressionTest
@@ -213,9 +202,7 @@ Regressiontest_AixLib_Media:
         when: runner_system_failure  
     only:
         - external_pull_requests  
-        - created
-        - reviewed
-    parallel: 2
+        
 
 Regressiontest_AixLib_Systems:
     stage: RegressionTest
@@ -241,9 +228,7 @@ Regressiontest_AixLib_Systems:
         when: runner_system_failure          
     only:
         - external_pull_requests
-        - created
-        - reviewed
-    parallel: 2
+        
 
 Regressiontest_AixLib_ThermalZones:
     stage: RegressionTest
@@ -269,9 +254,7 @@ Regressiontest_AixLib_ThermalZones:
         when: runner_system_failure        
     only:
         - external_pull_requests 
-        - created
-        - reviewed
-    parallel: 2        
+         
 
         
         
@@ -310,7 +293,7 @@ Regression_changed_overall_coverage:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-    parallel: 2
+   
             
             
     
@@ -347,7 +330,7 @@ Regressiontest_changed_AixLib_Airflow:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-    parallel: 2
+  
             
             
 Regressiontest_changed_AixLib_BoundaryConditions:
@@ -383,7 +366,7 @@ Regressiontest_changed_AixLib_BoundaryConditions:
 
         changes:
             - AixLib/**/*
-    parallel: 2
+    
             
             
 Regressiontest_changed_AixLib_Controls:
@@ -419,7 +402,7 @@ Regressiontest_changed_AixLib_Controls:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
             - AixLib/**/*
-    parallel: 2
+    
             
 
 #Regressiontest_AixLib_Electrical:
@@ -496,7 +479,7 @@ Regressiontest_changed_AixLib_Fluid:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-    parallel: 2
+   
             
 
 Regressiontest_changed_AixLib_Media:
@@ -531,7 +514,7 @@ Regressiontest_changed_AixLib_Media:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/    
         changes:
             - AixLib/**/*
-    parallel: 2
+   
             
 
 Regressiontest_changed_AixLib_Systems:
@@ -566,7 +549,7 @@ Regressiontest_changed_AixLib_Systems:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
             - AixLib/**/*
-    parallel: 2
+    
             
 
 Regressiontest_changed_AixLib_ThermalZones:
@@ -601,5 +584,5 @@ Regressiontest_changed_AixLib_ThermalZones:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
         changes:
             - AixLib/**/*
-    parallel: 2
+    
             

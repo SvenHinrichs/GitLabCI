@@ -26,13 +26,11 @@ Check_AixLib_Airflow:
     
     only:
         - external_pull_requests
-        - created
-        - reviewed
-
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
 
 
 Check_AixLib_BoundaryConditions:
@@ -57,12 +55,11 @@ Check_AixLib_BoundaryConditions:
     
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
  
 Check_AixLib_Controls:
     stage: Check
@@ -85,12 +82,11 @@ Check_AixLib_Controls:
      
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
         
 Check_AixLib_Electrical:
     stage: Check
@@ -113,12 +109,11 @@ Check_AixLib_Electrical:
     
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
  
 Check_AixLib_FastHVAC:
     stage: Check
@@ -141,12 +136,11 @@ Check_AixLib_FastHVAC:
      
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
     
 Check_AixLib_Fluid:
     stage: Check
@@ -169,12 +163,11 @@ Check_AixLib_Fluid:
      
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
 Check_AixLib_Media:
     stage: Check
     services:
@@ -196,12 +189,11 @@ Check_AixLib_Media:
      
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
         
         
 #Check_AixLib_Systems:
@@ -248,12 +240,11 @@ Check_AixLib_ThermalZones:
      
     only:
         - external_pull_requests
-        - created
-        - reviewed
+        
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+   
     
 
 Check_Airflow_changed_models:
@@ -287,7 +278,7 @@ Check_Airflow_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+  
  
 Check_BoundaryConditions_changed_models:
     stage: Check
@@ -320,7 +311,7 @@ Check_BoundaryConditions_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2        
+    
         
 Check_Controls_changed_models:
     stage: Check
@@ -353,7 +344,7 @@ Check_Controls_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2    
+  
     
 Check_Electrical_changed_models:
     stage: Check
@@ -386,8 +377,7 @@ Check_Electrical_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2        
-            
+   
 Check_FastHVAC_changed_models:
     stage: Check
     services:
@@ -419,7 +409,7 @@ Check_FastHVAC_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2    
+      
     
 Check_Fluid_changed_models:
     stage: Check
@@ -432,7 +422,7 @@ Check_Fluid_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT))
+        - model=$(git diff --raw --diff-filter=AMT)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Fluid" -p AixLib/package.mo -CM
     artifacts:
@@ -452,7 +442,7 @@ Check_Fluid_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
             
             
 Check_Media_changed_models:
@@ -486,7 +476,7 @@ Check_Media_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2
+    
 #Check_Systems_changed_models:
 #    stage: Check
 #    services:
@@ -545,4 +535,4 @@ Check_ThermalZones_changed_models:
     retry:
         max: 2
         when: runner_system_failure  
-    parallel: 2     
+    
