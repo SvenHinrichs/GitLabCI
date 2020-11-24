@@ -52,7 +52,7 @@ RegressionTest_Check_References:
             RED='\033[0;31m';
             GREEN='\033[0;32m';
             NC='\033[0m';
-            echo -e "${GREEN}New reference files were pushed to this branch. The job ran successfully and the newly added files are tested in another commit${NC};
+            echo -e "${GREEN}New reference files were pushed to this branch. The job ran successfully and the newly added files are tested in another commit${NC}";
             exit 1;
           else
             exit 0 ;
