@@ -18,7 +18,6 @@ def sort_mo_models():
 		for i in Line:
 			if i.rfind(".mos")>-1:
 				continue
-			print(i)
 			if i.find("Resources")> -1:
 				if i.rfind(".txt")> -1:
 					i = i.lstrip()
