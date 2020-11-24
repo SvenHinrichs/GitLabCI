@@ -20,26 +20,28 @@ variables:
     Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
-    Github_Repository : SvenHinrichs/GitLabCI
+    Github_Repository : RWTH-EBC/AixLib
   
-  
-  
+
 include:
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file: 'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/regression_test.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
- 
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/CheckConfiguration/check_settings.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/SyntaxTests/html_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/SyntaxTests/style_check.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/check_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/regression_test.gitlac-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/simulate_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/changed_simulate_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file:  'modelica-ci-tests/UnitTests/changed_check_model.gitlab-ci.yml'
+  - project: 'EBC/EBC_all/gitlab_ci/templates'
+    file: 'modelica-ci-tests/UnitTests/changed_regression_test.gitlab-ci.yml'
   
   
   
