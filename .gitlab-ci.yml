@@ -31,14 +31,20 @@ include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
-    file: 'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
+    file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_test.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/simulate_model.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/UnitTests/changed_simulate_model.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/UnitTests/changed_check_model.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
+    file: 'bin/05_Templates/UnitTests/changed_regression_test.gitlab-ci.yml'
+
  
-  
   
   

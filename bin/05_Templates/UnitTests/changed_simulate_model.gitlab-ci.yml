@@ -2,7 +2,7 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
-    - RegressionTest
+    - Simulate
 
 
 Simulate_Airflow_Changed_model:
@@ -32,7 +32,7 @@ Simulate_Airflow_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
-            - AixLib/**/*
+            - AixLib/Airflow/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -65,7 +65,7 @@ Simulate_BoundaryConditions_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
-            - AixLib/**/*
+            - AixLib/BoundaryConditions/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -98,7 +98,7 @@ Simulate_Controls_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
         changes:
-            - AixLib/**/*
+            - AixLib/Controls/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -130,7 +130,7 @@ Simulate_Electrical_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
-            - AixLib/**/*
+            - AixLib/Electrical/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -163,7 +163,7 @@ Simulate_FastHVAC_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
-            - AixLib/**/*
+            - AixLib/FastHVAC/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -196,7 +196,7 @@ Simulate_Fluid_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
         changes:
-            - AixLib/**/*
+            - AixLib/Fluid/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -229,7 +229,7 @@ Simulate_Media_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/**/*
+            - AixLib/Media/**/*
             
     retry:
         max: 2
@@ -287,7 +287,7 @@ Simulate_ThermalZones_Changed_model:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
         changes:
-            - AixLib/**/*
+            - AixLib/ThermalZones/**/*
     retry:
         max: 2
         when: runner_system_failure  

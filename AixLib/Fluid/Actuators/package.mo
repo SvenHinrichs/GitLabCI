@@ -32,47 +32,11 @@ package UsersGuide "User's Guide"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   val(dpValve_nominal=6000, dpFixed=0, m_flow_nominal=0.1);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   res(dp_nominal=10000,                m_flow_nominal=0.1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -85,31 +49,7 @@ package UsersGuide "User's Guide"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   val(dpValve_nominal=6000, dpFixed=10000, m_flow_nominal=0.1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -137,31 +77,7 @@ package UsersGuide "User's Guide"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   val(dpValve_nominal=6000, dpFixed={0, 0}, m_flow_nominal=0.1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,31 +85,7 @@ package UsersGuide "User's Guide"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   res3(dp_nominal=100,                      m_flow_nominal=0.1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -207,31 +99,7 @@ package UsersGuide "User's Guide"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
