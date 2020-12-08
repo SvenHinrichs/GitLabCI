@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 last-generated=2020-11-23
+=======
+last-generated=2020-11-24
+>>>>>>> 4a50eba96d43df4b1cb6bd94f07f99d00bec03c5
 statistics-simulation=
 {
   "linear": " ",
