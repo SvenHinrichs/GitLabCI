@@ -17,7 +17,7 @@ Check_Airflow_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Airflow" -p AixLib/package.mo -CM
     artifacts:
@@ -50,7 +50,7 @@ Check_BoundaryConditions_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.BoundaryConditions" -p AixLib/package.mo -CM
     artifacts:
@@ -83,7 +83,7 @@ Check_Controls_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Controls" -p AixLib/package.mo -CM
     artifacts:
@@ -116,7 +116,7 @@ Check_Electrical_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Electrical" -p AixLib/package.mo -CM
     artifacts:
@@ -148,7 +148,7 @@ Check_FastHVAC_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.FastHVAC" -p AixLib/package.mo -CM
     artifacts:
@@ -181,7 +181,7 @@ Check_Fluid_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Fluid" -p AixLib/package.mo -CM
     artifacts:
@@ -215,7 +215,7 @@ Check_Media_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Media" -p AixLib/package.mo -CM
     artifacts:
@@ -274,7 +274,7 @@ Check_ThermalZones_changed_models:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.ThermalZones" -p AixLib/package.mo -CM
     artifacts:

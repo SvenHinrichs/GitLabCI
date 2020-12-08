@@ -16,7 +16,7 @@ Simulate_Airflow_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Airflow" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -49,7 +49,7 @@ Simulate_BoundaryConditions_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.BoundaryConditions" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -82,7 +82,7 @@ Simulate_Controls_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Controls" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -114,7 +114,7 @@ Simulate_Electrical_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Electrical" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -147,7 +147,7 @@ Simulate_FastHVAC_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.FastHVAC" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -180,7 +180,7 @@ Simulate_Fluid_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Fluid" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -213,7 +213,7 @@ Simulate_Media_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.Media" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
@@ -271,7 +271,7 @@ Simulate_ThermalZones_Changed_model:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT)
+        - model=$(git diff --raw --diff-filter=AMT  HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.ThermalZones" -p AixLib/package.mo --SimulateExamples -CM
     artifacts:
