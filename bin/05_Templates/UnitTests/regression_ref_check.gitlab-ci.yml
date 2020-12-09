@@ -62,6 +62,7 @@ RegressionTest_Check_References:
             - public
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
+        when: on_failure
     allow_failure: true 
     
    
@@ -70,6 +71,8 @@ RegressionTest_Check_References:
  
 cleanup_build_job:
   stage: cleanup_build
+  services:
+        -  docker
   script:
     - curl --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID/cancel
   when: on_failure
