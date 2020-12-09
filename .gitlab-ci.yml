@@ -6,7 +6,6 @@ stages:
     - SetSettings
     - CheckSettings
     - Ref_Check
-    - cleanup_build
     - build
     - HTMLCheck
     - deploy

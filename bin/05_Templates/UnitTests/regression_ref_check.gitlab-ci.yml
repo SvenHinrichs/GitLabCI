@@ -3,7 +3,7 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - Ref_Check
-    - cleanup_build
+    - build
 
 RegressionTest_Check_References:
     stage: Ref_Check
@@ -70,7 +70,7 @@ RegressionTest_Check_References:
         - external_pull_requests
  
 cleanup_build_job:
-  stage: cleanup_build
+  stage: build
   services:
         -  docker
   script:
