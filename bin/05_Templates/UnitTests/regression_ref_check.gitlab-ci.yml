@@ -70,9 +70,11 @@ RegressionTest_Check_References:
         - external_pull_requests
  
 cleanup_build_job:
-  stage: build
-  services:
+    stage: build
+    services:
         -  docker
-  script:
-    - curl --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID/cancel
-  when: on_failure
+    script:
+        - curl --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID/cancel
+    when: on_failure
+    only:
+        - external_pull_requests
