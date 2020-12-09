@@ -3,7 +3,7 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - Ref_Check
-    - build
+   
 
 RegressionTest_Check_References:
     stage: Ref_Check
@@ -52,7 +52,7 @@ RegressionTest_Check_References:
             GREEN='\033[0;32m';
             NC='\033[0m';
             echo -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit${NC}.";
-            exit 1 ;
+            exit 0 ;
           else
             exit 0 ;
           fi
@@ -62,19 +62,21 @@ RegressionTest_Check_References:
             - public
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
-        when: on_failure
-    allow_failure: true 
+       
+     
     
    
     only:
         - external_pull_requests
  
-cleanup_build_job:
-    stage: build
-    services:
-        -  docker
-    script:
-        - curl --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID/cancel
-    when: on_failure
-    only:
-        - external_pull_requests
+ 
+    after_script:
+        - cd CorrectedVersion
+        - cd ${CI_PROJECT_NAME}
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            curl --request POST --header "PRIVATE-TOKEN:$GL_TOKEN" https://git.rwth-aachen.de/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID/cancel ;
+            exit 0 ; 
+          else
+            exit 0 ;
+          fi
+
