@@ -62,7 +62,6 @@ RegressionTest_Check_References:
             pushmodel=$(git ls-files --others --exclude-standard);
             cp $pushmodel Referencefiles;
             mv Referencefiles/ ../../public/Referencefiles;
-            
             exit 0 ;
           fi
    
