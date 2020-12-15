@@ -59,6 +59,7 @@ RegressionTest_Check_References:
             echo $model;
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
+            mv Referencefiles/ ../../public/Referencefiles;
             exit 0 ;
           fi
    
