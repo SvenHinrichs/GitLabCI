@@ -6,8 +6,7 @@ stages:
     
 Style_Check_AixLib:
     stage: StyleCheck
-    services:
-        -  docker
+   
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -31,8 +30,7 @@ Style_Check_AixLib:
 
 Style_Check_ChangedModel:
     stage: StyleCheck
-    services:
-        -  docker
+   
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
