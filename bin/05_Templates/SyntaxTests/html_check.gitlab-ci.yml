@@ -12,8 +12,6 @@ stages:
     
 trigger_branch:
     stage: build
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -47,8 +45,6 @@ trigger_branch:
             
 Check_HTML:
     stage: HTMLCheck
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -80,8 +76,6 @@ Check_HTML:
             
 Merge_Checks:
     stage: HTMLCheck
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -145,8 +139,6 @@ Merge_Checks:
         
 HTML_Check:
     stage: HTMLCheck
-    services:
-        -  docker
     before_script:
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
@@ -246,8 +238,6 @@ Open_Pull_Request:
     stage: openMR
     only:
         - /^feature\/*/
-    services:
-        -  docker
     before_script:
         - sudo apt-get install jq -y
         - pip install requests
@@ -276,8 +266,6 @@ Delte_merge_Branches:
     stage: deleteBranch
     only:
         - /^feature\/*/
-    services:
-        -  docker
     before_script:
         - sudo apt-get install jq -y
     script:

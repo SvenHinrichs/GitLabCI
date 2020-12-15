@@ -7,18 +7,13 @@ stages:
 
 Regression_overall_coverage:
     stage: RegressionTest
-    services:
-        - docker
-        
     before_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --coverage-only
-
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --coverage-only -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -33,8 +28,6 @@ Regression_overall_coverage:
             
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -43,9 +36,8 @@ Regressiontest_AixLib_Airflow:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-    
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -59,8 +51,6 @@ Regressiontest_AixLib_Airflow:
         
 Regressiontest_AixLib_BoundaryConditions:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -70,7 +60,7 @@ Regressiontest_AixLib_BoundaryConditions:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -85,8 +75,6 @@ Regressiontest_AixLib_BoundaryConditions:
 
 Regressiontest_AixLib_Controls:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -95,9 +83,8 @@ Regressiontest_AixLib_Controls:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-    
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Controls --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Controls --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -122,7 +109,7 @@ Regressiontest_AixLib_Controls:
 #        - dir
 #        - export PYTHONIOENCODING=utf-8 # just in case
 #      script:
-#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Electrical --tool dymola
+#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Electrical --tool dymola -DS ${DymolaVersion}
 #      artifacts:
 #        when: on_failure
 #        paths:
@@ -143,7 +130,7 @@ Regressiontest_AixLib_Controls:
 #        - dir
 #        - export PYTHONIOENCODING=utf-8 # just in case
 #      script:
-#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.FastHVAC --tool dymola
+#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.FastHVAC --tool dymola -DS ${DymolaVersion}
 #      artifacts:
 #        when: on_failure
 #       paths:
@@ -154,8 +141,6 @@ Regressiontest_AixLib_Controls:
 
 Regressiontest_AixLib_Fluid:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -165,7 +150,7 @@ Regressiontest_AixLib_Fluid:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -180,8 +165,6 @@ Regressiontest_AixLib_Fluid:
 
 Regressiontest_AixLib_Media:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -191,7 +174,7 @@ Regressiontest_AixLib_Media:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -206,8 +189,6 @@ Regressiontest_AixLib_Media:
 
 Regressiontest_AixLib_Systems:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -217,7 +198,7 @@ Regressiontest_AixLib_Systems:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -232,8 +213,6 @@ Regressiontest_AixLib_Systems:
 
 Regressiontest_AixLib_ThermalZones:
     stage: RegressionTest
-    services:
-        -  docker
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -243,7 +222,7 @@ Regressiontest_AixLib_ThermalZones:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
