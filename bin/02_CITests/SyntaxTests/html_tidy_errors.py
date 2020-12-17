@@ -109,7 +109,7 @@ class HTML_Tidy(object):
 					print(f"\n{HTML_Tidy.number_print_List(self, htmlList)}")
 					print(green+"\n-------- Corrected Code --------"+CEND)
 					print(f"\n{docCorrStr}")
-					print(CRED+"\n-------- Errors --------"CEND)
+					print(CRED+"\n-------- Errors --------"+CEND)
 					print(f"\n{errors}")
 					continue
 				else:
