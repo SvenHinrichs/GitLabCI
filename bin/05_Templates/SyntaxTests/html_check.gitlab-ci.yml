@@ -169,6 +169,7 @@ HTML_Check:
             git commit -m "$message" ;
             git push --force git@github.com:${Github_Repository}.git;
             rm bin/06_Configfiles/exit.sh;
+            wait ;
             exit 1;
           else 
             exit 0; 

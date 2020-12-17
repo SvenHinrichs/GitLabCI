@@ -12,7 +12,9 @@ def sort_mo_models():
 		modelica_models = [] 
 		Lines =  changed_models.readlines()
 		Line= str(Lines)
-		Line = Line.split(":")
+		
+		if Line.find(":") > -1 :
+			Line = Line.split(":")
 		for i in Line:
 			if i.rfind(".mos")>-1:
 				continue
@@ -34,24 +36,32 @@ def sort_mo_models():
 				else:
 					continue
 		changed_models.close()
-		
-		print(modelica_models)
+	
+		#print(modelica_models)
 		return modelica_models
 
+	
 	
 def copy_txt(reffile):
 	os.mkdir('Referencefiles')
 	for i in reffile:
 		refName = i.split(os.sep)
 		refName = refName[len(refName)-1]
-		print(refName)
-		shutil.copy(i, 'Referencefiles'+os.sep+refName)
-	
+		#print(refName)
+		try:
+			shutil.copy(i, 'Referencefiles'+os.sep+refName)
+		except FileNotFoundError:
+			print("Cant find Referencefiles"+os.sep+refName)
+			continue
+			
 if  __name__ == '__main__':
-	'''parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
-	unit_test_group = parser.add_argument_group("arguments to run unit tests")
-	unit_test_group.add_argument("-p", "--path",
-                        default = ".",
-                        help="Path where top-level package.mo of the library is located")'''
-	reffile = sort_mo_models()
-	copy_txt(reffile)
+	try:
+		'''parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
+		unit_test_group = parser.add_argument_group("arguments to run unit tests")
+		unit_test_group.add_argument("-p", "--path",
+							default = ".",
+							help="Path where top-level package.mo of the library is located")'''
+		reffile = sort_mo_models()
+		copy_txt(reffile)
+	except FileNotFoundError:
+		print("Can´t find file!")
