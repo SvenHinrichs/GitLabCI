@@ -62,8 +62,13 @@ RegressionTest_Check_References:
             - public
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         - external_pull_requests
+        
+        
     after_script:
         - cd CorrectedVersion
         - cd ${CI_PROJECT_NAME}

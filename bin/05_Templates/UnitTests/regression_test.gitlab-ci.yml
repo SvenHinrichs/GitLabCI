@@ -24,7 +24,9 @@ Regression_overall_coverage:
         when: runner_system_failure
     only:
         - external_pull_requests
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
             
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
@@ -48,7 +50,9 @@ Regressiontest_AixLib_Airflow:
         when: runner_system_failure
     only:
         - external_pull_requests
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
 Regressiontest_AixLib_BoundaryConditions:
     stage: RegressionTest
     before_script:
@@ -71,7 +75,9 @@ Regressiontest_AixLib_BoundaryConditions:
         when: runner_system_failure
     only:
         - external_pull_requests
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
 
 Regressiontest_AixLib_Controls:
     stage: RegressionTest
@@ -95,7 +101,9 @@ Regressiontest_AixLib_Controls:
         when: runner_system_failure       
     only:
         - external_pull_requests   
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/        
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -161,7 +169,9 @@ Regressiontest_AixLib_Fluid:
         when: runner_system_failure  
     only:
         - external_pull_requests
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/        
 
 Regressiontest_AixLib_Media:
     stage: RegressionTest
@@ -185,7 +195,9 @@ Regressiontest_AixLib_Media:
         when: runner_system_failure  
     only:
         - external_pull_requests  
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/        
 
 Regressiontest_AixLib_Systems:
     stage: RegressionTest
@@ -209,7 +221,9 @@ Regressiontest_AixLib_Systems:
         when: runner_system_failure          
     only:
         - external_pull_requests
-        
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/        
 
 Regressiontest_AixLib_ThermalZones:
     stage: RegressionTest
@@ -233,5 +247,7 @@ Regressiontest_AixLib_ThermalZones:
         when: runner_system_failure        
     only:
         - external_pull_requests 
-         
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/         
           

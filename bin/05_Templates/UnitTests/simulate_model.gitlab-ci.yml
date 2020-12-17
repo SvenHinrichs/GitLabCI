@@ -26,7 +26,9 @@ Simulate_AixLib_Airflow:
     retry:
         max: 2
         when: runner_system_failure  
-   
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
 
 Simulate_AixLib_BoundaryConditions:
     stage: Simulate
@@ -49,7 +51,9 @@ Simulate_AixLib_BoundaryConditions:
     retry:
         max: 2
         when: runner_system_failure  
-    
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
     
 Simulate_AixLib_Controls:
     stage: Simulate
@@ -72,7 +76,9 @@ Simulate_AixLib_Controls:
     retry:
         max: 2
         when: runner_system_failure  
-  
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
     
 Simulate_AixLib_Electrical:
     stage: Simulate
@@ -95,7 +101,9 @@ Simulate_AixLib_Electrical:
     retry:
         max: 2
         when: runner_system_failure  
-   
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
     
 Simulate_AixLib_FastHVAC:
     stage: Simulate
@@ -118,7 +126,9 @@ Simulate_AixLib_FastHVAC:
     retry:
         max: 2
         when: runner_system_failure  
-   
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
     
 Simulate_AixLib_Fluid:
     stage: Simulate
@@ -141,7 +151,9 @@ Simulate_AixLib_Fluid:
     retry:
         max: 2
         when: runner_system_failure  
-    
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
     
 Simulate_AixLib_Media:
     stage: Simulate
@@ -164,7 +176,9 @@ Simulate_AixLib_Media:
     retry:
         max: 2
         when: runner_system_failure  
-       
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
 #Simulate_AixLib_Systems:
 #    stage: Simulate
 #    services:
@@ -208,6 +222,8 @@ Simulate_AixLib_ThermalZones:
     retry:
         max: 2
         when: runner_system_failure  
-    
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
     
   

@@ -102,7 +102,9 @@ Merge_Checks:
     
     only:
         - external_pull_requests
-            
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/         
             
 #pages:
 #    stage: deploy

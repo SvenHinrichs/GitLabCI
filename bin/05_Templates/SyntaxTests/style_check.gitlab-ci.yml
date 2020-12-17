@@ -26,7 +26,10 @@ Style_Check_AixLib:
     
     only:
         - external_pull_requests
-
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/ 
+            
 Style_Check_ChangedModel:
     stage: StyleCheck
     before_script:
