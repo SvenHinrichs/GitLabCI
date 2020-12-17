@@ -58,6 +58,9 @@ class HTML_Tidy(object):
 
 	def run_files(self):
 		# Make sure that the parameter rootDir points to a Modelica package.
+		CRED = '\033[91m'
+		CEND = '\033[0m'
+		green = "\033[0;32m"
 		rootDir = self.package.replace(".", os.sep)
 
 		topPackage = os.path.join(rootDir, "package.mo")
@@ -104,9 +107,9 @@ class HTML_Tidy(object):
 					print('\n' + "----" + moFulNam + "----")
 					print("\n-------- HTML Code --------")
 					print(f"\n{HTML_Tidy.number_print_List(self, htmlList)}")
-					print("\n-------- Corrected Code --------")
+					print(green+"\n-------- Corrected Code --------"+CEND)
 					print(f"\n{docCorrStr}")
-					print("\n-------- Errors --------")
+					print(CRED+"\n-------- Errors --------"CEND)
 					print(f"\n{errors}")
 					continue
 				else:
