@@ -790,13 +790,13 @@ if __name__ == '__main__':
 		HTML_Check.run_files()
 		var = HTML_Check.run_files()
 		print(var)
-		exit(var)
+		
 	elif args.correct_overwrite is True:
 		print("Overwrite the Library")
 		#HTML_Check.run_files()
 		var = HTML_Check.run_files()
 		print(var)
-		exit(var)
+		
 		print("Finish")
 	elif args.correct_view is True:
 		print("Print the Correct HTML Code")
