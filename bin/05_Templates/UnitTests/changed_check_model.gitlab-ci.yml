@@ -9,6 +9,9 @@ stages:
 Check_Airflow_changed_models:
     stage: Check
     before_script:
+        - ls 
+        - cd ..
+        - ls 
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - gdebi 05_library/compat-libevent2-5_2.0.21-1ubuntu18_amd64.deb <  05_library/Confirm.sh
         - export PIP_CACHE_DIR="/opt/cache/pip"
