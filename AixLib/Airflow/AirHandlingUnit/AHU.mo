@@ -19,7 +19,6 @@ model AHU
  */
  
  
- 
 
   //// Variables
   // Booleans for transitions to State Machines
