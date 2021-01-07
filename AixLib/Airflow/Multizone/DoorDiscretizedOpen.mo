@@ -22,6 +22,9 @@ protected
 	
 	
 	
+	
+	
+	
 equation
   m=mFixed;
   A = wOpe*hOpe;
