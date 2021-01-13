@@ -3,6 +3,7 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - deleteBranch
+    - IBPSA_Merge
     - SetSettings
     - CheckSettings
     - Ref_Check
@@ -27,6 +28,8 @@ variables:
 include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/deploy/IBPSA_Merge.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
