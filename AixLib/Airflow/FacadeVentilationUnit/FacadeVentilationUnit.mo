@@ -15,6 +15,7 @@ model FacadeVentilationUnit
   parameter Modelica.SIunits.ThermodynamicTemperature T_start=273.15 + 20
     "Initial temperature in unit";
 
+	
   AixLib.Airflow.FacadeVentilationUnit.BaseClasses.SetPower fanExhaustAir(
     redeclare package Medium = Air,
     noUnits=fVUParam.noUnits,

@@ -36,6 +36,9 @@ trigger_branch:
         expire_in: 7 day
     except:
         - external_pull_requests 
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
@@ -69,6 +72,9 @@ Check_HTML:
             - AixLib/HTML-logfile.txt
         expire_in: 7 day
     
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
@@ -102,6 +108,9 @@ Merge_Checks:
     
     only:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/         
@@ -265,6 +274,9 @@ Open_Pull_Request:
       
     except:
         - external_pull_requests 
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
     only:
         variables:

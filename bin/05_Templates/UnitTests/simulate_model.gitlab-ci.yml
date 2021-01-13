@@ -29,6 +29,7 @@ Simulate_AixLib_Airflow:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
 
 Simulate_AixLib_BoundaryConditions:
     stage: Simulate
@@ -54,6 +55,7 @@ Simulate_AixLib_BoundaryConditions:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Simulate_AixLib_Controls:
     stage: Simulate
@@ -79,6 +81,7 @@ Simulate_AixLib_Controls:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Simulate_AixLib_Electrical:
     stage: Simulate
@@ -104,6 +107,7 @@ Simulate_AixLib_Electrical:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Simulate_AixLib_FastHVAC:
     stage: Simulate
@@ -129,6 +133,7 @@ Simulate_AixLib_FastHVAC:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Simulate_AixLib_Fluid:
     stage: Simulate
@@ -154,6 +159,7 @@ Simulate_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Simulate_AixLib_Media:
     stage: Simulate
@@ -178,7 +184,8 @@ Simulate_AixLib_Media:
         when: runner_system_failure  
     except:
         variables:
-            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
 #Simulate_AixLib_Systems:
 #    stage: Simulate
 #    services:
@@ -225,5 +232,6 @@ Simulate_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
   

@@ -25,6 +25,9 @@ Simulate_Airflow_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
@@ -60,6 +63,9 @@ Simulate_BoundaryConditions_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
         changes:
             - AixLib/BoundaryConditions/**/*
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     retry:
         max: 2
         when: runner_system_failure  
@@ -90,6 +96,9 @@ Simulate_Controls_Changed_model:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
         changes:
             - AixLib/Controls/**/*
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     retry:
         max: 2
         when: runner_system_failure  
@@ -114,6 +123,9 @@ Simulate_Electrical_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
@@ -144,6 +156,9 @@ Simulate_FastHVAC_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
@@ -174,6 +189,9 @@ Simulate_Fluid_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
@@ -204,6 +222,9 @@ Simulate_Media_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -258,6 +279,9 @@ Simulate_ThermalZones_Changed_model:
         expire_in: 7 day 
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/

@@ -30,6 +30,9 @@ Regression_changed_overall_coverage:
         when: runner_system_failure
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -64,6 +67,9 @@ Regressiontest_changed_AixLib_Airflow:
         when: runner_system_failure
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -96,6 +102,9 @@ Regressiontest_changed_AixLib_BoundaryConditions:
         when: runner_system_failure
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -129,6 +138,9 @@ Regressiontest_changed_AixLib_Controls:
         when: runner_system_failure       
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
@@ -203,6 +215,9 @@ Regressiontest_changed_AixLib_Fluid:
         when: runner_system_failure  
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -235,6 +250,9 @@ Regressiontest_changed_AixLib_Media:
         when: runner_system_failure  
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/    
@@ -267,6 +285,9 @@ Regressiontest_changed_AixLib_Systems:
         when: runner_system_failure          
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -299,6 +320,9 @@ Regressiontest_changed_AixLib_ThermalZones:
         when: runner_system_failure        
     except:
         - external_pull_requests
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   

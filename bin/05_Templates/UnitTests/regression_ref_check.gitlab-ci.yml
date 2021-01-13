@@ -65,6 +65,7 @@ RegressionTest_Check_References:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         - external_pull_requests
         

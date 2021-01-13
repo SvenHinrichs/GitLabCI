@@ -29,6 +29,7 @@ Check_AixLib_Airflow:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
 
 
 Check_AixLib_BoundaryConditions:
@@ -55,6 +56,7 @@ Check_AixLib_BoundaryConditions:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
  
 Check_AixLib_Controls:
     stage: Check
@@ -80,6 +82,7 @@ Check_AixLib_Controls:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
         
 Check_AixLib_Electrical:
     stage: Check
@@ -105,6 +108,7 @@ Check_AixLib_Electrical:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
  
 Check_AixLib_FastHVAC:
     stage: Check
@@ -130,6 +134,7 @@ Check_AixLib_FastHVAC:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     
 Check_AixLib_Fluid:
     stage: Check
@@ -155,6 +160,7 @@ Check_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
 Check_AixLib_Media:
     stage: Check
     before_script:
@@ -179,6 +185,7 @@ Check_AixLib_Media:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
         
         
 #Check_AixLib_Systems:
@@ -228,4 +235,5 @@ Check_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $TRIGERRED_JOB == "IBPSA_Merge"
      
