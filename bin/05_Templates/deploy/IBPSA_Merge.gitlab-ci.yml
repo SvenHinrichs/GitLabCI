@@ -8,6 +8,7 @@ stages:
 IBPSA:
     stage: IBPSA_Merge
     before_script:
+        - echo $TRIGERRED_JOB
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
