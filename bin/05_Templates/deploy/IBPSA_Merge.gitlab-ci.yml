@@ -22,14 +22,9 @@ IBPSA:
         # Clone IBPSA Repo
         # git clone https://github.com/ibpsa/modelica-ibpsa.git
         - python AixLib/AixLib/Resources/Scripts/mergeModelicaIBPSA.py
-       
-        
-   
-       
-    except:
-        - external_pull_requests 
+  
     only:
-        - issues
-    
-            
-            
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
+
+     
