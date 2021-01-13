@@ -6,7 +6,7 @@ stages:
 
     
 IBPSA:
-    stage: deploy
+    stage: IBPSA_Merge
     before_script:
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
@@ -30,9 +30,6 @@ IBPSA:
         - external_pull_requests 
     only:
         - issues
-        variables:
-            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
-        tag:
-            - IBPSA_Merge
+    
             
             
