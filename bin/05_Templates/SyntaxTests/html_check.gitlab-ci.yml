@@ -139,6 +139,7 @@ Merge_Checks:
 
         
         
+
 HTML_Check:
     stage: HTMLCheck
     before_script:
@@ -181,11 +182,17 @@ HTML_Check:
         paths:
             - AixLib/HTML-logfile.txt
         expire_in: 7 day 
+    
     except:
-        - external_pull_requests
+         - external_pull_requests
+    
+    except:
+        variables:
+            - $TRIGERRED_JOB == "IBPSA_Merge"
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
+            
 
             
 #mrpost:
