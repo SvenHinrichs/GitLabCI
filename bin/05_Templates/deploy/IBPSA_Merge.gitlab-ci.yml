@@ -9,7 +9,7 @@ IBPSA:
     stage: IBPSA_Merge
     before_script:
         - echo $TRIGERRED_JOB
-        - echo $action
+        - echo $events
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -21,9 +21,10 @@ IBPSA:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
       
     script:
+        - export
         # Clone IBPSA Repo
         # git clone https://github.com/ibpsa/modelica-ibpsa.git
-        - python AixLib/AixLib/Resources/Scripts/mergeModelicaIBPSA.py
+        # python AixLib/AixLib/Resources/Scripts/mergeModelicaIBPSA.py
   
     only:
         variables:
