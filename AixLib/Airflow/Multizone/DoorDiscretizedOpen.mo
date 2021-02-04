@@ -18,13 +18,6 @@ protected
     "Polynomial coefficient for regularized implementation of flow resistance";
   constant Real d = 1/8*mFixed^2 - gamma - mFixed + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
-
-	
-	
-	
-	
-	
-	
 equation
   m=mFixed;
   A = wOpe*hOpe;

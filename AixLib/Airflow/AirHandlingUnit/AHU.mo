@@ -17,8 +17,6 @@ model AHU
  sat = saturation
  phi_t is the HRS' efficiency not a relative humidity like other phis
  */
- 
- 
 
   //// Variables
   // Booleans for transitions to State Machines

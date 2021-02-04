@@ -81,7 +81,7 @@ class HTML_Tidy(object):
 			err = results[1]
 			
 			#htmlCode = results[2]
-			if err is not "":
+			if err != "":
 			# write error to error message
 				errMsg.append("[-- %s ]\n%s" % (moFulNam, err))
 			if self.correct_backup:
@@ -685,13 +685,20 @@ class HTML_Tidy(object):
 
 	# Create a new whiteList
 	def create_IBPSA_WhiteList(self):
+		CRED = '\033[91m'
+		CEND = '\033[0m'
+		green = "\033[0;32m"
+		
 		WhiteList = self.WhiteList
 		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
 		repo_dir = "IBPSA"
-		repo = Repo.clone_from(git_url, repo_dir)
-		rootdir = "IBPSA"
+		if os.path.exists(repo_dir):
+			print("Folder exists already")
+		else:
+			repo = Repo.clone_from(git_url, repo_dir)
+			print("Cloned IBPSA Repo")
 		ModelList = []
-		for subdir, dirs, files in os.walk(rootdir):
+		for subdir, dirs, files in os.walk(repo_dir):
 			for file in files:
 				filepath = subdir + os.sep + file
 				if filepath.endswith(".mo"):
@@ -706,6 +713,7 @@ class HTML_Tidy(object):
 		for i in ModelList:
 			file.write("\n"+i+".mo"+"\n")
 		file.close()
+		print(green+"HTML_IBPSA_WhiteList.txt is updated"+CEND)
 
 	# List AixLib and IBPSA model
 
@@ -783,7 +791,7 @@ if __name__ == '__main__':
 						   align=args.align,
 						   WhiteList=args.WhiteList,
 						   correct_view=args.correct_view)
-	if args.correct_overwrite is False and args.correct_backup is False and args.log is False and args.correct_view is False:
+	if args.correct_overwrite is False and args.correct_backup is False and args.log is False and args.correct_view is False and args.WhiteList is False:
 		print("please use -h or --help for help")
 	if args.WhiteList is True:
 		print("Create a Whitelist of IBPSA Library")

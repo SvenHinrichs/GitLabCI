@@ -1,9 +1,5 @@
 within AixLib.Airflow.AirCurtain;
 model AirCurtainSimplified
-
-
-
-
   "Ideal model for the usage of an air curtain in the context of low order retail zones"
   parameter Modelica.SIunits.VolumeFlowRate V_flowAirCur = 5
     "Design volume flow rate of the air curtain";

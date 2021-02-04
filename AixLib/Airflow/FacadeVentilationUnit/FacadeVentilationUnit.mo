@@ -2,7 +2,6 @@ within AixLib.Airflow.FacadeVentilationUnit;
 model FacadeVentilationUnit
   "Facade Ventilation Unit (FVU) equipped with a recuperator"
 
-  
   replaceable package Water = AixLib.Media.Water
     "Water Model in the system";
   replaceable package Air = AixLib.Media.Air
@@ -15,7 +14,6 @@ model FacadeVentilationUnit
   parameter Modelica.SIunits.ThermodynamicTemperature T_start=273.15 + 20
     "Initial temperature in unit";
 
-	
   AixLib.Airflow.FacadeVentilationUnit.BaseClasses.SetPower fanExhaustAir(
     redeclare package Medium = Air,
     noUnits=fVUParam.noUnits,

@@ -24,9 +24,12 @@ class Git_Repository_Clone(object):
 	def  _CloneRepository(self):
 		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
 		repo_dir = "IBPSA"
-		repo = Repo.clone_from(git_url, repo_dir)
-		print(repo)
-
+		if os.path.exists(repo_dir):
+			print("IBPSA folder exists already!")
+		else:
+			print("Clone IBPSA Repo")
+			repo = Repo.clone_from(git_url, repo_dir)
+			
 	def _git_push_WhiteList(self):
 		WhiteList_file = "bin"+os.sep+"03_WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
 		repo_dir = ""
@@ -93,6 +96,10 @@ class ValidateTest(object):
 	def _WriteWhiteList(self):
 		#_listAllModel
 		#rootdir = r"D:\Gitlab\modelica-ibpsa\IBPSA"
+		
+		from dymola.dymola_interface import DymolaInterface
+		from dymola.dymola_exception import DymolaException
+	
 		Package = self.Package.replace("AixLib","IBPSA")
 		Package = Package.split(".")[0]
 		Package = Package.replace(".",os.sep)
@@ -108,8 +115,10 @@ class ValidateTest(object):
 					model = model[model.rfind("IBPSA"):model.rfind(".mo")]
 					ModelList.append(model)
 		
+		Library = rootdir = "IBPSA"+os.sep+Package+os.sep+"package.mo"
 		dymola = self.dymola
 		try:
+			dymola_exception = DymolaException
 			PackageCheck = dymola.openModel(Library)
 			
 			if PackageCheck == True:
@@ -658,7 +667,7 @@ if  __name__ == '__main__':
 		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
-		
+		'''
 		while dym_sta_lic_available == False:
 			print(CRED+"No Dymola License is available"+CEND)
 			dymola.close()
@@ -678,7 +687,7 @@ if  __name__ == '__main__':
 					exit(1)
 		print(("2: Using Dymola port " + str(dymola._portnumber)))
 		print(green+"Dymola License is available"+CEND)
-		
+		'''
 		
 		from validatetest import  ValidateTest
 		# Set environment variables

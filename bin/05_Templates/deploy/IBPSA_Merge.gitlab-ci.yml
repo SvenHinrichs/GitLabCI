@@ -3,13 +3,23 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - IBPSA_Merge
-
+    - Update_WhiteList
+    - openMR
+    - Release
+variables:
+    Target_Branch: "master"
+    IBPSA_Repo: "https://github.com/ibpsa/modelica-ibpsa.git"
+    Merge_Branch: "IBPSA_Merge"
     
 IBPSA:
     stage: IBPSA_Merge
     before_script:
-        - echo $TRIGERRED_JOB
-        - echo $events
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+        
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -19,15 +29,92 @@ IBPSA:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
       
     script:
-        - export
-        # Clone IBPSA Repo
-        # git clone https://github.com/ibpsa/modelica-ibpsa.git
-        # python AixLib/AixLib/Resources/Scripts/mergeModelicaIBPSA.py
+        # Clone IBPSA
+        - mkdir Merge_Package
+        - cd Merge_Package
+        - git clone ${IBPSA_Repo}
+        - cd modelica-ibpsa\IBPSA
+        - git clone --single-branch --branch  ${Target_Branch} git@github.com:${Github_Repository}.git
+        # Execute IBPSA MERGE SKRIPT
+        - cd ${CI_PROJECT_NAME}
+        - cd AixLib/Resources/Scripts
+        # python AixLib/Resources/Scripts/mergeModelicaIBPSA.py
+        - python mergeModelicaIBPSA.py
+        # Copy Convert mos
+        
+        - git checkout -B ${Merge_Branch}
+        - message="Create IBPSA Merge"
+        - git add . 
+        - git commit -m "$message" 
+        - git push --force git@github.com:${Github_Repository}.git
+           
+    only:
+        - IBPSA_Merge
+            
+
+WhiteList:
+    stage: Update_WhiteList
+    before_script:
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
+      
+    script:
+        - git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
+        # Update WhiteList for HTML
+        - python bin\02_CITests\SyntaxTests\html_tidy_errors.py --WhiteList
+        ## Update WhiteList for CheckPackages
+        - python bin\02_CITests\UnitTests\CheckPackages\validatetest.py --WhiteList
+        - rm  -r IBPSA
+        # git checkout -B ${Merge_Branch}
+        - message="Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt"
+        - git add  bin\03_WhiteLists 
+        - git commit -m "$message" 
+        - git push --force git@github.com:${Github_Repository}.git
+           
+    only:
+        - IBPSA_Merge
+
+
+Open_Pull_Request:
+    stage: openMR
+    only:
+        - /^feature\/*/
+    before_script:
+        - sudo apt-get install jq -y
+        - pip install requests
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
   
+    script:
+       - python bin/02_CITests/deploy/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+        
+    except:
+        - external_pull_requests 
+    
+    only:
+        - IBPSA_Merge
     only:
         variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/
 
-     
+IBPSA_Release:
+    stage: Release
+    before_script:
+        - echo "test"
+      
+    script:
+        - echo "Write a release"   
+    only:
+        - development
