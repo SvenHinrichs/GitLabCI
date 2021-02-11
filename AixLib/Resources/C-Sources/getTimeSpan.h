@@ -8,6 +8,8 @@
 #ifndef GETTIMESPAN_H_
 #define GETTIMESPAN_H_
 
-int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan);
+#include <ModelicaUtilities.h>
+
+void getTimeSpan(const char * fileName, const char * tabName, double* timeSpan);
 
 #endif /* GETTIMESPAN_H_ */
