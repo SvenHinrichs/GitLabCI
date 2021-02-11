@@ -27,9 +27,7 @@ Check_Airflow_changed_models:
      
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -61,9 +59,7 @@ Check_BoundaryConditions_changed_models:
      
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -95,9 +91,7 @@ Check_Controls_changed_models:
      
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -129,9 +123,7 @@ Check_Electrical_changed_models:
      
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -162,9 +154,7 @@ Check_FastHVAC_changed_models:
      
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -196,9 +186,7 @@ Check_Fluid_changed_models:
     
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -231,9 +219,7 @@ Check_Media_changed_models:
     
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
@@ -291,9 +277,7 @@ Check_ThermalZones_changed_models:
     
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+        - IBPSA_Merge 
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/

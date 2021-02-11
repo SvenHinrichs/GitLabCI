@@ -29,8 +29,7 @@ Style_Check_AixLib:
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/ 
-            - $TRIGERRED_JOB == "IBPSA_Merge"
-   
+            
             
     
 Style_Check_ChangedModel:
@@ -50,10 +49,7 @@ Style_Check_ChangedModel:
         
     except:
         - external_pull_requests
-    except:
-        variables:
-            - $TRIGERRED_JOB == "IBPSA_Merge"
-    
+        - IBPSA_Merge 
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt

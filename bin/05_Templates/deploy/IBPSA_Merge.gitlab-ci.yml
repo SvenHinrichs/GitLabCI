@@ -43,7 +43,9 @@ IBPSA:
         - cd AixLib/Resources/Scripts
         # python AixLib/Resources/Scripts/mergeModelicaIBPSA.py
         - python mergeModelicaIBPSA.py
-        - cd .. & cd .. & cd ..
+        - cd ..
+        - cd ..
+        - cd .. 
         - pwd
         - ls 
         - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "/Convertmos" --ibpsa-dir  "/modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
