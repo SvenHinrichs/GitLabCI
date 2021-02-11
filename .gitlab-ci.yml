@@ -27,6 +27,8 @@ variables:
     Github_Repository : SvenHinrichs/GitLabCI
     
     
+    
+    
 include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
