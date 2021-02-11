@@ -61,6 +61,7 @@ IBPSA:
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/    
+            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
 
 WhiteList:
     stage: Update_WhiteList
@@ -80,9 +81,9 @@ WhiteList:
         - git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         # Update WhiteList for HTML
-        - python bin\02_CITests\SyntaxTests\html_tidy_errors.py --WhiteList
+        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList
         ## Update WhiteList for CheckPackages
-        - python bin\02_CITests\UnitTests\CheckPackages\validatetest.py --WhiteList
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList
         - rm  -r IBPSA
         # git checkout -B ${Merge_Branch}
         - message="Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt"
