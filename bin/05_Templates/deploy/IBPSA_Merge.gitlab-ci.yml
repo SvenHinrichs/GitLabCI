@@ -94,7 +94,7 @@ WhiteList:
         - rm  -r IBPSA
         # git checkout -B ${Merge_Branch}
         - message="Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt"
-        - git add  bin\03_WhiteLists 
+        - git add  bin/03_WhiteLists 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
            
