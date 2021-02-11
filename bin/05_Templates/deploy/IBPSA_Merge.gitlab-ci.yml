@@ -40,7 +40,7 @@ IBPSA:
         # Execute IBPSA MERGE SKRIPT
         - cd ${CI_PROJECT_NAME}
         - git clone ${IBPSA_Repo}
-        
+        - pwd
         - cd AixLib/Resources/Scripts
         # python AixLib/Resources/Scripts/mergeModelicaIBPSA.py
         - python mergeModelicaIBPSA.py
