@@ -66,6 +66,13 @@ IBPSA:
 WhiteList:
     stage: Update_WhiteList
     before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+        
+        
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -112,7 +119,6 @@ Open_Pull_Request:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
   
     script:
-       - export
        - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
         
     except:
