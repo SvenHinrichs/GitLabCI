@@ -46,11 +46,10 @@ IBPSA:
         - cd ..
         - cd ..
         - cd .. 
-        - pwd
-        - ls 
-        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "/Convertmos" --ibpsa-dir  "/modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
+        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
         # Copy Convert mos
         # git checkout -B ${Merge_Branch}
+        - ls
         - rm -r modelica-ibpsa
         - message="CI - Create IBPSA Merge"
         - git add . 

@@ -27,7 +27,7 @@ Regression_overall_coverage:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+            
             
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
@@ -54,7 +54,7 @@ Regressiontest_AixLib_Airflow:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+           
 Regressiontest_AixLib_BoundaryConditions:
     stage: RegressionTest
     before_script:
@@ -80,7 +80,7 @@ Regressiontest_AixLib_BoundaryConditions:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+           
 
 Regressiontest_AixLib_Controls:
     stage: RegressionTest
@@ -107,7 +107,7 @@ Regressiontest_AixLib_Controls:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/   
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+           
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -176,7 +176,7 @@ Regressiontest_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+           
 
 Regressiontest_AixLib_Media:
     stage: RegressionTest
@@ -203,7 +203,7 @@ Regressiontest_AixLib_Media:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+           
 
 Regressiontest_AixLib_Systems:
     stage: RegressionTest
@@ -230,7 +230,7 @@ Regressiontest_AixLib_Systems:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/       
-            - $TRIGERRED_JOB == "IBPSA_Merge"   
+           
 
 Regressiontest_AixLib_ThermalZones:
     stage: RegressionTest
@@ -257,5 +257,5 @@ Regressiontest_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
-            - $TRIGERRED_JOB == "IBPSA_Merge"
+            
           
