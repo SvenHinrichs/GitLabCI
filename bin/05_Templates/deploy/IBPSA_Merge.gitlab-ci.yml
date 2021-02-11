@@ -35,25 +35,31 @@ IBPSA:
         # Clone IBPSA
         - mkdir Merge_Package
         - cd Merge_Package
-        - git clone ${IBPSA_Repo}
-        - cd modelica-ibpsa\IBPSA
-        - git clone --single-branch --branch  ${Target_Branch} git@github.com:${Github_Repository}.git
+        # cd modelica-ibpsa/IBPSA
+        - git clone --single-branch --branch  ${Merge_Branch} git@github.com:${Github_Repository}.git
         # Execute IBPSA MERGE SKRIPT
         - cd ${CI_PROJECT_NAME}
+        - git clone ${IBPSA_Repo}
+        
         - cd AixLib/Resources/Scripts
         # python AixLib/Resources/Scripts/mergeModelicaIBPSA.py
         - python mergeModelicaIBPSA.py
+        - cd .. & cd .. & cd..
+        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "/Convertmos" --ibpsa-dir  "/modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
         # Copy Convert mos
-        
-        - git checkout -B ${Merge_Branch}
-        - message="Create IBPSA Merge"
+        - python  bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py
+        # git checkout -B ${Merge_Branch}
+        - rm -r modelica-ibpsa
+        - message="CI - Create IBPSA Merge"
         - git add . 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
            
     only:
         - IBPSA_Merge
-            
+    except:    
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/    
 
 WhiteList:
     stage: Update_WhiteList
@@ -85,7 +91,13 @@ WhiteList:
            
     only:
         - IBPSA_Merge
-
+    only:
+        variables:
+                
+            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+    except:    
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/  
 
 Open_Pull_Request:
     stage: openMR
@@ -98,13 +110,15 @@ Open_Pull_Request:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
   
     script:
-       - python bin/02_CITests/deploy/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       - export
+       - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
         
     except:
         - external_pull_requests 
     
     only:
         - IBPSA_Merge
+        
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/

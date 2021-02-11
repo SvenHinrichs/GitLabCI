@@ -7,6 +7,10 @@ IBPSA.Airflow.Multizone.DoorDiscretizedOpen.mo
 
 IBPSA.Airflow.Multizone.DoorDiscretizedOperable.mo
 
+IBPSA.Airflow.Multizone.DoorOpen.mo
+
+IBPSA.Airflow.Multizone.DoorOperable.mo
+
 IBPSA.Airflow.Multizone.EffectiveAirLeakageArea.mo
 
 IBPSA.Airflow.Multizone.MediumColumn.mo
@@ -22,6 +26,8 @@ IBPSA.Airflow.Multizone.UsersGuide.mo
 IBPSA.Airflow.Multizone.ZonalFlow_ACS.mo
 
 IBPSA.Airflow.Multizone.ZonalFlow_m_flow.mo
+
+IBPSA.Airflow.Multizone.BaseClasses.Door.mo
 
 IBPSA.Airflow.Multizone.BaseClasses.DoorDiscretized.mo
 
@@ -81,9 +87,21 @@ IBPSA.Airflow.Multizone.Types.densitySelection.mo
 
 IBPSA.Airflow.Multizone.Types.package.mo
 
+IBPSA.Airflow.Multizone.Validation.DoorOpenClosed.mo
+
+IBPSA.Airflow.Multizone.Validation.OpenDoorBuoyancyDynamic.mo
+
+IBPSA.Airflow.Multizone.Validation.OpenDoorBuoyancyPressureDynamic.mo
+
+IBPSA.Airflow.Multizone.Validation.OpenDoorPressure.mo
+
+IBPSA.Airflow.Multizone.Validation.OpenDoorTemperature.mo
+
 IBPSA.Airflow.Multizone.Validation.package.mo
 
 IBPSA.Airflow.Multizone.Validation.ThreeRoomsContam.mo
+
+IBPSA.Airflow.Multizone.Validation.ThreeRoomsContamDiscretizedDoor.mo
 
 IBPSA.BoundaryConditions.package.mo
 
@@ -270,6 +288,8 @@ IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetAbsolutePath.mo
 IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement.mo
 
 IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3.mo
+
+IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3LongHeader.mo
 
 IBPSA.BoundaryConditions.WeatherData.BaseClasses.Examples.GetTimeSpanTMY3_NonzeroStart.mo
 
