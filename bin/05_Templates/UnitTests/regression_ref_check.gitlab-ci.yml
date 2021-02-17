@@ -63,6 +63,8 @@ RegressionTest_Check_References:
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
     except:
+        - IBPSA_Merge
+    except:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
             
