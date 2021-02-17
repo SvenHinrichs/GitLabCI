@@ -112,8 +112,6 @@ WhiteList:
 
 Open_Pull_Request:
     stage: openMR
-    only:
-        - /^feature\/*/
     before_script:
         - sudo apt-get install jq -y
         - pip install requests
