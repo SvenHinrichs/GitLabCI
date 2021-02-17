@@ -7,7 +7,7 @@ stages:
     - openMR
     - Release
 variables:
-    Target_Branch: "development"
+    Target_Branch: "master"
     IBPSA_Repo: "https://github.com/ibpsa/modelica-ibpsa.git"
     Merge_Branch: "IBPSA_Merge"
     
@@ -58,13 +58,14 @@ IBPSA:
            
     only:
         - IBPSA_Merge
+    except:
+        - external_pull_requests
+
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
-    except:
-        - external_pull_requests
-
+    
 WhiteList:
     stage: Update_WhiteList
     before_script:
