@@ -51,7 +51,7 @@ class PULL_REQUEST_GITHUB(object):
 	def post_pull_request(self):
 		
 		url = "https://api.github.com/repos/"+self.GITHUB_REPOSITORY+"/pulls"
-		payload = '{\n    \"title\": \"IBPSA Merge '+self.Working_Branch+'\",\n    \"body\": \"Please pull the merged ibpsa to aixlib library to your local repository. **Open the library in dymola and check whether errors may have occurred **. Then merge the latest IBPSA Library to development branch.  **Delete** the Branch ' +self.Correct_Branch+ '\",\n    \"head\": \"'+self.OWNER+':'+self.Correct_Branch+'\",\n    \"base\": \"'+self.Working_Branch+'\"\n  \n}'
+		payload = '{\n    \"title\": \"IBPSA Merge '+self.Working_Branch+'\",\n    \"body\": \"Please pull the merged ibpsa to aixlib library to your local repository. **Open the library in dymola and check whether errors may have occurred.** Then merge the latest IBPSA Library to development branch.  **Delete** the Branch ' +self.Correct_Branch+ '\",\n    \"head\": \"'+self.OWNER+':'+self.Correct_Branch+'\",\n    \"base\": \"'+self.Working_Branch+'\"\n  \n}'
 		headers = {
 			'Authorization': 'Bearer '+self.GITHUB_TOKEN,
 			'Content-Type': 'application/json'
