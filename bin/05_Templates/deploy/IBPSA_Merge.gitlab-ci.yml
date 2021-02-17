@@ -46,8 +46,10 @@ IBPSA:
         - cd ..
         - cd ..
         - cd .. 
-        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
         # Copy Convert mos
+        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
+        # Delte Userguide from package.order
+        - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
         # git checkout -B ${Merge_Branch}
         - ls
         - rm -r modelica-ibpsa
@@ -60,7 +62,7 @@ IBPSA:
         - IBPSA_Merge
     except:    
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/    
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
 
 WhiteList:
@@ -93,7 +95,7 @@ WhiteList:
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList -DS ${DymolaVersion} -s AixLib
         - rm  -r IBPSA
         # git checkout -B ${Merge_Branch}
-        - message="Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt"
+        - message="Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         - git add  bin/03_WhiteLists 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
@@ -106,7 +108,7 @@ WhiteList:
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:    
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/  
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
 
 Open_Pull_Request:
     stage: openMR
@@ -129,7 +131,7 @@ Open_Pull_Request:
         
     only:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update Whitelist WhiteList_CheckModel.txt ,HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
 
 IBPSA_Release:
     stage: Release
