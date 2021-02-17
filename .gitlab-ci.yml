@@ -26,6 +26,7 @@ variables:
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
  
+ 
 include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
