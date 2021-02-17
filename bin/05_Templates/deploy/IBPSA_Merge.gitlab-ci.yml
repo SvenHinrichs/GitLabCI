@@ -121,14 +121,12 @@ Open_Pull_Request:
     script:
        - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
         
-    except:
-        - external_pull_requests 
     
     only:
         - IBPSA_Merge
-        
     only:
         variables:
+                
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
 
 IBPSA_Release:
