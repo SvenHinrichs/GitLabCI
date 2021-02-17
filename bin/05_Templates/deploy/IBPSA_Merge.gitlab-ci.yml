@@ -110,7 +110,7 @@ WhiteList:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
     allow_failure: true
 
-Open_Pull_Request:
+IBPSA_Pull_Request:
     stage: openMR
     before_script:
         - sudo apt-get install jq -y
@@ -128,6 +128,9 @@ Open_Pull_Request:
         variables:
                 
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+    except:    
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
 
 IBPSA_Release:
     stage: Release
