@@ -51,7 +51,6 @@ IBPSA:
         # Delte Userguide from package.order
         - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
         # git checkout -B ${Merge_Branch}
-        - ls
         - rm -r modelica-ibpsa
         - message="CI - Create IBPSA Merge"
         - git add . 
@@ -109,6 +108,7 @@ WhiteList:
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
+    allow_failure: true
 
 Open_Pull_Request:
     stage: openMR
@@ -131,7 +131,7 @@ Open_Pull_Request:
         
     only:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
 
 IBPSA_Release:
     stage: Release

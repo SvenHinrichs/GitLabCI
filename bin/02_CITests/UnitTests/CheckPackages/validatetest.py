@@ -667,7 +667,7 @@ if  __name__ == '__main__':
 		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
-		'''
+		
 		while dym_sta_lic_available == False:
 			print(CRED+"No Dymola License is available"+CEND)
 			dymola.close()
@@ -687,7 +687,7 @@ if  __name__ == '__main__':
 					exit(1)
 		print(("2: Using Dymola port " + str(dymola._portnumber)))
 		print(green+"Dymola License is available"+CEND)
-		'''
+		
 		
 		from validatetest import  ValidateTest
 		# Set environment variables

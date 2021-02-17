@@ -13,7 +13,7 @@ def folder_userguide(aixlib_dir):
 					#print(file)
 					#print(root+os.sep+file)
 					order_file = root+os.sep+file
-					print(order_file)
+					
 					f = open(order_file, "r") 
 					lines = f.readlines()
 					f.close()
@@ -24,7 +24,7 @@ def folder_userguide(aixlib_dir):
 						#if line.find("UsersGuide") > -1 :
 						if line.strip("\n") != 	"UsersGuide":
 							new_order_file.write(line)
-							print(line)
+							
 					new_order_file.close()
 			
 	
