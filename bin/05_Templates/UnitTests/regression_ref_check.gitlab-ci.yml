@@ -67,7 +67,8 @@ RegressionTest_Check_References:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /CI - Create IBPSA Merge/
+            - $CI_COMMIT_MESSAGE  =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/ 
     only:
         - external_pull_requests
         

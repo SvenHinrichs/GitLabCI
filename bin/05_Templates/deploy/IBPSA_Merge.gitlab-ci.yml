@@ -65,6 +65,7 @@ IBPSA:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+            - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
     
 WhiteList:
     stage: Update_WhiteList
