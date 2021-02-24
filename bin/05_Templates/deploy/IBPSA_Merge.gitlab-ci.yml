@@ -60,19 +60,20 @@ IBPSA:
            
     only:
         - IBPSA_Merge
-    except:
-        - external_pull_requests
-
-    except:    
+    except:   
+        refs:
+            -  external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
             - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+
+
     
     artifacts:
         paths:
             - Merge_Package/GitLabCI/
-        
+        expire_in: 6 h     
 WhiteList:
     
     stage: Update_WhiteList
@@ -98,7 +99,7 @@ WhiteList:
     script:
         - ls
         # git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
-        - cd ${CI_PROJECT_NAME}
+        - cd Merge_Package/${CI_PROJECT_NAME}
         # Update WhiteList for HTML
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList
         ## Update WhiteList for CheckPackages
@@ -106,7 +107,8 @@ WhiteList:
         - rm  -r IBPSA
         # git checkout -B ${Merge_Branch}
         - message="Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
-        - git add  bin/03_WhiteLists 
+        # git add  bin/03_WhiteLists 
+        - git add  . 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
            
@@ -115,14 +117,16 @@ WhiteList:
     #only:
     #    variables:
     #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
-    except:    
+    except:   
+        refs: 
+            - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
     #except: 
     #    changes:
     #        - bin/03_WhiteLists/**/*
-    except:
-        - external_pull_requests
+    #except:
+    #    - external_pull_requests
     allow_failure: true
     
     needs:
@@ -151,13 +155,15 @@ IBPSA_Pull_Request:
     #            
     #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:    
+        refs: 
+            - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
-    except: 
-        changes:
-            - bin/03_WhiteLists/**/*
-    except:
-        - external_pull_requests
+    #except: 
+    #    changes:
+    #        - bin/03_WhiteLists/**/*
+    #except:
+    #    - external_pull_requests
 #IBPSA_Release:
 #    stage: Release
 #    before_script:
