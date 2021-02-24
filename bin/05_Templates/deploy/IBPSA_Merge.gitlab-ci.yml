@@ -71,7 +71,7 @@ IBPSA:
     
     artifacts:
         paths:
-            - GitLabCI/
+            - Merge_Package/GitLabCI/
         
 WhiteList:
     
