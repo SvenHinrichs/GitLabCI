@@ -12,6 +12,7 @@ Style_Check_AixLib:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
+        - export QTWEBENGINE_DISABLE_SANDBOX=1 dymola
     script:
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s AixLib -p AixLib/package.mo -DS ${DymolaVersion}
     
@@ -40,6 +41,7 @@ Style_Check_ChangedModel:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
+        - export QTWEBENGINE_DISABLE_SANDBOX=1 dymola
     only:
         changes:
             - AixLib/**/*

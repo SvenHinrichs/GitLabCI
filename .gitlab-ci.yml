@@ -1,5 +1,5 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
+image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:fixbugs_dymola2021-miniconda
 
 stages:
     - deleteBranch
