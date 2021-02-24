@@ -38,7 +38,9 @@ IBPSA:
         # cd modelica-ibpsa/IBPSA
         - git clone --single-branch --branch  ${Merge_Branch} git@github.com:${Github_Repository}.git
         # Execute IBPSA MERGE SKRIPT
+        - ls 
         - cd ${CI_PROJECT_NAME}
+        - ls 
         - git clone ${IBPSA_Repo}
         - cd AixLib/Resources/Scripts
         - python mergeModelicaIBPSA.py
@@ -51,10 +53,10 @@ IBPSA:
         - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
         # git checkout -B ${Merge_Branch}
         - rm -r modelica-ibpsa
-        - message="CI - Create IBPSA Merge"
-        - git add . 
-        - git commit -m "$message" 
-        - git push --force git@github.com:${Github_Repository}.git
+        # message="CI - Create IBPSA Merge"
+        # git add . 
+        # git commit -m "$message" 
+        # git push --force git@github.com:${Github_Repository}.git
            
     only:
         - IBPSA_Merge
@@ -67,7 +69,12 @@ IBPSA:
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
             - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
     
+    artifacts:
+        paths:
+            - GitLabCI/
+        
 WhiteList:
+    
     stage: Update_WhiteList
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
@@ -89,7 +96,8 @@ WhiteList:
         
       
     script:
-        - git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
+        - ls
+        # git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         # Update WhiteList for HTML
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList
@@ -104,10 +112,9 @@ WhiteList:
            
     only:
         - IBPSA_Merge
-    only:
-        variables:
-                
-            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+    #only:
+    #    variables:
+    #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
@@ -117,6 +124,11 @@ WhiteList:
     except:
         - external_pull_requests
     allow_failure: true
+    
+    needs:
+    - job: IBPSA
+      artifacts: true
+    
 
 IBPSA_Pull_Request:
     stage: openMR
@@ -134,10 +146,10 @@ IBPSA_Pull_Request:
     
     only:
         - IBPSA_Merge
-    only:
-        variables:
-                
-            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+    #only:
+    #    variables:
+    #            
+    #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
