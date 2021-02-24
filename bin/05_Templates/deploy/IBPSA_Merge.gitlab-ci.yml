@@ -118,9 +118,9 @@ WhiteList:
     except:    
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
-    except: 
-        changes:
-            - bin/03_WhiteLists/**/*
+    #except: 
+    #    changes:
+    #        - bin/03_WhiteLists/**/*
     except:
         - external_pull_requests
     allow_failure: true
