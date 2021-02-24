@@ -376,6 +376,7 @@ class ValidateTest(object):
 							Log = dymola.getLastError()
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
 							print(Log)
+							continue
 			
 			if self.Changedmodels == True:
 				print("	Test only changed or new models")
@@ -398,12 +399,13 @@ class ValidateTest(object):
 						result=dymola.checkModel(i)
 						if result == True:
 							print('\n'+green+' Successful: '+CEND+i+'\n')
-					
+							continue
 						if result == False:
 							ErrorList.append(i)
 							Log = dymola.getLastError()
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							print(Log)
+							continue
 			
 				
 			
