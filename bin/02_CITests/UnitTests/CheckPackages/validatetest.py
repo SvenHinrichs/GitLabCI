@@ -99,7 +99,10 @@ class ValidateTest(object):
 		
 		from dymola.dymola_interface import DymolaInterface
 		from dymola.dymola_exception import DymolaException
-	    
+	    CRED = '\033[91m'
+		CEND = '\033[0m'
+		green = "\033[0;32m"
+		
 		Package = self.Package.replace("AixLib","IBPSA")
 		Package = Package.split(".")[0]
 		Package = Package.replace(".",os.sep)
@@ -148,9 +151,9 @@ class ValidateTest(object):
 				for i in ModelList:
 					result=dymola.checkModel(i)
 					if result == True:
-						print('\n Successful: '+i+'\n')
+						print('\n'+green+' Successful: '+CEND+i+'\n')
 					if result == False:
-						print('\ Error: '+i+'\n')
+						print('\n'+CRED' Error: '+CEND+i+'\n')
 						Log = dymola.getLastError()
 						print(Log)
 						ErrorList.append(i)
@@ -343,8 +346,9 @@ class ValidateTest(object):
 		green = "\033[0;32m"
 		
 		dymola = self.dymola										
-		dymola_exception = self.dymola_exception
+		#dymola_exception = self.dymola_exception
 		try:
+			dymola_exception = self.DymolaException
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
 				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
@@ -363,20 +367,19 @@ class ValidateTest(object):
 					result=dymola.checkModel(i)
 					if result == True:
 						print('\n'+green+' Successful: '+CEND+i+'\n')
-						continue
+						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
 							print('\n'+ green+ ' Successful: '+CEND+i+'\n')
-							continue
+							
 						if result == False:
-							ErrorList.append(i)
-							Log = dymola.getLastError()
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
+							Log = dymola.getLastError()
 							print(Log)
-							continue
+							ErrorList.append(i)
 			
 			if self.Changedmodels == True:
 				print("	Test only changed or new models")
@@ -392,21 +395,21 @@ class ValidateTest(object):
 					#result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n'+green+' Successful: '+CEND+i+'\n')
-						continue
+						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
 							print('\n'+green+' Successful: '+CEND+i+'\n')
-							continue
+							
 						if result == False:
-							ErrorList.append(i)
-							Log = dymola.getLastError()
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
+							Log = dymola.getLastError()
 							print(Log)
-							continue
-			
+							ErrorList.append(i)
+							
+							
 				
 			
 			dymola.savelog(self.Package+"-log.txt")
@@ -429,10 +432,11 @@ class ValidateTest(object):
 		CEND = '\033[0m'
 		green = "\033[0;32m"
 		dymola = self.dymola
-		dymola_exception = self.dymola_exception
+		#dymola_exception = self.dymola_exception
 		
 		### Sets the Dymola path to activate the GUI
 		try:
+			dymola_exception = self.DymolaException
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
 				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
@@ -452,7 +456,7 @@ class ValidateTest(object):
 					result=dymola.checkModel(i,simulate=True)
 					if result == True:
 						print('\n '+green+'Successful: '+CEND+i+'\n')
-						continue
+						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
 						print("Second Check Test for model "+i)
@@ -460,16 +464,16 @@ class ValidateTest(object):
 						try:
 							if result == True:
 								print('\n '+green+'Successful: '+CEND+i+'\n')
-								continue
+								
 							if result == False:
-								ErrorList.append(i)
-								Log = dymola.getLastError()
 								print('\n '+CRED+'Error: '+CEND+i+'\n')
+								Log = dymola.getLastError()
 								print(Log)
-								continue
-						except dymola_exception as ex:
-							print(("2: Error: " + str(ex)))
-							continue
+								ErrorList.append(i)
+								
+						#except dymola_exception as ex:
+						#	print(("2: Error: " + str(ex)))
+						#	continue
 						
 			if self.Changedmodels == True:
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
@@ -497,10 +501,11 @@ class ValidateTest(object):
 						if result == True:
 							print('\n'+green+ 'Successful: '+CEND+i+'\n')
 						if result == False:
-							ErrorList.append(i)
-							Log = dymola.getLastError()
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
-							print(Log)		
+							Log = dymola.getLastError()
+							print(Log)
+							ErrorList.append(i)
+							
 			dymola.savelog(self.Package+"-log.txt")
 			dymola.close()
 			logfile = self.Package+"-log.txt"

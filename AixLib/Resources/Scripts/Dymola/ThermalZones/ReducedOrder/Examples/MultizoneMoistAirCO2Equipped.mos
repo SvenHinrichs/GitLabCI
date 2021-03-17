@@ -1,8 +1,8 @@
-simulateModel("AixLib.ThermalZones.ReducedOrder.Examples.SimpleRoomFourElementsTraceSubstance", tolerance=1e-6, stopTime=604800, method="CVode", resultFile="SimpleRoomFourElementsTraceSubstance");
+simulateModel("AixLib.ThermalZones.ReducedOrder.Examples.MultizoneMoistAirCO2Equipped", tolerance=1e-6, stopTime=3.1536e+007, numberOfIntervals=0, outputInterval=3600, method="Radau", resultFile="MultizoneMoistAirCO2Equipped");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"thermalZoneFourElements.TAir"},
+ y = {"multizone.TAir[1]"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -10,10 +10,10 @@ createPlot(id = 1,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
- createPlot(id = 2,
+createPlot(id = 2,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"thermalZoneFourElements.volAir.C[1]"},
+ y = {"multizone.CO2Con[1]"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
