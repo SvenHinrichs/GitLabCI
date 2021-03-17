@@ -461,19 +461,15 @@ class ValidateTest(object):
 						print("Check for Model "+i+CRED+" failed!"+CEND)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
-						try:
-							if result == True:
-								print('\n '+green+'Successful: '+CEND+i+'\n')
+						if result == True:
+							print('\n '+green+'Successful: '+CEND+i+'\n')
 								
-							if result == False:
-								print('\n '+CRED+'Error: '+CEND+i+'\n')
-								Log = dymola.getLastError()
-								print(Log)
-								ErrorList.append(i)
+						if result == False:
+							print('\n '+CRED+'Error: '+CEND+i+'\n')
+							Log = dymola.getLastError()
+							print(Log)
+							ErrorList.append(i)
 								
-						#except dymola_exception as ex:
-						#	print(("2: Error: " + str(ex)))
-						#	continue
 						
 			if self.Changedmodels == True:
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
