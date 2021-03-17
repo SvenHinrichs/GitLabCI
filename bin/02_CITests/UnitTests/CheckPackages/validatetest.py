@@ -153,7 +153,7 @@ class ValidateTest(object):
 					if result == True:
 						print('\n'+green+' Successful: '+CEND+i+'\n')
 					if result == False:
-						print('\n'+CRED' Error: '+CEND+i+'\n')
+						print('\n'+CRED+' Error: '+CEND+i+'\n')
 						Log = dymola.getLastError()
 						print(Log)
 						ErrorList.append(i)
