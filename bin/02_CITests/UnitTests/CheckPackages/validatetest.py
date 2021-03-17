@@ -99,7 +99,7 @@ class ValidateTest(object):
 		
 		from dymola.dymola_interface import DymolaInterface
 		from dymola.dymola_exception import DymolaException
-	    CRED = '\033[91m'
+		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
 		
