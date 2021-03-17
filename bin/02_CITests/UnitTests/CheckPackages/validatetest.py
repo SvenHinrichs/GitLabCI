@@ -341,6 +341,8 @@ class ValidateTest(object):
 		
 		''' Check models and return a Error Log, if the check failed '''
 	def _CheckModelAixLib(self):
+		from dymola.dymola_interface import DymolaInterface
+		from dymola.dymola_exception import DymolaException
 		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
@@ -348,7 +350,7 @@ class ValidateTest(object):
 		dymola = self.dymola										
 		#dymola_exception = self.dymola_exception
 		try:
-			dymola_exception = self.DymolaException
+			dymola_exception = DymolaException
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
 				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
@@ -427,7 +429,8 @@ class ValidateTest(object):
 
 	''' Simulate examples and validation and return a Error log, if the check failed. '''
 	def _SimulateModel(self):
-		
+		from dymola.dymola_interface import DymolaInterface
+		from dymola.dymola_exception import DymolaException
 		CRED = '\033[91m'
 		CEND = '\033[0m'
 		green = "\033[0;32m"
@@ -436,7 +439,7 @@ class ValidateTest(object):
 		
 		### Sets the Dymola path to activate the GUI
 		try:
-			dymola_exception = self.DymolaException
+			dymola_exception = DymolaException
 			PackageCheck = dymola.openModel(self.Library)
 			if PackageCheck == True:
 				print("Found AixLib Library and start Checkmodel Tests \n Check Package " + self.Package+" \n")
