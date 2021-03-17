@@ -372,6 +372,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
+						Log = dymola.getLastError()
+						print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -379,8 +381,7 @@ class ValidateTest(object):
 							
 						if result == False:
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
-							Log = dymola.getLastError()
-							print(Log)
+							
 							ErrorList.append(i)
 			
 			if self.Changedmodels == True:
@@ -400,6 +401,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
+						Log = dymola.getLastError()
+						print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -407,8 +410,6 @@ class ValidateTest(object):
 							
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
-							Log = dymola.getLastError()
-							print(Log)
 							ErrorList.append(i)
 							
 							
@@ -462,6 +463,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
+						Log = dymola.getLastError()
+						print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
@@ -469,8 +472,6 @@ class ValidateTest(object):
 								
 						if result == False:
 							print('\n '+CRED+'Error: '+CEND+i+'\n')
-							Log = dymola.getLastError()
-							print(Log)
 							ErrorList.append(i)
 								
 						
@@ -495,14 +496,14 @@ class ValidateTest(object):
 						print('\n'+green+ 'Successful: '+CEND+i+'\n')
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND)
+						Log = dymola.getLastError()
+						print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
 							print('\n'+green+ 'Successful: '+CEND+i+'\n')
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
-							Log = dymola.getLastError()
-							print(Log)
 							ErrorList.append(i)
 							
 			dymola.savelog(self.Package+"-log.txt")
