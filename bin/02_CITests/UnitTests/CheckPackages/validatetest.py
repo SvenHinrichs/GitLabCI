@@ -372,8 +372,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						Log = dymola.getLastError()
-						print(Log)
+						#Log = dymola.getLastError()
+						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -401,8 +401,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						Log = dymola.getLastError()
-						print(Log)
+						#Log = dymola.getLastError()
+						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -463,8 +463,8 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						Log = dymola.getLastError()
-						print(Log)
+						#Log = dymola.getLastError()
+						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
@@ -496,8 +496,9 @@ class ValidateTest(object):
 						print('\n'+green+ 'Successful: '+CEND+i+'\n')
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						Log = dymola.getLastError()
-						print(Log)
+						
+						#Log = dymola.getLastError()
+						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
