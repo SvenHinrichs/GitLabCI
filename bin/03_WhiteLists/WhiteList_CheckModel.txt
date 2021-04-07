@@ -1,5 +1,5 @@
 
-ConvertAixLib_from_0.11.0_to_0.12.0
+
 
 ThermalZones
 []
@@ -8,7 +8,7 @@ Resources
 ['IBPSA.Resources.src.fluid.heatpumps.calibration.Examples.SomeManufacturer_ABC060_70kW_4_0COP_R410A']
 
 Utilities
-['IBPSA.Utilities.Psychrometrics.TWetBul_TDryBulXi']
+[]
 
 Controls
 []

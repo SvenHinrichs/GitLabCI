@@ -147,7 +147,37 @@ def compare_conversions(data,aixlib_dir,l_conv_aix):
 		return True
 	if len(list)==0:
 		return False
+def add_conv_to_package(aixlib_mos,aixlib_dir):
+	file = open("AixLib"+os.sep+"package.mo", "r")
+	list = []
+	counter = 0
+	number = aixlib_mos[aixlib_mos.find("_to_")+4:aixlib_mos.find(".mos")]
+	#print(number)
 	
+	for line in file:
+		#print("1")
+		#print(line)
+		if line.find("conversion(from(") > -1:
+			list.append(line)
+			counter = 1
+			continue	
+		if line.find('.mos")),') >-1 and counter == 1:
+			ent = line.replace('.mos")),','.mos",')
+			list.append(ent)
+			version = '    version="'+number+'", script="modelica://'+aixlib_dir.replace(os.sep,"/")+'/' +aixlib_mos +'")),\n'
+			list.append(version)
+			counter = 0
+			continue
+		else: 
+			list.append(line)
+			continue
+	for i in list:
+		print(i)
+	file.close()
+	pack =  open("AixLib"+os.sep+"package.mo", "w")
+	for i in list:
+		pack.write(i)
+	pack.close()
 if  __name__ == '__main__':
 	#aixlib_dir = "D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master\\GitLabCI\\AixLib\\Resources\\Scripts"
 	#ibpsa_dir = 'D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master\\GitLabCI\\modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*'
@@ -175,4 +205,11 @@ if  __name__ == '__main__':
 		shutil.rmtree(dst)
 	else:	
 		copy_aixlib_mos(aixlib_mos,aixlib_dir,dst)
+		add_conv_to_package(aixlib_mos,aixlib_dir)
 		print("New Aixlib Conversion skrip was created")
+	
+	#aixlib_mos = "ConvertAixLib_from_0.11.0_to_0.12.0.mos"
+	#aixlib_dir = "D:\01_Arbeit\04_Github\01_GitLabCI\IBPSA_Merge\GitLabCI\AixLib\Resources\Scripts"
+	#aixlib_dir = "AixLib\Resources\Scripts"
+	
+	#add_conv_to_package(aixlib_mos,aixlib_dir)

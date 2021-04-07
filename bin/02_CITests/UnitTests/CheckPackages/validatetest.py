@@ -379,8 +379,8 @@ class ValidateTest(object):
 							continue
 						if result == False:
 							ErrorList.append(i)
-							Log = dymola.getLastError()
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
+							Log = dymola.getLastError()
 							print(Log)
 			
 			if self.Changedmodels == True:
