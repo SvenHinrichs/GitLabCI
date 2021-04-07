@@ -1,5 +1,5 @@
 
-ConvertAixLib_from_0.10.7_to_0.11.0
+ConvertAixLib_from_0.11.0_to_0.12.0
 
 ThermalZones
 []
@@ -11,7 +11,7 @@ Utilities
 ['IBPSA.Utilities.Psychrometrics.TWetBul_TDryBulXi']
 
 Controls
-[ 'AixLib.Controls.HVACAgentBasedControl.Examples.BuildingHeatingSystems.BuildingHeating', 'AixLib.Controls.HVACAgentBasedControl.Examples.BuildingHeatingSystems.BuildingHeating_usePoke', 'AixLib.Controls.HVACAgentBasedControl.Examples.BuildingHeatingSystems.BuildingWithPV','AixLib.Controls.HeatPump.ModularHeatPumps.ModularCompressorController','AixLib.Controls.HeatPump.ModularHeatPumps.ModularExpansionValveController' ,AixLib.Controls.HeatPump.ModularHeatPumps.BaseClasses.PartialModularController']
+[]
 
 BoundaryConditions
 []
@@ -29,5 +29,5 @@ Airflow
 []
 
 Fluid
-['AixLib.Fluid.Actuators.Valves.ExpansionValves.Examples.StaticHeatPumpBoundaries.BaseModelStaticHeatPumps', 'AixLib.Fluid.Actuators.Valves.ExpansionValves.Examples.ModularExpansionValvesMassFlowRate', 'AixLib.Fluid.Actuators.Valves.ExpansionValves.Examples.ModularExpansionValvesPressureDifference', 'AixLib.Fluid.Actuators.Valves.ExpansionValves.Examples.StaticHeatPumpBoundaries','AixLib.Fluid.Actuators.Valves.ExpansionValves.BaseClasses.PartialModularExpansionVavles','AixLib.Fluid.DistrictHeatingCooling.Pipes.Examples.DHCPipe', 'AixLib.Fluid.DistrictHeatingCooling.Pipes.Examples.PlugFlowPipeEmbedded','AixLib.Fluid.DistrictHeatingCooling.Pipes.Examples.PlugFlowPipeZeta', 'AixLib.Fluid.DistrictHeatingCooling.Pipes.Examples.StaticPipe', 'AixLib.Fluid.DistrictHeatingCooling.Pipes.BaseClassesStatic.StaticCore, 'AixLib.Fluid.DistrictHeatingCooling.Pipes.DHCPipe', 'AixLib.Fluid.DistrictHeatingCooling.Pipes.PlugFlowPipeEmbedded', 'AixLib.Fluid.DistrictHeatingCooling.Pipes.PlugFlowPipeZeta','AixLib.Fluid.DistrictHeatingCooling.Pipes.StaticPipe','AixLib.Fluid.BaseClasses.PartialReversibleThermalMachine','IBPSA.Fluid.Geothermal.Borefields.TwoUTubes', 'IBPSA.Fluid.Geothermal.Borefields.OneUTube', 'IBPSA.Fluid.Sensors.SensibleEnthalpyFlowRate', 'IBPSA.Fluid.Sensors.RelativeHumidity', 'IBPSA.Fluid.Sensors.TemperatureWetBulbTwoPort', 'IBPSA.Fluid.Sensors.MassFractionTwoPort', 'IBPSA.Fluid.Sensors.RelativeHumidityTwoPort', 'IBPSA.Fluid.Sensors.LatentEnthalpyFlowRate', 'IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface', 'IBPSA.Fluid.Sources.MassFlowSource_h', 'IBPSA.Fluid.Sources.MassFlowSource_T', 'IBPSA.Fluid.Sources.TraceSubstancesFlowSource', 'IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex', 'IBPSA.Fluid.Humidifiers.SteamHumidifier_X', 'IBPSA.Fluid.Humidifiers.SprayAirWasher_X', 'IBPSA.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater']
+['IBPSA.Fluid.Geothermal.Borefields.TwoUTubes', 'IBPSA.Fluid.Geothermal.Borefields.OneUTube', 'IBPSA.Fluid.Sensors.SensibleEnthalpyFlowRate', 'IBPSA.Fluid.Sensors.RelativeHumidity', 'IBPSA.Fluid.Sensors.TemperatureWetBulbTwoPort', 'IBPSA.Fluid.Sensors.MassFractionTwoPort', 'IBPSA.Fluid.Sensors.RelativeHumidityTwoPort', 'IBPSA.Fluid.Sensors.LatentEnthalpyFlowRate', 'IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface', 'IBPSA.Fluid.Sources.MassFlowSource_h', 'IBPSA.Fluid.Sources.MassFlowSource_T', 'IBPSA.Fluid.Sources.TraceSubstancesFlowSource', 'IBPSA.Fluid.Storage.StratifiedEnhancedInternalHex', 'IBPSA.Fluid.Humidifiers.SteamHumidifier_X', 'IBPSA.Fluid.Humidifiers.SprayAirWasher_X', 'IBPSA.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater']
 

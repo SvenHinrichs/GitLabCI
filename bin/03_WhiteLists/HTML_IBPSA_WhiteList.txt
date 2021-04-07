@@ -813,6 +813,26 @@ IBPSA.BoundaryConditions.SkyTemperature.Examples.package.mo
 
 IBPSA.BoundaryConditions.SkyTemperature.Examples.BlackBody.mo
 
+IBPSA.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation.mo
+
+IBPSA.BoundaryConditions.Validation.package.mo
+
+IBPSA.BoundaryConditions.Validation.UsersGuide.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.package.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD500.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD400.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD300.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD100.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD200.mo
+
+IBPSA.BoundaryConditions.Validation.BESTEST.WD600.mo
+
 IBPSA.BoundaryConditions.SolarGeometry.package.mo
 
 IBPSA.BoundaryConditions.SolarGeometry.IncidenceAngle.mo
