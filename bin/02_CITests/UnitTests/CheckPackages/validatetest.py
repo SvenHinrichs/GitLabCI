@@ -332,7 +332,8 @@ class ValidateTest(object):
 							continue
 						if result == False:
 							ErrorList.append(i)
-							Log = dymola.getLastError()
+							#Log = dymola.getLastError()
+							Log = dymola.getLastErrorLog()
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
 							print(Log)
 			

@@ -67,6 +67,7 @@ IBPSA:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
             - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+            - $CI_COMMIT_MESSAGE =~ /fix errors manually/
 
 
     
@@ -122,6 +123,7 @@ WhiteList:
             - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
+            - $CI_COMMIT_MESSAGE =~ /fix errors manually/
     #except: 
     #    changes:
     #        - bin/03_WhiteLists/**/*
@@ -159,6 +161,7 @@ IBPSA_Pull_Request:
             - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
+            - $CI_COMMIT_MESSAGE =~ /fix errors manually/
     #except: 
     #    changes:
     #        - bin/03_WhiteLists/**/*

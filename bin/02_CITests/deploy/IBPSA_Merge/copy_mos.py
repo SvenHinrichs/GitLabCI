@@ -158,14 +158,49 @@ if  __name__ == '__main__':
 	check_test_group.add_argument("-dst", "--dst", default ="Convertmos", help="temp folder")
 	check_test_group.add_argument("-ad", "--aixlib-dir", default="AixLib\\Resources\\Scripts", help="path to the aixlib scripts" )
 	check_test_group.add_argument('-id',"--ibpsa-dir",default='modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*', help="path to the ibpsa scripts")
-	
+	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
 	# Parse the arguments
 	args = parser.parse_args()
 	
 	dst = args.dst
 	aixlib_dir = args.aixlib_dir
 	ibpsa_dir = args.ibpsa_dir
+	'''
+	if platform.system()  == "Windows":
+		_setEnvironmentVariables("PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
+		sys.path.insert(0, os.path.join('C:\\',
+                            'Program Files',
+                            'Dymola '+ args.DymolaVersion,
+                            'Modelica',
+                            'Library',
+                            'python_interface',
+                            'dymola.egg'))
+		print("operating system Windows")
+	else:
+		print("operating system Linux")
+		_setEnvironmentVariables("LD_LIBRARY_PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32") + ":" +
+								os.path.join(os.path.abspath('.'),"Resources","Library","linux64"))
+		sys.path.insert(0, os.path.join('opt',
+							'dymola-'+args.DymolaVersion+'-x86_64',
+							'Modelica',
+							'Library',
+							'python_interface',
+							'dymola.egg'))
+	sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
+
 	
+	
+	
+	from dymola.dymola_interface import DymolaInterface
+	from dymola.dymola_exception import DymolaException
+	
+	dymola = None
+	if platform.system()  == "Windows":
+		dymola = DymolaInterface()
+	else:
+		dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
+	
+	'''
 	data = copy_mos(ibpsa_dir,dst)
 	l_conv_aix = read_aixlib_convert(aixlib_dir)
 	comp = compare_conversions(data,aixlib_dir,l_conv_aix)
@@ -175,4 +210,8 @@ if  __name__ == '__main__':
 		shutil.rmtree(dst)
 	else:	
 		copy_aixlib_mos(aixlib_mos,aixlib_dir,dst)
+		
+		#dymola.ExecuteCommand(' dymola  + "aixlib_dir"+os.sep+"aixlib_mos"')
+		#dymola.openModel(
+		#dymola.close()
 		print("New Aixlib Conversion skrip was created")
