@@ -14,7 +14,7 @@ Controls
 []
 
 BoundaryConditions
-[]
+['AixLib.BoundaryConditions.Validation.IsotropicAndPerezDiffuseRadiation']
 
 Obsolete
 []

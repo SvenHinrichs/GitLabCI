@@ -400,8 +400,6 @@ class ValidateTest(object):
 						continue
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						#Log = dymola.getLastError()
-						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i)
 						if result == True:
@@ -411,7 +409,9 @@ class ValidateTest(object):
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							ErrorList.append(i)
-							
+							Log = dymola.getLastError()
+							print(Log)
+						
 							
 				
 			
@@ -463,8 +463,6 @@ class ValidateTest(object):
 						
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
-						#Log = dymola.getLastError()
-						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
@@ -473,7 +471,9 @@ class ValidateTest(object):
 						if result == False:
 							print('\n '+CRED+'Error: '+CEND+i+'\n')
 							ErrorList.append(i)
-								
+							Log = dymola.getLastError()
+							print(Log)
+							
 						
 			if self.Changedmodels == True:
 				list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt'
@@ -497,8 +497,6 @@ class ValidateTest(object):
 					if result == False:
 						print("Check for Model "+i+CRED+" failed!"+CEND+'\n')
 						
-						#Log = dymola.getLastError()
-						#print(Log)
 						print("Second Check Test for model "+i)
 						result=dymola.checkModel(i,simulate=True)
 						if result == True:
@@ -506,6 +504,8 @@ class ValidateTest(object):
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							ErrorList.append(i)
+							Log = dymola.getLastError()
+							print(Log)
 							
 			dymola.savelog(self.Package+"-log.txt")
 			dymola.close()
