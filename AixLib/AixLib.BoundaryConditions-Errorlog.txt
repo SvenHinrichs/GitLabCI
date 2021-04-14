@@ -1,0 +1,605 @@
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleAachen", true, false)
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleSanFran", true, false)
+Check of AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleSanFran:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleSanFran", true, false)
+Check of AixLib.BoundaryConditions.GroundTemperature.Examples.ExampleSanFran:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SkyTemperature.Examples.BlackBody", true, false)
+Check of AixLib.BoundaryConditions.SkyTemperature.Examples.BlackBody:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SkyTemperature.Examples.BlackBody", true, false)
+Check of AixLib.BoundaryConditions.SkyTemperature.Examples.BlackBody:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.AltitudeAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.AltitudeAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.AltitudeAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.AltitudeAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.IncidenceAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.IncidenceAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.IncidenceAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.IncidenceAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarHourAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarHourAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarHourAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarHourAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.WallSolarAzimuth", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.WallSolarAzimuth:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.WallSolarAzimuth", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.WallSolarAzimuth:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.BaseClasses.Examples.ZenithAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.Examples.ZenithAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.Examples.ZenithAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarGeometry.Examples.ZenithAngle", true, false)
+Check of AixLib.BoundaryConditions.SolarGeometry.Examples.ZenithAngle:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.DiffuseIsotropic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyBrightness", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyBrightness:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyBrightness", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyBrightness:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface", true, false)
+Check of AixLib.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Examples.ReaderTMY3", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Examples.ReaderTMY3:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Examples.ReaderTMY3", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Examples.ReaderTMY3:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.DecemberToJanuary", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.DecemberToJanuary:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.DecemberToJanuary", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.DecemberToJanuary:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.OverAYear_usingOneYearData", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.OverAYear_usingOneYearData:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.OverAYear_usingOneYearData", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.OverAYear_usingOneYearData:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataNegativeStart", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataNegativeStart:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataNegativeStart", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataNegativeStart:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataPositiveStart", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataPositiveStart:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
+
+--------------------------------------
+checkModel("AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataPositiveStart", true, false)
+Check of AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataPositiveStart:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+--------------------------------------
