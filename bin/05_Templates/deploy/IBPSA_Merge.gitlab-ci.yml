@@ -7,7 +7,7 @@ stages:
     - openMR
     - Release
 variables:
-    Target_Branch: "master"
+    Target_Branch: "development"
     IBPSA_Repo: "https://github.com/ibpsa/modelica-ibpsa.git"
     Merge_Branch: "IBPSA_Merge"
     
@@ -33,6 +33,7 @@ IBPSA:
       
     script:
         # Clone IBPSA
+        - ls 
         - mkdir Merge_Package
         - cd Merge_Package
         # cd modelica-ibpsa/IBPSA
