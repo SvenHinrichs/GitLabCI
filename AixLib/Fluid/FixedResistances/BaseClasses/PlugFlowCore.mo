@@ -72,7 +72,6 @@ model PlugFlowCore
     final v_nominal=v_nominal,
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
-    final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     dp(nominal=fac*200*length))
                  "Pressure drop calculation for this pipe"
