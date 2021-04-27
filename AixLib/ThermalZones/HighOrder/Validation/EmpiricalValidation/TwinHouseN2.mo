@@ -9,7 +9,8 @@ model TwinHouseN2
     calcMethodIn=1,
     redeclare model WindowModel = Components.WindowsDoors.Window_ASHRAE140,
     redeclare DataBase.WindowsDoors.Simple.WindowSimple_TwinHouses Type_Win,
-    redeclare model CorrSolarGainWin = Components.WindowsDoors.BaseClasses.CorrectionSolarGain.CorGSimple,
+    redeclare model CorrSolarGainWin =
+        Components.WindowsDoors.BaseClasses.CorrectionSolarGain.CorGSimple,
     solar_absorptance_OW=0.23,
     use_infiltEN12831=true,
     n50=1.62,

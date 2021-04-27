@@ -2,7 +2,8 @@
 model Window_ASHRAE140
   "Window with transmission correction factor, modelling of window panes"
   extends AixLib.ThermalZones.HighOrder.Components.WindowsDoors.BaseClasses.PartialWindow(
-    redeclare replaceable model CorrSolGain = BaseClasses.CorrectionSolarGain.CorG_ASHRAE140,
+    redeclare replaceable model CorrSolGain =
+        BaseClasses.CorrectionSolarGain.CorG_ASHRAE140,
     final use_solarRadWinTrans=true,
     final use_windSpeedPort=true);
 
