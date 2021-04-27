@@ -3,7 +3,7 @@ model BufferStorage
   "Buffer Storage Model with support for heating rod and two heating coils"
   import SI = Modelica.SIunits;
 
-  extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = TStart);
+  extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations(final T_start = TStart);
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model"

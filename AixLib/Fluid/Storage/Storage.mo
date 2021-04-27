@@ -29,7 +29,7 @@ model Storage
                      layer[n](
     final energyDynamics=energyDynamics,
     final p_start=p_start,
-    T_start=T_start,
+    final T_start=T_start,
     final m_flow_small=m_flow_small_layer,
     each final V = V / n,
     redeclare final package Medium = Medium,
@@ -47,7 +47,7 @@ model Storage
                      layer_HE[n](
     final energyDynamics=energyDynamics,
     final p_start=p_start,
-    T_start=T_start,
+    final T_start=T_start,
     final m_flow_small=m_flow_small_layer_HE,
     each final V = V_HE / n,
     redeclare final package Medium = Medium,

@@ -165,6 +165,7 @@ def add_conv_to_package(aixlib_mos,aixlib_dir):
 			ent = line.replace('.mos")),','.mos",')
 			list.append(ent)
 			version = '    version="'+number+'", script="modelica://'+aixlib_dir.replace(os.sep,"/")+'/' +aixlib_mos +'")),\n'
+			print(version)
 			list.append(version)
 			counter = 0
 			continue
