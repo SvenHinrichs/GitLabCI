@@ -393,8 +393,8 @@ class ValidateTest(object):
 						if result == False:
 							ErrorList.append(i)
 							print('\n'+ CRED+' Error: '+CEND+i+'\n')
-							Log = dymola.getLastError()
-							print(Log)
+							#Log = dymola.getLastError()
+							#print(Log)
 			
 			if self.Changedmodels == True:
 				print("	Test only changed or new models")
@@ -422,8 +422,8 @@ class ValidateTest(object):
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							ErrorList.append(i)
-							Log = dymola.getLastError()
-							print(Log)
+							#Log = dymola.getLastError()
+							#print(Log)
 						
 							
 				
@@ -484,8 +484,8 @@ class ValidateTest(object):
 						if result == False:
 							print('\n '+CRED+'Error: '+CEND+i+'\n')
 							ErrorList.append(i)
-							Log = dymola.getLastError()
-							print(Log)
+							#Log = dymola.getLastError()
+							#print(Log)
 				IBPSA_Model = str(ValidateTest._IgnoreWhiteList(self))
 				print("\n"+"\n")
 				if len(IBPSA_Model) > 0:
@@ -520,8 +520,8 @@ class ValidateTest(object):
 						if result == False:
 							print('\n' +CRED+' Error: '+CEND+i+'\n')
 							ErrorList.append(i)
-							Log = dymola.getLastError()
-							print(Log)
+							#Log = dymola.getLastError()
+							#print(Log)
 							
 			dymola.savelog(self.Package+"-log.txt")
 			dymola.close()
