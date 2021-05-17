@@ -16,7 +16,6 @@ model RotaryCompressorPressureLosses
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
     final from_dp=from_dp,
-    final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     final dp_start=(1/40)*dp_start,
     final m_flow_start=m_flow_start)
@@ -30,7 +29,6 @@ model RotaryCompressorPressureLosses
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
     final from_dp=from_dp,
-    final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     final dp_start=(1/40)*dp_start,
     final m_flow_start=m_flow_start)
