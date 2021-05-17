@@ -33,7 +33,7 @@ include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/CheckConfiguration/deploy_ref.gitlab-ci.yml'
+    file:  'bin/05_Templates/deploy/deploy_ref.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/deploy/IBPSA_Merge.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
