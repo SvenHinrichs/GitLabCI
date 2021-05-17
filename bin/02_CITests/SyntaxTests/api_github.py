@@ -4,6 +4,14 @@ import argparse
 import os
 import sys 
 
+#url = "https://api.github.com/repos/SvenHinrichs/GitLabCI/branches/master"
+
+#url = "https://api.github.com/repos/RWTH-EBC/AixLib/branches/issue802_CleanCI_Infrastructure"
+#url = "https://api.github.com/repos/RWTH-EBC/AixLib/branches/issue740_Release"
+
+
+
+#response = requests.request("GET", url, headers=headers, data = payload)
 
 class GET_API_GITHUB(object):
 

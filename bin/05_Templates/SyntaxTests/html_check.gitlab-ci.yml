@@ -1,5 +1,4 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - deleteBranch
@@ -256,10 +255,6 @@ Open_Pull_Request:
        - Newbranch=${Newbranch#${Praefix_Branch}}
        - TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
        - python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
-       # Username=$(python bin/02_CITests/SyntaxTests/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${TARGET_BRANCH} --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN})
-       # GitHub_Username=${Username}
-       # sudo chmod +x bin/06_Configfiles/autoPullRequest.sh
-       # bin/06_Configfiles/autoPullRequest.sh
       
     except:
         - external_pull_requests 
@@ -277,14 +272,10 @@ Delte_merge_Branches:
     before_script:
         - sudo apt-get install jq -y
     script:
-       # Newbranch=${Newbranch#${Praefix_Branch}}
-       # TARGET_BRANCH=${TARGET_BRANCH#${Praefix_Branch}}
        - sudo chmod +x bin/06_Configfiles/delete_merged_branches.sh
        - git config --global user.email "${GITLAB_USER_EMAIL}"
        - git config --global user.name  "${GITLAB_USER_NAME}" 
        - bin/06_Configfiles/delete_merged_branches.sh
-    
-    
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /^Merge pull request/

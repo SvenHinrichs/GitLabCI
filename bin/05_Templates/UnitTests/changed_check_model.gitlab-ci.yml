@@ -1,10 +1,7 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:fixbugs_dymola2021-miniconda
 
 stages:
     - Check
-
- 
 
 Check_Airflow_changed_models:
     stage: Check
@@ -14,7 +11,6 @@ Check_Airflow_changed_models:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - export QTWEBENGINE_DISABLE_SANDBOX=1 dymola
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
@@ -25,7 +21,6 @@ Check_Airflow_changed_models:
             - AixLib/AixLib.Airflow-log.txt
             - AixLib/AixLib.Airflow-Errorlog.txt
         expire_in: 7 day 
-     
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -57,7 +52,6 @@ Check_BoundaryConditions_changed_models:
             - AixLib/AixLib.BoundaryConditions-log.txt
             - AixLib/AixLib.BoundaryConditions-Errorlog.txt
         expire_in: 7 day 
-     
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -89,7 +83,6 @@ Check_Controls_changed_models:
             - AixLib/AixLib.Controls-log.txt
             - AixLib/AixLib.Controls-Errorlog.txt
         expire_in: 7 day 
-     
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -121,7 +114,6 @@ Check_Electrical_changed_models:
             - AixLib/AixLib.Electrical-log.txt
             - AixLib/AixLib.Electrical-Errorlog.txt
         expire_in: 7 day 
-     
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -134,37 +126,7 @@ Check_Electrical_changed_models:
         max: 2
         when: runner_system_failure  
    
-Check_FastHVAC_changed_models:
-    stage: Check
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-    script:
-        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "AixLib.FastHVAC" -p AixLib/package.mo -CM -DS ${DymolaVersion}
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/AixLib.FastHVAC-log.txt
-            - AixLib/AixLib.FastHVAC-Errorlog.txt
-        expire_in: 7 day 
-     
-    except:
-        - external_pull_requests
-        - IBPSA_Merge 
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        changes:
-            - AixLib/FastHVAC/**/*
-    retry:
-        max: 2
-        when: runner_system_failure  
-      
+
     
 Check_Fluid_changed_models:
     stage: Check
@@ -184,7 +146,6 @@ Check_Fluid_changed_models:
             - AixLib/AixLib.Fluid-log.txt
             - AixLib/AixLib.Fluid-Errorlog.txt
         expire_in: 7 day 
-    
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -217,7 +178,6 @@ Check_Media_changed_models:
             - AixLib/AixLib.Media-log.txt
             - AixLib/AixLib.Media-Errorlog.txt
         expire_in: 7 day 
-    
     except:
         - external_pull_requests
         - IBPSA_Merge 

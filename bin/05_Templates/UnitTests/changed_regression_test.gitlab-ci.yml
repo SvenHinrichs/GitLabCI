@@ -1,12 +1,7 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - RegressionTest
-
-
-        
-        
 
 Regression_changed_overall_coverage:
     stage: RegressionTest
@@ -162,26 +157,6 @@ Regressiontest_changed_AixLib_Controls:
 #        max: 2
 #        when: runner_system_failure       
 
-#Regressiontest_AixLib_FastHVAC:
-#      stage: RegressionTest
-#      services:
-#        -  docker
-#      before_script:
-#        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-#        - export PIP_CACHE_DIR="/opt/cache/pip"
-#        - source activate python36
-#        - python -V               # Print out python version for debugging
-#        - dir
-#        - export PYTHONIOENCODING=utf-8 # just in case
-#      script:
-#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.FastHVAC --tool dymola -DS ${DymolaVersion}
-#      artifacts:
-#        when: on_failure
-#       paths:
-#          - AixLib/simulator-dymola.log
-#      retry:
-#        max: 2
- #       when: runner_system_failure  
 
 Regressiontest_changed_AixLib_Fluid:
     stage: RegressionTest

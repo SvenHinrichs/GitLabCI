@@ -1,0 +1,30 @@
+stages:
+    - Dif_Ref
+    
+Different_References:
+    stage: Dif_Ref
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - python -V               # Print out python version for debugging
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/deploy/IBPSA_Merge/diff_reference.py 
+        
+    artifacts:
+        when: on_failure
+        paths:
+            - bin/03_WhiteLists/Ref_list/diff_ref
+            - bin/03_WhiteLists/Ref_list/new_ref
+            - AixLib/Resources/ReferenceResults/Dymola
+            - bin/03_WhiteLists/Ref_list/dif_mos
+            - bin/03_WhiteLists/Ref_list/new_mos
+        expire_in: 7 day 
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+   

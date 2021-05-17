@@ -1,5 +1,4 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - StyleCheck
@@ -12,7 +11,6 @@ Style_Check_AixLib:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - export QTWEBENGINE_DISABLE_SANDBOX=1 dymola
     script:
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s AixLib -p AixLib/package.mo -DS ${DymolaVersion}
     
@@ -21,17 +19,13 @@ Style_Check_AixLib:
         paths:
             - AixLib/AixLib_StyleCheckLog.html
             - AixLib/AixLib_StyleErrorLog.html
-           
         expire_in: 7 day 
     allow_failure: true 
-    
     only:
         - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/ 
-            
-            
     
 Style_Check_ChangedModel:
     stage: StyleCheck
@@ -41,14 +35,11 @@ Style_Check_ChangedModel:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        - export QTWEBENGINE_DISABLE_SANDBOX=1 dymola
     only:
         changes:
             - AixLib/**/*
-            
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
-        
     except:
         - external_pull_requests
         - IBPSA_Merge 
@@ -56,7 +47,6 @@ Style_Check_ChangedModel:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/SyntaxTests/StyleChecking.py -s AixLib -p AixLib/package.mo -CM -DS ${DymolaVersion}
-    
     artifacts:
         when: on_failure
         paths:

@@ -1,5 +1,4 @@
 #!/bin/bash
-image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - IBPSA_Merge
@@ -7,7 +6,7 @@ stages:
     - openMR
     - Release
 variables:
-    Target_Branch: "development"
+    Target_Branch: "master"
     IBPSA_Repo: "https://github.com/ibpsa/modelica-ibpsa.git"
     Merge_Branch: "IBPSA_Merge"
     
@@ -19,7 +18,6 @@ IBPSA:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -33,10 +31,8 @@ IBPSA:
       
     script:
         # Clone IBPSA
-        - ls 
         - mkdir Merge_Package
         - cd Merge_Package
-        # cd modelica-ibpsa/IBPSA
         - git clone --single-branch --branch  ${Merge_Branch} git@github.com:${Github_Repository}.git
         # Execute IBPSA MERGE SKRIPT
         - ls 
@@ -49,15 +45,12 @@ IBPSA:
         - cd ..
         - cd .. 
         # Copy Convert mos
-        - python bin/02_CITests/deploy/IBPSA_Merge/copy_mos.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
+        - python bin/02_CITests/deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "AixLib/Resources/Scripts"
         # Delte Userguide from package.order
         - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
         # git checkout -B ${Merge_Branch}
         - rm -r modelica-ibpsa
-        # message="CI - Create IBPSA Merge"
-        # git add . 
-        # git commit -m "$message" 
-        # git push --force git@github.com:${Github_Repository}.git
+        
            
     only:
         - IBPSA_Merge
@@ -69,6 +62,8 @@ IBPSA:
             - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
             - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
             - $CI_COMMIT_MESSAGE =~ /fix errors manually/
+            - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
 
 
     
@@ -76,6 +71,7 @@ IBPSA:
         paths:
             - Merge_Package/GitLabCI/
         expire_in: 6 h     
+
 WhiteList:
     
     stage: Update_WhiteList
@@ -85,8 +81,6 @@ WhiteList:
         - source activate python36  
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
-        
-        
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -99,37 +93,29 @@ WhiteList:
         
       
     script:
-        - ls
-        # git clone --single-branch --branch ${Merge_Branch} git@github.com:${Github_Repository}.git
         - cd Merge_Package/${CI_PROJECT_NAME}
         # Update WhiteList for HTML
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList
         ## Update WhiteList for CheckPackages
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList -DS ${DymolaVersion} -s AixLib
         - rm  -r IBPSA
-        # git checkout -B ${Merge_Branch}
         - message="Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
-        # git add  bin/03_WhiteLists 
         - git add  . 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
            
     only:
         - IBPSA_Merge
-    #only:
-    #    variables:
-    #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:   
         refs: 
             - external_pull_requests
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
+            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+            - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
             - $CI_COMMIT_MESSAGE =~ /fix errors manually/
-    #except: 
-    #    changes:
-    #        - bin/03_WhiteLists/**/*
-    #except:
-    #    - external_pull_requests
+            - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
     allow_failure: true
     
     needs:
@@ -149,31 +135,16 @@ IBPSA_Pull_Request:
   
     script:
        - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
-        
-    
     only:
         - IBPSA_Merge
-    #only:
-    #    variables:
-    #            
-    #        - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
     except:    
         refs: 
             - external_pull_requests
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/  
+            - $CI_COMMIT_MESSAGE =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/    
+            - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
+            - $CI_COMMIT_MESSAGE =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
             - $CI_COMMIT_MESSAGE =~ /fix errors manually/
-    #except: 
-    #    changes:
-    #        - bin/03_WhiteLists/**/*
-    #except:
-    #    - external_pull_requests
-#IBPSA_Release:
-#    stage: Release
-#    before_script:
-#        - echo "test"
-#      
-#    script:
-#        - echo "Write a release"   
-#    only:
-#        - development
+            - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+   
