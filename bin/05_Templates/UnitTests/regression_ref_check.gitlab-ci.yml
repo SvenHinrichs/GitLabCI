@@ -89,20 +89,16 @@ Airflow_Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Airflow -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Airflow --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
-    except:
-
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -116,20 +112,17 @@ BoundaryConditions_Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.BoundaryConditions  -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.BoundaryConditions --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -143,20 +136,17 @@ Fluid_Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Fluid -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Fluid --update-ref -DS ${DymolaVersion}  --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -170,20 +160,17 @@ Systems_Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Systems -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Systems --update-ref -DS ${DymolaVersion} --update-ref --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -197,20 +184,17 @@ ThermalZones _Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.ThermalZones  -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.ThermalZones --update-ref  -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -224,20 +208,17 @@ Controls _Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --single-package AixLib.Controls  -DS ${DymolaVersion} --tool dymola   < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --single-package AixLib.Controls --update-ref  -DS ${DymolaVersion} --tool dymola   < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -250,20 +231,17 @@ Media_Update_References:
         - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Media -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Media --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
         
     artifacts:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
+            - New_Reference_Files
         expire_in: 7 day 
     except:
         - external_pull_requests
     
-    except:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
