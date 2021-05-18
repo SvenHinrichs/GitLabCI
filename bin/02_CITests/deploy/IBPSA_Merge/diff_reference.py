@@ -9,7 +9,6 @@ from shutil import copyfile
 import shutil
 import pathlib
 import glob
-import gviz_api
 from matplotlib.pyplot import figure
 import mpld3
 
