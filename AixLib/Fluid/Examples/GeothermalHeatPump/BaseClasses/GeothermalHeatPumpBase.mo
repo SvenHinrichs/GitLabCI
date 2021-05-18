@@ -40,6 +40,7 @@ partial model GeothermalHeatPumpBase
     V_HE=0.02,
     A_HE=7,
     d=1) "Storage tank for buffering cold demand" annotation (Placement(transformation(extent={{52,-14},{24,20}})));
+
   FixedResistances.PressureDrop                     resistanceColdStorage(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,

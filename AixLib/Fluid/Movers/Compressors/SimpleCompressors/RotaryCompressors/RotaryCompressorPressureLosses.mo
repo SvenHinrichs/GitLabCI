@@ -21,6 +21,7 @@ model RotaryCompressorPressureLosses
     final m_flow_start=m_flow_start)
     "Calculation of pressure drop at inlet of compressor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
   FixedResistances.HydraulicResistance hydResOut(
     redeclare final package Medium=Medium,
     final zeta=zetOut,

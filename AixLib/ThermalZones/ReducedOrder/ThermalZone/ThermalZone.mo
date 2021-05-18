@@ -102,6 +102,7 @@ model ThermalZone "Thermal zone containing moisture balance"
     final TGro=zoneParam.TSoil) if (sum(zoneParam.AExt) + sum(zoneParam.AWin)) > 0
     "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-38,10},{-26,22}})));
+
   EquivalentAirTemperature.VDI6007 eqAirTempRoof(
     final wfGro=0,
     final n=zoneParam.nOrientationsRoof,

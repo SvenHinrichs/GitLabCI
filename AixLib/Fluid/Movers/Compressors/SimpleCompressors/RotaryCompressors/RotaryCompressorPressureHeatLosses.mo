@@ -22,6 +22,7 @@ model RotaryCompressorPressureHeatLosses
     final m_flow_start=m_flow_start)
     "Calculation of pressure drop at inlet of compressor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
   Utilities.HeatTransfer.SimpleHeatTransfer heaTraInl(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
