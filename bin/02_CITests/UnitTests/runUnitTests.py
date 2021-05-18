@@ -445,6 +445,7 @@ if __name__ == '__main__':
 			green = "\033[0;32m"
 			CRED = '\033[91m'
 			CEND = '\033[0m'
+			
 			while dym_sta_lic_available == False:
 				print(CRED+"No Dymola License is available"+CEND)
 				dymola.close()
