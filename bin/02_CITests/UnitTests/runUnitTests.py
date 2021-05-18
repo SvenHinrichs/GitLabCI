@@ -456,6 +456,7 @@ if __name__ == '__main__':
 							path = args.path,  
 							n_pro = args.number_of_processors, 
 							show_gui = args.show_gui)
+		package = single_package
 		new_ref_path = ".."+os.sep+"New_Reference_Files"
 		ref_dir = ".."+os.sep+"AixLib"+os.sep+"Resources"+os.sep+"ReferenceResults"+os.sep+"Dymola"
 		import os 
