@@ -28,6 +28,7 @@ Simulate_AixLib_Airflow:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
 
 Simulate_AixLib_BoundaryConditions:
     stage: Simulate
@@ -54,6 +55,7 @@ Simulate_AixLib_BoundaryConditions:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     
 Simulate_AixLib_Controls:
     stage: Simulate
@@ -80,6 +82,7 @@ Simulate_AixLib_Controls:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     
 Simulate_AixLib_Electrical:
     stage: Simulate
@@ -105,7 +108,8 @@ Simulate_AixLib_Electrical:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/            
     
            
     
@@ -133,7 +137,8 @@ Simulate_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     
 Simulate_AixLib_Media:
     stage: Simulate
@@ -159,7 +164,8 @@ Simulate_AixLib_Media:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/            
 #Simulate_AixLib_Systems:
 #    stage: Simulate
 #    services:
@@ -206,6 +212,7 @@ Simulate_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/            
     
   

@@ -68,6 +68,7 @@ RegressionTest_Check_References:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     only:
         - external_pull_requests
     after_script:

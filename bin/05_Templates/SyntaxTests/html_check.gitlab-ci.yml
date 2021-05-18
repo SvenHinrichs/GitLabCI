@@ -107,7 +107,8 @@ Merge_Checks:
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/  
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
             
 #pages:
 #    stage: deploy
@@ -193,6 +194,7 @@ HTML_Check:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
             
 
             

@@ -28,6 +28,7 @@ Check_Airflow_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/Airflow/**/*
     retry:
@@ -60,6 +61,7 @@ Check_BoundaryConditions_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/BoundaryConditions/**/*
     retry:
@@ -92,6 +94,7 @@ Check_Controls_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/Controls/**/*
     retry:
@@ -124,6 +127,7 @@ Check_Electrical_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/Electrical/**/*
     retry:
@@ -157,6 +161,7 @@ Check_Fluid_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/Fluid/**/*
     retry:
@@ -190,6 +195,7 @@ Check_Media_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             -  AixLib/Media/**/*
     retry:
@@ -249,6 +255,7 @@ Check_ThermalZones_changed_models:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
         changes:
             - AixLib/ThermalZones/**/*
     retry:

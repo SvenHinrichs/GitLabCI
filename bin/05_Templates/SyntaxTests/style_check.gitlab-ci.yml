@@ -27,6 +27,7 @@ Style_Check_AixLib:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/ 
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
             
     
 Style_Check_ChangedModel:
@@ -43,6 +44,7 @@ Style_Check_ChangedModel:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
     except:
         - external_pull_requests
         - IBPSA_Merge 
