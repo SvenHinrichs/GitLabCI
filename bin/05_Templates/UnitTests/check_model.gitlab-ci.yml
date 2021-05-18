@@ -28,7 +28,7 @@ Check_AixLib_Airflow:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
- 
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 Check_AixLib_BoundaryConditions:
     stage: Check
@@ -54,7 +54,7 @@ Check_AixLib_BoundaryConditions:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 Check_AixLib_Controls:
     stage: Check
     before_script:
@@ -79,7 +79,7 @@ Check_AixLib_Controls:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 Check_AixLib_Electrical:
     stage: Check
     before_script:
@@ -104,7 +104,7 @@ Check_AixLib_Electrical:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
           
 Check_AixLib_Fluid:
     stage: Check
@@ -130,7 +130,7 @@ Check_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 Check_AixLib_Media:
     stage: Check
     before_script:
@@ -155,7 +155,7 @@ Check_AixLib_Media:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
         
         
 #Check_AixLib_Systems:
@@ -205,5 +205,5 @@ Check_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
      

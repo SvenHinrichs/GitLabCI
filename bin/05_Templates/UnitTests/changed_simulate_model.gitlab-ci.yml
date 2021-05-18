@@ -29,6 +29,7 @@ Simulate_Airflow_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/Airflow/**/*
     retry:
@@ -60,6 +61,7 @@ Simulate_BoundaryConditions_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/BoundaryConditions/**/*
     retry:
@@ -91,6 +93,7 @@ Simulate_Controls_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/   
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/Controls/**/*
     retry:
@@ -121,6 +124,7 @@ Simulate_Electrical_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/Electrical/**/*
     retry:
@@ -154,6 +158,7 @@ Simulate_Fluid_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/ 
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/Fluid/**/*
     retry:
@@ -185,6 +190,7 @@ Simulate_Media_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/Media/**/*
     retry:
@@ -240,6 +246,7 @@ Simulate_ThermalZones_Changed_model:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
         changes:
             - AixLib/ThermalZones/**/*
     retry:

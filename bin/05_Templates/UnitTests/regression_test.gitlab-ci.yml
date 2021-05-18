@@ -25,8 +25,10 @@ Regression_overall_coverage:
         - external_pull_requests
     except:
         variables:
-            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
-            
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
+
+                      
             
 Regressiontest_AixLib_Airflow:
     stage: RegressionTest
@@ -52,7 +54,8 @@ Regressiontest_AixLib_Airflow:
         - external_pull_requests
     except:
         variables:
-            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
            
 Regressiontest_AixLib_BoundaryConditions:
     stage: RegressionTest
@@ -79,7 +82,7 @@ Regressiontest_AixLib_BoundaryConditions:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 Regressiontest_AixLib_Controls:
     stage: RegressionTest
@@ -106,7 +109,7 @@ Regressiontest_AixLib_Controls:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/   
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 #Regressiontest_AixLib_Electrical:
 #      stage: RegressionTest
@@ -155,7 +158,7 @@ Regressiontest_AixLib_Fluid:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/ 
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 Regressiontest_AixLib_Media:
     stage: RegressionTest
@@ -182,7 +185,7 @@ Regressiontest_AixLib_Media:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 Regressiontest_AixLib_Systems:
     stage: RegressionTest
@@ -209,7 +212,7 @@ Regressiontest_AixLib_Systems:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/       
-           
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
 
 Regressiontest_AixLib_ThermalZones:
     stage: RegressionTest
@@ -236,5 +239,5 @@ Regressiontest_AixLib_ThermalZones:
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
-            
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
           

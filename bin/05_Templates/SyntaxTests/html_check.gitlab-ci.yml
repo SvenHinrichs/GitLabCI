@@ -41,6 +41,7 @@ trigger_branch:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             
             
+            
 
             
 Check_HTML:
@@ -72,6 +73,7 @@ Check_HTML:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
+            
 
             
 Merge_Checks:
@@ -104,7 +106,8 @@ Merge_Checks:
         - external_pull_requests
     except:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/         
+            - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/ 
             
 #pages:
 #    stage: deploy
@@ -189,6 +192,7 @@ HTML_Check:
     only:
         variables:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
             
 
             
@@ -263,6 +267,8 @@ Open_Pull_Request:
         variables:
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE =~ /Correct HTML Code again/
+            
+            
             
     
 Delte_merge_Branches:
