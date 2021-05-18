@@ -19,6 +19,7 @@ Regression_changed_overall_coverage:
         when: on_failure
         paths:
             - AixLib/simulator-dymola.log
+            - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -55,6 +56,7 @@ Regressiontest_changed_AixLib_Airflow:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day 
     retry:
         max: 2
@@ -89,6 +91,7 @@ Regressiontest_changed_AixLib_BoundaryConditions:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -124,6 +127,7 @@ Regressiontest_changed_AixLib_Controls:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -180,6 +184,7 @@ Regressiontest_changed_AixLib_Fluid:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -214,6 +219,7 @@ Regressiontest_changed_AixLib_Media:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -248,6 +254,7 @@ Regressiontest_changed_AixLib_Systems:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
@@ -282,6 +289,7 @@ Regressiontest_changed_AixLib_ThermalZones:
         when: on_failure
         paths:
           - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
         expire_in: 7 day
     retry:
         max: 2
