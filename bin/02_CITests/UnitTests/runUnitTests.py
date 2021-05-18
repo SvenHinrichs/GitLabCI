@@ -474,10 +474,7 @@ if __name__ == '__main__':
 				for line in open(t, 'r'):
 					if line.find("last-generated=") > -1:
 						if line.find(str(current_date))> -1:
-							
 							shutil.copy2(t,new_ref_path)
-							#ref_list.append(t)
-							#print(t)
 							continue
 						
 		
