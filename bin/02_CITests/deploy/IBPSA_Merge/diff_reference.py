@@ -10,7 +10,7 @@ import shutil
 import pathlib
 import glob
 from matplotlib.pyplot import figure
-import mpld3
+
 
 def _CloneRepository():
 	git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
