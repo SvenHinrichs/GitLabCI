@@ -96,6 +96,7 @@ Airflow_Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -120,6 +121,7 @@ BoundaryConditions_Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -145,6 +147,7 @@ Fluid_Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -170,6 +173,7 @@ Systems_Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -195,6 +199,7 @@ ThermalZones _Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -220,6 +225,7 @@ Controls _Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
@@ -244,6 +250,7 @@ Media_Update_References:
         paths:
             - AixLib/simulator-dymola.log
             - AixLib/unitTests-dymola.log
+            - AixLib/Resources/ReferenceResults/Dymola
             - New_Reference_Files
         expire_in: 7 day 
     except:
