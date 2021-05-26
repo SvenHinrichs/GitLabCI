@@ -9,9 +9,8 @@ from shutil import copyfile
 import shutil
 import pathlib
 import glob
-import gviz_api
 from matplotlib.pyplot import figure
-import mpld3
+
 
 def _CloneRepository():
 	git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
