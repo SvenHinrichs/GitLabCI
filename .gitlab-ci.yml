@@ -1,6 +1,8 @@
 #!/bin/bash
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
+
+
 stages:
     - deleteBranch
     - IBPSA_Merge
