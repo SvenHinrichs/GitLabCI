@@ -63,7 +63,7 @@ Regressiontest_changed_AixLib_Airflow:
           - AixLib/simulator-dymola.log
           - AixLib/unitTests-dymola.log
           - AixLib/failed-simulator-dymola.log
-          - AixLib/funnel/
+          - AixLib/funnel_comp/
           - AixLib/comparison-dymola.log
         expire_in: 7 day 
     retry:
