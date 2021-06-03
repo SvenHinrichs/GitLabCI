@@ -9,11 +9,13 @@ from shutil import copyfile
 import shutil
 import pathlib
 import glob
-import gviz_api
-from matplotlib.pyplot import figure
-import mpld3
+import pandas as pd
+#import gviz_api
+#from matplotlib.pyplot import figure
+#import mpld3
 # get datas and create a line chart
-
+#from htmltmpl import TemplateManager, TemplateProcessor
+#import psycopg2
 
 def read_data():
 	ref_file = "bin"+os.sep+"02_CITests"+os.sep+"Converter"+os.sep+"IBPSA_Airflow_Multizone_Examples_CO2TransportStep.txt"
@@ -390,6 +392,69 @@ def main():
 	file = open(ref_file,"w")
 	file.write(page_template % vars())
 
+def read_unitTest_log(f_log):
+	path = "AixLib"+os.sep+"funnel_comp"
+	log = open(f_log,"r")
+	lines = log.readlines()
+	var_dic = {}
+	var_list = []
+	path_list = []
+	for i in lines:
+		if  i.find("*** Warning:") >-1 :
+			if i.find(".mat")> -1 :
+				model = (i[i.find(("Warning:"))+9:i.find(".mat")])
+				var = (i[i.find((".mat:"))+5:i.find("exceeds ")])
+				var = var.lstrip()
+				var_dic[model] = var 
+				path_list.append(path+os.sep+model+".mat_"+var)
+				var_list.append(var)
+				#print(i[i.find(("*** Warning"):i.find(".mat"))])
+	return var_dic, path_list, var_list
+	
+	
+def read_csv_funnel(url,csv_file, test_csv):
+	# Parameter
+	csv_file = url.strip()+os.sep+csv_file
+	test_csv = url.strip()+os.sep+test_csv
+	#csv_file = (csv_file.lstrip())
+	
+	try:
+		var_model = pd.read_csv(csv_file)
+		var_test = pd.read_csv(test_csv)
+		#title = csv_file
+		temps = var_model[['x','y']]
+		d = temps.values.tolist()
+		c = temps.columns.tolist()
+		test_tmp = var_test[['x','y']]
+		e = test_tmp.values.tolist()
+		f = test_tmp.columns.tolist()
+		#print(type(d))
+		big_list = []
+		for i in range(0,len(d)):
+			#print(e[i][1])
+			#d.append(e[i][1])
+			big_list.append([[d[i],e[i][1]]])
+			continue
+		for l in big_list:
+			#print(type(l))
+			for k in l:
+				print((k))
+			#l = l.replace["[",""]
+			
+			#l = l.replace("]","")
+			
+			#l = l.replace("[","")
+			#l = "[" + l +"]"
+			#print(l)
+		
+
+		#print(big_list)
+		#d.insert(0,e)
+		return d
+	
+	except pd.errors.EmptyDataError:
+		print(csv_file + "is empty")
+		
 if  __name__ == '__main__':
 	### Settings
 	'''
@@ -426,7 +491,7 @@ if  __name__ == '__main__':
 	
 	
 	'''
-	
+	'''
 	
 	#write_data_rows()
 	results = read_data()
@@ -440,9 +505,9 @@ if  __name__ == '__main__':
 	ref_file = results[4]
 	## Number value 
 	X_Axis = results[3]
-	
-
-	
+	print(results)
+    '''
+	'''
 	result = func_plot(distriction_values, distriction_time, Value_List,X_Axis,ref_file)
 	lines = result[0]
 	fig = result[1]
@@ -451,7 +516,50 @@ if  __name__ == '__main__':
 	labels = [str(line.get_label()) for line in lines]
 	visibility = [line.get_visible() for line in lines]
 	check = CheckButtons(rax, labels, visibility)
+	'''
 	
+	
+ #*********************************************************************************************************
+	csv_file = "reference.csv"
+	test_csv =  "test.csv"
+	
+	url = r'AixLib\funnel_comp\PowerLaw.mat_V_flow'
+	temp = r'bin\02_CITests\Converter\google_chart.txt'
+	temp_chart = r'bin\02_CITests\Converter'
+	f_log = r'AixLib\unitTests-dymola.log'
+	
+	data = read_unitTest_log(f_log)
+	err_log = data[0]
+	path = data[1]
+	var_list = data[2]
+	counter = 0
+	for i in path:
+		
+		value = read_csv_funnel(i,csv_file, test_csv)
+		#value = read_csv_funnel(url,csv_file)
+		var = (err_log.values())
+		keys= err_log.keys()
+		#print(var)
+		var = (list(var))
+		keys = list(keys)
+		if len(var)> counter-1:
+			var = (var[counter])
+		if len(keys)> counter-1:
+			keys = (keys[counter])
+		
+		# Render Template
+		from mako.template import Template
+		mytemplate = Template(filename=temp)
+		hmtl_chart = mytemplate.render(values=value,var=var,model = keys, title = i)
+		html = temp_chart+os.sep+keys+"_"+var.strip()+"_"+str(counter)+".html"
+		file_tmp= open(html,"w")
+		file_tmp.write(hmtl_chart)
+		file_tmp.close()
+		counter = counter + 1
+		
+	
+	
+	'''
 	#check.on_clicked(func)
 	check.on_clicked(func)
 	
@@ -466,7 +574,7 @@ if  __name__ == '__main__':
 	ax.plot([1,2,3,4])
 	#print(type(fig))
 	mpld3.save_html(fig,'myfig.html')
-	
+	'''
 	
 	'''
 			
