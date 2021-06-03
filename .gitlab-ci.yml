@@ -30,6 +30,9 @@ variables:
     
     
 include:
+  - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/check_model.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_test.gitlab-ci.yml'
