@@ -1,6 +1,6 @@
 stages:
 - pages
-- log
+- deploy
 
 
 pages:
@@ -14,8 +14,8 @@ pages:
         - pip install pandas
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
-        - cd ..
+        # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
+        # cd ..
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
         - mkdir -p .public/$CI_COMMIT_REF_NAME
         - cp -r * .public/$CI_COMMIT_REF_NAME
