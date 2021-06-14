@@ -19,8 +19,9 @@ pages:
         # cd ..
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
         - mkdir -p .public/$CI_COMMIT_REF_NAME
+        - mkdir -p public/$CI_COMMIT_REF_NAME
         - cp -r * .public/$CI_COMMIT_REF_NAME
-        - mv .public public/$CI_COMMIT_REF_NAME
+        - mv .public/$CI_COMMIT_REF_NAME public/$CI_COMMIT_REF_NAME
         
     artifacts:
         when: on_failure
