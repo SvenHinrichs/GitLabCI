@@ -7,9 +7,11 @@ pages:
     stage: deploy
     before_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - pip install pandas
+       
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - pip install --upgrade pip
+        - pip install pandas
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
