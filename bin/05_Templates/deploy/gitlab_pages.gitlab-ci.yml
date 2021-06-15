@@ -24,7 +24,6 @@ pages:
        
         
     artifacts:
-        when: on_failure
         paths:
          - public
          - AixLib/simulator-dymola.log
