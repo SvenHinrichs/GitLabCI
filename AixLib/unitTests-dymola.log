@@ -1,11 +1,6 @@
 Regression tests are only run for the following package:
   AixLib.Airflow.Multizone.BaseClasses.Examples
 *** Warning: PowerLawFixedM.mat: V_flow exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
-*** Warning: PowerLawFixedM2.mat: V_flow1 exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
-*** Warning: WindPressureLowRise.mat: Cpexceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
-*** Warning: PowerLawFixedM4.mat: V_flow3 exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
-*** Warning: PowerLawFixed5M.mat: V_flow3 exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
-*** Warning: PowerLawFixed6M.mat: V_flow4 exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05
 
 Comparison files output by funnel are stored in the directory 'funnel_comp' of size 0.0 MB.
 Run 'report' method of class 'Tester' to access a summary of the comparison results.
