@@ -17,9 +17,11 @@ pages:
     script:
         # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         # cd ..
+        - mkdir public
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
-        - mkdir -p public/$CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
+        - ls
+        - cp .public/$CI_COMMIT_REF_NAME/index.html public
+        - mv .public public
        
         
     artifacts:
