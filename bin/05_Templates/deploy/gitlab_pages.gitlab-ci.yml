@@ -20,7 +20,7 @@ pages:
         - mkdir public
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
         - ls
-        - cp .public/$CI_COMMIT_REF_NAME/index.html public
+        - cp bin\03_WhiteLists\charts\* public
         - mv .public public
        
         
