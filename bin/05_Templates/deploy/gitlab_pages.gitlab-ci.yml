@@ -18,10 +18,9 @@ pages:
         # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         # cd ..
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
-        - mkdir -p .public/$CI_COMMIT_REF_NAME
         - mkdir -p public/$CI_COMMIT_REF_NAME
-        - cp -r * .public/$CI_COMMIT_REF_NAME
-        - mv .public/$CI_COMMIT_REF_NAME public/$CI_COMMIT_REF_NAME
+        - cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
+       
         
     artifacts:
         when: on_failure
@@ -31,5 +30,31 @@ pages:
          - AixLib/unitTests-dymola.log
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
+        expire_in: 1h
 
 
+
+pages_issues:
+# Page to generate content to be downloaded in the artifact-section.
+  stage: deploy
+  before_script:
+    - apt-get update -y
+    - apt-get install zip unzip -y
+    - apt-get install curl -y
+  script:
+    - set +e
+    - curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
+    - if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
+    - set -e
+    # Add/update content
+    # TODO: mv $CI_COMMIT_REF_NAME/* to public/$CI_COMMIT_REF_NAME/*
+    - mkdir -p public/$CI_COMMIT_REF_NAME
+    - cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
+    # Zip the content and publish the zip again
+    - zip -r "content.zip" "public"
+    - mv "content.zip" "public/"
+  artifacts:
+    paths:
+      - public
+      # Make the minor documentation expire in a reasonable development time
+    expire_in: 2 weeks
