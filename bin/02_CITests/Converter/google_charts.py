@@ -441,7 +441,7 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 
 		folder = os.path.isdir(path_name)
 		if folder is False:
-			print("Cant find folder: " + CRED + model_name + CEND)
+			print("Cant find folder: " + CRED + model_name + CEND + "with Variable "+data[0][i] )
 			continue
 		print("Print model: " + green + model_name + CEND + " with Variable: " + CRED + var + CEND)
 		value = read_csv_funnel(path_name, csv_file, test_csv)
