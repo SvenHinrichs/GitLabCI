@@ -441,27 +441,28 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 
 		folder = os.path.isdir(path_name)
 		if folder is False:
-			print("Cant find folder: " + CRED + model_name + CEND + "with Variable "+data[0][i] )
+			print("Cant find folder: " + CRED + model_name + CEND + " with Variable "+CRED+data[0][i]+CEND)
 			continue
-		print("Print model: " + green + model_name + CEND + " with Variable: " + CRED + var + CEND)
-		value = read_csv_funnel(path_name, csv_file, test_csv)
+		else:
+			print("Print model: " + green + model_name + CEND + " with Variable: " + green + var + CEND)
+			value = read_csv_funnel(path_name, csv_file, test_csv)
 
-		# Render Template
+			# Render Template
 
-		mytemplate = Template(filename=temp)
-		var_list.append(var + "_ref")
-		var_list.append(var)
+			mytemplate = Template(filename=temp)
+			var_list.append(var + "_ref")
+			var_list.append(var)
 
-		# values = value : variable numbers/Reference results
-		# var = var_list : legend variables
-		# model = model_name : model name
-		# title = path_name : folder name
+			# values = value : variable numbers/Reference results
+			# var = var_list : legend variables
+			# model = model_name : model name
+			# title = path_name : folder name
 
-		hmtl_chart = mytemplate.render(values=value, var=var_list, model=model_name, title=path_name)
-		html = temp_chart + os.sep + model_name + "_" + var.strip() + ".html"
-		file_tmp = open(html, "w")
-		file_tmp.write(hmtl_chart)
-		file_tmp.close()
+			hmtl_chart = mytemplate.render(values=value, var=var_list, model=model_name, title=path_name)
+			html = temp_chart + os.sep + model_name + "_" + var.strip() + ".html"
+			file_tmp = open(html, "w")
+			file_tmp.write(hmtl_chart)
+			file_tmp.close()
 
 if  __name__ == '__main__':
 	green = "\033[0;32m"
