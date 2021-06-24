@@ -442,7 +442,7 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 		title = i+".mat_"+data[0][i]
 		var = data[0][i]
 		var_list = []
-
+		print(os.listdir("AixLib"+os.sep+"funnel_comp"))
 		folder = os.path.isdir(path_name)
 		if folder is False:
 			print("Cant find folder: " + CRED + model_name + CEND + " with Variable "+CRED+data[0][i]+CEND)
