@@ -426,6 +426,8 @@ def read_csv_funnel(url,csv_file, test_csv):
 	
 	except pd.errors.EmptyDataError:
 		print(csv_file + "is empty")
+
+
 def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 	from mako.template import Template
 	green = "\033[0;32m"
@@ -436,6 +438,8 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 	for i in data[0]:
 		model_name = i
 		path_name = "AixLib"+os.sep+"funnel_comp"+os.sep+i+".mat_"+data[0][i]
+		print(path_name)
+		title = i+".mat_"+data[0][i]
 		var = data[0][i]
 		var_list = []
 
@@ -450,7 +454,7 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 			# Render Template
 
 			mytemplate = Template(filename=temp)
-			var_list.append(var + "_ref")
+			var_list.append(var.strip() + "_ref")
 			var_list.append(var)
 
 			# values = value : variable numbers/Reference results
@@ -458,11 +462,30 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 			# model = model_name : model name
 			# title = path_name : folder name
 
-			hmtl_chart = mytemplate.render(values=value, var=var_list, model=model_name, title=path_name)
+			hmtl_chart = mytemplate.render(values=value, var=var_list, model=model_name, title=title)
 			html = temp_chart + os.sep + model_name + "_" + var.strip() + ".html"
 			file_tmp = open(html, "w")
 			file_tmp.write(hmtl_chart)
 			file_tmp.close()
+def create_index_layout(temp_chart):
+	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "index.txt"
+	from mako.template import Template
+	html_model = []
+
+	for i in (os.listdir(temp_chart)):
+		if i.endswith(".html") and i!= "index.html":
+			html_model.append(i)
+	mytemplate = Template(filename=temp)
+	if len(html_model) > 0:
+		first_model = html_model[0]
+	else:
+		print("No html files")
+	hmtl_chart = mytemplate.render(first_model=first_model, html_model=html_model)
+	html = temp_chart + os.sep + "index.html"
+	file_tmp = open(html, "w")
+	file_tmp.write(hmtl_chart)
+	file_tmp.close()
+
 
 if  __name__ == '__main__':
 	green = "\033[0;32m"
@@ -516,6 +539,7 @@ if  __name__ == '__main__':
 	temp_chart = "bin" + os.sep + "03_WhiteLists" + os.sep + "charts"
 	f_log = "AixLib" + os.sep + "unitTests-dymola.log"
 	## Create Line chart html
+
 	if args.line_html is True:
 
 
@@ -532,6 +556,8 @@ if  __name__ == '__main__':
 				print("Plot line Chart ")
 				print("plot the different reference results")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
+				create_index_layout(temp_chart)
+
 			############################################################
 			# Data from reference files
 			if args.ref_txt is True:
@@ -577,7 +603,7 @@ if  __name__ == '__main__':
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
 					file_tmp.close()
-
+					create_index_layout(temp_chart)
 		# Plot all models with reference datas
 
 		if args.all_model is True:
@@ -598,7 +624,7 @@ if  __name__ == '__main__':
 				print("Plot line Chart ")
 				print("plot the different reference results of all models")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
-
+				create_index_layout(temp_chart)
 			if args.ref_txt is True:
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
@@ -644,6 +670,7 @@ if  __name__ == '__main__':
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
 					file_tmp.close()
+					create_index_layout(temp_chart)
 ################################################################################
 		if args.plotModel is True:
 			model_list = args.modellist
@@ -665,6 +692,7 @@ if  __name__ == '__main__':
 				print("Plot line Chart ")
 				print("plot the different reference results of all models")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
+				create_index_layout(temp_chart)
 			if args.ref_txt is True:
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
@@ -709,6 +737,7 @@ if  __name__ == '__main__':
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
 					file_tmp.close()
+					create_index_layout(temp_chart)
 
 
 
