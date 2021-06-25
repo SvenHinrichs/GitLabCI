@@ -2,6 +2,9 @@ stages:
 - pages
 - deploy
 
+variables:
+    GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
+
 
 pages:
     stage: deploy
@@ -18,10 +21,13 @@ pages:
         # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         # cd ..
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
+
         - mkdir .public
+        - mkdir -p public/$CI_COMMIT_REF_NAME
         - cp -r bin/03_WhiteLists/charts/* .public
         - mv .public public
-       
+        - mv .public public/$CI_COMMIT_REF_NAME
+        - python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
         
     artifacts:
         paths:
