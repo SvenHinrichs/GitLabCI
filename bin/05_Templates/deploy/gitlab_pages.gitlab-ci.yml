@@ -14,6 +14,8 @@ pages:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip
+        - apt-get update -y
+        - apt-get install zip unzip -y
         - pip install pandas
         - pip install mako
         - pip install requests
@@ -21,11 +23,26 @@ pages:
     script:
         # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         # cd ..
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
-
-        - mkdir .public
+        # mkdir -p public/$CI_COMMIT_REF_NAME/google_charts
         - mkdir -p public/$CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
+        - mkdir .public
+
+        # mkdir .public
+        # cp -r * .public
+        # mv .public public
+
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
+        - cp -r bin/03_WhiteLists/charts/* .public
+        - mv .public public/$CI_COMMIT_REF_NAME
+        # set +e
+        # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
+        # if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
+        # set -e
+
+
+        # cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
+        # zip -r "content.zip" "public"
+        # mv "content.zip" "public/"
         # cp -r bin/03_WhiteLists/charts/* .public
         # mv .public public/$CI_COMMIT_REF_NAME
         - python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
