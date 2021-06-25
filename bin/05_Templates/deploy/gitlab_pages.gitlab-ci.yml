@@ -35,7 +35,7 @@ pages:
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public/$CI_COMMIT_REF_NAME
         # mv .public public/$CI_COMMIT_REF_NAME
-        - mv public/$CI_COMMIT_REF_NAME public/
+        # mv public/$CI_COMMIT_REF_NAME public/
         # set +e
         # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
         # if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
