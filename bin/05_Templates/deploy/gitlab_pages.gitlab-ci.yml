@@ -33,7 +33,7 @@ pages:
 
         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME  public/$CI_COMMIT_REF_NAME
+        - cp -r $CI_COMMIT_REF_NAME  public
         # mv .public public/$CI_COMMIT_REF_NAME
         # mv public/$CI_COMMIT_REF_NAME public/
         # set +e
