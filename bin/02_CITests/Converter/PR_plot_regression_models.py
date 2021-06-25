@@ -96,7 +96,7 @@ def update_pull_request_assignees(self, pull_request_number):
 def post_comment(pr_number,page_url, GITHUB_TOKEN , GITHUB_REPOSITORY):
     url = "https://api.github.com/repos/" + GITHUB_REPOSITORY + "/issues/" + str(pr_number)+"/comments"
 
-    payload="{\"body\":\"Errors in regression test. Compare the results on the following page"+ page_url +"\"}"
+    payload="{\"body\":\"Errors in regression test. Compare the results on the following page "+ page_url +"\"}"
     headers = {
       'Authorization': 'Bearer ' + GITHUB_TOKEN,
       'Content-Type': 'application/json'
