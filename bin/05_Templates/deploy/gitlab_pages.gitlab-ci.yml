@@ -16,6 +16,7 @@ pages:
         - pip install --upgrade pip
         - pip install pandas
         - pip install mako
+        - pip install requests
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
