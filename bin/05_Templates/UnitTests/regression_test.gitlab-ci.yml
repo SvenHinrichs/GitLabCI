@@ -50,7 +50,11 @@ Regressiontest_AixLib_Airflow:
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
     after_script:
-         - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
+        - pip install pandas
+        - pip install mako
+        - pip install matplot
+
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
 
     artifacts:
         when: on_failure
