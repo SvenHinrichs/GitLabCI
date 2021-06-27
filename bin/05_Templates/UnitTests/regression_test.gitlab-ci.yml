@@ -111,6 +111,219 @@ Regressiontest_AixLib_BoundaryConditions:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
 
 
+Regressiontest_AixLib_Controls:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - python -V               # Print out python version for debugging
+        - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Controls --tool dymola -DS ${DymolaVersion}
+    after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install pandas
+        - pip install mako
+        - pip install matplot
+
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Controls
+    artifacts:
+        when: on_failure
+        paths:
+          - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
+          - bin/03_WhiteLists/charts/Controls
+        expire_in: 7 day
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        - external_pull_requests
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+
+#Regressiontest_AixLib_Electrical:
+#      stage: RegressionTest
+#      services:
+#        -  docker
+#      before_script:
+#        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+#        - export PIP_CACHE_DIR="/opt/cache/pip"
+#        - source activate python36
+#        - python -V               # Print out python version for debugging
+#        - dir
+#        - export PYTHONIOENCODING=utf-8 # just in case
+#      script:
+#        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Electrical --tool dymola -DS ${DymolaVersion}
+#      artifacts:
+#        when: on_failure
+#        paths:
+#          - AixLib/simulator-dymola.log
+#      retry:
+#        max: 2
+#        when: runner_system_failure
+
+
+Regressiontest_AixLib_Fluid:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - python -V               # Print out python version for debugging
+        - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola -DS ${DymolaVersion}
+    after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install pandas
+        - pip install mako
+        - pip install matplot
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Fluid
+    artifacts:
+        when: on_failure
+        paths:
+          - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
+          - bin/03_WhiteLists/charts/Fluid
+        expire_in: 7 day
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        - external_pull_requests
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+
+Regressiontest_AixLib_Media:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - python -V               # Print out python version for debugging
+        - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola -DS ${DymolaVersion}
+    after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install pandas
+        - pip install mako
+        - pip install matplot
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Media
+    artifacts:
+        when: on_failure
+        paths:
+          - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
+          - bin/03_WhiteLists/charts/Media
+        expire_in: 7 day
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        - external_pull_requests
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+
+Regressiontest_AixLib_Systems:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - python -V               # Print out python version for debugging
+        - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola -DS ${DymolaVersion}
+    after_script:
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Systems
+    artifacts:
+        when: on_failure
+        paths:
+          - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
+          - bin/03_WhiteLists/charts/Systems
+        expire_in: 7 day
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        - external_pull_requests
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+
+Regressiontest_AixLib_ThermalZones:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - python -V               # Print out python version for debugging
+        - dir
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola -DS ${DymolaVersion}
+    after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install pandas
+        - pip install mako
+        - pip install matplot
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ThermalZones
+    artifacts:
+        when: on_failure
+        paths:
+          - AixLib/simulator-dymola.log
+          - AixLib/unitTests-dymola.log
+          - bin/03_WhiteLists/charts/ThermalZones
+        expire_in: 7 day
+    retry:
+        max: 2
+        when: runner_system_failure
+    only:
+        - external_pull_requests
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
+
+
+
+
+
+
+
 pages:
     stage: deploy
     before_script:
@@ -169,6 +382,17 @@ pages:
     
     - job: Regressiontest_AixLib_BoundaryConditions
       artifacts: true
+    - job: Regressiontest_AixLib_Controls
+      artifacts: true
+    - job: Regressiontest_AixLib_Fluid
+      artifacts: true
+    - job: Regressiontest_AixLib_Media
+      artifacts: true
+    - job: Regressiontest_AixLib_Systems
+      artifacts: true
+    - job: Regressiontest_AixLib_ThermalZones
+      artifacts: true
+
       
 
       
