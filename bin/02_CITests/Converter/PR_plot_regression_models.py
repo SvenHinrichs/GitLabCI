@@ -43,7 +43,7 @@ class PULL_REQUEST_GITHUB(object):
         response = requests.request("PATCH", url, headers=headers, data=payload)
 
         print("User " + assignees_owner + " assignee to pull request Number " + str(pull_request_number))
-def get_pull_branch():
+def get_pull_branch(Working_branch):
     Working_branch = "IBPSA_Merge"
     url = "https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls"
 
@@ -126,7 +126,7 @@ if  __name__ == '__main__':
     GITHUB_TOKEN = args.GITHUB_TOKEN
     GITHUB_REPOSITORY = args.GITHUB_REPOSITORY
     page_url = args.GITLAB_Page+args.Working_Branch
-    pr_number = get_pull_branch()
+    pr_number = get_pull_branch(args.Working_branch)
     post_comment(pr_number,page_url,GITHUB_TOKEN,GITHUB_REPOSITORY)
 
 

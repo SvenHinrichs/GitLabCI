@@ -43,13 +43,13 @@ Regressiontest_AixLib_Airflow:
         - python -V               # Print out python version for debugging
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
+
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
     after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
         - pip install pandas
         - pip install mako
         - pip install matplot
@@ -81,13 +81,17 @@ Regressiontest_AixLib_BoundaryConditions:
         - python -V               # Print out python version for debugging
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
+
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
     after_script:
+         - export PIP_CACHE_DIR="/opt/cache/pip"
+         - source activate python36
+         - pip install pandas
+         - pip install mako
+         - pip install matplot
+
          - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package BoundaryConditions
     artifacts:
         when: on_failure
