@@ -847,5 +847,5 @@ if  __name__ == '__main__':
 		ax.plot([1, 2, 3, 4])
 		# print(type(fig))
 		mpld3.save_html(fig, 'myfig.html')
-    if args.create_layout is True:
+	if args.create_layout is True:
 		create_layout(index_path)

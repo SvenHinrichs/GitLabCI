@@ -308,7 +308,7 @@ pages:
         # cp -r * .public
         # mv .public public
 
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --create-layout
+        - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
         # mv .public public/$CI_COMMIT_REF_NAME
