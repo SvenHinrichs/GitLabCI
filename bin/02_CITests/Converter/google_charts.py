@@ -481,6 +481,7 @@ def create_index_layout(temp_chart):
 		first_model = html_model[0]
 	else:
 		print("No html files")
+		exit(0)
 	hmtl_chart = mytemplate.render(first_model=first_model, html_model=html_model)
 	html = temp_chart + os.sep + "index.html"
 	file_tmp = open(html, "w")

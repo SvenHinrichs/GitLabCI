@@ -126,7 +126,7 @@ if  __name__ == '__main__':
     GITHUB_TOKEN = args.GITHUB_TOKEN
     GITHUB_REPOSITORY = args.GITHUB_REPOSITORY
     page_url = args.GITLAB_Page+args.Working_Branch
-    pr_number = get_pull_branch(args.Working_branch)
+    pr_number = get_pull_branch(args.Working_Branch)
     post_comment(pr_number,page_url,GITHUB_TOKEN,GITHUB_REPOSITORY)
 
 
