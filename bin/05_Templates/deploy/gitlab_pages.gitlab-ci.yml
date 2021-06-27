@@ -31,7 +31,7 @@ pages:
         # cp -r * .public
         # mv .public public
 
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp
+        - python bin/02_CITests/Converter/google_charts.py --line-html --error --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
         # mv .public public/$CI_COMMIT_REF_NAME
@@ -48,7 +48,8 @@ pages:
         # cp -r bin/03_WhiteLists/charts/* .public
         # mv .public public/$CI_COMMIT_REF_NAME
         - python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
-        
+    only:
+        - external_pull_requests    
     artifacts:
         paths:
          - public
@@ -57,6 +58,30 @@ pages:
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
         expire_in: 1h
+    
+    needs:
+    - job: Regressiontest_AixLib_Airflow
+      artifacts: true
+    
+    - job: Regressiontest_AixLib_BoundaryConditions
+      artifacts: true
+      
+    - job: Regressiontest_AixLib_Controls
+      artifacts: true
+      
+    - job: Regressiontest_AixLib_Fluid
+      artifacts: true
+      
+    - job: Regressiontest_AixLib_Media
+      artifacts: true
+      
+    - job: Regressiontest_AixLib_Systems
+      artifacts: true
+      
+    - job: Regressiontest_AixLib_ThermalZones
+      artifacts: true
+      
+    when: on_failure
 
 
 

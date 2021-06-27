@@ -433,7 +433,8 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv):
 	green = "\033[0;32m"
 	CRED = '\033[91m'
 	CEND = '\033[0m'
-
+	if os.path.isdir(temp_chart) is False:
+		os.mkdir(temp_chart)
 
 	for i in data[0]:
 		model_name = i
@@ -485,7 +486,28 @@ def create_index_layout(temp_chart):
 	file_tmp = open(html, "w")
 	file_tmp.write(hmtl_chart)
 	file_tmp.close()
+def create_layout(index_path):
+	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "layout_index.txt"
+	folder = (os.listdir(index_path))
+	package_list = []
+	for i in folder:
+		if i == "style.css" or i == "index.html":
+			continue
+		else:
+			#package_list.append(i+os.sep+"index.html")
+			package_list.append(i)
 
+	from mako.template import Template
+	mytemplate = Template(filename=temp)
+	if len(package_list) == 0:
+		print("No html files")
+		exit(0)
+	print(package_list)
+	hmtl_chart = mytemplate.render(single_package=package_list)
+	html = index_path + os.sep + "index.html"
+	file_tmp = open(html, "w")
+	file_tmp.write(hmtl_chart)
+	file_tmp.close()
 
 if  __name__ == '__main__':
 	green = "\033[0;32m"
@@ -498,6 +520,9 @@ if  __name__ == '__main__':
 	unit_test_group = parser.add_argument_group("arguments to plot diagrams")
 
 	unit_test_group.add_argument("--line-html",
+								 help='plot a google html chart in line form',
+								 action="store_true")
+	unit_test_group.add_argument("--create-layout",
 								 help='plot a google html chart in line form',
 								 action="store_true")
 	unit_test_group.add_argument("--line-matplot",
@@ -514,6 +539,7 @@ if  __name__ == '__main__':
 	unit_test_group.add_argument("--all-model",
 								 help='Plot all model',
 								 action="store_true")
+
 
 	unit_test_group.add_argument("-e", "--error",
 								 help='Plot only model with errors',
@@ -532,16 +558,18 @@ if  __name__ == '__main__':
 	args = parser.parse_args()
 
 	# *********************************************************************************************************
-
 	csv_file = "reference.csv"
 	test_csv = "test.csv"
 	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "google_chart.txt"
-	temp_chart = "bin" + os.sep + "03_WhiteLists" + os.sep + "charts"
+
+	index_path = "bin" + os.sep + "03_WhiteLists" + os.sep + "charts"
 	f_log = "AixLib" + os.sep + "unitTests-dymola.log"
 	## Create Line chart html
 
-	if args.line_html is True:
 
+
+	if args.line_html is True:
+		temp_chart = "bin" + os.sep + "03_WhiteLists" + os.sep + "charts" + os.sep + args.single_package
 
 		# Plot all Datas with an error
 		if args.error is True:
@@ -819,4 +847,5 @@ if  __name__ == '__main__':
 		ax.plot([1, 2, 3, 4])
 		# print(type(fig))
 		mpld3.save_html(fig, 'myfig.html')
-
+    if args.create_layout is True:
+		create_layout(index_path)
