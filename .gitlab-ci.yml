@@ -16,7 +16,6 @@ stages:
     - Dif_Ref
     - build
     - HTMLCheck
-    - deploy
     - openMR
     - post
     - ChangedModels
@@ -24,7 +23,8 @@ stages:
     - Check
     - Simulate
     - RegressionTest
- 
+    - deploy
+    
 variables:
     Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
