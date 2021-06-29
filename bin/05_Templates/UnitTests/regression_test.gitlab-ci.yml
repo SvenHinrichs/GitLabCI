@@ -379,16 +379,22 @@ pages:
     needs:
     - job: Regressiontest_AixLib_Airflow
       artifacts: true
+      
     - job: Regressiontest_AixLib_BoundaryConditions
       artifacts: true
+      
     - job: Regressiontest_AixLib_Controls
       artifacts: true
+      
     - job: Regressiontest_AixLib_Fluid
       artifacts: true
+      
     - job: Regressiontest_AixLib_Media
       artifacts: true
+      
     - job: Regressiontest_AixLib_Systems
       artifacts: true
+      
     - job: Regressiontest_AixLib_ThermalZones
       artifacts: true
 
