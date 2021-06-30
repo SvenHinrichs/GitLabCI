@@ -371,6 +371,7 @@ def read_unitTest_log(f_log):
 	var_list = []
 	path_list = []
 	for i in lines:
+
 		if  i.find("*** Warning:") >-1 :
 			if i.find(".mat")> -1 :
 				model = (i[i.find(("Warning:"))+9:i.find(".mat")])
@@ -481,6 +482,7 @@ def create_index_layout(temp_chart):
 		first_model = html_model[0]
 	else:
 		print("No html files")
+		os.rmdir(temp_chart)
 		exit(0)
 	hmtl_chart = mytemplate.render(first_model=first_model, html_model=html_model)
 	html = temp_chart + os.sep + "index.html"
@@ -502,13 +504,15 @@ def create_layout(index_path):
 	mytemplate = Template(filename=temp)
 	if len(package_list) == 0:
 		print("No html files")
+		os.rmdir(temp_chart)
 		exit(0)
-	print(package_list)
-	hmtl_chart = mytemplate.render(single_package=package_list)
-	html = index_path + os.sep + "index.html"
-	file_tmp = open(html, "w")
-	file_tmp.write(hmtl_chart)
-	file_tmp.close()
+	else:
+		print(package_list)
+		hmtl_chart = mytemplate.render(single_package=package_list)
+		html = index_path + os.sep + "index.html"
+		file_tmp = open(html, "w")
+		file_tmp.write(hmtl_chart)
+		file_tmp.close()
 
 if  __name__ == '__main__':
 	green = "\033[0;32m"
@@ -586,6 +590,10 @@ if  __name__ == '__main__':
 				print("plot the different reference results")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
 				create_index_layout(temp_chart)
+				print(temp_chart)
+				print(len(os.listdir(temp_chart)) )
+				if  len(os.listdir(temp_chart)) == 0 :
+					os.rmdir(temp_chart)
 
 			############################################################
 			# Data from reference files

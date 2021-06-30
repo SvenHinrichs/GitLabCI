@@ -5,7 +5,7 @@
     <style>
         .head1 {
             font-size:40px;
-            color:#009900;
+            color:#000000;
             font-weight:bold;
         }
         .head2 {
@@ -18,11 +18,11 @@
             background-position:center;
             background-size: contain;
         }
-      
-        .menu {   
+
+        .menu {
             position: sticky;
             top: 0;
-            background-color: #009900;
+            background-color: #bd0000;
             padding:10px 0px 10px 0px;
             color:white;
             margin: 0 auto;
@@ -57,25 +57,22 @@
         }
     </style>
 </head>
-  
+
 <body>
-      
+
     <!-- Header Section -->
     <header>
         <div class="head1">Regresiontests</div>
-        <div class="head2">Index for regressiontest plots</div>
+
     </header>
-      
+
     <!-- Menu Navigation Bar -->
     <div class="menu">
-        <a href="#home">HOME</a>
-        <a href="#news">NEWS</a>
-        <a href="#notification">NOTIFICATIONS</a>
-        <div class="menu-log">
-            <a href="#login">LOGIN</a>
-        </div>
+        <a href="#Plotresults">Plot results</a>
+
+
     </div>
-      
+
     <!-- Body section -->
     <div class = "body_sec">
         <section id="Content">
@@ -84,8 +81,6 @@
             %endfor	 
         </section>
     </div>
-      
-    <!-- Footer Section -->
-    <footer>Footer Section</footer>
+
 </body>
 </html>             
