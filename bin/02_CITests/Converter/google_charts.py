@@ -713,6 +713,7 @@ if  __name__ == '__main__':
 				os.mkdir(temp_chart)
 			model_list = args.modellist
 			model_list = model_list.split(",")
+			print(model_list)
 			if args.funnel_comp is True:
 				data = {}
 				funnel_path = "AixLib" + os.sep + "funnel_comp"
@@ -739,7 +740,7 @@ if  __name__ == '__main__':
 					file = ref_path + os.sep + i
 					#file =  i
 					#print(file)
-					results = read_data(i)
+					results = read_data(i.lstrip())
 					## Value Number with Legend
 					distriction_values = results[0]
 					## Value time with time sequence
@@ -774,7 +775,10 @@ if  __name__ == '__main__':
 
 					mytemplate = Template(filename=temp)
 					hmtl_chart = mytemplate.render(values=value_list, var=Value_List, model=ref_file, title=i)
-					print(i.replace(".txt", ""))
+					i = (i.replace(".txt", ""))
+
+					i = i[i.find("Dymola")+7:]
+					print(i)
 					html = temp_chart + os.sep + i.replace(".txt", "") + ".html"
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
