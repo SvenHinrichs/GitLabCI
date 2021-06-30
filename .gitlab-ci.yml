@@ -30,8 +30,9 @@ variables:
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
-    
-    
+    GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
+
+
 include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_test.gitlab-ci.yml'

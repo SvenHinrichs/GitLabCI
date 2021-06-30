@@ -4,9 +4,7 @@ stages:
     - RegressionTest
     - deploy
 
-variables:
-    GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
-    
+
 Regression_overall_coverage:
     stage: RegressionTest
     before_script:
@@ -14,8 +12,6 @@ Regression_overall_coverage:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo "FAIL" > .job_status
-
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --coverage-only -DS ${DymolaVersion}
     artifacts:
@@ -51,14 +47,16 @@ Regressiontest_AixLib_Airflow:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-  
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - echo "$(cat .job_status)
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
             python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow ;
+          else
+            echo "Test was succesful!" ;
           fi
     artifacts:
         when: on_failure
@@ -92,14 +90,16 @@ Regressiontest_AixLib_BoundaryConditions:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-         - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - echo "$(cat .job_status)
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
                export PIP_CACHE_DIR="/opt/cache/pip" ;
                source activate python36 ;
                pip install pandas ;
                pip install mako ;
                pip install matplot ;
-
-             python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package BoundaryConditions ;
+               python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package BoundaryConditions ;
+           else
+               echo "Test was succesful!" ;
            fi
     artifacts:
         when: on_failure
@@ -135,14 +135,15 @@ Regressiontest_AixLib_Controls:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Controls --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
-
             python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Controls ;
+          else
+            echo "Test was succesful!" ;
           fi  
     artifacts:
         when: on_failure
@@ -198,13 +199,15 @@ Regressiontest_AixLib_Fluid:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
             python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Fluid ;
+           else
+            echo "Test was succesful!" ;
           fi
     artifacts:
         when: on_failure
@@ -238,13 +241,15 @@ Regressiontest_AixLib_Media:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
              export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
             python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Media ;
+          else
+            echo "Test was succesful!" ;
           fi
     artifacts:
         when: on_failure
@@ -278,13 +283,15 @@ Regressiontest_AixLib_Systems:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
            export PIP_CACHE_DIR="/opt/cache/pip" ;
            source activate python36 ;
            pip install pandas ;
            pip install mako ;
            pip install matplot ;
            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Systems ;
+          else
+           echo "Test was succesful!" ;
           fi
     artifacts:
         when: on_failure
@@ -318,13 +325,15 @@ Regressiontest_AixLib_ThermalZones:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - if [ "echo "$(cat .job_status)"" != "FAIL" ]; then
-            export PIP_CACHE_DIR="/opt/cache/pip"
-            source activate python36
-            pip install pandas
-            pip install mako
-            pip install matplot
-            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ThermalZones
+        - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
+            export PIP_CACHE_DIR="/opt/cache/pip" ;
+            source activate python36 ;
+            pip install pandas ;
+            pip install mako ;
+            pip install matplot ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ThermalZones ;
+           else
+            echo "Test was succesful!" ;
           fi
     artifacts:
         when: on_failure
@@ -341,10 +350,6 @@ Regressiontest_AixLib_ThermalZones:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
-
-
-
-
 
 
 
