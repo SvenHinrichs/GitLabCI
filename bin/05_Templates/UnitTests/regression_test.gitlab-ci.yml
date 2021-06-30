@@ -141,8 +141,6 @@ Regressiontest_AixLib_Controls:
     retry:
         max: 2
         when: runner_system_failure
-    only:
-        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -201,8 +199,6 @@ Regressiontest_AixLib_Fluid:
     retry:
         max: 2
         when: runner_system_failure
-    only:
-        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -239,8 +235,6 @@ Regressiontest_AixLib_Media:
     retry:
         max: 2
         when: runner_system_failure
-    only:
-        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -272,8 +266,6 @@ Regressiontest_AixLib_Systems:
     retry:
         max: 2
         when: runner_system_failure
-    only:
-        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -310,8 +302,6 @@ Regressiontest_AixLib_ThermalZones:
     retry:
         max: 2
         when: runner_system_failure
-    only:
-        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
