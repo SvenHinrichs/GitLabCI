@@ -735,7 +735,7 @@ if  __name__ == '__main__':
 				data = {}
 				for i in model_list:
 					#file = ref_path + os.sep + i
-					file = i
+					file = i.replace("\\",os.sep())
 					results = read_data(file)
 					## Value Number with Legend
 					distriction_values = results[0]
