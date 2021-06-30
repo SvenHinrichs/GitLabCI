@@ -586,12 +586,11 @@ if  __name__ == '__main__':
 			############################################################
 			# Data from funnel comp
 			if args.funnel_comp is True:
-				print("Plot line Chart ")
+				print("Plot line Chart")
 				print("plot the different reference results")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
 				create_index_layout(temp_chart)
-				print(temp_chart)
-				print(len(os.listdir(temp_chart)) )
+
 				if  len(os.listdir(temp_chart)) == 0 :
 					os.rmdir(temp_chart)
 
@@ -710,6 +709,8 @@ if  __name__ == '__main__':
 					create_index_layout(temp_chart)
 ################################################################################
 		if args.plotModel is True:
+			if os.path.isdir(temp_chart) is False:
+				os.mkdir(temp_chart)
 			model_list = args.modellist
 			model_list = model_list.split(",")
 			if args.funnel_comp is True:
@@ -734,9 +735,11 @@ if  __name__ == '__main__':
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
 				for i in model_list:
-					#file = ref_path + os.sep + i
-					file = i.replace("\\",os.sep())
-					results = read_data(file)
+
+					file = ref_path + os.sep + i
+					#file =  i
+					#print(file)
+					results = read_data(i)
 					## Value Number with Legend
 					distriction_values = results[0]
 					## Value time with time sequence
@@ -771,6 +774,7 @@ if  __name__ == '__main__':
 
 					mytemplate = Template(filename=temp)
 					hmtl_chart = mytemplate.render(values=value_list, var=Value_List, model=ref_file, title=i)
+					print(i.replace(".txt", ""))
 					html = temp_chart + os.sep + i.replace(".txt", "") + ".html"
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)

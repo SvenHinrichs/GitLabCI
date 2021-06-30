@@ -320,11 +320,11 @@ Regressiontest_AixLib_ThermalZones:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - cd .. &&  echo 'FAIL' > bin/06_Configfiles/exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > bin/06_Configfiles/exit.sh
+        - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
         - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
