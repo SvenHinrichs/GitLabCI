@@ -41,15 +41,15 @@ Regressiontest_AixLib_Airflow:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - cd.. && echo 'successful' > bin/06_Configfiles/exit.sh
 
     after_script:
 
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
@@ -85,14 +85,14 @@ Regressiontest_AixLib_BoundaryConditions:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - cd.. && echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
 
-       - if cat exit.sh | grep "FAIL"; then
+       - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
                export PIP_CACHE_DIR="/opt/cache/pip" ;
                source activate python36 ;
                pip install pandas ;
@@ -130,13 +130,13 @@ Regressiontest_AixLib_Controls:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Controls --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - cd.. &&  echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
@@ -194,13 +194,13 @@ Regressiontest_AixLib_Fluid:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Fluid --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - cd.. &&  echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
@@ -236,13 +236,13 @@ Regressiontest_AixLib_Media:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Media --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - cd.. &&  echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
@@ -278,13 +278,13 @@ Regressiontest_AixLib_Systems:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Systems --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - cd.. &&  echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
            export PIP_CACHE_DIR="/opt/cache/pip" ;
            source activate python36 ;
            pip install pandas ;
@@ -320,13 +320,13 @@ Regressiontest_AixLib_ThermalZones:
         - dir
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > exit.sh
+        - cd.. &&  echo 'FAIL' > bin/06_Configfiles/exit.sh
 
     script:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.ThermalZones --tool dymola -DS ${DymolaVersion}
-        - echo 'successful' > exit.sh
+        - echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-        - if cat exit.sh | grep "FAIL"; then
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
