@@ -47,7 +47,7 @@ Regressiontest_AixLib_Airflow:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - echo "$(cat .job_status)
+
         - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
@@ -90,7 +90,7 @@ Regressiontest_AixLib_BoundaryConditions:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
         - echo "SUCCESS" > .job_status
     after_script:
-        - echo "$(cat .job_status)
+
         - if [ "echo "$(cat .job_status)"" == "FAIL" ]; then
                export PIP_CACHE_DIR="/opt/cache/pip" ;
                source activate python36 ;
