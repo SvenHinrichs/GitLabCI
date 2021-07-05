@@ -418,7 +418,8 @@ pages:
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
         expire_in: 1h
-    
+    only:
+        - external_pull_requests
     needs:
     - job: Regressiontest_AixLib_Airflow
       artifacts: true
