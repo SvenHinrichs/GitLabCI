@@ -354,6 +354,13 @@ pages:
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
         expire_in: 1h
+    except:
+        - external_pull_requests
+    
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+    
     needs:
     - job: Airflow_Update_References
       artifacts: true
