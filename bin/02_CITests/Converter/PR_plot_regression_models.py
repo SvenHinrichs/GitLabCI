@@ -44,7 +44,7 @@ class PULL_REQUEST_GITHUB(object):
 
         print("User " + assignees_owner + " assignee to pull request Number " + str(pull_request_number))
 def get_pull_branch(Working_branch):
-    Working_branch = "IBPSA_Merge"
+    #Working_branch = "IBPSA_Merge"
     url = "https://api.github.com/repos/SvenHinrichs/GitLabCI/pulls"
 
     payload = {}

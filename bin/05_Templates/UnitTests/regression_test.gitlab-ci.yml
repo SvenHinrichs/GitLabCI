@@ -23,6 +23,8 @@ Regression_overall_coverage:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
@@ -48,7 +50,6 @@ Regressiontest_AixLib_Airflow:
         - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
 
     after_script:
-
         - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
@@ -69,6 +70,8 @@ Regressiontest_AixLib_Airflow:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
@@ -91,7 +94,6 @@ Regressiontest_AixLib_BoundaryConditions:
         - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.BoundaryConditions --tool dymola -DS ${DymolaVersion}
         - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
     after_script:
-
        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
                export PIP_CACHE_DIR="/opt/cache/pip" ;
                source activate python36 ;
@@ -108,11 +110,12 @@ Regressiontest_AixLib_BoundaryConditions:
           - AixLib/simulator-dymola.log
           - AixLib/unitTests-dymola.log
           - bin/03_WhiteLists/charts/BoundaryConditions
-        
         expire_in: 7 day
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/    
@@ -156,6 +159,8 @@ Regressiontest_AixLib_Controls:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -220,6 +225,8 @@ Regressiontest_AixLib_Fluid:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -262,6 +269,8 @@ Regressiontest_AixLib_Media:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -304,6 +313,8 @@ Regressiontest_AixLib_Systems:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
@@ -346,6 +357,8 @@ Regressiontest_AixLib_ThermalZones:
     retry:
         max: 2
         when: runner_system_failure
+    only:
+        - external_pull_requests
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/
