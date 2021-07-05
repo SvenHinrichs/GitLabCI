@@ -354,7 +354,6 @@ pages:
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
         expire_in: 1h
-
     needs:
     - job: Airflow_Update_References
       artifacts: true
@@ -371,7 +370,7 @@ pages:
     - job: Media_Update_References
       artifacts: true
 
-    - job:Systems_Update_References
+    - job: Systems_Update_References
       artifacts: true
 
     - job: ThermalZones_Update_References
