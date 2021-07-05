@@ -371,7 +371,7 @@ pages:
     - job: Media_Update_References
       artifacts: true
 
-    - job:Systems_Update_References
+    - job: Systems_Update_References
       artifacts: true
 
     - job: ThermalZones_Update_References
