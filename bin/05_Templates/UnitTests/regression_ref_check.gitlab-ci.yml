@@ -70,8 +70,8 @@ RegressionTest_Check_References:
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
         expire_in: 7 day 
     except:
-        - IBPSA_Merge
-    except:
+        refs:
+            - IBPSA_Merge
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
@@ -140,7 +140,12 @@ pages:
          - bin/03_WhiteLists/charts
         expire_in: 1h
     except:
-        - external_pull_requests
+        refs:
+            - IBPSA_Merge
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     
    
     
