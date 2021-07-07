@@ -36,10 +36,7 @@ variables:
 include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/UnitTests/regression_test.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
-    file: 'bin/05_Templates/UnitTests/regression_update.gitlab-ci.yml'
+
 
 
 
