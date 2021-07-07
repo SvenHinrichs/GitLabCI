@@ -92,9 +92,6 @@ Regressiontest_AixLib_Controls:
         AixLib_package: AixLib.Controls
     extends: .RegressionTest_Job
 
-
-
-
 Regressiontest_AixLib_Fluid:
     variables:
         AixLib_package: AixLib.Fluid
@@ -134,32 +131,12 @@ pages:
         - pip install matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
-        # cd ..
-        # mkdir -p public/$CI_COMMIT_REF_NAME/google_charts
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - mkdir .public
         - mkdir -p $CI_COMMIT_REF_NAME
-        # mkdir .public
-        # cp -r * .public
-        # mv .public public
-
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
-        # mv .public public/$CI_COMMIT_REF_NAME
-        # mv public/$CI_COMMIT_REF_NAME public/
-        # set +e
-        # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
-        # if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
-        # set -e
-
-
-        # cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
-        # zip -r "content.zip" "public"
-        # mv "content.zip" "public/"
-        # cp -r bin/03_WhiteLists/charts/* .public
-        # mv .public public/$CI_COMMIT_REF_NAME
         - python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
     artifacts:
         paths:
