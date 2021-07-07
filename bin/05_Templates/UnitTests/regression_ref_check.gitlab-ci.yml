@@ -37,11 +37,15 @@ RegressionTest_Check_References:
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
+            pip install pandas ;
+            pip install mako ;
+            pip install matplot ;
             rm -r AixLib/funnel_comp ;
             pushmodel=$(git ls-files --others --exclude-standard);
             model=$(git diff --raw --diff-filter=AMT HEAD^1);
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
+            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist $pushmodel ;
             message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}";
             git add $pushmodel;
             git commit -m "$message";
@@ -52,7 +56,7 @@ RegressionTest_Check_References:
             GREEN='\033[0;32m';
             NC='\033[0m';
             echo -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
-            exit 0 ;
+            exit 1 ;
           else
             model=$(git diff --raw --diff-filter=AMT HEAD^1);
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
@@ -83,221 +87,6 @@ RegressionTest_Check_References:
           else
             exit 0 ;
           fi
-
-Airflow_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Airflow --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/Airflow
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-   
-BoundaryConditions_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.BoundaryConditions --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package BoundaryConditions
-        
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/BoundaryConditions
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-   
-Fluid_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Fluid --update-ref -DS ${DymolaVersion}  --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Fluid
-        
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/Fluid
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-
-Systems_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Systems --update-ref -DS ${DymolaVersion} --update-ref --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Systems
-        
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/Systems
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-
-ThermalZones_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.ThermalZones --update-ref  -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ThermalZones
-        
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/ThermalZones
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-
-Controls_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --single-package AixLib.Controls --update-ref  -DS ${DymolaVersion} --tool dymola   < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Controls
-
-
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/Controls
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-Media_Update_References:
-    stage: Ref_Update
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - python -V               # Print out python version for debugging
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - pip install pandas
-        - pip install mako
-        - pip install matplot
-    script:
-        - cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py --single-package AixLib.Media --update-ref -DS ${DymolaVersion} --tool dymola -n 2  < ../bin/06_Configfiles/EOF.sh
-        - python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Media
-        
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/simulator-dymola.log
-            - AixLib/unitTests-dymola.log
-            - AixLib/Resources/ReferenceResults/Dymola
-            - New_Reference_Files
-            - bin/03_WhiteLists/charts/Media
-        expire_in: 7 day 
-    except:
-        - external_pull_requests
-    
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
 
 pages:
     stage: deploy
@@ -353,31 +142,11 @@ pages:
     except:
         - external_pull_requests
     
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+   
     
     needs:
-    - job: Airflow_Update_References
+    - job: RegressionTest_Check_References
       artifacts: true
 
-    - job: BoundaryConditions_Update_References
-      artifacts: true
-
-    - job: Controls_Update_References
-      artifacts: true
-
-    - job: Fluid_Update_References
-      artifacts: true
-
-    - job: Media_Update_References
-      artifacts: true
-
-    - job: Systems_Update_References
-      artifacts: true
-
-    - job: ThermalZones_Update_References
-      artifacts: true
-
+    
     when: on_failure
-
