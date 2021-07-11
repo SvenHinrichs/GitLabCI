@@ -734,7 +734,6 @@ if  __name__ == '__main__':
 				data = {}
 				for i in model_list:
 					i = i.lstrip()
-
 					#file = ref_path + os.sep + i+".txt"
 					file = i
 					results = read_data(i.lstrip())
