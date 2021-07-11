@@ -104,7 +104,7 @@ Regressiontest_changed_AixLib_Fluid:
     variables:
         AixLib_package: AixLib.Fluid
         package : Airflow
-    extends: .Fluid
+    extends: .Regressiontest_changed_Job
   
 Regressiontest_changed_AixLib_Media:
     variables:
