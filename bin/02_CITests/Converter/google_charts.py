@@ -711,17 +711,12 @@ if  __name__ == '__main__':
 		if args.plotModel is True:
 			if os.path.isdir(temp_chart) is False:
 				os.mkdir(temp_chart)
-			#model_list = "AixLib/Resources/ReferenceResults/Dymola/AixLib_Airflow_AirHandlingUnit_Examples_AHU.txt	AixLib/Resources/ReferenceResults/Dymola/AixLib_BoundaryConditions_InternalGains_Examples_HumansSenTDep.txt	AixLib/Resources/ReferenceResults/Dymola/AixLib_Controls_Continuous_Examples_LimPID.txt"
 
 			model_list = args.modellist
 			print(model_list)
-			#model_list = ['AixLib/Resources/ReferenceResults/Dymola/AixLib_Airflow_AirHandlingUnit_Examples_AHU.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_BoundaryConditions_InternalGains_Examples_HumansSenTDep.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Controls_Continuous_Examples_LimPID.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Fluid_Chillers_Examples_Carnot_TEva.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Fluid_Examples_SimpleHouse.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_ThermalZones_ReducedOrder_Examples_MultizoneMoistAirCO2Equipped.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_ThermalZones_ReducedOrder_Examples_SimpleRoomFourElements.txt']
-			#model_list = str(model_list)
-			model_list = model_list.split("	")
-			#print("test2")
-			#print(model_list)
-			#print(type(model_list))
-			#print(len(model_list))
+
+			model_list = model_list.split("\n")
+
 			print(model_list)
 			if args.funnel_comp is True:
 				data = {}
@@ -747,9 +742,11 @@ if  __name__ == '__main__':
 				for i in model_list:
 					#print("test3")
 					#i = i + ".txt"
-					#i = i
+					print("test")
+					i = i.lstrip()
 
 					print(i)
+					'''
 					#file = ref_path + os.sep + i+".txt"
 					file = i
 					results = read_data(i.lstrip())
@@ -796,7 +793,7 @@ if  __name__ == '__main__':
 					file_tmp.write(hmtl_chart)
 					file_tmp.close()
 					create_index_layout(temp_chart)
-
+					'''
 
 
 
