@@ -712,8 +712,9 @@ if  __name__ == '__main__':
 			if os.path.isdir(temp_chart) is False:
 				os.mkdir(temp_chart)
 			model_list = args.modellist
-			model_list = model_list.split(",")
+			model_list = model_list.split(" ")
 			print(model_list)
+			print(type(model_list))
 			if args.funnel_comp is True:
 				data = {}
 				funnel_path = "AixLib" + os.sep + "funnel_comp"
@@ -736,7 +737,7 @@ if  __name__ == '__main__':
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
 				for i in model_list:
-
+					print(i)
 					file = ref_path + os.sep + i
 					#file =  i
 					#print(file)
