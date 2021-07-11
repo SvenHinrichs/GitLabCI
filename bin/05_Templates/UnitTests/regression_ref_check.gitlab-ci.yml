@@ -65,7 +65,7 @@ RegressionTest_Check_References:
     
     after_script:
         - if cat bin/06_Configfiles/exit2.sh | grep "FAIL"; then
-            pushmodel =$(cat bin/03_WhiteLists/new_ref.txt) ;
+            pushmodel=$(cat bin/03_WhiteLists/new_ref.txt) ;
             echo $pushmodel ;
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
