@@ -21,8 +21,8 @@ RegressionTest_Check_References:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
-        - python -V               # Print out python version for debugging
         - export PYTHONIOENCODING=utf-8 # just in case
+        
     script:
         
         ## Push new Reference files to Branch
@@ -35,17 +35,11 @@ RegressionTest_Check_References:
         - cd ..
         - git ls-files --others --exclude-standard
         - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then
-            export PIP_CACHE_DIR="/opt/cache/pip" ;
-            source activate python36 ;
-            pip install pandas ;
-            pip install mako ;
-            pip install matplot ;
             rm -r AixLib/funnel_comp ;
             pushmodel=$(git ls-files --others --exclude-standard) ;
             model=$(git diff --raw --diff-filter=AMT HEAD^1) ;
             echo $model >  bin/03_WhiteLists/changedmodels.txt ;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
-            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
             message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}" ;
             git add $pushmodel ;
             git commit -m "$message";
@@ -55,15 +49,31 @@ RegressionTest_Check_References:
             RED='\033[0;31m' ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
-            echo  -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
+            echo  -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}" ;
             exit 1 ;
           else
-            model=$(git diff --raw --diff-filter=AMT HEAD^1);
-            echo $model >  bin/03_WhiteLists/changedmodels.txt;
-            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
-            mv Referencefiles/ ../../public/Referencefiles;
+            model=$(git diff --raw --diff-filter=AMT HEAD^1) ;
+            echo $model >  bin/03_WhiteLists/changedmodels.txt ;
+            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
+            mv Referencefiles/ ../../public/Referencefiles ;
             exit 0 ;
           fi
+    
+    
+    after_script:
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then
+            export PIP_CACHE_DIR="/opt/cache/pip" ;
+            source activate python36 ;
+            pip install pandas ;
+            pip install mako ;
+            pip install matplot ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
+            cd  bin/03_WhiteLists/charts/AixLib ;
+            ls ;
+          else
+            echo "Test was succesful!" ;
+          fi  
+    
     artifacts:
         when: on_failure
         paths:
@@ -84,6 +94,7 @@ RegressionTest_Check_References:
 
 pages:
     stage: deploy
+    when: on_failure
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -129,4 +140,4 @@ pages:
     needs:
     - job: RegressionTest_Check_References
       artifacts: true
-    when: on_failure
+   
