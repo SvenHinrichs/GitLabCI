@@ -734,6 +734,7 @@ if  __name__ == '__main__':
 				data = {}
 				for i in model_list:
 					i = i.lstrip()
+					print("Plot for model: "+ i)
 					#file = ref_path + os.sep + i+".txt"
 					file = i
 					results = read_data(i.lstrip())
@@ -772,9 +773,7 @@ if  __name__ == '__main__':
 					mytemplate = Template(filename=temp)
 					hmtl_chart = mytemplate.render(values=value_list, var=Value_List, model=ref_file, title=i)
 					i = (i.replace(".txt", ""))
-
 					i = i[i.find("Dymola")+7:]
-					#print(i)
 					html = temp_chart + os.sep + i.replace(".txt", "") + ".html"
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
