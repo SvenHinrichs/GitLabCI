@@ -22,6 +22,7 @@ RegressionTest_Check_References:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
+        - echo 'FAIL' > bin/06_Configfiles/exit2.sh
         
     script:
         
@@ -52,6 +53,7 @@ RegressionTest_Check_References:
             echo  -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}" ;
             exit 1 ;
           else
+            echo 'successful' > bin/06_Configfiles/exit2.sh ;
             model=$(git diff --raw --diff-filter=AMT HEAD^1) ;
             echo $model >  bin/03_WhiteLists/changedmodels.txt ;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
@@ -61,7 +63,7 @@ RegressionTest_Check_References:
     
     
     after_script:
-        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then
+        - if cat bin/06_Configfiles/exit2.sh | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
