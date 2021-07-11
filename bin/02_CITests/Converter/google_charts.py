@@ -489,7 +489,7 @@ def create_index_layout(temp_chart):
 	file_tmp = open(html, "w")
 	file_tmp.write(hmtl_chart)
 	file_tmp.close()
-def create_layout(index_path):
+def create_layout(index_path,temp_chart):
 	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "layout_index.txt"
 	folder = (os.listdir(index_path))
 	package_list = []
@@ -729,7 +729,7 @@ if  __name__ == '__main__':
 				print("Plot line Chart ")
 				print("plot the different reference results of all models")
 				mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
-				create_index_layout(temp_chart)
+				create_index_layout(temp_chart,temp_chart)
 			if args.ref_txt is True:
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
@@ -861,4 +861,4 @@ if  __name__ == '__main__':
 		# print(type(fig))
 		mpld3.save_html(fig, 'myfig.html')
 	if args.create_layout is True:
-		create_layout(index_path)
+		create_layout(index_path,temp_chart)
