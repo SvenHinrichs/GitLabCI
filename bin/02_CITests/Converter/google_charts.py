@@ -712,6 +712,7 @@ if  __name__ == '__main__':
 			if os.path.isdir(temp_chart) is False:
 				os.mkdir(temp_chart)
 			model_list = args.modellist
+			print(model_list)
 			model_list = model_list.split("\n")
 			if args.funnel_comp is True:
 				data = {}
