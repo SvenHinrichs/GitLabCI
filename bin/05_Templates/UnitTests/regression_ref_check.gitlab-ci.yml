@@ -64,6 +64,7 @@ RegressionTest_Check_References:
     
     after_script:
         - if cat bin/06_Configfiles/exit2.sh | grep "FAIL"; then
+            pushmodel=$(git ls-files --others --exclude-standard) ;
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas ;
