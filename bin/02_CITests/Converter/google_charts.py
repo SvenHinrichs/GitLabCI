@@ -711,21 +711,14 @@ if  __name__ == '__main__':
 		if args.plotModel is True:
 			if os.path.isdir(temp_chart) is False:
 				os.mkdir(temp_chart)
-
 			model_list = args.modellist
-			print(model_list)
-
 			model_list = model_list.split("\n")
-
-			print(model_list)
 			if args.funnel_comp is True:
 				data = {}
 				funnel_path = "AixLib" + os.sep + "funnel_comp"
 				path_list = []
 				var_list = []
 				for i in model_list:
-
-					#i = funnel_path+os.sep+i
 					model = i[:i.find(".mat")]
 					var = i[i.find(".mat_") + 5:]
 					data[model] = var
@@ -740,13 +733,8 @@ if  __name__ == '__main__':
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
 				for i in model_list:
-					#print("test3")
-					#i = i + ".txt"
-					print("test")
 					i = i.lstrip()
 
-					print(i)
-					'''
 					#file = ref_path + os.sep + i+".txt"
 					file = i
 					results = read_data(i.lstrip())
@@ -793,7 +781,6 @@ if  __name__ == '__main__':
 					file_tmp.write(hmtl_chart)
 					file_tmp.close()
 					create_index_layout(temp_chart)
-					'''
 
 
 
