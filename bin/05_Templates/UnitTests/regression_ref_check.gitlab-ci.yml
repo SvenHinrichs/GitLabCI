@@ -45,7 +45,7 @@ RegressionTest_Check_References:
             model=$(git diff --raw --diff-filter=AMT HEAD^1);
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
-            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist $pushmodel ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
             message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}";
             git add $pushmodel;
             git commit -m "$message";
