@@ -41,21 +41,21 @@ RegressionTest_Check_References:
             pip install mako ;
             pip install matplot ;
             rm -r AixLib/funnel_comp ;
-            pushmodel=$(git ls-files --others --exclude-standard);
-            model=$(git diff --raw --diff-filter=AMT HEAD^1);
-            echo $model >  bin/03_WhiteLists/changedmodels.txt;
-            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py;
+            pushmodel=$(git ls-files --others --exclude-standard) ;
+            model=$(git diff --raw --diff-filter=AMT HEAD^1) ;
+            echo $model >  bin/03_WhiteLists/changedmodels.txt ;
+            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
             python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
-            message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}";
-            git add $pushmodel;
+            message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}" ;
+            git add $pushmodel ;
             git commit -m "$message";
-            git push git@github.com:${Github_Repository}.git;
-            cp $pushmodel Referencefiles;
-            mv Referencefiles/ ../../public/Referencefiles;
-            RED='\033[0;31m';
-            GREEN='\033[0;32m';
-            NC='\033[0m';
-            echo  "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
+            git push git@github.com:${Github_Repository}.git ;
+            cp $pushmodel Referencefiles ;
+            mv Referencefiles/ ../../public/Referencefiles ;
+            RED='\033[0;31m' ;
+            GREEN='\033[0;32m' ;
+            NC='\033[0m' ;
+            echo  -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
             exit 1 ;
           else
             model=$(git diff --raw --diff-filter=AMT HEAD^1);
@@ -69,6 +69,7 @@ RegressionTest_Check_References:
         paths:
             - public
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
+            - bin/03_WhiteLists/charts/AixLib
         expire_in: 7 day 
     except:
         refs:
@@ -101,7 +102,6 @@ pages:
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - mkdir .public
         - mkdir -p $CI_COMMIT_REF_NAME
-        
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
@@ -122,7 +122,8 @@ pages:
             - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
-    
+    only:
+        - external_pull_requests
    
     
     needs:

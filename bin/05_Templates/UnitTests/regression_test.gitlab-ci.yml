@@ -145,7 +145,7 @@ pages:
          - AixLib/unitTests-dymola.log
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
-        expire_in: 1h
+        expire_in: 7h
     only:
         - external_pull_requests
     needs:
