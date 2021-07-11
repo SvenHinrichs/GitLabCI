@@ -489,7 +489,7 @@ def create_index_layout(temp_chart):
 	file_tmp = open(html, "w")
 	file_tmp.write(hmtl_chart)
 	file_tmp.close()
-def create_layout(index_path,temp_chart):
+def create_layout(index_path):
 	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "layout_index.txt"
 	folder = (os.listdir(index_path))
 	package_list = []
@@ -504,7 +504,7 @@ def create_layout(index_path,temp_chart):
 	mytemplate = Template(filename=temp)
 	if len(package_list) == 0:
 		print("No html files")
-		os.rmdir(temp_chart)
+		#os.rmdir(temp_chart)
 		exit(0)
 	else:
 		print(package_list)
@@ -861,4 +861,4 @@ if  __name__ == '__main__':
 		# print(type(fig))
 		mpld3.save_html(fig, 'myfig.html')
 	if args.create_layout is True:
-		create_layout(index_path,temp_chart)
+		create_layout(index_path)
