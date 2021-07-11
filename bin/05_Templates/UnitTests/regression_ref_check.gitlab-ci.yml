@@ -55,8 +55,8 @@ RegressionTest_Check_References:
             RED='\033[0;31m';
             GREEN='\033[0;32m';
             NC='\033[0m';
-            echo -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
-            exit 1 ;
+            echo  "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}";
+            
           else
             model=$(git diff --raw --diff-filter=AMT HEAD^1);
             echo $model >  bin/03_WhiteLists/changedmodels.txt;
@@ -65,6 +65,7 @@ RegressionTest_Check_References:
             exit 0 ;
           fi
     artifacts:
+        when: on_failure
         paths:
             - public
             - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
@@ -96,41 +97,24 @@ pages:
         - pip install matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        # cd AixLib && python ../bin/02_CITests/UnitTests/runUnitTests.py -n 2 --batch --single-package AixLib.Airflow --tool dymola -DS ${DymolaVersion}
-        # cd ..
-        # mkdir -p public/$CI_COMMIT_REF_NAME/google_charts
+       
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - mkdir .public
         - mkdir -p $CI_COMMIT_REF_NAME
-        # mkdir .public
-        # cp -r * .public
-        # mv .public public
-
+        
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
-        # mv .public public/$CI_COMMIT_REF_NAME
-        # mv public/$CI_COMMIT_REF_NAME public/
-        # set +e
-        # curl --fail --header "PRIVATE-TOKEN:$GL_TOKEN" $CI_PAGES_URL/content.zip -o content.zip
-        # if [ -e "content.zip" ]; then unzip "content.zip"; rm "content.zip"; fi
-        # set -e
-
-
-        # cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
-        # zip -r "content.zip" "public"
-        # mv "content.zip" "public/"
-        # cp -r bin/03_WhiteLists/charts/* .public
-        # mv .public public/$CI_COMMIT_REF_NAME
-        # python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
+       
     artifacts:
+         
         paths:
          - public
          - AixLib/simulator-dymola.log
          - AixLib/unitTests-dymola.log
          - AixLib/funnel_comp
          - bin/03_WhiteLists/charts
-        expire_in: 1h
+        expire_in: 7h
     except:
         refs:
             - IBPSA_Merge
@@ -144,6 +128,4 @@ pages:
     needs:
     - job: RegressionTest_Check_References
       artifacts: true
-
-    
     when: on_failure
