@@ -29,6 +29,8 @@ stages:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/
             - $CI_COMMIT_MESSAGE !~ /Trigger CI - Update reference results/ 
             - $CI_COMMIT_MESSAGE !~ /Trigger CI - give different reference results/
+        changes:
+            - AixLib/${package}/**/*
     retry:
         max: 2
         when: runner_system_failure  
@@ -39,65 +41,56 @@ stages:
 Check_Airflow_changed_models:
     variables:
         AixLib_package: AixLib.Airflow
+        package: Airflow  
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/Airflow/**/*
+    
 
 Check_BoundaryConditions_changed_models:
     variables:
         AixLib_package: AixLib.BoundaryConditions
+        package: BoundaryConditions 
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/BoundaryConditions/**/*
+    
         
 Check_Controls_changed_models:
     variables:
         AixLib_package: AixLib.Controls
+        package: Controls
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/Controls/**/*
+    
     
 Check_Electrical_changed_models:
     variables:
         AixLib_package: AixLib.Electrical
+        package: Electrical
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/Electrical/**/*
+    
     
 Check_Fluid_changed_models:
     variables:
         AixLib_package: AixLib.Fluid
+        package: Fluid
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/Fluid/**/*
+    
             
 Check_Media_changed_models:
     variables:
         AixLib_package: AixLib.Media
+        package: Media
     extends: .Check_changed_models_job
-    only:
-        changes:
-            -  AixLib/Media/**/*
+    
     
 Check_Systems_changed_models:
     variables:
         AixLib_package: AixLib.Systems
+        package: Systems
     extends: .Check_changed_models_job
-    only:
-        changes:
-            -  AixLib/Systems/**/*
+    
 
 Check_ThermalZones_changed_models:
     variables:
         AixLib_package: AixLib.ThermalZones
+        package: ThermalZones
     extends: .Check_changed_models_job
-    only:
-        changes:
-            - AixLib/ThermalZones/**/*
-    
+   
   

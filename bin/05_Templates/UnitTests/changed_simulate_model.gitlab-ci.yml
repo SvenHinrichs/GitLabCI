@@ -29,7 +29,9 @@ stages:
             - $CI_COMMIT_MESSAGE !~ /Correct HTML Code/  
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - Update reference results/ 
             - $CI_COMMIT_MESSAGE  !~ /Trigger CI - give different reference results/
-        
+        changes:
+            - AixLib/${package}/**/* 
+            
     retry:
         max: 2
         when: runner_system_failure  
@@ -38,57 +40,49 @@ stages:
 Simulate_Airflow_Changed_model:
     variables:
         AixLib_package: AixLib.Airflow
+        package: Airflow
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/Airflow/**/*
+    
    
 Simulate_BoundaryConditions_Changed_model:
     variables:
         AixLib_package: AixLib.BoundaryConditions
+        package: BoundaryConditions
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/BoundaryConditions/**/*  
-
+    
 Simulate_Controls_Changed_model:
     variables:
         AixLib_package: AixLib.Controls
+        package: Controls
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/Controls/**/* 
+    
    
 Simulate_Electrical_Changed_model:
     variables:
         AixLib_package: AixLib.Electrical
+        package: Electrical
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/Electrical/**/* 
+    
             
 Simulate_Fluid_Changed_model:
     variables:
         AixLib_package: AixLib.Fluid
+        package: Fluid
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/Fluid/**/*  
+    
             
 Simulate_Media_Changed_model:
     variables:
         AixLib_package: AixLib.Media
+        package: Media
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/Media/**/*  
+    
    
 
 Simulate_ThermalZones_Changed_model:
     variables:
         AixLib_package: AixLib.ThermalZones
+        package: ThermalZones
     extends: .Simulate_Changed_Job 
-    only:
-        changes:
-            - AixLib/ThermalZones/**/* 
+    
  
