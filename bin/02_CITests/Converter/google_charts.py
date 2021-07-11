@@ -711,17 +711,25 @@ if  __name__ == '__main__':
 		if args.plotModel is True:
 			if os.path.isdir(temp_chart) is False:
 				os.mkdir(temp_chart)
+			#model_list = "AixLib/Resources/ReferenceResults/Dymola/AixLib_Airflow_AirHandlingUnit_Examples_AHU.txt	AixLib/Resources/ReferenceResults/Dymola/AixLib_BoundaryConditions_InternalGains_Examples_HumansSenTDep.txt	AixLib/Resources/ReferenceResults/Dymola/AixLib_Controls_Continuous_Examples_LimPID.txt"
+
 			model_list = args.modellist
-			model_list = model_list.split(" ")
 			print(model_list)
-			print(type(model_list))
+			#model_list = ['AixLib/Resources/ReferenceResults/Dymola/AixLib_Airflow_AirHandlingUnit_Examples_AHU.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_BoundaryConditions_InternalGains_Examples_HumansSenTDep.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Controls_Continuous_Examples_LimPID.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Fluid_Chillers_Examples_Carnot_TEva.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_Fluid_Examples_SimpleHouse.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_ThermalZones_ReducedOrder_Examples_MultizoneMoistAirCO2Equipped.txt\nAixLib/Resources/ReferenceResults/Dymola/AixLib_ThermalZones_ReducedOrder_Examples_SimpleRoomFourElements.txt']
+			#model_list = str(model_list)
+			model_list = model_list.split("	")
+			#print("test2")
+			#print(model_list)
+			#print(type(model_list))
+			#print(len(model_list))
+			print(model_list)
 			if args.funnel_comp is True:
 				data = {}
 				funnel_path = "AixLib" + os.sep + "funnel_comp"
 				path_list = []
 				var_list = []
 				for i in model_list:
-					print(i)
+
 					#i = funnel_path+os.sep+i
 					model = i[:i.find(".mat")]
 					var = i[i.find(".mat_") + 5:]
@@ -737,10 +745,13 @@ if  __name__ == '__main__':
 				ref_path = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 				data = {}
 				for i in model_list:
+					#print("test3")
+					#i = i + ".txt"
+					#i = i
+
 					print(i)
-					file = ref_path + os.sep + i
-					#file =  i
-					#print(file)
+					#file = ref_path + os.sep + i+".txt"
+					file = i
 					results = read_data(i.lstrip())
 					## Value Number with Legend
 					distriction_values = results[0]
@@ -779,7 +790,7 @@ if  __name__ == '__main__':
 					i = (i.replace(".txt", ""))
 
 					i = i[i.find("Dymola")+7:]
-					print(i)
+					#print(i)
 					html = temp_chart + os.sep + i.replace(".txt", "") + ".html"
 					file_tmp = open(html, "w")
 					file_tmp.write(hmtl_chart)
