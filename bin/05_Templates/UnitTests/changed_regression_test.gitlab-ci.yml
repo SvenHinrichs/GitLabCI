@@ -38,7 +38,7 @@ stages:
             - $CI_COMMIT_MESSAGE =~ /Trigger CI - Only Regressiontest/
             
         changes:
-            - AixLib/**/*
+            - "AixLib/**/*${AixLib_package}"
  
 
 Regression_changed_overall_coverage:
