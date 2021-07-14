@@ -55,9 +55,10 @@ RegressionTest_Check_References:
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
-            cd .. ;
-            cd .. ;
             python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
+            pwd ;
+            cd .. ;
+            cd .. ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts ;
             exit 1 ;
           else
