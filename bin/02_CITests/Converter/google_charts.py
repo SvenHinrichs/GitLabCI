@@ -571,8 +571,6 @@ if  __name__ == '__main__':
 	f_log = "AixLib" + os.sep + "unitTests-dymola.log"
 	## Create Line chart html
 
-
-
 	if args.line_html is True:
 		temp_chart = "bin" + os.sep + "03_WhiteLists" + os.sep + "charts" + os.sep + args.single_package
 
