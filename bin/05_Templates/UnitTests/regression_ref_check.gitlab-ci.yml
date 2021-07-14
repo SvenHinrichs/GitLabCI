@@ -52,6 +52,12 @@ RegressionTest_Check_References:
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "${GREEN}New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit.${NC}" ;
+            pip install pandas ;
+            pip install mako ;
+            pip install matplot ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
+            cd  bin/03_WhiteLists/charts/AixLib ;
+            ls ;
             exit 1 ;
           else
             echo 'successful' > bin/06_Configfiles/exit2.sh ;
@@ -62,29 +68,12 @@ RegressionTest_Check_References:
             exit 0 ;
           fi
     
-    
-    after_script:
-        - if cat bin/06_Configfiles/exit2.sh | grep "FAIL"; then
-            pushmodel=$(cat bin/03_WhiteLists/new_ref.sh) ;
-            echo $pushmodel ;
-            export PIP_CACHE_DIR="/opt/cache/pip" ;
-            source activate python36 ;
-            pip install pandas ;
-            pip install mako ;
-            pip install matplot ;
-            python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
-            cd  bin/03_WhiteLists/charts/AixLib ;
-            ls ;
-          else
-            echo "Test was succesful!" ;
-          fi  
-    
     artifacts:
         when: on_failure
         paths:
             - public
-            - CorrectedVersion/AixLib/AixLib/simulator-dymola.log
-            - bin/03_WhiteLists/charts/AixLib
+            - CorrectedVersion/${CI_PROJECT_NAME}/AixLib/simulator-dymola.log
+            - CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib
         expire_in: 7 day 
     except:
         refs:
