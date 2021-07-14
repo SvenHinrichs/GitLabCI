@@ -114,10 +114,10 @@ pages:
         - cp -r $CI_COMMIT_REF_NAME  public
        
     artifacts:
-         
+        when: always
         paths:
-         - public
-         expire_in: 7h
+            - public
+        expire_in: 7h
     except:
         refs:
             - IBPSA_Merge
