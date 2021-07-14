@@ -1,0 +1,18 @@
+Regression tests are only run for the following package:
+  AixLib.BoundaryConditions.InternalGains.Examples
+Comparison files output by funnel are stored in the directory 'funnel_comp' of size 0.2 MB.
+Run 'report' method of class 'Tester' to access a summary of the comparison results.
+
+Script that runs unit tests had 0 warnings and 0 errors.
+
+Unit tests completed successfully.
+
+Regression tests are only run for the following package:
+  AixLib.Airflow.AirHandlingUnit.Examples
+Comparison files output by funnel are stored in the directory 'funnel_comp' of size 0.0 MB.
+Run 'report' method of class 'Tester' to access a summary of the comparison results.
+
+Script that runs unit tests had 0 warnings and 0 errors.
+
+Unit tests completed successfully.
+

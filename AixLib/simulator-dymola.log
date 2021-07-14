@@ -1,0 +1,70 @@
+ = true
+
+    
+    rCheck = checkModel("AixLib.Airflow.AirHandlingUnit.Examples.AHU");
+Check of AixLib.Airflow.AirHandlingUnit.Examples.AHU:
+The model has the same number of unknowns and equations: 175
+Check of AixLib.Airflow.AirHandlingUnit.Examples.AHU successful.
+Declaring variable: Boolean rCheck ;
+    
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"AixLib/Resources/Scripts/Dymola/Airflow/AirHandlingUnit/Examples/AHU.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"AixLib.Airflow.AirHandlingUnit.Examples.AHU\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"AixLib.Airflow.AirHandlingUnit.Examples.AHU\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Airflow/AirHandlingUnit/Examples/AHU.mos");
+simulateModel("AixLib.Airflow.AirHandlingUnit.Examples.AHU", stopTime=86400, outputInterval=60, method="lsodar", tolerance=1e-6, resultFile="AHU");
+Translation of AixLib.Airflow.AirHandlingUnit.Examples.AHU:
+The DAE has 175 scalar unknowns and 175 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 27
+  Variables: 206
+  Constants: 8 (8 scalars)
+  Parameters: 40 (40 scalars)
+  Unknowns: 156 (220 scalars)
+  Equations: 187
+  Nontrivial: 140
+Translated Model
+  Constants: 16 scalars
+  Free parameters: 30 scalars
+  Parameter depending: 13 scalars
+  Outputs: 3 scalars
+  Time-varying variables: 184 scalars
+  Alias variables: 25 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: {6, 6, 1}
+  Sizes after manipulation of the nonlinear systems: {1, 1, 0}
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = 0
+Error: The following error was detected at time: 8250
+ 
+Model error - power: (r1) ^ (n[2]) = (-11.9137) ^ (1.5)
+ 
+The stack of functions is:
+Modelica.Media.Air.MoistAir.saturationPressureLiquid
+Modelica.Media.Air.MoistAir.saturationPressure
+Modelica.Media.Air.MoistAir.saturationPressure(ahu.deHuHRS_true.T_surface)
+ 
+Finished
+Warning: WARNINGS have been issued.
+ = true
+
+
+
+
+
+
+
+Declaring variable: Boolean rScript ;
+    
+    savelog("AixLib.Airflow.AirHandlingUnit.Examples.AHU.translation.log");

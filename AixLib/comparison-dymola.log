@@ -1,0 +1,13 @@
+﻿[
+  {
+    "model": "AixLib.Airflow.AirHandlingUnit.Examples.AHU",
+    "simulation": {
+      "elapsed_time": 0.189,
+      "final_time": 86400,
+      "jacobians": 0,
+      "start_time": 0,
+      "state_events": 0,
+      "success": true
+    }
+  }
+]
