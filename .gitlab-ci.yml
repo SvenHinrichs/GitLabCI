@@ -39,8 +39,6 @@ include:
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/deploy/IBPSA_Merge.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
-    file:  'bin/05_Templates/UnitTests/regression_ref_check.gitlab-ci.yml'
-  - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/html_check.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/SyntaxTests/style_check.gitlab-ci.yml'
