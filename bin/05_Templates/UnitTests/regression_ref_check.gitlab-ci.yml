@@ -55,7 +55,10 @@ RegressionTest_Check_References:
             pip install pandas ;
             pip install mako ;
             pip install matplot ;
+            cd .. ;
+            cd .. ;
             python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts ;
             exit 1 ;
           else
             echo 'successful' > bin/06_Configfiles/exit2.sh ;
@@ -72,6 +75,7 @@ RegressionTest_Check_References:
             - public
             - CorrectedVersion/${CI_PROJECT_NAME}/AixLib/simulator-dymola.log
             - CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib
+            - bin/03_WhiteLists/charts
         expire_in: 7 day 
     except:
         refs:
@@ -82,51 +86,3 @@ RegressionTest_Check_References:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
     only:
         - external_pull_requests
- 
-
-pages:RegressionTest_Check_References:
-    stage: deploy
-    when: on_failure
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36
-        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
-        - pip install --upgrade pip
-        - apt-get update -y
-        - apt-get install zip unzip -y
-        - pip install pandas
-        - pip install mako
-        - pip install requests
-        - pip install matplot
-        - export PYTHONIOENCODING=utf-8 # just in case
-    script:
-        - ls
-        - mkdir -p public/$CI_COMMIT_REF_NAME
-        - mkdir .public
-        - mkdir -p $CI_COMMIT_REF_NAME
-        - cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts
-        - python bin/02_CITests/Converter/google_charts.py  --create-layout
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME  public
-       
-    artifacts:
-        when: always
-        paths:
-            - public
-        expire_in: 7h
-    except:
-        refs:
-            - IBPSA_Merge
-        variables:
-            - $CI_COMMIT_MESSAGE  =~ /Correct HTML Code/
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
-            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/
-    only:
-        - external_pull_requests
-   
-    
-    needs:
-    - job: RegressionTest_Check_References
-      artifacts: true
-   

@@ -116,7 +116,7 @@ Regressiontest_AixLib_ThermalZones:
 
 
 
-pages:RegressionTest_Job:
+pages:
     stage: deploy
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
@@ -146,29 +146,6 @@ pages:RegressionTest_Job:
         expire_in: 7h
     only:
         - external_pull_requests
-    needs:
-    - job: Regressiontest_AixLib_Airflow
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_BoundaryConditions
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_Controls
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_Fluid
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_Media
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_Systems
-      artifacts: true
-      
-    - job: Regressiontest_AixLib_ThermalZones
-      artifacts: true
-    
    
-
     when: on_failure
   
