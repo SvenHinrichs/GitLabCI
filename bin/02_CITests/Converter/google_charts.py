@@ -816,9 +816,6 @@ if  __name__ == '__main__':
 			data = read_unitTest_log(f_log)
 			mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
 
-
-
-
 	# *********************************************************************************************************
 	## Create Line matplot chart
 	if args.line_matplot is True:
