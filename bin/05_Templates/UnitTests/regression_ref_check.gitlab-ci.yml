@@ -117,11 +117,7 @@ pages:
          
         paths:
          - public
-         - AixLib/simulator-dymola.log
-         - AixLib/unitTests-dymola.log
-         - AixLib/funnel_comp
-         - bin/03_WhiteLists/charts
-        expire_in: 7h
+         expire_in: 7h
     except:
         refs:
             - IBPSA_Merge
