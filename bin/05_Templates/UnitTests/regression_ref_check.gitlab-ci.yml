@@ -56,8 +56,6 @@ RegressionTest_Check_References:
             pip install mako ;
             pip install matplot ;
             python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
-            cd  bin/03_WhiteLists/charts/AixLib ;
-            ls ;
             exit 1 ;
           else
             echo 'successful' > bin/06_Configfiles/exit2.sh ;
@@ -86,7 +84,7 @@ RegressionTest_Check_References:
         - external_pull_requests
  
 
-pages:
+pages:RegressionTest_Check_References:
     stage: deploy
     when: on_failure
     before_script:
@@ -108,7 +106,6 @@ pages:
         - mkdir .public
         - mkdir -p $CI_COMMIT_REF_NAME
         - cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts
-        # cd CorrectedVersion/${CI_PROJECT_NAME}
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
