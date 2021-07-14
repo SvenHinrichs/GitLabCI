@@ -103,10 +103,12 @@ pages:
         - pip install matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-       
+        - ls
         - mkdir -p public/$CI_COMMIT_REF_NAME
         - mkdir .public
         - mkdir -p $CI_COMMIT_REF_NAME
+        - cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts
+        # cd CorrectedVersion/${CI_PROJECT_NAME}
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
         - cp -r $CI_COMMIT_REF_NAME  public
