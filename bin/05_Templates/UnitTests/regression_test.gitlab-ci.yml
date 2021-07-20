@@ -1,9 +1,9 @@
 #!/bin/bash
 
 stages:
-    - Ref_Check
     - RegressionTest
-    - deploy
+    - prepare
+   
     
  
 .RegressionTest_Job:
@@ -116,8 +116,9 @@ Regressiontest_AixLib_ThermalZones:
 
 
 
-pages:
-    stage: deploy
+
+prepare_plots:
+    stage: prepare
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -132,20 +133,40 @@ pages:
         - pip install matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - mkdir -p public/$CI_COMMIT_REF_NAME
-        - mkdir .public
-        - mkdir -p $CI_COMMIT_REF_NAME
+        - mkdir -p $CI_COMMIT_REF_NAME/plots 
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME  public
+        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots 
         - python bin/02_CITests/Converter/PR_plot_regression_models.py --Working-Branch ${TARGET_BRANCH}  --GITLAB-Page ${GITLAB_Page} --GITHUB-TOKEN ${GITHUB_API_TOKEN} --GITHUB-REPOSITORY ${Github_Repository}
     artifacts:
         paths:
-         - public
+         - $CI_COMMIT_REF_NAME/plots 
          
         expire_in: 7h
     only:
         - external_pull_requests
    
     when: on_failure
+    needs:
+    - job: Regressiontest_AixLib_Airflow
+      artifacts: true
+    - job: Regressiontest_AixLib_BoundaryConditions
+      artifacts: true
+    - job: Regressiontest_AixLib_Controls
+      artifacts: true
+    - job: Regressiontest_AixLib_Fluid
+      artifacts: true
+    - job: Regressiontest_AixLib_Media
+      artifacts: true
+    - job: Regressiontest_AixLib_Systems
+      artifacts: true
+    - job: Regressiontest_AixLib_ThermalZones
+      artifacts: true
+        
+        
+        
+      
+        
+        
+        
+
   

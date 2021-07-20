@@ -3,7 +3,7 @@
 stages:
     - Ref_Check
     - Ref_Update
-    - deploy
+   
    
 
 RegressionTest_Check_References:
@@ -56,10 +56,13 @@ RegressionTest_Check_References:
             pip install mako ;
             pip install matplot ;
             python bin/02_CITests/Converter/google_charts.py --line-html --plotModel --ref-txt --single-package AixLib --modellist "$pushmodel" ;
+            python bin/02_CITests/Converter/google_charts.py  --create-layout ;
             pwd ;
             cd .. ;
             cd .. ;
+            mkdir -p $CI_COMMIT_REF_NAME/plots ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts ;
+            cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
             echo 'successful' > bin/06_Configfiles/exit2.sh ;
@@ -77,6 +80,7 @@ RegressionTest_Check_References:
             - CorrectedVersion/${CI_PROJECT_NAME}/AixLib/simulator-dymola.log
             - CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib
             - bin/03_WhiteLists/charts
+            - $CI_COMMIT_REF_NAME/plots 
         expire_in: 7 day 
     except:
         refs:
