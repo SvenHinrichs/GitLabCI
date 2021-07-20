@@ -2,7 +2,7 @@
 
 stages:
     - Ref_Update
-    - deploy
+    - prepare
     
 .Update_References_Job:
     stage: Ref_Update
@@ -69,8 +69,8 @@ Media_Update_References:
         AixLib_package: AixLib.Media
     extends: .Update_References_Job
 
-pages:
-    stage: deploy
+prepare_Update_plots:
+    stage: prepare
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -85,25 +85,19 @@ pages:
         - pip install matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        
-        - mkdir -p public/$CI_COMMIT_REF_NAME
-        - mkdir .public
-        - mkdir -p $CI_COMMIT_REF_NAME
+        - mkdir -p $CI_COMMIT_REF_NAME/Update_plots 
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME
-        - cp -r $CI_COMMIT_REF_NAME  public
+        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/Update_plots 
+        
+       
        
     artifacts:
         paths:
-         - public
-         - AixLib/simulator-dymola.log
-         - AixLib/unitTests-dymola.log
-         - AixLib/funnel_comp
-         - bin/03_WhiteLists/charts
-        expire_in: 1h
+         - $CI_COMMIT_REF_NAME/Update_plots 
+        expire_in: 7h
+   
     except:
         - external_pull_requests
-    
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/

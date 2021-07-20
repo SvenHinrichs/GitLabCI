@@ -144,7 +144,11 @@ prepare_plots:
         expire_in: 7h
     only:
         - external_pull_requests
-   
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~  /Correct HTML Code/  
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+            - $CI_COMMIT_MESSAGE  =~ /Trigger CI - give different reference results/      
     when: on_failure
     needs:
     - job: Regressiontest_AixLib_Airflow
