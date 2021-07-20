@@ -23,6 +23,7 @@ stages:
     - Check
     - Simulate
     - RegressionTest
+    - prepare
     - deploy
     
 variables:
