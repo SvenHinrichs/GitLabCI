@@ -33,6 +33,8 @@ variables:
     GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
 include:
   - project: 'SvenHinrichs/GitLabCI'
+    file:  'bin/05_Templates/deploy/gitlab_pages.gitlab-ci.yml'
+  - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/CheckConfiguration/check_settings.gitlab-ci.yml'
   - project: 'SvenHinrichs/GitLabCI'
     file:  'bin/05_Templates/deploy/deploy_ref.gitlab-ci.yml'
