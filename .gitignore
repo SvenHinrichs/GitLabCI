@@ -61,10 +61,7 @@ success
 
 # Ignore files created by BuildingsPy #
 #######################################
-*.py[cod]
-*simulator*.log
-*unitTests*.log
-*comparison*.log
+
 
 #Ignore files create by HTML Check
 HTML-logfile.txt

@@ -42,7 +42,11 @@ RegressionTest_Check_References:
             model=$(git diff --raw --diff-filter=AMT HEAD^1) ;
             echo $model >  bin/03_WhiteLists/changedmodels.txt ;
             python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
+<<<<<<< HEAD
             message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots" ;
+=======
+            message="Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/AixLib/" ;
+>>>>>>> 662732f96c813e14c03051e65fbabfd5dc244542
             git add $pushmodel ;
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git ;
@@ -61,7 +65,11 @@ RegressionTest_Check_References:
             cd .. ;
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
+<<<<<<< HEAD
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/* bin/03_WhiteLists/charts ;
+=======
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/charts/AixLib bin/03_WhiteLists/charts ;
+>>>>>>> 662732f96c813e14c03051e65fbabfd5dc244542
             cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else

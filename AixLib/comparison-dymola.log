@@ -1,0 +1,77 @@
+﻿[
+  {
+    "comparison": {
+      "file_name": "PowerLawFixedM.mat",
+      "funnel_dirs": [
+        "funnel_comp/PowerLawFixedM.mat_V_flow"
+      ],
+      "success_rate": 0.0,
+      "t_err_max": [
+        0.05
+      ],
+      "test_passed": [
+        0
+      ],
+      "var_groups": [
+        0
+      ],
+      "variables": [
+        "V_flow"
+      ],
+      "warnings": [
+        "PowerLawFixedM.mat: V_flow exceeds funnel tolerance with absolute error = 2.892e+07. Maximum error is at t = 0.05\n"
+      ]
+    },
+    "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM"
+  },
+  {
+    "comparison": {
+      "file_name": "WindPressureLowRise.mat",
+      "funnel_dirs": [
+        "funnel_comp/WindPressureLowRise.mat_Cp"
+      ],
+      "success_rate": 1.0,
+      "t_err_max": [
+        -2.0
+      ],
+      "test_passed": [
+        1
+      ],
+      "var_groups": [
+        0
+      ],
+      "variables": [
+        "Cp"
+      ],
+      "warnings": [
+        null
+      ]
+    },
+    "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise"
+  },
+  {
+    "comparison": {
+      "file_name": "PowerLaw.mat",
+      "funnel_dirs": [
+        "funnel_comp/PowerLaw.mat_V_flow"
+      ],
+      "success_rate": 1.0,
+      "t_err_max": [
+        0.0
+      ],
+      "test_passed": [
+        1
+      ],
+      "var_groups": [
+        0
+      ],
+      "variables": [
+        "V_flow"
+      ],
+      "warnings": [
+        null
+      ]
+    },
+    "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLaw"
+  }
+]
