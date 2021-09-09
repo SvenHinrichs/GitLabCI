@@ -5,15 +5,11 @@ import glob
 import argparse
 
 def copy_mos(ibpsa_dir,dst):
-	#IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos
-	# D:\01_Arbeit\04_Github\01_GitLabCI\master\GitLabCI\IBPSA\IBPSA\Resources\Scripts\Dymola
-	#D:\01_Arbeit\04_Github\01_GitLabCI\master\GitLabCI
 	''' Copy the ConvertIBPSA mos Script'''
 	if  os.path.isdir(dst) :
 		pass
 	else:
 		os.mkdir(dst)
-	#for file in glob(ibpsa_dir):
 	file = (glob.glob(ibpsa_dir))
 	# Look which ConvertScript is the latest
 	if len(file)==0:
@@ -46,13 +42,7 @@ def copy_mos(ibpsa_dir,dst):
 	return data 
 	
 	
-	'''for root, subdirs, files in os.walk('D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master'):
-		
-		for d in subdirs:
-			if d == "IBPSA":
-				print(root)
-				print(files)
-	'''			
+				
 # Read the last aixlib mos sciprt
 def read_aixlib_convert(aixlib_dir):
 	filelist = (glob.glob(aixlib_dir+os.sep+"*.mos"))
@@ -86,9 +76,7 @@ def create_convert_aixlib(data,dst,l_conv_aix,comp):
 	if comp is True:
 		conv_number =  l_conv_aix[l_conv_aix.find("ConvertAixLib_from_")+19:l_conv_aix.rfind(".mos")]
 		# Update FROM Number
-		
 		from_numb = str("0.")+((conv_number[conv_number.find("_to_0")+6:]))   
-		
 		# Update TO Number
 		to_numb = int((conv_number[conv_number.find("_to_0")+6:conv_number.rfind(".")])) + 1   
 		to_numb = "0."+str(to_numb)+"." + str(0)
@@ -110,7 +98,7 @@ def create_convert_aixlib(data,dst,l_conv_aix,comp):
 		f.close()
 		r.close()
 		return aixlib_mos
-# D:\01_Arbeit\04_Github\01_GitLabCI\master\GitLabCI\AixLib\Resources\Scripts
+
 def copy_aixlib_mos(aixlib_mos,aixlib_dir,dst):
 	shutil.copy(aixlib_mos, aixlib_dir)
 	shutil.rmtree(dst)
@@ -160,9 +148,9 @@ def _read_package():
 			
 			version_number = line[line.find("_to_")+4:line.find(".mos")]
 			return version_number
-			#list.append(version_number)
+			
 	
-	#return list
+	
 def add_conv_to_package(aixlib_mos,aixlib_dir):
 	file = open("AixLib"+os.sep+"package.mo", "r")
 	list = []
@@ -176,35 +164,32 @@ def add_conv_to_package(aixlib_mos,aixlib_dir):
 	aixlib_mos = aixlib_mos[aixlib_mos.find("ConvertAixLib"):]
 	
 	for line in file:
-		if line.find('version =') and line.find(version_number) > -1:
+		if line.find('version =') > -1 and line.find(version_number) > -1:
 			list.append(line.replace(version_number,number_beg))
 			
 		elif line.find("conversion(from(") > -1:
 			list.append(line)
 			counter = 1
 			continue	
-		elif line.find('.mos")),') >-1 and counter == 1:
+		elif line.find('.mos")),') > -1 and counter == 1:
 			ent = line.replace('.mos")),','.mos",')
 			list.append(ent)
 			version = '    version="'+number+'", script="modelica://'+aixlib_dir.replace(os.sep,"/")+'/' +aixlib_mos +'")),\n'
-			#print(version)
 			list.append(version)
 			counter = 0
 			continue
 		else: 
 			list.append(line)
 			continue
-	#for i in list:
-	#	print(i)
 	file.close()
 	pack =  open("AixLib"+os.sep+"package.mo", "w")
 	for i in list:
 		pack.write(i)
 	pack.close()
 if  __name__ == '__main__':
-	#aixlib_dir = "D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master\\GitLabCI\\AixLib\\Resources\\Scripts"
-	#ibpsa_dir = 'D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master\\GitLabCI\\modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*'
-	#dst = "D:\\01_Arbeit\\04_Github\\01_GitLabCI\\master\\GitLabCI\\Convertmos"
+	#aixlib_dir = "**\\AixLib\\Resources\\Scripts"
+	#ibpsa_dir = '**\\modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*'
+	#dst = "**\\Convertmos"
 	
 	parser = argparse.ArgumentParser(description = "Set Github Environment Variables")
 	check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
@@ -232,8 +217,4 @@ if  __name__ == '__main__':
 		print("New Aixlib Conversion skrip was created")
 	
 	_read_package()
-	#aixlib_mos = "ConvertAixLib_from_0.11.0_to_0.12.0.mos"
-	#aixlib_dir = "D:\01_Arbeit\04_Github\01_GitLabCI\IBPSA_Merge\GitLabCI\AixLib\Resources\Scripts"
-	#aixlib_dir = "AixLib\Resources\Scripts"
 	
-	#add_conv_to_package(aixlib_mos,aixlib_dir)
