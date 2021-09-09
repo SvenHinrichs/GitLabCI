@@ -26,12 +26,12 @@ stages:
     - deploy
     
 variables:
-    Praefix_Branch: "Correct_HTML_"
-    TARGET_BRANCH: $CI_COMMIT_REF_NAME
-    Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
     GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
+    Target_Branch: "master"
+    IBPSA_Repo: "https://github.com/ibpsa/modelica-ibpsa.git"
     Merge_Branch: "IBPSA_Merge"
+
     
 IBPSA:
     stage: IBPSA_Merge
