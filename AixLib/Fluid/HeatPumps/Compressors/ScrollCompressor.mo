@@ -3,6 +3,8 @@ model ScrollCompressor
   "Model for a scroll compressor, based on Jin (2002)"
   extends AixLib.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Real volRat(
     min = 1.0,
     final unit = "1")
@@ -131,7 +133,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

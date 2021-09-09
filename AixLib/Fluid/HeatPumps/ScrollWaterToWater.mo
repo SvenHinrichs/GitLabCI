@@ -13,6 +13,8 @@ model ScrollWaterToWater
       final PLos=datHeaPum.PLos*scaling_factor,
       final dTSup=datHeaPum.dTSup));
 
+  extends AixLib.Icons.ibpsa;
+
   parameter AixLib.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic datHeaPum
     "Heat pump data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-98,78},{-78,98}})));
@@ -89,7 +91,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

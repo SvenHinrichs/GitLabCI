@@ -6,6 +6,8 @@ model TwoWayButterfly
     final Kv = Kvs,
     final c={0,1.101898284705380E-01, 2.217227395456580,  -7.483401207660790, 1.277617623360130E+01, -6.618045307070130});
 
+  extends AixLib.Icons.ibpsa;
+
 
   parameter Real Kvs "Kv value at fully open valve"
     annotation(choices(
@@ -63,6 +65,13 @@ from the value at DN 150.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 December 22, 2020 by Michael Wetter:<br/>
 Add parameter <code>Kvs</code>.

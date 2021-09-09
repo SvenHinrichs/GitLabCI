@@ -2,6 +2,8 @@ within AixLib.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends AixLib.Fluid.Interfaces.PartialFourPort;
+
+  extends AixLib.Icons.ibpsa;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -17,7 +19,7 @@ partial model PartialFourPortInterface
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation (
+    annotation(
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 

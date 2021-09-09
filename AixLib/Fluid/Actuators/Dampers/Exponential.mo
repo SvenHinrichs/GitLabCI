@@ -2,6 +2,8 @@ within AixLib.Fluid.Actuators.Dampers;
 model Exponential
   "Air damper with exponential opening characteristics"
   extends AixLib.Fluid.Actuators.BaseClasses.PartialDamperExponential;
+
+  extends AixLib.Icons.ibpsa;
 equation
   // Pressure drop calculation
   if linearized then
@@ -63,6 +65,13 @@ AixLib.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 April 12, 2021, by Michael Wetter:<br/>
 Guarded against division by zero if the pressure equation is removed.

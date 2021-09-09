@@ -2,6 +2,8 @@ within AixLib.ThermalZones.ReducedOrder.RC;
 model OneElement "Thermal Zone with one element for exterior walls"
   extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone"
     annotation(Dialog(group="Thermal zone"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hRad

@@ -1,6 +1,8 @@
 within AixLib.Fluid.HeatExchangers.ActiveBeams;
 model Cooling "Active beam unit for cooling"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package MediumWat =
     Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
       annotation (choices(
@@ -70,7 +72,7 @@ model Cooling "Active beam unit for cooling"
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation (
+    annotation(
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 

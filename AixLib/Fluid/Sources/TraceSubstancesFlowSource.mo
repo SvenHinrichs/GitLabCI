@@ -2,6 +2,8 @@ within AixLib.Fluid.Sources;
 model TraceSubstancesFlowSource
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     AixLib.Media.Air(extraPropertiesNames={"CO2"}) "Medium in the component"
       annotation (choices(

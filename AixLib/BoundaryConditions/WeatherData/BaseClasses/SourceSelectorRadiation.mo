@@ -2,6 +2,8 @@ within AixLib.BoundaryConditions.WeatherData.BaseClasses;
 block SourceSelectorRadiation
   "Block that selects the solar radiation source and outputs the solar radiation quantities"
   extends Modelica.Blocks.Icons.Block;
+
+  extends AixLib.Icons.ibpsa;
   parameter AixLib.BoundaryConditions.Types.RadiationDataSource datSou "Data source"
     annotation(Evaluate=true);
 

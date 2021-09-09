@@ -14,6 +14,8 @@ model IndirectTankHeatExchanger
     redeclare final package Medium = MediumHex,
     final show_T=false);
 
+  extends AixLib.Icons.ibpsa;
+
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 

@@ -4,6 +4,8 @@ model InternalResistancesOneUTube
   extends
     AixLib.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalResistances;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.ThermalResistance Rgg_val "Thermal resistance between the two grout zones";
   parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
     *(borFieDat.conDat.rBor^2 - 2*borFieDat.conDat.rTub^2)

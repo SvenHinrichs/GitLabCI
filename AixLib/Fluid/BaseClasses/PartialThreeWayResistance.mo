@@ -4,6 +4,8 @@ partial model PartialThreeWayResistance
   extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
 
+  extends AixLib.Icons.ibpsa;
+
   Modelica.Fluid.Interfaces.FluidPort_a port_1(
     redeclare package Medium = Medium,
     h_outflow(start=Medium.h_default, nominal=Medium.h_default),

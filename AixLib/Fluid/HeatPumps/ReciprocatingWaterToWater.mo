@@ -14,6 +14,8 @@ model ReciprocatingWaterToWater
       pDro=per.pDro,
       dTSup=per.dTSup));
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Data.ReciprocatingWaterToWater.Generic per
     "Heat pump performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-98,
@@ -81,7 +83,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

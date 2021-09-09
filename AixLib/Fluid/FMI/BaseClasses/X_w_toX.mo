@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.BaseClasses;
 block X_w_toX "Conversion from Xi to X"
   extends Modelica.Blocks.Icons.Block;
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

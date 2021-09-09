@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.Validation;
 model HeaterFan
   "Heater and fan in series, model configured to allow flow reversal"
   extends Modelica.Icons.Example;
+
+  extends AixLib.Icons.ibpsa;
   package Medium = AixLib.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10

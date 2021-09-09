@@ -3,6 +3,8 @@ model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
   extends AixLib.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+
+  extends AixLib.Icons.ibpsa;
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);

@@ -2,6 +2,8 @@ within AixLib.Fluid.HeatExchangers.ActiveBeams;
 model CoolingAndHeating "Active beam unit for heating and cooling"
   extends AixLib.Fluid.HeatExchangers.ActiveBeams.Cooling(sum(nin=2));
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable parameter Data.Generic perHea "Performance data for heating"
     annotation (
       Dialog(group="Nominal condition"),

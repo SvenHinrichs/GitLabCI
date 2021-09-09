@@ -5,6 +5,8 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
             from_dp=true,
             phi=max(0.1*l, l + y_actual*(1 - l)));
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Real l2(min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
@@ -219,6 +221,13 @@ can serve both puroposes.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 August 7, 2020, by Ettore Zanetti:<br/>
 changed the computation of <code>phi</code> using

@@ -2,6 +2,8 @@ within AixLib.BoundaryConditions.WeatherData.BaseClasses;
 block SourceSelector
   "Block that selects as its output either a parameter value or its input"
   extends Modelica.Blocks.Interfaces.SO;
+
+  extends AixLib.Icons.ibpsa;
   parameter AixLib.BoundaryConditions.Types.DataSource datSou "Data source"
     annotation(Evaluate=true);
   parameter Real p "Parameter value";

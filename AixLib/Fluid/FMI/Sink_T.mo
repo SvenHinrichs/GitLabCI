@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI;
 model Sink_T
   "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
   extends Modelica.Blocks.Icons.Block;
+
+  extends AixLib.Icons.ibpsa;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

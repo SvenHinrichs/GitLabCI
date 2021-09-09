@@ -6,6 +6,8 @@ partial model PartialWaterToWater
     final computeFlowResistance1 = dp1_nominal > 0,
     final computeFlowResistance2 = dp2_nominal > 0);
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package ref = AixLib.Media.Refrigerants.R410A
     "Refrigerant in the component"
     annotation (choicesAllMatching = true);
@@ -315,7 +317,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

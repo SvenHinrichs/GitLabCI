@@ -4,6 +4,8 @@ block ResistanceVolume
   extends AixLib.Fluid.FMI.ExportContainers.PartialTwoPort(
     redeclare package Medium = AixLib.Media.Air);
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";

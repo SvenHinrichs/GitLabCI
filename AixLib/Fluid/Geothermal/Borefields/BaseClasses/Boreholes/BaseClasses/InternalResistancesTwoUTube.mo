@@ -4,6 +4,8 @@ model InternalResistancesTwoUTube
   extends
     AixLib.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalResistances;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.ThermalResistance Rgg1_val
     "Thermal resistance between two neightbouring grout capacities, as defined by Bauer et al (2010)";
   parameter Modelica.SIunits.ThermalResistance Rgg2_val

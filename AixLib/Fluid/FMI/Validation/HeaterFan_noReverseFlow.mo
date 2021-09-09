@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.Validation;
 model HeaterFan_noReverseFlow
   "Heater and fan in series, model configured to not allow flow reversal"
   extends Modelica.Icons.Example;
+
+  extends AixLib.Icons.ibpsa;
   package Medium = AixLib.Media.Air "Medium model";
 
   final parameter Boolean allowFlowReversal = false

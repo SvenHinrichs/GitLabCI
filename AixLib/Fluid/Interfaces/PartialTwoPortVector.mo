@@ -1,6 +1,8 @@
 within AixLib.Fluid.Interfaces;
 partial model PartialTwoPortVector "Partial component with two ports, one of which being vectorized"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
@@ -34,7 +36,7 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation (
+    annotation(
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 

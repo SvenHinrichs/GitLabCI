@@ -5,12 +5,10 @@ partial model PartialPrescribedOutlet
   extends AixLib.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  extends AixLib.Icons.ibpsa;
+
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
 
   parameter Modelica.SIunits.Time tau(min=0) = 10
     "Time constant at nominal flow rate (used if energyDynamics or massDynamics not equal Modelica.Fluid.Types.Dynamics.SteadyState)"
@@ -79,6 +77,11 @@ and connect its input signals, in they are enabled.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 29, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>m_flow_nominal</code> which is already
+declared in the base class.<br/>
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

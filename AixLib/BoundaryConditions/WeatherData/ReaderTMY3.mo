@@ -1,6 +1,8 @@
 within AixLib.BoundaryConditions.WeatherData;
 block ReaderTMY3 "Reader for TMY3 weather data"
 
+  extends AixLib.Icons.ibpsa;
+
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 

@@ -3,6 +3,8 @@ model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
   extends AixLib.Fluid.Interfaces.PartialTwoPortInterface;
 
+  extends AixLib.Icons.ibpsa;
+
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 

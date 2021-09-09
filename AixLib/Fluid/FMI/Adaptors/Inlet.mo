@@ -1,6 +1,8 @@
 within AixLib.Fluid.FMI.Adaptors;
 model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

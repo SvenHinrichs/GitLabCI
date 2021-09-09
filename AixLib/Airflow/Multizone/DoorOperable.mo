@@ -5,6 +5,8 @@ model DoorOperable
     final vAB = VAB_flow/A,
     final vBA = VBA_flow/A);
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Real CDOpe=0.65 "Discharge coefficient of open door"
     annotation (Dialog(group="Open door"));
 
@@ -58,8 +60,6 @@ protected
     "Mass flow rate where regularization to laminar flow occurs for temperature-driven flow";
 
   Modelica.SIunits.VolumeFlowRate VABpOpeClo_flow[2](each nominal=0.001)
-    "Volume flow rate from A to B if positive due to static pressure difference";
-  Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
 
   Modelica.SIunits.Area A "Current opening area";
@@ -173,6 +173,12 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 11, 2021, by Michael Wetter:<br/>
+Removed duplicate declaration of <code>VABp_flow</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1496\">#1496</a>.
+</li>
 <li>
 January 22, 2020, by Michael Wetter:<br/>
 Revised buoyancy-driven flow.

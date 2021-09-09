@@ -3,6 +3,8 @@ partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
   extends AixLib.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);

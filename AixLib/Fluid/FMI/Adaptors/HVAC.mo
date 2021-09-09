@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.Adaptors;
 model HVAC
   "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

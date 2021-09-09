@@ -1,6 +1,8 @@
 within AixLib.Fluid.FMI.Validation;
 model FlowSplitter_u "Flow splitter"
   extends Modelica.Icons.Example;
+
+  extends AixLib.Icons.ibpsa;
   package Medium = AixLib.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1

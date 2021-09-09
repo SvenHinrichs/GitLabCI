@@ -2,6 +2,8 @@ within AixLib.Utilities.Math;
 block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Real k(unit="1")=1 "Integrator gain";
 
   /* InitialState is the default, because it was the default in Modelica 2.2

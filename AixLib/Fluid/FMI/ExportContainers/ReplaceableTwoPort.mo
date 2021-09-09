@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.ExportContainers;
 block ReplaceableTwoPort
   "Container to export thermofluid flow models with two ports as an FMU"
   extends AixLib.Fluid.FMI.ExportContainers.PartialTwoPort;
+
+  extends AixLib.Icons.ibpsa;
   replaceable AixLib.Fluid.Interfaces.PartialTwoPort com
     constrainedby AixLib.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,

@@ -3,6 +3,8 @@ block InletToAir
   "Conversion from real signals for a fluid to a AixLib.Fluid.FMI.Interfaces.Inlet connector"
   extends Modelica.Blocks.Icons.Block;
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

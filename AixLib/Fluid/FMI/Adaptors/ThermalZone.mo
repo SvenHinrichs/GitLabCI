@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.Adaptors;
 model ThermalZone
   "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

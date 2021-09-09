@@ -3,6 +3,8 @@ model InletToAirMoistAir
   "Validation model for inlet to AixLib.Media.Air conversion without trace substances"
   extends Modelica.Icons.Example;
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium = AixLib.Media.Air
      constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
   parameter Boolean use_p_in = false

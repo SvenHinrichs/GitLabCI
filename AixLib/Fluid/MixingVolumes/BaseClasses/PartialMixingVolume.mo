@@ -3,6 +3,8 @@ model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
 
   extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations;
+
+  extends AixLib.Icons.ibpsa;
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));

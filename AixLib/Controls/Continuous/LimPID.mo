@@ -3,6 +3,8 @@ block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
 
   extends Modelica.Blocks.Interfaces.SVcontrol;
+
+  extends AixLib.Icons.ibpsa;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 

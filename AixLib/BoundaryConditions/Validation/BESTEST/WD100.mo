@@ -1,7 +1,9 @@
-﻿within AixLib.BoundaryConditions.Validation.BESTEST;
+within AixLib.BoundaryConditions.Validation.BESTEST;
 model WD100
   "Test model for BESTEST weather data: base case"
   extends Modelica.Icons.Example;
+
+  extends AixLib.Icons.ibpsa;
   parameter Modelica.SIunits.Angle lat=0.6952170009469
     "Latitude angle";
   parameter Real rho=0

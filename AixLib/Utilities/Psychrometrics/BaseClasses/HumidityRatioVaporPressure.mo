@@ -2,6 +2,8 @@ within AixLib.Utilities.Psychrometrics.BaseClasses;
 partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
   extends Modelica.Blocks.Icons.Block;
+
+  extends AixLib.Icons.ibpsa;
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
 

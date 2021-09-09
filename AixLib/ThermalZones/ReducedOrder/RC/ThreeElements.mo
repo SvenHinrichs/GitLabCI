@@ -3,6 +3,8 @@ model ThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
     extends TwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.Area AFloor "Area of floor plate"
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hConFloor

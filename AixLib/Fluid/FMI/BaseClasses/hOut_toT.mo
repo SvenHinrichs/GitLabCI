@@ -2,6 +2,8 @@ within AixLib.Fluid.FMI.BaseClasses;
 block hOut_toT "Conversion from h to T"
   extends Modelica.Blocks.Icons.Block;
 
+  extends AixLib.Icons.ibpsa;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

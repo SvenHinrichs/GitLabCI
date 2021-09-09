@@ -5,6 +5,8 @@ partial model PartialTwoPortInterface
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -14,7 +16,7 @@ partial model PartialTwoPortInterface
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation (
+    annotation(
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 

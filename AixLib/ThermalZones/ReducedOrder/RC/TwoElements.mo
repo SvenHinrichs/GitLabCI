@@ -3,6 +3,8 @@ model TwoElements
   "Thermal Zone with two elements for exterior and interior walls"
   extends OneElement(AArray={ATotExt,ATotWin,AInt});
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.Area AInt "Area of interior walls"
     annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hConInt

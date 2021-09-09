@@ -3,6 +3,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   extends AixLib.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  extends AixLib.Icons.ibpsa;
+
   // Constants
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"

@@ -3,6 +3,8 @@ block SupplyReturnTemperatureReset
   "Block to compute the supply and return set point"
   extends Modelica.Blocks.Icons.Block;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Real m = 1.3 "Exponent for heat transfer";
   parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));

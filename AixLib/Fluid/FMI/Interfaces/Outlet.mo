@@ -1,5 +1,7 @@
 within AixLib.Fluid.FMI.Interfaces;
 connector Outlet "Connector for fluid outlet"
+
+  extends AixLib.Icons.ibpsa;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(

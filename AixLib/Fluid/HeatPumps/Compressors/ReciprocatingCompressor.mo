@@ -3,6 +3,8 @@ model ReciprocatingCompressor
   "Model for a reciprocating compressor, based on Jin (2002)"
   extends AixLib.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.VolumeFlowRate pisDis
     "Piston displacement";
 
@@ -108,7 +110,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -3,6 +3,8 @@ model FourElements "Thermal Zone with four elements for exterior walls,
   interior walls, floor plate and roof"
   extends ThreeElements(AArray={ATotExt,ATotWin,AInt,AFloor,ARoof});
 
+  extends AixLib.Icons.ibpsa;
+
   parameter Modelica.SIunits.Area ARoof "Area of roof"
     annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hConRoof
