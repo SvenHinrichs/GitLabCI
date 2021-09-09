@@ -159,7 +159,7 @@ def add_conv_to_package(aixlib_mos,aixlib_dir):
 	
 	number = aixlib_mos[aixlib_mos.find("from")+5:aixlib_mos.find("_to")]
 	version_number = _read_package()
-	
+	print(version_number)
 	#ConvertAixLib_from_0.11.0_to_0.12.0.mos")),
 	aixlib_mos = aixlib_mos[aixlib_mos.find("ConvertAixLib"):]
 	

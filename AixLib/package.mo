@@ -75,10 +75,7 @@ package AixLib
     version="0.11.0",
                       script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_0.11.0_to_0.11.1.mos",
     version="0.11.1",
-                      script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_0.11.1_to_0.12.0.mos"), from(
-    version="1.0.0",
-      to="Intermediate",
-      change(item=convertClass("AixLib.Icons.ibpsa_icon", "AixLib.Icons.ibpsa")))),
+                      script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_0.11.1_to_0.12.0.mos")),
   Documentation(info = "<html><p>
   The free open-source <code>AixLib</code> library is being developed
   for research and teaching purposes. It aims at dynamic simulations of
