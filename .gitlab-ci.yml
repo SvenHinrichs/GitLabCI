@@ -31,7 +31,7 @@ variables:
     Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}
     Github_Repository : SvenHinrichs/GitLabCI
     GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI/"
-
+    Merge_Branch: "IBPSA_Merge"
     
 IBPSA:
     stage: IBPSA_Merge
