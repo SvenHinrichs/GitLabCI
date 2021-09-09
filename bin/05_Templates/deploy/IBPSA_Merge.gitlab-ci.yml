@@ -98,6 +98,7 @@ WhiteList:
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList
         ## Update WhiteList for CheckPackages
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList -DS ${DymolaVersion} -s AixLib
+        - python bin/02_CITests/Converter/ibpsa_icon.py
         - rm  -r IBPSA
         - message="Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         - git add  . 

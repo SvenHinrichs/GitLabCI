@@ -1,7 +1,8 @@
 within AixLib.Utilities.Psychrometrics;
 block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
-  extends AixLib.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
+  extends
+    AixLib.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
   package Medium = AixLib.Media.Air "Medium model";
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",

@@ -1,9 +1,10 @@
-within AixLib.Controls.HeatPump;
+﻿within AixLib.Controls.HeatPump;
 model HPControl
   "Control block which makes sure the desired temperature is supplied by the HP"
   //General
   replaceable model TSetToNSet =
-      AixLib.Controls.HeatPump.BaseClasses.PartialTSetToNSet constrainedby AixLib.Controls.HeatPump.BaseClasses.PartialTSetToNSet(
+      AixLib.Controls.HeatPump.BaseClasses.PartialTSetToNSet constrainedby
+    AixLib.Controls.HeatPump.BaseClasses.PartialTSetToNSet(
     final use_secHeaGen=use_secHeaGen) annotation(choicesAllMatching=true);
 
   parameter Boolean use_secHeaGen=false "True to choose a bivalent system" annotation(choices(checkBox=true));
@@ -15,8 +16,8 @@ model HPControl
       choice=false "Function",
       radioButtons=true));
   replaceable function HeatingCurveFunction =
-      SetPoints.Functions.HeatingCurveFunction constrainedby SetPoints.Functions.PartialBaseFct
-                                       annotation (Dialog(group="Heating Curve - Data", enable = not use_tableData),choicesAllMatching=true);
+      SetPoints.Functions.HeatingCurveFunction constrainedby
+    SetPoints.Functions.PartialBaseFct annotation (Dialog(group="Heating Curve - Data", enable = not use_tableData),choicesAllMatching=true);
   parameter
     AixLib.DataBase.Boiler.DayNightMode.HeatingCurvesDayNightBaseDataDefinition
     heatingCurveRecord=
@@ -60,7 +61,7 @@ model HPControl
     final zerTim=zerTim) if
                        use_antLeg
     annotation (Placement(transformation(extent={{-26,-14},{14,26}})));
-  Interfaces.ThermalMachineControlBus sigBusHP
+  Interfaces.VapourCompressionMachineControlBus sigBusHP
     annotation (Placement(transformation(extent={{-116,-72},{-88,-44}})));
   Modelica.Blocks.Interfaces.RealOutput nOut
     annotation (Placement(transformation(extent={{100,6},{128,34}})));

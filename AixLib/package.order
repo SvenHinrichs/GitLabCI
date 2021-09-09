@@ -4,7 +4,6 @@ BoundaryConditions
 Controls
 DataBase
 Electrical
-FastHVAC
 Fluid
 Media
 Systems
@@ -12,3 +11,4 @@ ThermalZones
 Utilities
 Types
 Obsolete
+Icons
