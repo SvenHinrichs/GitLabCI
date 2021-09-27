@@ -20,10 +20,12 @@ package TemperatureDependentDensity
     each casRegistryNumber="7732-18-5",
     each iupacName="oxidane",
     each molarMass=MM_const);
+
   redeclare record extends ThermodynamicState "Thermodynamic state variables"
     Temperature T(start=T_default) "Temperature of medium";
     AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
+
   constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
     "Specific heat capacity at constant pressure";
 
@@ -41,7 +43,8 @@ package TemperatureDependentDensity
     <p>
     Base properties of the medium.
     </p>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end BaseProperties;
 
 redeclare function extends density "Return the density"
@@ -85,7 +88,8 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin and linearly extended.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end density;
 
 redeclare function extends dynamicViscosity "Return the dynamic viscosity"
@@ -105,7 +109,8 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end dynamicViscosity;
 
 redeclare function extends specificEnthalpy "Return the specific enthalpy"
@@ -126,7 +131,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificEnthalpy;
 
 function enthalpyOfLiquid "Return the specific enthalpy of liquid"
@@ -151,7 +157,8 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end enthalpyOfLiquid;
 
 redeclare function extends specificInternalEnergy
@@ -173,7 +180,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificInternalEnergy;
 
 redeclare function extends specificEntropy "Return the specific entropy"
@@ -199,7 +207,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificEntropy;
 
 redeclare function extends specificGibbsEnergy
@@ -221,7 +230,8 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificGibbsEnergy;
 
 redeclare function extends specificHelmholtzEnergy
@@ -243,7 +253,8 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificHelmholtzEnergy;
 
 redeclare function extends isentropicEnthalpy "Return the isentropic enthalpy"
@@ -269,7 +280,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end isentropicEnthalpy;
 
 redeclare function extends isobaricExpansionCoefficient
@@ -312,7 +324,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end isobaricExpansionCoefficient;
 
 redeclare function extends isothermalCompressibility
@@ -344,7 +357,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end isothermalCompressibility;
 
 redeclare function extends density_derp_T
@@ -367,7 +381,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end density_derp_T;
 
 redeclare function extends density_derT_p
@@ -404,7 +419,8 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end density_derT_p;
 
 redeclare function extends density_derX
@@ -427,7 +443,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end density_derX;
 
 redeclare replaceable function extends specificHeatCapacityCp
@@ -449,7 +466,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCp;
 
 redeclare replaceable function extends specificHeatCapacityCv
@@ -471,7 +489,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCv;
 
 redeclare function extends thermalConductivity
@@ -501,7 +520,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end thermalConductivity;
 
 redeclare function extends pressure "Return the pressure"
@@ -522,7 +542,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end pressure;
 
 redeclare function extends temperature "Return the temperature"
@@ -543,7 +564,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end temperature;
 
 redeclare function extends molarMass "Return the molar mass"
@@ -565,7 +587,8 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end molarMass;
 
 redeclare function setState_dTX
@@ -600,7 +623,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end setState_phX;
 
 redeclare function extends setState_pTX
@@ -623,7 +647,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end setState_pTX;
 
 redeclare function extends setState_psX
@@ -658,8 +683,10 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end setState_psX;
+
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -698,7 +725,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end der_specificHeatCapacityCp;
 
 replaceable function der_enthalpyOfLiquid
@@ -725,7 +753,8 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end der_enthalpyOfLiquid;
 
 function kinematicViscosity "Return the kinematic viscosity"
@@ -781,8 +810,10 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end kinematicViscosity;
+
 annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.

@@ -1,7 +1,8 @@
 within AixLib.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
 function internalResistancesTwoUTube
   "Thermal resistances for double U-tube, according to Bauer et al (2011)"
-  extends AixLib.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
+  extends
+    AixLib.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
   // Outputs
   output Modelica.SIunits.ThermalResistance Rgb
@@ -157,5 +158,6 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end internalResistancesTwoUTube;

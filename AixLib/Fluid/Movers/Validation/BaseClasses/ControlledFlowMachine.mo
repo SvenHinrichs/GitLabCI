@@ -200,5 +200,6 @@ equation
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configuration.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ControlledFlowMachine;

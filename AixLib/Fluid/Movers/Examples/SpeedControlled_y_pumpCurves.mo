@@ -197,5 +197,6 @@ instead of a <code>realInput</code>.
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end SpeedControlled_y_pumpCurves;

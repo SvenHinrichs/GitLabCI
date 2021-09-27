@@ -33,7 +33,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
                  annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   AixLib.Fluid.Sensors.RelativeHumidity senRelHum(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
     "Relative humidity of the flow source if the medium were outflowing"
                 annotation (Placement(transformation(extent={{-16,42},{4,62}})));
     Modelica.Blocks.Sources.Ramp m_flow(
@@ -79,5 +79,6 @@ May 12, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end RelativeHumidity;

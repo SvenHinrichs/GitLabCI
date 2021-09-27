@@ -47,5 +47,6 @@ August 5, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end InvertingBasicFlowFunction_dp;

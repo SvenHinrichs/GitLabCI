@@ -62,7 +62,6 @@ model DryCoilEffectivenessNTUPControl
     dpValve_nominal=6000) "Valve"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   AixLib.Controls.Continuous.LimPID P(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=30,
     k=0.1,
     Td=1)
@@ -157,5 +156,6 @@ Added nominal pressure drop for valve as
 this parameter no longer has a default value.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end DryCoilEffectivenessNTUPControl;

@@ -310,5 +310,6 @@ February, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end BoreholeDynamics;

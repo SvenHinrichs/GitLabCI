@@ -1,7 +1,8 @@
 within AixLib.Fluid.Geothermal.Borefields.Data.Soil;
 record SandStone
   "Soil data record of sandstone heat transfer properties"
-  extends AixLib.Fluid.Geothermal.Borefields.Data.Soil.Template(
+  extends
+    AixLib.Fluid.Geothermal.Borefields.Data.Soil.Template(
     kSoi=2.5,
     dSoi=1800,
     cSoi=1200);
@@ -34,5 +35,6 @@ June 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end SandStone;

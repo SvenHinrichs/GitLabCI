@@ -13,5 +13,6 @@ This partial class is intended to provide a <u>default icon
 for an obsolete model</u> that will be removed from the
 corresponding library in a future release.
 </p>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ObsoleteModel;

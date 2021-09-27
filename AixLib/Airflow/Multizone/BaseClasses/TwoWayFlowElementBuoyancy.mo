@@ -43,5 +43,6 @@ Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 February 4, 2005 by Michael Wetter:<br/>
 Released first version.
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end TwoWayFlowElementBuoyancy;

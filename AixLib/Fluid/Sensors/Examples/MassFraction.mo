@@ -20,7 +20,8 @@ model MassFraction "Test model for the mass fraction sensor"
           extent={{-80,0},{-60,20}})));
 
   AixLib.Fluid.Sensors.MassFraction senMasFra2(
-    redeclare package Medium = Medium) "Mass fraction sensor for the volume"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));
   AixLib.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -68,5 +69,6 @@ April 7, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end MassFraction;

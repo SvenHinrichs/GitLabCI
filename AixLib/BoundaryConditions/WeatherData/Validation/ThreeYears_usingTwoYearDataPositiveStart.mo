@@ -1,7 +1,8 @@
 within AixLib.BoundaryConditions.WeatherData.Validation;
 model ThreeYears_usingTwoYearDataPositiveStart
   "Validation model for a simulation spanning three years, starting at a positive time and using only two years of data"
-  extends AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData;
+  extends
+    AixLib.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearData;
 
   annotation (experiment(
       StartTime=15638400,
@@ -21,6 +22,7 @@ but using only two years of data with equidistant monthly values.
 First implementation for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">issue 842</a>.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 
 end ThreeYears_usingTwoYearDataPositiveStart;

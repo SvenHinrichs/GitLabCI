@@ -4,7 +4,6 @@ model PIDHysteresis "Example model for PID controller with hysteresis"
 
   AixLib.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
     Ti=600,
     Td=60)
@@ -90,5 +89,6 @@ November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end PIDHysteresis;

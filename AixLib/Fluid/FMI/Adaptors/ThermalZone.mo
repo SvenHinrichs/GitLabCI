@@ -65,8 +65,8 @@ protected
     "Room air temperature sensor"
     annotation (Placement(transformation(extent={{72,-90},{52,-70}})));
 
-  BaseClasses.X_w_toX x_w_toX[nPorts](redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
+  BaseClasses.X_w_toX x_w_toX[nPorts](redeclare final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
 
   Modelica.Blocks.Math.MultiSum multiSum(final nu=nPorts, final k=fill(1,
@@ -126,7 +126,8 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end RealVectorExpression;
 
   block x_i_toX_w "Conversion from Xi to X"
@@ -188,7 +189,8 @@ input <code>X</code>, because the conversion from scalar to vector
 needs to access the conditional connector, but conditional connectors
 can only be used in <code>connect</code> statements.
 </p>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end x_i_toX_w;
 
 initial equation
@@ -397,5 +399,6 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ThermalZone;

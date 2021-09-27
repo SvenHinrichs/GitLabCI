@@ -72,5 +72,6 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"));
+  </html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ThermSplitter;

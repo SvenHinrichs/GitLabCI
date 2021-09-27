@@ -18,7 +18,7 @@ equation
   m_flow = time*gain;
   dp = AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow,
-    k = k,
+    k=  k,
     m_flow_turbulent=m_flow_turbulent);
   der(dp) = der(dp_comp);
   err = dp-dp_comp;
@@ -53,5 +53,6 @@ July 29, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end BasicFlowFunction_m_flow_DerivativeCheck;

@@ -26,7 +26,8 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
 
   AixLib.Fluid.Sensors.SpecificEnthalpy senFloSou(
-    redeclare package Medium = Medium) "Sensor at the flow source"
+    redeclare package Medium = Medium, warnAboutOnePortConnection=false)
+                                       "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   AixLib.Fluid.Sensors.SpecificEnthalpyTwoPort senStr(
     redeclare package Medium = Medium,
@@ -63,5 +64,6 @@ August 31, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end SpecificEnthalpy;

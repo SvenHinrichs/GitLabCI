@@ -6,7 +6,6 @@ model PIDHysteresisTimer
   AixLib.Controls.Continuous.PIDHysteresisTimer con(
     yMin=0.3,
     minOffTime=10000,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=60,
     Td=10)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -92,5 +91,6 @@ November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end PIDHysteresisTimer;

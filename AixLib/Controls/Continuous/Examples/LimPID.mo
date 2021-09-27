@@ -14,7 +14,7 @@ model LimPID "Test model for PID controller with optional reverse action"
           annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   AixLib.Controls.Continuous.LimPID limPIDRev(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    reverseAction=true,
+    reverseActing=false,
     Ti=1,
     Td=1,
     yMax=1,
@@ -109,5 +109,6 @@ reverse action.
 The assertion blocks test whether the results
 of all three controllers are identical.
 </p>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end LimPID;

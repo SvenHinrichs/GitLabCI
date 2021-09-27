@@ -1,7 +1,8 @@
 within AixLib.Fluid.Geothermal.Borefields.Validation.BaseClasses;
 record SandBox_Borefield
   "Borefield data record for the Beier et al. (2011) experiment"
-  extends AixLib.Fluid.Geothermal.Borefields.Data.Borefield.Template(
+  extends
+    AixLib.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       filDat=AixLib.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Filling(),
       soiDat=AixLib.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Soil(),
       conDat=AixLib.Fluid.Geothermal.Borefields.Validation.BaseClasses.SandBox_Configuration());
@@ -33,5 +34,6 @@ June 28, 2018, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end SandBox_Borefield;

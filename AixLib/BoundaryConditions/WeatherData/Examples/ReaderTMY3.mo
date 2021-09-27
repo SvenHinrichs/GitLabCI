@@ -41,5 +41,6 @@ June 25, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ReaderTMY3;

@@ -25,5 +25,6 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">AixLib, #1205</a>.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end BoundarySystemWithX_in;

@@ -39,5 +39,6 @@ First implementation.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end CSVReader;

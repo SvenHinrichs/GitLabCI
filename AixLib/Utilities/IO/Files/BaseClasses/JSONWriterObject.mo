@@ -25,7 +25,8 @@ the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 c
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end constructor;
 
   function destructor "Release storage and close the external object, write data if needed"
@@ -46,7 +47,8 @@ April 15 2019, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end destructor;
 
 annotation(Documentation(info="<html>
@@ -62,5 +64,6 @@ April 15 2019, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end JSONWriterObject;

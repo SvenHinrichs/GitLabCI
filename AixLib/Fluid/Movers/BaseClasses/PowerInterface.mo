@@ -3,8 +3,8 @@ model PowerInterface
   "Partial model to compute power draw and heat dissipation of fans and pumps"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  constant Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(HideResult=true);
 
   parameter Boolean motorCooledByFluid
     "Flag, true if the motor is cooled by the fluid stream";
@@ -46,6 +46,11 @@ model PowerInterface
 protected
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
+
+initial equation
+  assert(homotopyInitialization, "In " + getInstanceName() +
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
 
 equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
@@ -117,6 +122,12 @@ AixLib.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
       revisions="<html>
 <ul>
 <li>
+April 14, 2020, by Michael Wetter:<br/>
+Changed <code>homotopyInitialization</code> to a constant.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">AixLib, #1341</a>.
+</li>
+<li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
@@ -136,5 +147,6 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/417\">#417</a>.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end PowerInterface;

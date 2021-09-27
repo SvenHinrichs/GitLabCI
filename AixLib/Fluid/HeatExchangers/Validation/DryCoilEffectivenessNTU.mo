@@ -247,7 +247,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos"
+__Dymola_Commands(file="modelica://AixLib/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -269,5 +269,6 @@ February 12, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end DryCoilEffectivenessNTU;

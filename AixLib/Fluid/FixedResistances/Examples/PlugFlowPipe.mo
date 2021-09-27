@@ -79,5 +79,6 @@ This test includes an inlet temperature step under a constant mass flow rate.
 <ul>
 <li>September 8, 2017 by Bram van der Heijde<br/>First implementation</li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end PlugFlowPipe;

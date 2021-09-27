@@ -63,5 +63,6 @@ May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end DirectTiltedSurface;

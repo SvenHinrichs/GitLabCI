@@ -78,5 +78,6 @@ October 25, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end FlowReversal;

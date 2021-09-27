@@ -26,7 +26,7 @@ __Dymola_Commands(file="modelica://AixLib/Resources/Scripts/Dymola/Utilities/Psy
 <p>
 This example computes the water content of air for a relative humidity between
 <i>0</i> and <i>100%</i>,
-a temperature of <i>20&circ;C</i>
+a temperature of <i>20&deg;C</i>
 and atmospheric pressure.
 </p>
 </html>", revisions="<html>
@@ -40,5 +40,6 @@ August 21, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end X_pSatpphi;

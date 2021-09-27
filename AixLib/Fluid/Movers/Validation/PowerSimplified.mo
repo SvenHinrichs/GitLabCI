@@ -171,5 +171,6 @@ November 22, 2014, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end PowerSimplified;

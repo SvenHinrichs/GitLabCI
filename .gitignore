@@ -30,6 +30,7 @@ dist
 #####################
 *.bak-mo
 *.mat
+!AixLib/Resources/**/*.mat
 *.mof
 buildlog.txt
 diagnostics.txt
@@ -61,7 +62,11 @@ success
 
 # Ignore files created by BuildingsPy #
 #######################################
-
+*.py[cod]
+*simulator*.log
+*unitTests*.log
+*comparison*.log
+funnel_comp
 
 #Ignore files create by HTML Check
 HTML-logfile.txt

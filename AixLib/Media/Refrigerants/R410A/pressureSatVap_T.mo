@@ -13,12 +13,6 @@ protected
   final Real x0 = 0.2086902
     "x0 for saturation pressure of refrigerant vapor";
 
-  final Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
-
-  final Modelica.SIunits.AbsolutePressure pCri = 4925.1e3
-    "Critical pressure of refrigerant";
-
   Real x
     "Independent variable";
 
@@ -47,5 +41,6 @@ October 17, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end pressureSatVap_T;

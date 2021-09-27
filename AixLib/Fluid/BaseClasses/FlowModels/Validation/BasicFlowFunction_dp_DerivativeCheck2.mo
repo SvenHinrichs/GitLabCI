@@ -26,7 +26,7 @@ equation
 
   m_flow = AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=dp,
-    k = k,
+    k=  k,
     m_flow_turbulent=m_flow_turbulent);
 
   // Equate first and second order derivatives
@@ -79,5 +79,6 @@ July 29, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end BasicFlowFunction_dp_DerivativeCheck2;

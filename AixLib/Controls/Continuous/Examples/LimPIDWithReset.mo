@@ -99,7 +99,8 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end Plant;
 
   model Controller "PID controller with optional output reset"
@@ -130,7 +131,6 @@ First implementation.
       final reset=reset,
       yMax=1,
       yMin=0,
-      controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=1,
       k=10) "PI controller"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -183,7 +183,8 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
   end Controller;
 
 equation
@@ -223,5 +224,6 @@ September 29, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end LimPIDWithReset;

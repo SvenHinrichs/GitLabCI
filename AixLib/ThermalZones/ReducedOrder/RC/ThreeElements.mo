@@ -220,5 +220,6 @@ equation
   <p align=\"center\">
   <img src=\"modelica://AixLib/Resources/Images/ThermalZones/ReducedOrder/RC/ThreeElements.png\" alt=\"image\"/>
   </p>
-  </html>"));
+  </html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end ThreeElements;

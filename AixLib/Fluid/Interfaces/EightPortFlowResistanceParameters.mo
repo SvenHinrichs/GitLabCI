@@ -77,6 +77,7 @@ record EightPortFlowResistanceParameters
 
 annotation (preferredView="info",
 Documentation(info="<html>
+<p>
 This class contains parameters that are used to
 compute the pressure drop in components that have four fluid streams.
 Note that the nominal mass flow rate is not declared here because
@@ -84,6 +85,7 @@ the model
 <a href=\"modelica://AixLib.Fluid.Interfaces.PartialEightPortInterface\">
 PartialHeightPortInterface</a>
 already declares it.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -92,5 +94,6 @@ January 28, 2015, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), 
+   __Dymola_LockedEditing="ibpsa");
 end EightPortFlowResistanceParameters;
