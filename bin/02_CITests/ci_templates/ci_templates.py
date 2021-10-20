@@ -2,7 +2,6 @@ import pandas as pd
 import os
 from mako.template import Template
 class CI_yml_templates(object):
-    update_ref_commit: str
 
     def __init__(self, library, package_list, dymolaversion, wh_library):
         self.library = library
