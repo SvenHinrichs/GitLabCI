@@ -31,14 +31,12 @@
 
 def _validate_experiment_setup(path):
     import buildingspy.development.validator as v
-
-    val = v.Validator()
+	val = v.Validator()
     retVal = val.validateExperimentSetup(path)
 
 def _validate_html(path):
     import buildingspy.development.validator as v
-
-    val = v.Validator()
+	val = v.Validator()
     errMsg = val.validateHTMLInPackage(path)
     n_msg = len(errMsg)
     for i in range(n_msg):
@@ -53,8 +51,8 @@ def _validate_html(path):
         return 1
 
 def _setEnvironmentVariables(var, value):
-    ''' Add to the environment variable `var` the value `value`
-    '''
+	""" Add to the environment variable `var` the value `value`
+    """
     import os
     import platform
     if var in os.environ:
@@ -146,25 +144,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			 
 		
 		for i in Ref:
-			
-			'''if i.find("DataBase")> -1:
-				continue
-			if i.find("Obsolete") > -1:
-				continue
-			if i.find("Types") >-1: 
-				continue
-			if i.find("UsersGuide") > -1:
-				continue
-			if i.find("Utilities") > -1:
-				continue'''			
 			print(green+"Generate new Reference File for "+CEND+i)
-			#name = i.replace("_",".")
-			#name = name[:name.rfind(".")]
 			ut.setSinglePackage(i)
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
 			ut.showGUI(False)
-			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue
 			
@@ -180,7 +164,6 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		
 def _update_ref(batch, tool, package,path,  n_pro, show_gui):
 	import buildingspy.development.regressiontest as u
-	
 	ut = u.Tester(tool=tool)
 	ut.batchMode(batch)
 	ut.setLibraryRoot(path)

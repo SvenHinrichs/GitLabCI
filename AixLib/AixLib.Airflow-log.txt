@@ -1,0 +1,296 @@
+﻿RunScript("c:/program files/dymola 2019/insert/dymola.mos", true);
+ = true
+Successfully loaded settings file C:/Users/sven-/AppData/Roaming/DassaultSystemes/Dymola/setup.dymx
+HTTP server listening on port 44037. Only local connections allowed.
+DymolaVersionNumber()
+ = 2019.0
+Advanced.TranslationInCommandLog:=true;
+openModel("AixLib\\package.mo", true, true)
+ = true
+checkModel("AixLib.Airflow.AirCurtain.AirCurtainSimplified", false, false)
+Check of AixLib.Airflow.AirCurtain.AirCurtainSimplified:
+The model has the same number of unknowns and equations: 7
+Check of AixLib.Airflow.AirCurtain.AirCurtainSimplified successful.
+ = true
+checkModel("AixLib.Airflow.AirHandlingUnit.AHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.AHU:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.AirHandlingUnit.AHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.AHU:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.AirHandlingUnit.BaseClasses.PartialAHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.BaseClasses.PartialAHU:
+The model has 9 scalar unknowns and 3 scalar equations.
+DAE with 9 unknown scalars and 3 scalar equations.
+ 
+Check of AixLib.Airflow.AirHandlingUnit.BaseClasses.PartialAHU successful.
+ = true
+checkModel("AixLib.Airflow.AirHandlingUnit.Examples.AHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.Examples.AHU:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.AirHandlingUnit.Examples.AHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.Examples.AHU:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.AirHandlingUnit.NoAHU", false, false)
+Check of AixLib.Airflow.AirHandlingUnit.NoAHU:
+The model has the same number of unknowns and equations: 17
+The model has the same number of unknowns and equations:
+  16+max([size(zeroPowerElAndHeat1.columns, 1); size(zeroPowerElAndHeat1.offset, 1)])
+Check of AixLib.Airflow.AirHandlingUnit.NoAHU successful.
+ = true
+checkModel("AixLib.Airflow.FacadeVentilationUnit.BaseClasses.SetPower", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.BaseClasses.SetPower:
+Component type specifier BaseProperties is a partial type
+  It must be redeclared before being used.
+  File: D:/01_Arbeit/04_Github/01_GitLabCI/automation/GitLabCI/AixLib/Fluid/Interfaces/ConservationEquation.mo, line 78
+ Component context: fan.vol.dynBal.medium
+  Component declared as BaseProperties medium in Modelica.Media.Interfaces.PartialMedium
+This class has a top-level outer system, you can only use this class as a sub-component.
+It gives the following message if you have no matching inner
+ 
+Your model is using an outer "system" component but
+an inner "system" component is not defined.
+For simulation drag Modelica.Fluid.System into your model
+to specify system properties.
+Warning: Non-literal value.
+In nominal attribute for fan.port_a.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.port_a.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 25
+Warning: Non-literal value.
+In nominal attribute for fan.port_b.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.port_b.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 47
+Warning: Non-literal value.
+In nominal attribute for fan.preSou.port_a.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.preSou.port_a.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 25
+Warning: Non-literal value.
+In nominal attribute for fan.preSou.port_b.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.preSou.port_b.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 47
+Warning: Non-literal value.
+In nominal attribute for fan.senMasFlo.port_a.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.senMasFlo.port_a.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 25
+Warning: Non-literal value.
+In nominal attribute for fan.senMasFlo.port_b.h_outflow.
+Ignoring nominal attribute.
+In class Modelica.Media.Interfaces.Types.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Media/package.mo, line 4419
+Used in base-class fan.senMasFlo.port_b.FluidPort.
+  Near file: C:/Program Files/Dymola 2019/Modelica/Library/Modelica 3.2.2/Fluid/Interfaces.mo, line 47
+The model has
+  122+2*(size(volumeFlow.columns, 1)+fan.filter.order)
+scalar unknowns and
+  117+size(volumeFlow.columns, 1)+2*fan.filter.order+(if fan.vol.dynBal.medium.standardOrderComponents     then 1 else 0)
+scalar equations.
+DAE with 138 unknown scalars and 131 scalar equations.
+ 
+Check of AixLib.Airflow.FacadeVentilationUnit.BaseClasses.SetPower successful.
+Warning: WARNINGS have been issued.
+ = true
+checkModel("AixLib.Airflow.FacadeVentilationUnit.DataBase.FVUBaseRecord", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.DataBase.FVUBaseRecord:
+Check of AixLib.Airflow.FacadeVentilationUnit.DataBase.FVUBaseRecord successful.
+ = true
+checkModel("AixLib.Airflow.FacadeVentilationUnit.Examples.FacadeVentilationUnit", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.Examples.FacadeVentilationUnit:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.FacadeVentilationUnit.Examples.FacadeVentilationUnit", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.Examples.FacadeVentilationUnit:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.FacadeVentilationUnit.FacadeVentilationUnit", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.FacadeVentilationUnit:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.FacadeVentilationUnit.FacadeVentilationUnit", false, false)
+Check of AixLib.Airflow.FacadeVentilationUnit.FacadeVentilationUnit:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.Multizone.Examples.ChimneyShaftNoVolume", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ChimneyShaftNoVolume:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.Multizone.Examples.ChimneyShaftNoVolume", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ChimneyShaftNoVolume:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.Multizone.Examples.ChimneyShaftWithVolume", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ChimneyShaftWithVolume:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.Multizone.Examples.ChimneyShaftWithVolume", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ChimneyShaftWithVolume:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.Multizone.Examples.ClosedDoors", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ClosedDoors:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.Multizone.Examples.ClosedDoors", false, false)
+Check of AixLib.Airflow.Multizone.Examples.ClosedDoors:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.Multizone.Examples.CO2TransportStep", false, false)
+Check of AixLib.Airflow.Multizone.Examples.CO2TransportStep:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+checkModel("AixLib.Airflow.Multizone.Examples.CO2TransportStep", false, false)
+Check of AixLib.Airflow.Multizone.Examples.CO2TransportStep:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+getLastError()
+ = "-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+",
+   1, 0, 1
+checkModel("AixLib.Airflow.Multizone.Examples.NaturalVentilation", false, false)
+Check of AixLib.Airflow.Multizone.Examples.NaturalVentilation:
+The model has the same number of unknowns and equations: 214
+Check of AixLib.Airflow.Multizone.Examples.NaturalVentilation successful.
+ = true
+savelog("AixLib.Airflow-log.txt")

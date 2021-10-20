@@ -12,8 +12,6 @@ import glob
 import pandas as pd
 import argparse
 
-
-
 def read_data(ref_file): ## Read Reference results in AixLib\Resources\ReferenceResults\Dymola\${modelname}.txt
 	## Lists
 	Value_List= []
@@ -275,6 +273,7 @@ def mako_line_html_chart(data,temp,temp_chart,f_log,csv_file,test_csv): # Load a
 			file_tmp = open(html, "w")
 			file_tmp.write(hmtl_chart)
 			file_tmp.close()
+
 def create_index_layout(temp_chart): ## Create a index layout from a template
 	temp = "bin" + os.sep + "02_CITests" + os.sep + "Converter" + os.sep + "01_templates" + os.sep + "index.txt"
 	from mako.template import Template
@@ -641,7 +640,6 @@ if  __name__ == '__main__':
 		ref_file = results[4]
 		## Number value
 		X_Axis = results[3]
-		#print(results)
 
 		result = func_plot(distriction_values, distriction_time, Value_List, X_Axis, ref_file)
 		lines = result[0]
@@ -658,11 +656,9 @@ if  __name__ == '__main__':
 		# func_plot.check.on_clicked(func)
 		# Create_Line_Chart(distriction_values, distriction_time, Value_List,X_Axis,ref_file)
 		# mpld3.save_html(fig,'myfig.html')
-
 		fig = figure()
 		ax = fig.gca()
 		ax.plot([1, 2, 3, 4])
-		# print(type(fig))
 		mpld3.save_html(fig, 'myfig.html')
 	if args.create_layout is True:
 		create_layout(index_path)
