@@ -19,8 +19,10 @@ class CI_yml_templates(object):
         self.dif_ref_commit = "ci_dif_ref"
         self.html_commit = "ci_correct_html"
         self.create_wh_commit = "ci_create_whitelist"
+
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
+        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]"
         # - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
         # - $CI_COMMIT_MESSAGE =~ /fix errors manually/
         # - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
@@ -30,6 +32,7 @@ class CI_yml_templates(object):
 
         # except branches
         self.merge_branch = wh_library + "_Merge"
+
 
         # files
         sys.path.append('bin/02_CITests')
@@ -71,7 +74,7 @@ class CI_yml_templates(object):
         mytemplate = Template(filename=self.reg_temp)
         yml_text = mytemplate.render(library=self.library, lib_package="${lib_package}", dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, package_list=self.package_list,
                                     update_commit=self.update_ref_commit,  merge_branch=self.merge_branch, TARGET_BRANCH="${TARGET_BRANCH}", GITLAB_Page="${GITLAB_Page}",
-                                    GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}", GITLAB_USER_NAME="${GITLAB_USER_NAME}",GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL",
+                                    GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
                                     CI_PROJECT_NAME="${CI_PROJECT_NAME}")
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
@@ -101,7 +104,8 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, wh_commit=self.create_wh_commit,
-                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"), ch_file=self.ch_file.replace(os.sep, "/"))
+                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"), ch_file=self.ch_file.replace(os.sep, "/"), bot_update_wh_commit=self.bot_update_wh_commit, TARGET_BRANCH="$CI_COMMIT_REF_NAME",
+                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", Github_Repository="${Github_Repository}")
         yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()

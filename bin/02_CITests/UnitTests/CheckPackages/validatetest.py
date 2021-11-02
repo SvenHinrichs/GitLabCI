@@ -82,10 +82,8 @@ class ValidateTest(object):
                 f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
+            self.dymola.close()
+
 
     def _checkmodel(self, model_list):  # Check models and return a Error Log, if the check failed
         try:
@@ -568,6 +566,7 @@ if __name__ == '__main__':
                                   action="store_true")
     check_test_group.add_argument("-DS", "--dymolaversion", default="2020",
                                   help="Version of Dymola(Give the number e.g. 2020")
+    check_test_group.add_argument("-V", "--check-version", default=False, action="store_true")
     check_test_group.add_argument("-CM", "--changedmodels", default=False, action="store_true")
     check_test_group.add_argument("-FW", "--filterwhitelist", default=False, action="store_true")
     check_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
@@ -609,6 +608,7 @@ if __name__ == '__main__':
     if args.whitelist is True:  # Write a new WhiteList
         create_wh_workflow()
         exit(0)
+
 
     CheckModelTest = ValidateTest(package=args.single_package,
                                   n_pro=args.number_of_processors,

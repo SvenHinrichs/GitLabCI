@@ -45,7 +45,7 @@ Check_${library}_${package}:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
+        - echo $model >  ${ch_file}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
     artifacts:
         when: on_failure
@@ -85,11 +85,28 @@ whitelist_job:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+
     script:
+        - mkdir whitelist && cd whitelist
+        - git clone --single-branch --branch  ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
+        - message="${bot_update_wh_commit}"
+        - git add ${wh_file}
+        - git commit -m "$message" 
+        - git push --force git@github.com:${Github_Repository}.git
+        
     artifacts:
         paths:
-            - ${wh_file}
+            - whitelist/${wh_file}
         expire_in: 7 day 
     only:
         variables:

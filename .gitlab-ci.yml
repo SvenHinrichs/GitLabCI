@@ -3,7 +3,13 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 stages:
     - check
     - create_whitelist
-   
+
+variables:
+    
+    
+    Github_Repository : SvenHinrichs/GitLabCI
+    
+
 .check_model_job:
     stage: check
     before_script:
@@ -43,9 +49,9 @@ Check_AixLib_BoundaryConditions:
         lib_package: AixLib.BoundaryConditions
     extends: .check_model_job
 
-Check_AixLib_Controls:
+Check_AixLib_Electrical:
     variables:
-        lib_package: AixLib.Controls
+        lib_package: AixLib.Electrical
     extends: .check_model_job
 
 Check_AixLib_Fluid:
@@ -68,7 +74,7 @@ Check_AixLib_ThermalZones:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
+        - echo $model >  bin/03_Whitelists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library AixLib -DS 2020 -CM 
     artifacts:
         when: on_failure
@@ -106,10 +112,10 @@ Check_AixLib_BoundaryConditions_changed_models:
         package_name: BoundaryConditions  
     extends: .check_changed_models_job
 
-Check_AixLib_Controls_changed_models:
+Check_AixLib_Electrical_changed_models:
     variables:
-        lib_package: AixLib.Controls
-        package_name: Controls  
+        lib_package: AixLib.Electrical
+        package_name: Electrical  
     extends: .check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
@@ -133,12 +139,38 @@ whitelist_job:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+
     script:
+        - mkdir whitelist && cd whitelist
+        - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
+        - message="Update or created new whitelist [skip ci]"
+        - git add bin/03_WhiteLists/IBPSA_whitelist_model.txt
+        - git commit -m "$message" 
+        - git push --force git@github.com:${Github_Repository}.git
+        
     artifacts:
         paths:
-            - bin/03_WhiteLists/IBPSA_whitelist_model.txt
+            - whitelist/bin/03_WhiteLists/IBPSA_whitelist_model.txt
         expire_in: 7 day 
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /ci_create_whitelist/
+
+
+
+
+
+
+    
+
+
