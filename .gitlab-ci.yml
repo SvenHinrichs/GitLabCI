@@ -144,7 +144,7 @@ whitelist_job:
         - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
-        - if cat bin\06_Configfiles\exit.sh | grep "exit 1"; then 
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
             message="Update or created new whitelist [skip ci]. Please pull the new whitelist before push again.";
             git add bin/03_WhiteLists/IBPSA_whitelist_model.txt;
             git commit -m "$message"; 
