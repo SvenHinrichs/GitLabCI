@@ -283,9 +283,10 @@ class Create_whitelist(object):
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
 
         sys.path.append('bin/02_CITests')
-        from _config import ch_file, wh_file
+        from _config import ch_file, wh_file, exitfile
         self.ch_file = ch_file
         self.wh_file = wh_file
+        self.exitfile = exitfile
 
 
 
@@ -327,12 +328,13 @@ class Create_whitelist(object):
 
     def _check_fileexist(self):
         if os.path.exists(self.wh_file):
-            print(f' Whitelist does exist. Update the whitelist under {self.wh_file}')
+            print(f'Whitelist does exist. Update the whitelist under {self.wh_file}')
 
         else:
             print(f' Whitelist does not exist. Create a new one under {self.wh_file}')
             file = open(self.wh_file, "w+")
             file.close()
+
     def _check_whitelist(self,
                          version):  # Write a new Whitelist with all models in IBPSA Library of those models who have not passed the Check Test
         # Read the last version of whitelist
@@ -344,7 +346,7 @@ class Create_whitelist(object):
             if line.strip("\n") == version.strip("\n"):
                 print(f'Whitelist is on version {version}. The Whitelist is already up to date')
                 version_check = True
-                exit(0)
+
         vfile.close()
         return version_check
 
@@ -414,6 +416,14 @@ class Create_whitelist(object):
 
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
+
+    def _write_exit_log(self, version_check):
+        exit = open(self.exitfile, "w")
+        if version_check is False:
+            exit.write(f'exit 1')
+        else:
+            exit.write(f'exit 0')
+        exit.close()
 
 
     def _write_whitelist(self, error_model_list, version):
@@ -526,6 +536,7 @@ def create_wh_workflow():
     version = Whitelist_class.read_script_version()
     version_check = Whitelist_class._check_whitelist(version)
     if version_check is False:
+        Whitelist_class._write_exit_log(version_check)
         model_list = []
         if args.repo_dir is None:
             print(f'{CRED}Error:{CEND} Repo directory is missing!')
@@ -548,6 +559,9 @@ def create_wh_workflow():
         result = Whitelist_class._check_wh_model(model_list)
         error_model_list = result[0]
         Whitelist_class._write_whitelist(error_model_list, version)
+        exit(0)
+    else:
+        Whitelist_class._write_exit_log(version_check)
         exit(0)
 
 
@@ -613,8 +627,6 @@ if __name__ == '__main__':
 
     if args.whitelist is True:  # Write a new WhiteList
         create_wh_workflow()
-        exit(0)
-
 
     CheckModelTest = ValidateTest(package=args.single_package,
                                   n_pro=args.number_of_processors,

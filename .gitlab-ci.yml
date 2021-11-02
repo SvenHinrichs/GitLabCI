@@ -7,6 +7,10 @@ stages:
 variables:
     Github_Repository : SvenHinrichs/GitLabCI
     
+stages:
+    - check
+    - create_whitelist
+    
 .check_model_job:
     stage: check
     before_script:
@@ -54,11 +58,6 @@ Check_AixLib_Controls:
 Check_AixLib_Fluid:
     variables:
         lib_package: AixLib.Fluid
-    extends: .check_model_job
-
-Check_AixLib_ThermalZones:
-    variables:
-        lib_package: AixLib.ThermalZones
     extends: .check_model_job
 
 
@@ -121,12 +120,6 @@ Check_AixLib_Fluid_changed_models:
         package_name: Fluid  
     extends: .check_changed_models_job
 
-Check_AixLib_ThermalZones_changed_models:
-    variables:
-        lib_package: AixLib.ThermalZones
-        package_name: ThermalZones  
-    extends: .check_changed_models_job
-
 
 
 whitelist_job:
@@ -151,21 +144,29 @@ whitelist_job:
         - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
-        - message="Update or created new whitelist [skip ci]"
-        - git add bin/03_WhiteLists/IBPSA_whitelist_model.txt
-        - git commit -m "$message" 
-        - git push --force git@github.com:${Github_Repository}.git
+        - if cat bin\06_Configfiles\exit.sh | grep "exit 1"; then 
+            message="Update or created new whitelist [skip ci]. Please pull the new whitelist before push again.";
+            git add bin/03_WhiteLists/IBPSA_whitelist_model.txt;
+            git commit -m "$message"; 
+            git push --force git@github.com:${Github_Repository}.git;
+            rm bin/03_WhiteLists/IBPSA_whitelist_model.txt;
+            mv whitelist/${CI_PROJECT_NAME}/bin/03_WhiteLists/IBPSA_whitelist_model.txt bin/03_WhiteLists/IBPSA_whitelist_model.txt;
         
     artifacts:
         paths:
             - whitelist/${CI_PROJECT_NAME}/bin/03_WhiteLists/IBPSA_whitelist_model.txt
         expire_in: 7 day 
+        when: on_success  
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /ci_create_whitelist/
 
 
 
+
+
+
+    
 
 
 

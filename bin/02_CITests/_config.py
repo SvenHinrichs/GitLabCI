@@ -11,4 +11,5 @@ page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.se
 ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
 main_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
 temp_dir = f'bin{os.sep}07_templates{os.sep}03_ci_templates'
+exitfile = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
 

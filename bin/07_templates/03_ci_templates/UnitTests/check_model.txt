@@ -100,17 +100,19 @@ whitelist_job:
         - git clone --single-branch --branch  ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
-		- message="${bot_update_wh_commit}"
-        - git add ${wh_file}
-        - git commit -m "$message" 
-        - git push --force git@github.com:${Github_Repository}.git
-		- rm ${wh_file}
-		- mv whitelist/${CI_PROJECT_NAME}/${wh_file} ${wh_file}
+        - if cat ${exitfile} | grep "exit 1"; then 
+            message="${bot_update_wh_commit}";
+            git add ${wh_file};
+            git commit -m "$message"; 
+            git push --force git@github.com:${Github_Repository}.git;
+            rm ${wh_file};
+            mv whitelist/${CI_PROJECT_NAME}/${wh_file} ${wh_file};
         
     artifacts:
         paths:
             - whitelist/${CI_PROJECT_NAME}/${wh_file}
         expire_in: 7 day 
+        when: on_success  
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
