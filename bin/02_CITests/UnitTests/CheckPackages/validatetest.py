@@ -288,7 +288,7 @@ class Create_whitelist(object):
         self.library = library
         self.wh_lib = wh_lib
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
-        self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
+
         sys.path.append('bin/02_CITests')
         from _config import ch_file, wh_file
         self.ch_file = ch_file
@@ -335,7 +335,7 @@ class Create_whitelist(object):
     def _check_fileexist(self):
         if os.path.exists(self.wh_file):
             print(f' Whitelist does exist. Update the whitelist under {self.wh_file}')
-            os.f
+
         else:
             print(f' Whitelist does not exist. Create a new one under {self.wh_file}')
             file = open(self.wh_file, "w+")
