@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from mako.template import Template
+import sys
 
 
 class CI_yml_templates(object):
@@ -31,19 +32,17 @@ class CI_yml_templates(object):
         self.merge_branch = wh_library + "_Merge"
 
         # files
-        self.reg_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
-        self.reg_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.gitlab-ci.yml'
-        self.write_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
-        self.write_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.gitlab-ci.yml'
-        self.sim_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
-        self.sim_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.gitlab-ci.yml'
-        self.page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
-        self.page_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.gitlab-ci.yml'
-        self.ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
-        self.ibpsa_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.gitlab-ci.yml'
+        sys.path.append('bin/02_CITests')
+        from _config import ch_file, wh_file
+        self.ch_file = ch_file
+        self.wh_file = wh_file
 
+        self.reg_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
+        self.write_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
+        self.sim_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
+        self.page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
+        self.ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
         self.main_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
-        self.main_yml = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}.gitlab-ci.yml'
         self.temp_dir = f'bin{os.sep}07_templates{os.sep}03_ci_templates'
 
 
@@ -60,11 +59,12 @@ class CI_yml_templates(object):
         df.to_csv(csv_file, index=False, header=True)
 
     def _write_merge_template(self):
+
         mytemplate = Template(filename=self.ibpsa_temp)
         yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch, dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
                                     GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}", Github_Repository="${Github_Repository}", Merge_Branch="${Merge_Branch}", IBPSA_Repo="${IBPSA_Repo}",
                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Target_Branch="${Target_Branch}", GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit)
-        yml_tmp = open(self.ibpsa_yml, "w")
+        yml_tmp = open(self.ibpsa_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
@@ -74,7 +74,7 @@ class CI_yml_templates(object):
                                     update_commit=self.update_ref_commit,  merge_branch=self.merge_branch, TARGET_BRANCH="${TARGET_BRANCH}", GITLAB_Page="${GITLAB_Page}",
                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}", GITLAB_USER_NAME="${GITLAB_USER_NAME}",GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL",
                                     CI_PROJECT_NAME="${CI_PROJECT_NAME}")
-        yml_tmp = open(self.reg_yml, "w")
+        yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
@@ -102,8 +102,8 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, wh_commit=self.create_wh_commit,
-                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url)
-        yml_tmp = open(self.write_yml, "w")
+                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"), ch_file=self.ch_file.replace(os.sep, "/"))
+        yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
@@ -120,14 +120,14 @@ class CI_yml_templates(object):
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, git_url=self.git_url,
                                      wh_commit=self.create_wh_commit, wh_library=self.wh_library)
-        yml_tmp = open(self.sim_yml, "w")
+        yml_tmp = open(self.sim_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
     def _write_main_yml(self, image_name, stage_list, variable_list, project, file_list):
         mytemplate = Template(filename=self.main_temp)
-        yml_text = mytemplate.render(image_name=image_name, stage_list=stage_list, variable_list=variable_list, project=project, file_list=file_list )
-        yml_tmp = open(self.main_yml, "w")
+        yml_text = mytemplate.render(image_name=image_name, stage_list=stage_list, variable_list=variable_list, project=project, file_list=file_list)
+        yml_tmp = open(self.main_temp.replace("gitlab-ci.txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
@@ -207,7 +207,6 @@ def _config_test():
     if response == "y":
         print(f'Create merge template')
         config_list.append("Merge")
-
     return config_list
 
 
@@ -256,6 +255,8 @@ def _config_settings_check():
 
 if __name__ == '__main__':
     # python bin/02_CITests/ci_templates/ci_templates.py
+
+
     from ci_templates import CI_yml_templates
 
     config_list = _config_test()

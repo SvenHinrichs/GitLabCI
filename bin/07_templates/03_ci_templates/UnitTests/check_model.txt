@@ -52,6 +52,7 @@ Check_${library}_${package}:
         paths:
             - ${library}/${lib_package}-log.txt
             - ${library}/${lib_package}-Errorlog.txt
+            - ${ch_file}
         expire_in: 7 day
     except:
         - external_pull_requests
@@ -88,7 +89,7 @@ whitelist_job:
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
     artifacts:
         paths:
-            - bin/03_WhiteLists/WhiteList_CheckModel.txt
+            - ${wh_file}
         expire_in: 7 day 
     only:
         variables:

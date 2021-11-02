@@ -38,9 +38,12 @@ class ValidateTest(object):
         self.ch_models = ch_models
         self.wh_library = wh_library
         self.filter_wh = filter_wh
+
+        sys.path.append('bin/02_CITests')
+        from _config import ch_file, wh_file
+        self.ch_file = ch_file
+        self.wh_file = wh_file
         self.err_log = f'{self.mo_library}{os.sep}{self.mo_library}.{self.package}-errorlog.txt'
-        self.ch_file = f'bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
-        self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
 
         self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
@@ -603,6 +606,7 @@ if __name__ == '__main__':
     sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
 
     from validatetest import ValidateTest
+
 
     if args.whitelist is True:  # Write a new WhiteList
         create_wh_workflow()

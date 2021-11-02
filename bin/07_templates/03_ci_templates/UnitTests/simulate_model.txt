@@ -27,6 +27,14 @@ stages:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
 
+%for package in package_list:
+simulate_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .simulate_model_job
+
+%endfor
+
 .simulate_changed_models_job:
     stage: simulate
     before_script:
@@ -57,16 +65,6 @@ stages:
     retry:
         max: 2
         when: runner_system_failure
-
-
-%for package in package_list:
-simulate_${library}_${package}:
-    variables:
-        lib_package: ${library}.${package}
-    extends: .simulate_model_job
-
-%endfor
-
 
 %for package in package_list:
 simulate_${library}_${package}_changed_models:

@@ -1,10 +1,9 @@
-
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - check
     - create_whitelist
-    
+   
 .check_model_job:
     stage: check
     before_script:
@@ -76,6 +75,7 @@ Check_AixLib_ThermalZones:
         paths:
             - AixLib/${lib_package}-log.txt
             - AixLib/${lib_package}-Errorlog.txt
+            - bin/03_Whitelists/changedmodels.txt
         expire_in: 7 day
     except:
         - external_pull_requests
@@ -137,7 +137,7 @@ whitelist_job:
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
     artifacts:
         paths:
-            - bin/03_WhiteLists/WhiteList_CheckModel.txt
+            - bin/03_WhiteLists/IBPSA_whitelist_model.txt
         expire_in: 7 day 
     only:
         variables:
