@@ -22,7 +22,7 @@ class CI_yml_templates(object):
 
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
-        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]"
+        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]. Please pull the new whitelist before push again."
         # - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
         # - $CI_COMMIT_MESSAGE =~ /fix errors manually/
         # - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
@@ -36,17 +36,17 @@ class CI_yml_templates(object):
 
         # files
         sys.path.append('bin/02_CITests')
-        from _config import ch_file, wh_file
+        from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir
         self.ch_file = ch_file
         self.wh_file = wh_file
 
-        self.reg_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
-        self.write_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
-        self.sim_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
-        self.page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
-        self.ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
-        self.main_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
-        self.temp_dir = f'bin{os.sep}07_templates{os.sep}03_ci_templates'
+        self.reg_temp = reg_temp
+        self.write_temp = write_temp
+        self.sim_temp = sim_temp
+        self.page_temp = page_temp
+        self.ibpsa_temp = ibpsa_temp
+        self.main_temp = main_temp
+        self.temp_dir = temp_dir
 
 
     def _write_package(self):
@@ -271,7 +271,7 @@ if __name__ == '__main__':
     package_list = result[1]
     dymolaversion = result[2]
     wh_library = result[3]
-    git_url = result[4]
+    #git_url = result[4]
     wh_path = result[5]
     git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
     CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)

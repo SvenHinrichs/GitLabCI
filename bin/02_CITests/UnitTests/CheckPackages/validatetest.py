@@ -59,7 +59,7 @@ class ValidateTest(object):
         self.dymola = dymola
         self.dymola_exception = DymolaException()
         self.dymola.ExecuteCommand(
-            "Advanced.TranslationInCommandLog:=true;")  # ## Writes all information in the log file, not only the
+            "Advanced.TranslationInCommandLog:=true;")  # Writes all information in the log file, not only the
 
     def _dym_check_lic(self):  # check the license
         try:
@@ -79,7 +79,7 @@ class ValidateTest(object):
                         self.dymola.close()
                         exit(1)
             print(
-                f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
+                f'2: Using Dymola port {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
             self.dymola.close()
@@ -102,7 +102,7 @@ class ValidateTest(object):
                     continue
                 if result is False:
                     print(
-                        f'Check for Model {model} {self.CRED} failed! {self.CEND} \n \n {self.CRED} Error: {self.CEND} {model} \n Second Check Test for model {model}')
+                        f'Check for Model {model}{self.CRED} failed!{self.CEND}\n\n{self.CRED}Error:{self.CEND} {model}\nSecond Check Test for model {model}')
                     sec_result = self.dymola.checkModel(model)
                     if sec_result is True:
                         print(f'\n {self.green} Successful: {self.CEND} {model} \n')
@@ -119,10 +119,7 @@ class ValidateTest(object):
             return error_model, error_message
         except self.dymola_exception as ex:
             print(f'2: Error:  {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
+
 
     def _sim_examples(self, example_list):  # Simulate examples or validations
         try:
@@ -135,21 +132,21 @@ class ValidateTest(object):
             error_model = []
             error_message = []
             if len(example_list) == 0:
-                print(f'{self.CRED} Error:{self.CEND} Found no Examples')
+                print(f'{self.CRED}Error:{self.CEND} Found no Examples')
                 exit(0)
             for example in example_list:
                 print(f'Simulate Model: {example}')
                 result = self.dymola.checkModel(example, simulate=True)
                 if result is True:
-                    print(f'\n  {self.green} Successful:  {self.CEND}  {example}  \n')
+                    print(f'\n {self.green}Successful:{self.CEND} {example}\n')
                 if result is False:
                     print(
-                        f'Simulate Model  {example}  {self.CRED}   failed!  {self.CEND}  \n Second Check Test for model  {example}')
+                        f'Simulate Model {example} {self.CRED} failed! {self.CEND} \n Second Check Test for model {example}')
                     sec_result = self.dymola.checkModel(example, simulate=True)
                     if sec_result is True:
-                        print(f'\n  {self.green}  Successful:  {self.CEND}  {example}  \n')
+                        print(f'\n {self.green} Successful: {self.CEND} {example} \n')
                     if sec_result is False:
-                        print(f'\n   {self.CRED}  Error:   {self.CEND}  {example}  \n')
+                        print(f'\n {self.CRED} Error: {self.CEND} {example}\n')
                         log = self.dymola.getLastError()
                         print(f'{log}')
                         error_model.append(example)
@@ -159,10 +156,6 @@ class ValidateTest(object):
             return error_model, error_message
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
 
     def _write_errorlog(self, error_model,
                         error_message):  # Write a Error log with all models, that don´t pass the check
@@ -271,12 +264,12 @@ class ValidateTest(object):
 
     def _check_result(self, error_model):
         if len(error_model) == 0:
-            print(f'Test was {self.green} Successful! {self.CEND}')
+            print(f'Test was {self.green}Successful!{self.CEND}')
             exit(0)
         if len(error_model) > 0:
-            print(f'Test {self.CRED}  failed!  {self.CEND}')
+            print(f'Test {self.CRED}failed!{self.CEND}')
             for model in error_model:
-                print(f'{self.CRED} Error: {self.CEND}  Check Model {model}')
+                print(f'{self.CRED}Error:{self.CEND} Check Model {model}')
             exit(1)
         if error_model is None:
             exit(1)
@@ -387,7 +380,7 @@ class Create_whitelist(object):
                         self.dymola.close()
                         exit(1)
             print(
-                f'2: Using Dymola port{str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
+                f'2: Using Dymola port {str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
             self.dymola.close()
@@ -406,10 +399,10 @@ class Create_whitelist(object):
             for model in model_list:
                 result = self.dymola.checkModel(model)
                 if result is True:
-                    print(f'\n {self.green} Successful: {self.CEND} {model} \n')
+                    print(f'\n{self.green}Successful:{self.CEND} {model}\n')
                     continue
                 if result is False:
-                    print(f'\n {self.CRED} Error: {self.CEND} {model} \n')
+                    print(f'\n{self.CRED}Error:{self.CEND} {model}\n')
                     log = self.dymola.getLastError()
                     print(f'{log}')
                     error_model.append(model)
@@ -421,10 +414,7 @@ class Create_whitelist(object):
 
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
+
 
     def _write_whitelist(self, error_model_list, version):
         wh_file = open(self.wh_file, "w")
