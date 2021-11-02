@@ -115,7 +115,7 @@ whitelist_job:
         
     artifacts:
         paths:
-            - whitelist/${CI_PROJECT_NAME}/${wh_file}
+            - ${wh_file}
         expire_in: 7 day 
         when: on_success  
     only:

@@ -33,7 +33,6 @@ class CI_yml_templates(object):
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
-
         # files
         sys.path.append('bin/02_CITests')
         from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir, exitfile
@@ -47,7 +46,7 @@ class CI_yml_templates(object):
         self.ibpsa_temp = ibpsa_temp
         self.main_temp = main_temp
         self.temp_dir = temp_dir
-        self.exitfile = exitfile
+        self.exitfile = exitfile.replace(os.sep, "/")
 
 
     def _write_package(self):

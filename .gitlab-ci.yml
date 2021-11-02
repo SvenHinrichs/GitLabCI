@@ -158,7 +158,7 @@ whitelist_job:
         
     artifacts:
         paths:
-            - whitelist/${CI_PROJECT_NAME}/bin/03_WhiteLists/IBPSA_whitelist_model.txt
+            - bin/03_WhiteLists/IBPSA_whitelist_model.txt
         expire_in: 7 day 
         when: on_success  
     only:
