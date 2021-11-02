@@ -289,6 +289,13 @@ class Create_whitelist(object):
         self.wh_lib = wh_lib
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
         self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
+        sys.path.append('bin/02_CITests')
+        from _config import ch_file, wh_file
+        self.ch_file = ch_file
+        self.wh_file = wh_file
+
+
+
         self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
         self.green = '\033[0;32m'
@@ -325,6 +332,14 @@ class Create_whitelist(object):
         version = (data[len(data) - 1])
         return version
 
+    def _check_fileexist(self):
+        if os.path.exists(self.wh_file):
+            print(f' Whitelist does exist. Update the whitelist under {self.wh_file}')
+            os.f
+        else:
+            print(f' Whitelist does not exist. Create a new one under {self.wh_file}')
+            file = open(self.wh_file, "w+")
+            file.close()
     def _check_whitelist(self,
                          version):  # Write a new Whitelist with all models in IBPSA Library of those models who have not passed the Check Test
         # Read the last version of whitelist
@@ -517,6 +532,7 @@ def create_wh_workflow():
     print(f'Setting: library {args.library}')
     Whitelist_class = Create_whitelist(library=args.library,
                                        wh_lib=args.wh_library)
+    Whitelist_class._check_fileexist()
     version = Whitelist_class.read_script_version()
     version_check = Whitelist_class._check_whitelist(version)
     if version_check is False:
