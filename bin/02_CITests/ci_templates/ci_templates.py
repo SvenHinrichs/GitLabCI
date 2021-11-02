@@ -59,7 +59,6 @@ class CI_yml_templates(object):
         df.to_csv(csv_file, index=False, header=True)
 
     def _write_merge_template(self):
-
         mytemplate = Template(filename=self.ibpsa_temp)
         yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch, dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
                                     GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}", Github_Repository="${Github_Repository}", Merge_Branch="${Merge_Branch}", IBPSA_Repo="${IBPSA_Repo}",

@@ -291,9 +291,9 @@ class Create_whitelist(object):
         self.wh_lib = wh_lib
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
         self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
-        self.CRED = '\033[91m' # Colors
+        self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
-        self.green = "\033[0;32m"
+        self.green = '\033[0;32m'
         from dymola.dymola_interface import DymolaInterface  # Load modelica python interface
         from dymola.dymola_exception import DymolaException
         print(f'1: Starting Dymola instance')
@@ -374,13 +374,11 @@ class Create_whitelist(object):
                         self.dymola.close()
                         exit(1)
             print(
-                f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
+                f'2: Using Dymola port{str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
         except self.dymola_exception as ex:
             print(f'2: Error:   {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
+            self.dymola.close()
+
 
     def _check_wh_model(self, model_list):
         try:
