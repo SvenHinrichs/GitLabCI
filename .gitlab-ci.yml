@@ -5,11 +5,8 @@ stages:
     - create_whitelist
 
 variables:
-    
-    
     Github_Repository : SvenHinrichs/GitLabCI
     
-
 .check_model_job:
     stage: check
     before_script:
@@ -49,9 +46,9 @@ Check_AixLib_BoundaryConditions:
         lib_package: AixLib.BoundaryConditions
     extends: .check_model_job
 
-Check_AixLib_Electrical:
+Check_AixLib_Controls:
     variables:
-        lib_package: AixLib.Electrical
+        lib_package: AixLib.Controls
     extends: .check_model_job
 
 Check_AixLib_Fluid:
@@ -112,10 +109,10 @@ Check_AixLib_BoundaryConditions_changed_models:
         package_name: BoundaryConditions  
     extends: .check_changed_models_job
 
-Check_AixLib_Electrical_changed_models:
+Check_AixLib_Controls_changed_models:
     variables:
-        lib_package: AixLib.Electrical
-        package_name: Electrical  
+        lib_package: AixLib.Controls
+        package_name: Controls  
     extends: .check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
@@ -152,6 +149,7 @@ whitelist_job:
     script:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
         - message="Update or created new whitelist [skip ci]"
         - git add bin/03_WhiteLists/IBPSA_whitelist_model.txt
@@ -160,11 +158,14 @@ whitelist_job:
         
     artifacts:
         paths:
-            - whitelist/bin/03_WhiteLists/IBPSA_whitelist_model.txt
+            - whitelist/${CI_PROJECT_NAME}/bin/03_WhiteLists/IBPSA_whitelist_model.txt
         expire_in: 7 day 
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /ci_create_whitelist/
+
+
+
 
 
 

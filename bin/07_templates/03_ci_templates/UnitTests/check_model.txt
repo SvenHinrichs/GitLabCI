@@ -98,6 +98,7 @@ whitelist_job:
     script:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch  ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
         - message="${bot_update_wh_commit}"
         - git add ${wh_file}
@@ -106,7 +107,7 @@ whitelist_job:
         
     artifacts:
         paths:
-            - whitelist/${wh_file}
+            - whitelist/${CI_PROJECT_NAME}/${wh_file}
         expire_in: 7 day 
     only:
         variables:

@@ -105,7 +105,7 @@ class CI_yml_templates(object):
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, wh_commit=self.create_wh_commit,
                                      wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"), ch_file=self.ch_file.replace(os.sep, "/"), bot_update_wh_commit=self.bot_update_wh_commit, TARGET_BRANCH="$CI_COMMIT_REF_NAME",
-                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", Github_Repository="${Github_Repository}")
+                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", Github_Repository="${Github_Repository}", CI_PROJECT_NAME="${CI_PROJECT_NAME}")
         yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
