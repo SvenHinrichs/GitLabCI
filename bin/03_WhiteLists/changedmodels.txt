@@ -24,4 +24,9 @@
  :100644 100644 Resources\ReferenceResults\Dymola\AixLib_Fluid_FixedResistances_Examples_GenericPipe.txt
  :100644 100644 Resources\ReferenceResults\Dymola\AixLib_ThermalZones_ReducedOrder_Validation_RoomWithoutLatentGain.txt
  :100644 100644 Resources\ReferenceResults\Dymola\AixLib_ThermalZones_ReducedOrder_Validation_VDI6007_TestCase1.txt
- Resources\ReferenceResults\Dymola\AixLib_ThermalZones_ReducedOrder_Validation_VDI6007_TestCase2.txt
+ :100644 100644 Resources\ReferenceResults\Dymola\AixLib_ThermalZones_ReducedOrder_Validation_VDI6007_TestCase2.txt
+ :100644 100644 Resources\Scripts\Dymola\Airflow\AirHandlingUnit\Examples\AHU.mos
+ :100644 100644 Resources\Scripts\Dymola\Fluid\AirHandlingUnit\Examples\AHU.mos
+ :100644 100644 06469f32e 9baefc105 M AixLib\Airflow\Multizone\Validation\ThreeRoomsContam.mo
+ :100644 100644 06469f32e 9baefc105 M AixLib\Airflow\Multizone\DoorDiscretizedOperable.mo
+ :100644 100644 06469f32e 9baefc105 M AixLib\Airflow\Multizone\DoorOpen.mo

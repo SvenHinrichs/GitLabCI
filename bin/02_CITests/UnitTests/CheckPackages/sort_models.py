@@ -1,6 +1,5 @@
 import os
 import sys
-
 import codecs
 
 class git_models(object):

@@ -1,0 +1,126 @@
+
+stages:
+    - IBPSA_Merge
+    - Update_WhiteList
+    - openMR
+    - Release
+
+variables:
+    Target_Branch: "master"
+    IBPSA_Repo: ${git_url}
+    Merge_Branch: ${merge_branch}
+    
+IBPSA:
+    stage: IBPSA_Merge
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
+      
+    script:
+        - mkdir Merge_Package
+        - cd Merge_Package
+        - git clone --single-branch --branch  ${Merge_Branch} git@github.com:${Github_Repository}.git
+        - ls 
+        - cd ${CI_PROJECT_NAME}
+        - ls 
+        - git clone ${IBPSA_Repo}
+        - cd ${library}/Resources/Scripts
+        - python mergeModelicaIBPSA.py
+        - cd ..
+        - cd ..
+        - cd .. 
+        - python bin/02_CITests/deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "${library}/Resources/Scripts"
+        - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
+        - rm -r modelica-ibpsa
+    only:
+        - ${merge_branch}
+    except:   
+        refs:
+            -  external_pull_requests
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            %endfor
+    artifacts:
+        paths:
+            - Merge_Package/GitLabCI/
+        expire_in: 6 h     
+
+WhiteList:
+    
+    stage: Update_WhiteList
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        
+      
+    script:
+        - cd Merge_Package/${CI_PROJECT_NAME}
+        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList -DS ${dymolaversion} -s ${library} # Update WhiteList for CheckPackages
+        - rm  -r IBPSA 
+        - message="${bot_commit}"
+        - git add  . 
+        - git commit -m "$message" 
+        - git push --force git@github.com:${Github_Repository}.git
+           
+    only:
+        - IBPSA_Merge
+    except:   
+        refs: 
+            - external_pull_requests
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            %endfor
+    allow_failure: true
+    
+    needs:
+    - job: IBPSA
+      artifacts: true
+    
+
+IBPSA_Pull_Request:
+    stage: openMR
+    only:
+        - /^feature\/*/
+    before_script:
+        - sudo apt-get install jq -y
+        - pip install requests
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+  
+    script:
+       - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+    only:
+        - IBPSA_Merge
+    except:    
+        refs: 
+            - external_pull_requests
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            %endfor

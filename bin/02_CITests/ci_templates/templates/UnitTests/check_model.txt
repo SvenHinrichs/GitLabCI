@@ -1,15 +1,16 @@
 stages:
-    - Check
+    - check
+    - create_whitelist
     
-.Check_Model_Job:
-    stage: Check
+.check_model_job:
+    stage: check
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_library} ${filterflag} 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
     artifacts:
         when: on_failure
         paths:
@@ -23,12 +24,12 @@ stages:
         when: runner_system_failure  
     except:
         variables:
-			%for commit in except_commit_list:
+            %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
 
-.Check_changed_models_job:
-    stage: Check
+.check_changed_models_job:
+    stage: check
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -37,7 +38,7 @@ stages:
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "${lib_package}" -p ${library}/package.mo -CM -DS ${dymolaversion}
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
     artifacts:
         when: on_failure
         paths:
@@ -47,23 +48,39 @@ stages:
     except:
         - external_pull_requests
         - ${merge_branch}
-		variables:
-            %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE  =~ /${commit}/
-            %endfor
     only:
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  !~ /${commit}/
+            %endfor
         changes:
             - ${library}/${package_name}/**/*
     retry:
         max: 2
         when: runner_system_failure
 
+whitelist_job:
+    stage: create_whitelist
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
+    artifacts:
+        paths:
+            - bin/03_WhiteLists/WhiteList_CheckModel.txt
+        expire_in: 7 day 
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
 
 %for package in package_list:
 Check_${library}_${package}:
     variables:
         lib_package: ${library}.${package}
-    extends: .Check_Model_Job
+    extends: .check_model_job
 
 %endfor
 
@@ -73,7 +90,9 @@ Check_${library}_${package}_changed_models:
     variables:
         lib_package: ${library}.${package}
         package_name: ${package}  
-    extends: .Check_changed_models_job
+    extends: .check_changed_models_job
 
 %endfor
+
+    
 

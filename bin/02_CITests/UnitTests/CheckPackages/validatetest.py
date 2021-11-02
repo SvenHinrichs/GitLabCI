@@ -14,7 +14,7 @@ class Git_Repository_Clone(object):
         self.repo_dir = repo_dir
         self.git_url = git_url
 
-    def _clone_repository(self): # pull git repo
+    def _clone_repository(self):  # pull git repo
         if os.path.exists(self.repo_dir):
             print(f'IBPSA folder exists already!')
         else:
@@ -38,7 +38,11 @@ class ValidateTest(object):
         self.ch_models = ch_models
         self.wh_library = wh_library
         self.filter_wh = filter_wh
-        self.CRED = '\033[91m' # Colors
+        self.err_log = f'{self.mo_library}{os.sep}{self.mo_library}.{self.package}-errorlog.txt'
+        self.ch_file = f'bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
+        self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
+
+        self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
         # Load modelica python interface
@@ -54,7 +58,7 @@ class ValidateTest(object):
         self.dymola.ExecuteCommand(
             "Advanced.TranslationInCommandLog:=true;")  # ## Writes all information in the log file, not only the
 
-    def _dym_check_lic(self): # check  the license
+    def _dym_check_lic(self):  # check the license
         try:
             dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
             lic_counter = 0
@@ -119,7 +123,7 @@ class ValidateTest(object):
                 self.dymola.close()
                 self.dymola = None
 
-    def _sim_examples(self, example_list): # Simulate examples or validations
+    def _sim_examples(self, example_list):  # Simulate examples or validations
         try:
             pack_check = self.dymola.openModel(self.lib_path)
             if pack_check is True:
@@ -161,7 +165,7 @@ class ValidateTest(object):
 
     def _write_errorlog(self, error_model,
                         error_message):  # Write a Error log with all models, that don´t pass the check
-        error_log = open(self.mo_library + os.sep + self.mo_library + "." + self.package + "-errorlog.txt", "w")
+        error_log = open(self.err_log, "w")
         for model, message in zip(error_model, error_message):
             error_log.write(f'\n \n Error in model:  {model} \n')
             error_log.write(str(message))
@@ -179,7 +183,7 @@ class ValidateTest(object):
         return model_list
 
     def _get_ch_models(self):
-        changed_models = open('bin' + os.sep + '03_WhiteLists' + os.sep + 'changedmodels.txt', "r", encoding='utf8')
+        changed_models = open(self.ch_file, "r", encoding='utf8')
         modelica_models = []
         lines = changed_models.readlines()
         for line in lines:
@@ -215,7 +219,8 @@ class ValidateTest(object):
         return example_list
 
     def _get_ch_examples(self):
-        changed_models = open('bin' + os.sep + '03_WhiteLists' + os.sep + 'changedmodels.txt', "r", encoding='utf8', errors='ignore')
+        changed_models = open(self.ch_file, "r", encoding='utf8',
+                              errors='ignore')
         example_list = []
         lines = changed_models.readlines()
         for line in lines:
@@ -251,15 +256,16 @@ class ValidateTest(object):
         return models
 
     def _get_wh_models(self):  # Return a List with all models from the Whitelist
-        wh_file = open("bin" + os.sep + "03_WhiteLists" + os.sep + "WhiteList_CheckModel.txt", "r")
+        wh_file = open(self.wh_file, "r")
         lines = wh_file.readlines()
         wh_list_models = []
         for line in lines:
-            if line.find(self.package) > -1 :
+            if line.find(self.package) > -1:
                 model = line.lstrip()
                 model = model.strip()
                 model = model.replace("\n", "")
                 wh_list_models.append(model.replace(self.wh_library, self.mo_library))
+        wh_file.close()
         return wh_list_models
 
     def _check_result(self, error_model):
@@ -281,12 +287,11 @@ class Create_whitelist(object):
         self.library = library
         self.wh_lib = wh_lib
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
-        # Colors
-        self.CRED = '\033[91m'
+        self.wh_file = f'bin{os.sep}03_WhiteLists{os.sep}WhiteList_CheckModel.txt'
+        self.CRED = '\033[91m' # Colors
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
-        # Load modelica python interface
-        from dymola.dymola_interface import DymolaInterface
+        from dymola.dymola_interface import DymolaInterface  # Load modelica python interface
         from dymola.dymola_exception import DymolaException
         print(f'1: Starting Dymola instance')
         if platform.system() == "Windows":
@@ -322,7 +327,7 @@ class Create_whitelist(object):
     def _check_whitelist(self,
                          version):  # Write a new Whitelist with all models in IBPSA Library of those models who have not passed the Check Test
         # Read the last version of whitelist
-        vfile = open("bin" + os.sep + "03_WhiteLists" + os.sep + "WhiteList_CheckModel.txt", "r")
+        vfile = open(self.wh_file, "r")
         lines = vfile.readlines()
         version_check = False
         for line in lines:
@@ -334,9 +339,9 @@ class Create_whitelist(object):
         vfile.close()
         return version_check
 
-    def _get_wh_model(self):
+    def _get_wh_model(self, wh_path):
         model_list = []
-        for subdir, dirs, files in os.walk(self.wh_lib):
+        for subdir, dirs, files in os.walk(wh_path):
             for file in files:
                 filepath = subdir + os.sep + file
                 if filepath.endswith(".mo") and file != "package.mo":
@@ -408,7 +413,7 @@ class Create_whitelist(object):
                 self.dymola = None
 
     def _write_whitelist(self, error_model_list, version):
-        wh_file = open("bin" + os.sep + "03_WhiteLists" + os.sep + "WhiteList_CheckModel.txt", "w")
+        wh_file = open(self.wh_file, "w")
         wh_file.write(f'\n{version} \n \n')
         for model in error_model_list:
             wh_file.write(f'\n{model} \n \n')
@@ -437,7 +442,7 @@ def check_model_workflow():
         exit(1)
     print(f'Setting: Package {args.single_package}')
     print(f'Setting: library {args.library}')
-    #CheckModelTest._dym_check_lic()
+    CheckModelTest._dym_check_lic()
     if args.changedmodels is True:  # Test only changed or new models
         print(f'Test only changed or new models')
         model_list = CheckModelTest._get_ch_models()
@@ -473,7 +478,7 @@ def sim_example_workflow():
         exit(1)
     print(f'Setting: Package {args.single_package}')
     print(f'Setting: library {args.library}')
-    #CheckModelTest._dym_check_lic()
+    CheckModelTest._dym_check_lic()
     print(f'Simulate examples and validations')
     if args.changedmodels is True:
         print(f'Test only changed or new models')
@@ -516,25 +521,29 @@ def create_wh_workflow():
     version = Whitelist_class.read_script_version()
     version_check = Whitelist_class._check_whitelist(version)
     if version_check is False:
+        model_list = []
         if args.repo_dir is None:
             print(f'{CRED}Error:{CEND} Repo directory is missing!')
             exit(1)
-        if args.git_url is None:
-            print(f'{CRED}Error:{CEND} Git Url is missing!')
-            exit(1)
         print(f'Setting: Package {args.repo_dir}')
-        print(f'Setting: library {args.git_url}')
-        Git_Class = Git_Repository_Clone(repo_dir=args.repo_dir,
-                                         git_url=args.git_url)
-        print(f'Write new writelist from IBPSA Library')
-        Git_Class._clone_repository()
-        model_list = Whitelist_class._get_wh_model()
-        #Whitelist_class._dym_check_lic()
+        if args.git_url is None and args.wh_path is None:
+            print(f'{CRED}Error:{CEND} Git Url or whitelist path is missing!')
+            exit(1)
+        if args.git_url is not None:
+            print(f'Setting: library {args.git_url}')
+            Git_Class = Git_Repository_Clone(repo_dir=args.repo_dir,
+                                             git_url=args.git_url)
+            Git_Class._clone_repository()
+            model_list = Whitelist_class._get_wh_model(args.repo_dir)
+        elif args.wh_path is not None:
+            print(f'Setting: library {args.wh_path}')
+            model_list = Whitelist_class._get_wh_model(args.wh_path)
+        print(f'Write new writelist from {args.wh_library} Library')
+        Whitelist_class._dym_check_lic()
         result = Whitelist_class._check_wh_model(model_list)
         error_model_list = result[0]
         Whitelist_class._write_whitelist(error_model_list, version)
         exit(0)
-
 
 
 if __name__ == '__main__':
@@ -562,8 +571,9 @@ if __name__ == '__main__':
     check_test_group.add_argument("-FW", "--filterwhitelist", default=False, action="store_true")
     check_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
     check_test_group.add_argument("-wh-l", "--wh-library", help="Library to test")
-    check_test_group.add_argument("--repo-dir",  help="Library to test")
+    check_test_group.add_argument("--repo-dir", help="Library to test")
     check_test_group.add_argument("--git-url", help="url repository")
+    check_test_group.add_argument("--wh-path", help="path of white library")
 
     args = parser.parse_args()  # Parse the arguments
     CRED = '\033[91m'
