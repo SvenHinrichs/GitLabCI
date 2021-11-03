@@ -81,9 +81,6 @@ class CI_yml_templates(object):
         yml_tmp.close()
     #def _write_setting_template(self):
 
-
-
-
     def _write_check_template(self):
         if self.wh_library is not None:
             filterflag = "--filterwhitelist"
