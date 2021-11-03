@@ -1,6 +1,7 @@
 title = "Setting CI"
 
-[person]
+[Genereal Setting]
+
 name = "Tom Preston-Werner"
 geburtstag = 1979-05-27T07:32:00-08:00
 

@@ -35,7 +35,6 @@ class git_models(object):
 						model_name = model_name[:model_name.rfind(".mos")]
 						model_name = model_name.replace("..",".")
 						mos_scripts.append(model_name)
-						#print(mos_scripts)
 						continue
 					else:
 						continue
