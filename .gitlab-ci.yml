@@ -53,7 +53,7 @@ Test_changed_models_job:
     script:
         - echo $package
         - echo $lib_package
-        - echo lib_package/**/*
+        - echo $lib_package/**/*
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package $package --library AixLib -DS 2020 -CM 
