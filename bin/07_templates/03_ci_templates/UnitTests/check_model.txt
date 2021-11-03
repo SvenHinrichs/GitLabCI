@@ -94,7 +94,6 @@ whitelist_job:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-
     script:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch  ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
@@ -109,8 +108,6 @@ whitelist_job:
           else 
             exit 0; 
           fi
-
-        
     artifacts:
         paths:
             - whitelist/${CI_PROJECT_NAME}/${wh_file}

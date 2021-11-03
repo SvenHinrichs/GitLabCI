@@ -123,7 +123,7 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, git_url=self.git_url,
-                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library)
+                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library, ch_file=self.ch_file)
         yml_tmp = open(self.sim_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()

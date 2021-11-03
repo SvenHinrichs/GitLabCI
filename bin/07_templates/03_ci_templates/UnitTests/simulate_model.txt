@@ -44,7 +44,7 @@ simulate_${library}_${package}:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
+        - echo $model >  ${ch_file}
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM --simulateexamples
     artifacts:
         when: on_failure
