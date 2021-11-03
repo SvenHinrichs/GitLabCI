@@ -8,7 +8,6 @@ from sort_models import git_models
 import time
 import glob
 
-
 class Git_Repository_Clone(object):
     def __init__(self, repo_dir, git_url):
         self.repo_dir = repo_dir
@@ -20,7 +19,6 @@ class Git_Repository_Clone(object):
         else:
             print(f'Clone IBPSA Repo')
             Repo.clone_from(self.git_url, self.repo_dir)
-
 
 class ValidateTest(object):
     """Class to Check Packages and run CheckModel Tests"""
