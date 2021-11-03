@@ -72,42 +72,57 @@ Test_changed_models_job:
         max: 2
         when: runner_system_failure
 
-#variables:
-    #DOCKERFILES_DIR: 'path/to/files/'
-# $DOCKERFILES_DIR/*
 Check_AixLib_Airflow_changed_models:
     variables:
         lib_package: "AixLib/Airflow"
-        package: Airflow  
+        package: Airflow
+    only:
+        changes:
+            - AixLib/Airflow/**/*        
     extends: .Check_changed_models_job
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
         lib_package: "AixLib/BoundaryConditions"
         package: BoundaryConditions  
+    only:
+        changes:
+            - AixLib/BoundaryConditions/**/*  
     extends: .Check_changed_models_job
 
 Check_AixLib_Controls_changed_models:
     variables:
         lib_package: "AixLib/Controls"
         package: Controls  
+    only:
+        changes:
+            - AixLib/Controls/**/*  
     extends: .Check_changed_models_job
 
 Check_AixLib_Electrical_changed_models:
     variables:
         lib_package: "AixLib/Electrical"
         package: Electrical  
+    only:
+        changes:
+            - AixLib/Electrical/**/*  
     extends: .Check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
     variables:
         lib_package: "AixLib/Fluid"
         package: Fluid  
+    only:
+        changes:
+            - AixLib/Fluid/**/*  
     extends: .Check_changed_models_job
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
         lib_package: "AixLib/ThermalZones"
-        package: ThermalZones  
+        package: ThermalZones 
+    only:
+        changes:
+            - AixLib/ThermalZones/**/*  
     extends: .Check_changed_models_job
  
