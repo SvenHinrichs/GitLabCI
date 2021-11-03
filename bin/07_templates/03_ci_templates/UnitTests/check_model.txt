@@ -10,12 +10,12 @@ stages:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package ${lib_package} --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -31,7 +31,7 @@ stages:
 %for package in package_list:
 Check_${library}_${package}:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     extends: .check_model_job
     
 
@@ -47,12 +47,12 @@ Check_${library}_${package}:
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  ${ch_file}
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package ${lib_package} --library ${library} -DS ${dymolaversion} -CM 
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
             - ${ch_file}
         expire_in: 7 day
     except:
@@ -71,8 +71,7 @@ Check_${library}_${package}:
 %for package in package_list:
 Check_${library}_${package}_changed_models:
     variables:
-        lib_package: ${library}.${package}
-        package_name: ${package}  
+        lib_package: ${package}
     only:
         changes:
             - ${library}/${package}/**/* 

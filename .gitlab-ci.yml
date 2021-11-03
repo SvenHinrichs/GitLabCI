@@ -6,7 +6,6 @@ stages:
     - check
     - create_whitelist
     - simulate
-
 .check_model_job:
     stage: check
     before_script:
@@ -15,12 +14,12 @@ stages:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library AixLib -DS 2020 --wh-library IBPSA --filterwhitelist 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package ${lib_package} --library AixLib -DS 2020 --wh-library IBPSA --filterwhitelist 
     artifacts:
         when: on_failure
         paths:
-            - AixLib/${lib_package}-log.txt
-            - AixLib/${lib_package}-Errorlog.txt
+            - AixLib/AixLib.${lib_package}-log.txt
+            - AixLib/AixLib.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -38,37 +37,37 @@ stages:
 
 Check_AixLib_Airflow:
     variables:
-        lib_package: AixLib.Airflow
+        lib_package: Airflow
     extends: .check_model_job
     
 
 Check_AixLib_BoundaryConditions:
     variables:
-        lib_package: AixLib.BoundaryConditions
+        lib_package: BoundaryConditions
     extends: .check_model_job
     
 
 Check_AixLib_Controls:
     variables:
-        lib_package: AixLib.Controls
+        lib_package: Controls
     extends: .check_model_job
     
 
 Check_AixLib_Electrical:
     variables:
-        lib_package: AixLib.Electrical
+        lib_package: Electrical
     extends: .check_model_job
     
 
 Check_AixLib_Fluid:
     variables:
-        lib_package: AixLib.Fluid
+        lib_package: Fluid
     extends: .check_model_job
     
 
 Check_AixLib_ThermalZones:
     variables:
-        lib_package: AixLib.ThermalZones
+        lib_package: ThermalZones
     extends: .check_model_job
     
 
@@ -83,12 +82,12 @@ Check_AixLib_ThermalZones:
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library AixLib -DS 2020 -CM 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package ${lib_package} --library AixLib -DS 2020 -CM 
     artifacts:
         when: on_failure
         paths:
-            - AixLib/${lib_package}-log.txt
-            - AixLib/${lib_package}-Errorlog.txt
+            - AixLib/AixLib.${lib_package}-log.txt
+            - AixLib/AixLib.${lib_package}-Errorlog.txt
             - bin/03_WhiteLists/changedmodels.txt
         expire_in: 7 day
     except:
@@ -109,8 +108,8 @@ Check_AixLib_ThermalZones:
 
 Check_AixLib_Airflow_changed_models:
     variables:
-        lib_package: AixLib.Airflow
-        package_name: Airflow  
+        lib_package: Airflow
+          
     only:
         changes:
             - AixLib/Airflow/**/* 
@@ -118,8 +117,8 @@ Check_AixLib_Airflow_changed_models:
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
-        lib_package: AixLib.BoundaryConditions
-        package_name: BoundaryConditions  
+        lib_package: BoundaryConditions
+          
     only:
         changes:
             - AixLib/BoundaryConditions/**/* 
@@ -127,8 +126,8 @@ Check_AixLib_BoundaryConditions_changed_models:
 
 Check_AixLib_Controls_changed_models:
     variables:
-        lib_package: AixLib.Controls
-        package_name: Controls  
+        lib_package: Controls
+          
     only:
         changes:
             - AixLib/Controls/**/* 
@@ -136,8 +135,8 @@ Check_AixLib_Controls_changed_models:
 
 Check_AixLib_Electrical_changed_models:
     variables:
-        lib_package: AixLib.Electrical
-        package_name: Electrical  
+        lib_package: Electrical
+          
     only:
         changes:
             - AixLib/Electrical/**/* 
@@ -145,8 +144,8 @@ Check_AixLib_Electrical_changed_models:
 
 Check_AixLib_Fluid_changed_models:
     variables:
-        lib_package: AixLib.Fluid
-        package_name: Fluid  
+        lib_package: Fluid
+          
     only:
         changes:
             - AixLib/Fluid/**/* 
@@ -154,8 +153,8 @@ Check_AixLib_Fluid_changed_models:
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
-        lib_package: AixLib.ThermalZones
-        package_name: ThermalZones  
+        lib_package: ThermalZones
+          
     only:
         changes:
             - AixLib/ThermalZones/**/* 
@@ -214,8 +213,8 @@ whitelist_job:
     artifacts:
         when: on_failure
         paths:
-            - AixLib/${lib_package}-log.txt
-            - AixLib/${lib_package}-Errorlog.txt
+            - AixLib/AixLib.${lib_package}-log.txt
+            - AixLib/AixLib.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -233,32 +232,32 @@ whitelist_job:
 
 simulate_AixLib_Airflow:
     variables:
-        lib_package: AixLib.Airflow
+        lib_package: Airflow
     extends: .simulate_model_job
 
 simulate_AixLib_BoundaryConditions:
     variables:
-        lib_package: AixLib.BoundaryConditions
+        lib_package: BoundaryConditions
     extends: .simulate_model_job
 
 simulate_AixLib_Controls:
     variables:
-        lib_package: AixLib.Controls
+        lib_package: Controls
     extends: .simulate_model_job
 
 simulate_AixLib_Electrical:
     variables:
-        lib_package: AixLib.Electrical
+        lib_package: Electrical
     extends: .simulate_model_job
 
 simulate_AixLib_Fluid:
     variables:
-        lib_package: AixLib.Fluid
+        lib_package: Fluid
     extends: .simulate_model_job
 
 simulate_AixLib_ThermalZones:
     variables:
-        lib_package: AixLib.ThermalZones
+        lib_package: ThermalZones
     extends: .simulate_model_job
 
 
@@ -276,8 +275,8 @@ simulate_AixLib_ThermalZones:
     artifacts:
         when: on_failure
         paths:
-            - AixLib/${lib_package}-log.txt
-            - AixLib/${lib_package}-Errorlog.txt
+            - AixLib/AixLib.${lib_package}-log.txt
+            - AixLib/AixLib.${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
         - external_pull_requests
@@ -297,8 +296,8 @@ simulate_AixLib_ThermalZones:
 
 simulate_AixLib_Airflow_changed_models:
     variables:
-        lib_package: AixLib.Airflow
-        package_name: Airflow  
+        lib_package: Airflow
+         
     only:
         changes:
             - AixLib/Airflow/**/* 
@@ -306,8 +305,8 @@ simulate_AixLib_Airflow_changed_models:
 
 simulate_AixLib_BoundaryConditions_changed_models:
     variables:
-        lib_package: AixLib.BoundaryConditions
-        package_name: BoundaryConditions  
+        lib_package: BoundaryConditions
+         
     only:
         changes:
             - AixLib/BoundaryConditions/**/* 
@@ -315,8 +314,8 @@ simulate_AixLib_BoundaryConditions_changed_models:
 
 simulate_AixLib_Controls_changed_models:
     variables:
-        lib_package: AixLib.Controls
-        package_name: Controls  
+        lib_package: Controls
+         
     only:
         changes:
             - AixLib/Controls/**/* 
@@ -324,8 +323,8 @@ simulate_AixLib_Controls_changed_models:
 
 simulate_AixLib_Electrical_changed_models:
     variables:
-        lib_package: AixLib.Electrical
-        package_name: Electrical  
+        lib_package: Electrical
+         
     only:
         changes:
             - AixLib/Electrical/**/* 
@@ -333,8 +332,8 @@ simulate_AixLib_Electrical_changed_models:
 
 simulate_AixLib_Fluid_changed_models:
     variables:
-        lib_package: AixLib.Fluid
-        package_name: Fluid  
+        lib_package: Fluid
+         
     only:
         changes:
             - AixLib/Fluid/**/* 
@@ -342,9 +341,11 @@ simulate_AixLib_Fluid_changed_models:
 
 simulate_AixLib_ThermalZones_changed_models:
     variables:
-        lib_package: AixLib.ThermalZones
-        package_name: ThermalZones  
+        lib_package: ThermalZones
+         
     only:
         changes:
             - AixLib/ThermalZones/**/* 
     extends: .simulate_changed_models_job
+
+
