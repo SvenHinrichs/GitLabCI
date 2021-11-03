@@ -34,7 +34,7 @@ Test_changed_models_job:
         - IBPSA_Merge
     only:
         changes:
-            - $AixLib/Airflow/**/*
+            - AixLib/Airflow/**/*
     retry:
         max: 2
         when: runner_system_failure
