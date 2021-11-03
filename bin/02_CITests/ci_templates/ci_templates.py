@@ -75,7 +75,7 @@ class CI_yml_templates(object):
         yml_text = mytemplate.render(library=self.library, lib_package="${lib_package}", dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, package_list=self.package_list,
                                     update_commit=self.update_ref_commit,  merge_branch=self.merge_branch, TARGET_BRANCH="${TARGET_BRANCH}", GITLAB_Page="${GITLAB_Page}",
                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
-                                    CI_PROJECT_NAME="${CI_PROJECT_NAME}")
+                                    CI_PROJECT_NAME="${CI_PROJECT_NAME}", exitfile=self.exitfile, ch_file=self.ch_file)
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
