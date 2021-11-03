@@ -26,46 +26,47 @@ stages:
         - external_pull_requests
         - IBPSA_Merge
     only:
-        
         changes:
-            - AixLib/$package_name/**/*
+            - $lib_package/**/*
     retry:
         max: 2
         when: runner_system_failure
 
+
+
 Check_AixLib_Airflow_changed_models:
     variables:
-        lib_package: AixLib.Airflow
+        lib_package: AixLib/Airflow
         package: Airflow  
     extends: .check_changed_models_job
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
-        lib_package: AixLib.BoundaryConditions
+        lib_package: AixLib/BoundaryConditions
         package: BoundaryConditions  
     extends: .check_changed_models_job
 
 Check_AixLib_Controls_changed_models:
     variables:
-        lib_package: AixLib.Controls
+        lib_package: AixLib/Controls
         package: Controls  
     extends: .check_changed_models_job
 
 Check_AixLib_Electrical_changed_models:
     variables:
-        lib_package: AixLib.Electrical
+        lib_package: AixLib/Electrical
         package: Electrical  
     extends: .check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
     variables:
-        lib_package: AixLib.Fluid
+        lib_package: AixLib/Fluid
         package: Fluid  
     extends: .check_changed_models_job
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
-        lib_package: AixLib.ThermalZones
+        lib_package: AixLib/ThermalZones
         package: ThermalZones  
     extends: .check_changed_models_job
  
