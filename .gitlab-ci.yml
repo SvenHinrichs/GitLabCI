@@ -4,6 +4,8 @@ stages:
 
 .check_changed_models_job:
     stage: check
+    variables:
+        package_name: $package
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -24,15 +26,9 @@ stages:
         - external_pull_requests
         - IBPSA_Merge
     only:
-        variables:
-            - $CI_COMMIT_MESSAGE  !~ /^ci_update_ref_.*$/
-            - $CI_COMMIT_MESSAGE  !~ /ci_dif_ref/
-            - $CI_COMMIT_MESSAGE  !~ /ci_correct_html/
-            - $CI_COMMIT_MESSAGE  !~ /ci_create_whitelist/
-            - $CI_COMMIT_MESSAGE  !~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
-            - $CI_COMMIT_MESSAGE  !~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+        
         changes:
-            - AixLib/$package/**/*
+            - AixLib/$package_name/**/*
     retry:
         max: 2
         when: runner_system_failure
