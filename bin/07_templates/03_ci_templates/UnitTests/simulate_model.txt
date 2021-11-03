@@ -60,8 +60,7 @@ simulate_${library}_${package}:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  !~ /${commit}/
             %endfor
-        changes:
-            - ${library}/${package_name}/**/*
+        
     retry:
         max: 2
         when: runner_system_failure
@@ -71,6 +70,9 @@ simulate_${library}_${package}_changed_models:
     variables:
         lib_package: ${library}.${package}
         package_name: ${package}  
+    only:
+        changes:
+            - ${library}/${package}/**/* 
     extends: .simulate_changed_models_job
 
 %endfor

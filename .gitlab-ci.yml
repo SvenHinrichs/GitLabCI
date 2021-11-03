@@ -4,125 +4,347 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 
 stages:
     - check
-    - Test
+    - create_whitelist
+    - simulate
 
+.check_model_job:
+    stage: check
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library AixLib -DS 2020 --wh-library IBPSA --filterwhitelist 
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/${lib_package}-log.txt
+            - AixLib/${lib_package}-Errorlog.txt
+        expire_in: 7 day 
+    only:
+        - external_pull_requests
+    retry:
+        max: 2
+        when: runner_system_failure  
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /^ci_update_ref_.*$/
+            - $CI_COMMIT_MESSAGE  =~ /ci_dif_ref/
+            - $CI_COMMIT_MESSAGE  =~ /ci_correct_html/
+            - $CI_COMMIT_MESSAGE  =~ /ci_create_whitelist/
+            - $CI_COMMIT_MESSAGE  =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE  =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
 
-
-Test_changed_models_job:
-    stage: Test
+Check_AixLib_Airflow:
     variables:
-        lib_package: "AixLib/Airflow"
+        lib_package: AixLib.Airflow
+    extends: .check_model_job
+    
+
+Check_AixLib_BoundaryConditions:
+    variables:
+        lib_package: AixLib.BoundaryConditions
+    extends: .check_model_job
+    
+
+Check_AixLib_Controls:
+    variables:
+        lib_package: AixLib.Controls
+    extends: .check_model_job
+    
+
+Check_AixLib_Electrical:
+    variables:
+        lib_package: AixLib.Electrical
+    extends: .check_model_job
+    
+
+Check_AixLib_Fluid:
+    variables:
+        lib_package: AixLib.Fluid
+    extends: .check_model_job
+    
+
+Check_AixLib_ThermalZones:
+    variables:
+        lib_package: AixLib.ThermalZones
+    extends: .check_model_job
+    
+
+
+.check_changed_models_job:
+    stage: check
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - echo $lib_package
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package Airflow --library AixLib -DS 2020 -CM 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library AixLib -DS 2020 -CM 
     artifacts:
         when: on_failure
         paths:
-            - AixLib/$package-log.txt
-            - AixLib/$package-Errorlog.txt
+            - AixLib/${lib_package}-log.txt
+            - AixLib/${lib_package}-Errorlog.txt
             - bin/03_WhiteLists/changedmodels.txt
         expire_in: 7 day
     except:
         - external_pull_requests
         - IBPSA_Merge
     only:
-        changes:
-            - AixLib/Airflow/**/*
-    retry:
-        max: 2
-        when: runner_system_failure
-
-
-
-
-.Check_changed_models_job:
-    stage: check
-    
-    before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36
-        - export PYTHONIOENCODING=utf-8 # just in case
-    script:
-        - echo $package
-        - echo $lib_package
-        - echo $lib_package/**/*
-        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package $package --library AixLib -DS 2020 -CM 
-    artifacts:
-        when: on_failure
-        paths:
-            - AixLib/$package-log.txt
-            - AixLib/$package-Errorlog.txt
-            - bin/03_WhiteLists/changedmodels.txt
-        expire_in: 7 day
-    except:
-        - external_pull_requests
-        - IBPSA_Merge
-    
+        variables:
+            - $CI_COMMIT_MESSAGE  !~ /^ci_update_ref_.*$/
+            - $CI_COMMIT_MESSAGE  !~ /ci_dif_ref/
+            - $CI_COMMIT_MESSAGE  !~ /ci_correct_html/
+            - $CI_COMMIT_MESSAGE  !~ /ci_create_whitelist/
+            - $CI_COMMIT_MESSAGE  !~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE  !~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+        
     retry:
         max: 2
         when: runner_system_failure
 
 Check_AixLib_Airflow_changed_models:
     variables:
-        lib_package: "AixLib/Airflow"
-        package: Airflow
+        lib_package: AixLib.Airflow
+        package_name: Airflow  
     only:
         changes:
-            - AixLib/Airflow/**/*        
-    extends: .Check_changed_models_job
+            - AixLib/Airflow/**/* 
+    extends: .check_changed_models_job
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
-        lib_package: "AixLib/BoundaryConditions"
-        package: BoundaryConditions  
+        lib_package: AixLib.BoundaryConditions
+        package_name: BoundaryConditions  
     only:
         changes:
-            - AixLib/BoundaryConditions/**/*  
-    extends: .Check_changed_models_job
+            - AixLib/BoundaryConditions/**/* 
+    extends: .check_changed_models_job
 
 Check_AixLib_Controls_changed_models:
     variables:
-        lib_package: "AixLib/Controls"
-        package: Controls  
+        lib_package: AixLib.Controls
+        package_name: Controls  
     only:
         changes:
-            - AixLib/Controls/**/*  
-    extends: .Check_changed_models_job
+            - AixLib/Controls/**/* 
+    extends: .check_changed_models_job
 
 Check_AixLib_Electrical_changed_models:
     variables:
-        lib_package: "AixLib/Electrical"
-        package: Electrical  
+        lib_package: AixLib.Electrical
+        package_name: Electrical  
     only:
         changes:
-            - AixLib/Electrical/**/*  
-    extends: .Check_changed_models_job
+            - AixLib/Electrical/**/* 
+    extends: .check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
     variables:
-        lib_package: "AixLib/Fluid"
-        package: Fluid  
+        lib_package: AixLib.Fluid
+        package_name: Fluid  
     only:
         changes:
-            - AixLib/Fluid/**/*  
-    extends: .Check_changed_models_job
+            - AixLib/Fluid/**/* 
+    extends: .check_changed_models_job
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
-        lib_package: "AixLib/ThermalZones"
-        package: ThermalZones 
+        lib_package: AixLib.ThermalZones
+        package_name: ThermalZones  
     only:
         changes:
-            - AixLib/ThermalZones/**/*  
-    extends: .Check_changed_models_job
- 
+            - AixLib/ThermalZones/**/* 
+    extends: .check_changed_models_job
+
+
+
+whitelist_job:
+    stage: create_whitelist
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+    script:
+        - mkdir whitelist && cd whitelist
+        - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS 2020 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git  --library AixLib --wh-library IBPSA --whitelist
+        - if cat bin/06_Configfiles/exit.sh | grep "exit 1"; then 
+            message="Update or created new whitelist [skip ci]. Please pull the new whitelist before push again.";
+            git add bin/03_WhiteLists/IBPSA_whitelist_model.txt;
+            git commit -m "$message"; 
+            git push --force git@github.com:${Github_Repository}.git;
+            exit 0;
+          else 
+            exit 0; 
+          fi
+    artifacts:
+        paths:
+            - whitelist/${CI_PROJECT_NAME}/bin/03_WhiteLists/IBPSA_whitelist_model.txt
+        expire_in: 7 day 
+        when: on_success  
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /ci_create_whitelist/
+
+.simulate_model_job:
+    stage: simulate
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library AixLib -DS 2020 --wh-library IBPSA --filterwhitelist --simulateexamples 
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/${lib_package}-log.txt
+            - AixLib/${lib_package}-Errorlog.txt
+        expire_in: 7 day 
+    only:
+        - external_pull_requests
+    retry:
+        max: 2
+        when: runner_system_failure  
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /^ci_update_ref_.*$/
+            - $CI_COMMIT_MESSAGE  =~ /ci_dif_ref/
+            - $CI_COMMIT_MESSAGE  =~ /ci_correct_html/
+            - $CI_COMMIT_MESSAGE  =~ /ci_create_whitelist/
+            - $CI_COMMIT_MESSAGE  =~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE  =~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+
+simulate_AixLib_Airflow:
+    variables:
+        lib_package: AixLib.Airflow
+    extends: .simulate_model_job
+
+simulate_AixLib_BoundaryConditions:
+    variables:
+        lib_package: AixLib.BoundaryConditions
+    extends: .simulate_model_job
+
+simulate_AixLib_Controls:
+    variables:
+        lib_package: AixLib.Controls
+    extends: .simulate_model_job
+
+simulate_AixLib_Electrical:
+    variables:
+        lib_package: AixLib.Electrical
+    extends: .simulate_model_job
+
+simulate_AixLib_Fluid:
+    variables:
+        lib_package: AixLib.Fluid
+    extends: .simulate_model_job
+
+simulate_AixLib_ThermalZones:
+    variables:
+        lib_package: AixLib.ThermalZones
+    extends: .simulate_model_job
+
+
+.simulate_changed_models_job:
+    stage: simulate
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
+        - echo $model >  bin\03_WhiteLists\changedmodels.txt
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library AixLib -DS 2020 -CM --simulateexamples
+    artifacts:
+        when: on_failure
+        paths:
+            - AixLib/${lib_package}-log.txt
+            - AixLib/${lib_package}-Errorlog.txt
+        expire_in: 7 day
+    except:
+        - external_pull_requests
+        - IBPSA_Merge
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  !~ /^ci_update_ref_.*$/
+            - $CI_COMMIT_MESSAGE  !~ /ci_dif_ref/
+            - $CI_COMMIT_MESSAGE  !~ /ci_correct_html/
+            - $CI_COMMIT_MESSAGE  !~ /ci_create_whitelist/
+            - $CI_COMMIT_MESSAGE  !~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
+            - $CI_COMMIT_MESSAGE  !~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
+        
+    retry:
+        max: 2
+        when: runner_system_failure
+
+simulate_AixLib_Airflow_changed_models:
+    variables:
+        lib_package: AixLib.Airflow
+        package_name: Airflow  
+    only:
+        changes:
+            - AixLib/Airflow/**/* 
+    extends: .simulate_changed_models_job
+
+simulate_AixLib_BoundaryConditions_changed_models:
+    variables:
+        lib_package: AixLib.BoundaryConditions
+        package_name: BoundaryConditions  
+    only:
+        changes:
+            - AixLib/BoundaryConditions/**/* 
+    extends: .simulate_changed_models_job
+
+simulate_AixLib_Controls_changed_models:
+    variables:
+        lib_package: AixLib.Controls
+        package_name: Controls  
+    only:
+        changes:
+            - AixLib/Controls/**/* 
+    extends: .simulate_changed_models_job
+
+simulate_AixLib_Electrical_changed_models:
+    variables:
+        lib_package: AixLib.Electrical
+        package_name: Electrical  
+    only:
+        changes:
+            - AixLib/Electrical/**/* 
+    extends: .simulate_changed_models_job
+
+simulate_AixLib_Fluid_changed_models:
+    variables:
+        lib_package: AixLib.Fluid
+        package_name: Fluid  
+    only:
+        changes:
+            - AixLib/Fluid/**/* 
+    extends: .simulate_changed_models_job
+
+simulate_AixLib_ThermalZones_changed_models:
+    variables:
+        lib_package: AixLib.ThermalZones
+        package_name: ThermalZones  
+    only:
+        changes:
+            - AixLib/ThermalZones/**/* 
+    extends: .simulate_changed_models_job
