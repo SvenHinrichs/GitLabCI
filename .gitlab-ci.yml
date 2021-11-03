@@ -3,7 +3,7 @@ image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
 stages:
     - Check
 
-.Check_changed_models_job:
+Check_changed_models_job:
     stage: Check
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
@@ -14,7 +14,7 @@ stages:
     script:
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s "${AixLib_package}" -p AixLib/package.mo -CM -DS ${DymolaVersion}
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -s Airflow -p AixLib/package.mo -CM -DS ${DymolaVersion}
     artifacts:
         when: on_failure
         paths:
@@ -30,65 +30,7 @@ stages:
             - $CI_COMMIT_MESSAGE !~ /Trigger CI - Update reference results/ 
             - $CI_COMMIT_MESSAGE !~ /Trigger CI - give different reference results/
         changes:
-            - AixLib/${package}/**/*
+            - AixLib/Airflow/**/*
     retry:
         max: 2
         when: runner_system_failure  
-
-
-
-
-Check_Airflow_changed_models:
-    variables:
-        AixLib_package: AixLib.Airflow
-        package: Airflow  
-    extends: .Check_changed_models_job
-    
-
-Check_BoundaryConditions_changed_models:
-    variables:
-        AixLib_package: AixLib.BoundaryConditions
-        package: BoundaryConditions 
-    extends: .Check_changed_models_job
-    
-        
-Check_Controls_changed_models:
-    variables:
-        AixLib_package: AixLib.Controls
-        package: Controls
-    extends: .Check_changed_models_job
-    
-    
-Check_Electrical_changed_models:
-    variables:
-        AixLib_package: AixLib.Electrical
-        package: Electrical
-    extends: .Check_changed_models_job
-    
-    
-Check_Fluid_changed_models:
-    variables:
-        AixLib_package: AixLib.Fluid
-        package: Fluid
-    extends: .Check_changed_models_job
-    
-            
-Check_Media_changed_models:
-    variables:
-        AixLib_package: AixLib.Media
-        package: Media
-    extends: .Check_changed_models_job
-    
-    
-Check_Systems_changed_models:
-    variables:
-        AixLib_package: AixLib.Systems
-        package: Systems
-    extends: .Check_changed_models_job
-    
-
-Check_ThermalZones_changed_models:
-    variables:
-        AixLib_package: AixLib.ThermalZones
-        package: ThermalZones
-    extends: .Check_changed_models_job
