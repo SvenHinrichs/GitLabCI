@@ -10,6 +10,8 @@ stages:
 
 Test_changed_models_job:
     stage: Test
+    variables:
+        lib_package: AixLib/Airflow
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -31,7 +33,7 @@ Test_changed_models_job:
         - IBPSA_Merge
     only:
         changes:
-            - AixLib/Airflow/**/*
+            - $lib_package/**/*
     retry:
         max: 2
         when: runner_system_failure
