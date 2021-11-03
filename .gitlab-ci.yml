@@ -1,5 +1,6 @@
 image: registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest
-
+stages:
+    - check
 
 .check_changed_models_job:
     stage: check
