@@ -7,7 +7,6 @@ stages:
 variables:
     Github_Repository : SvenHinrichs/GitLabCI
     
-
 .check_changed_models_job:
     stage: check
     before_script:
@@ -38,7 +37,7 @@ variables:
             - $CI_COMMIT_MESSAGE  !~ /Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt/
             - $CI_COMMIT_MESSAGE  !~ /Automatic push of CI with new regression reference files. Please pull the new files before push again./
         changes:
-            - AixLib/${package_name}/**/*
+            - AixLib/${package}/**/*
     retry:
         max: 2
         when: runner_system_failure
@@ -46,37 +45,37 @@ variables:
 Check_AixLib_Airflow_changed_models:
     variables:
         lib_package: AixLib.Airflow
-        package_name: Airflow  
+        package: Airflow  
     extends: .check_changed_models_job
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
         lib_package: AixLib.BoundaryConditions
-        package_name: BoundaryConditions  
+        package: BoundaryConditions  
     extends: .check_changed_models_job
 
 Check_AixLib_Controls_changed_models:
     variables:
         lib_package: AixLib.Controls
-        package_name: Controls  
+        package: Controls  
     extends: .check_changed_models_job
 
 Check_AixLib_Electrical_changed_models:
     variables:
         lib_package: AixLib.Electrical
-        package_name: Electrical  
+        package: Electrical  
     extends: .check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
     variables:
         lib_package: AixLib.Fluid
-        package_name: Fluid  
+        package: Fluid  
     extends: .check_changed_models_job
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
         lib_package: AixLib.ThermalZones
-        package_name: ThermalZones  
+        package: ThermalZones  
     extends: .check_changed_models_job
 
 
@@ -112,7 +111,6 @@ whitelist_job:
           else 
             exit 0; 
           fi
-
         
     artifacts:
         paths:
