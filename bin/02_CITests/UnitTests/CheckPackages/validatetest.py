@@ -184,13 +184,14 @@ class ValidateTest(object):
                     model = line.lstrip()
                     model = model.strip()
                     model = model.replace("\n", "")
-                    model_name = model[model.rfind(self.mo_library):]
+                    model_name = model[model.rfind(self.mo_library):model.rfind('.mo')]
                     model_name = model_name.replace(os.sep, ".")
                     model_name = model_name.replace('/', ".")
                     model_name = model_name.replace('.mo', "")
                     modelica_models.append(model_name)
                     continue
         changed_models.close()
+        print(modelica_models)
         return modelica_models
 
     def _get_examples(self):  # list all examples in package
@@ -454,7 +455,7 @@ def check_model_workflow():
         exit(1)
     print(f'Setting: Package {args.single_package}')
     print(f'Setting: library {args.library}')
-    CheckModelTest._dym_check_lic()
+    #CheckModelTest._dym_check_lic()
     if args.changedmodels is True:  # Test only changed or new models
         print(f'Test only changed or new models')
         model_list = CheckModelTest._get_ch_models()
