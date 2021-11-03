@@ -11,7 +11,7 @@ stages:
 Test_changed_models_job:
     stage: Test
     variables:
-        lib_package: AixLib/Airflow
+        lib_package: "AixLib/Airflow"
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -76,37 +76,37 @@ Test_changed_models_job:
 
 Check_AixLib_Airflow_changed_models:
     variables:
-        lib_package: AixLib/Airflow
+        lib_package: "AixLib/Airflow"
         package: Airflow  
     extends: .Check_changed_models_job
 
 Check_AixLib_BoundaryConditions_changed_models:
     variables:
-        lib_package: AixLib/BoundaryConditions
+        lib_package: "AixLib/BoundaryConditions"
         package: BoundaryConditions  
     extends: .Check_changed_models_job
 
 Check_AixLib_Controls_changed_models:
     variables:
-        lib_package: AixLib/Controls
+        lib_package: "AixLib/Controls"
         package: Controls  
     extends: .Check_changed_models_job
 
 Check_AixLib_Electrical_changed_models:
     variables:
-        lib_package: AixLib/Electrical
+        lib_package: "AixLib/Electrical"
         package: Electrical  
     extends: .Check_changed_models_job
 
 Check_AixLib_Fluid_changed_models:
     variables:
-        lib_package: AixLib/Fluid
+        lib_package: "AixLib/Fluid"
         package: Fluid  
     extends: .Check_changed_models_job
 
 Check_AixLib_ThermalZones_changed_models:
     variables:
-        lib_package: AixLib/ThermalZones
+        lib_package: "AixLib/ThermalZones"
         package: ThermalZones  
     extends: .Check_changed_models_job
  
