@@ -1,7 +1,7 @@
 import os
 
 
-ch_file = f'bin{os.sep}03_Whitelists{os.sep}changedmodels.txt'
+ch_file = f'bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
 wh_file = f'bin{os.sep}03_WhiteLists{os.sep}IBPSA_whitelist_model.txt'
 exitfile = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
 

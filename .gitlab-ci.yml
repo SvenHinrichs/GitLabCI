@@ -18,6 +18,7 @@ Test_changed_models_job:
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
+        - echo $lib_package
         - model=$(git diff --raw --diff-filter=AMT HEAD^1)
         - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package Airflow --library AixLib -DS 2020 -CM 
@@ -33,7 +34,7 @@ Test_changed_models_job:
         - IBPSA_Merge
     only:
         changes:
-            - $lib_package/**/*
+            - $AixLib/Airflow/**/*
     retry:
         max: 2
         when: runner_system_failure
