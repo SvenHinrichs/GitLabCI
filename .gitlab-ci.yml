@@ -30,7 +30,7 @@ variables:
         - IBPSA_Merge
     only:
         variables:
-            - $CI_COMMIT_MESSAGE  !~ /^ci_update_ref_.*$/
+            
             - $CI_COMMIT_MESSAGE  !~ /ci_dif_ref/
             - $CI_COMMIT_MESSAGE  !~ /ci_correct_html/
             - $CI_COMMIT_MESSAGE  !~ /ci_create_whitelist/
@@ -96,7 +96,6 @@ whitelist_job:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-
     script:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch  $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
