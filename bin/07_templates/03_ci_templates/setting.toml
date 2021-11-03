@@ -1,5 +1,4 @@
-# Das ist ein TOML-Dokument.
-title = "TOML Beispiel"
+title = "Setting CI"
 
 [person]
 name = "Tom Preston-Werner"

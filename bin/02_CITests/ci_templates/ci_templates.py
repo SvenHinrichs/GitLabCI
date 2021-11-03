@@ -79,6 +79,10 @@ class CI_yml_templates(object):
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
+    #def _write_setting_template(self):
+
+
+
 
     def _write_check_template(self):
         if self.wh_library is not None:
