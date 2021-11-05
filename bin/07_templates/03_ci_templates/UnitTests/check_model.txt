@@ -18,16 +18,17 @@ stages:
             - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
-        - external_pull_requests
-    retry:
-        max: 2
-        when: runner_system_failure  
+        refs:
+            - external_pull_requests
     except:
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            - $CI_COMMIT_MESSAGE =~ /${commit}/
             %endfor
-
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
 %for package in package_list:
 Check_${library}_${package}:
     variables:
@@ -55,12 +56,12 @@ Check_${library}_${package}:
             - ${ch_file}
         expire_in: 7 day
     except:
-        - external_pull_requests
-        - ${merge_branch}
-    only:
+        refs:
+            - external_pull_requests
+            - ${merge_branch}
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE  !~ /${commit}/
+            - $CI_COMMIT_MESSAGE =~ /${commit}/
             %endfor
     retry:
         max: 2
@@ -115,11 +116,3 @@ whitelist_job:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
-
-
-
-
-
-
-    
-
