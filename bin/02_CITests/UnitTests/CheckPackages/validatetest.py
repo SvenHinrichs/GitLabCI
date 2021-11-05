@@ -60,100 +60,86 @@ class ValidateTest(object):
             "Advanced.TranslationInCommandLog:=true;")  # Writes all information in the log file, not only the
 
     def _dym_check_lic(self):  # check the license
-        try:
-            dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-            lic_counter = 0
-            while dym_sta_lic_available is False:
-                print(
-                    f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
-                self.dymola.close()
-                time.sleep(180.0)
-                dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-                lic_counter += 1
-                if lic_counter > 10:
-                    if dym_sta_lic_available is False:
-                        print(
-                            f'There are currently no available Dymola licenses available. Please try again later.')
-                        self.dymola.close()
-                        exit(1)
-            print(
-                f'2: Using Dymola port {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
-        except self.dymola_exception as ex:
-            print(f'2: Error:   {str(ex)}')
+        dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+        lic_counter = 0
+        while dym_sta_lic_available is False:
+            print(f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
             self.dymola.close()
+            time.sleep(180.0)
+            dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+            lic_counter += 1
+            if lic_counter > 10:
+                if dym_sta_lic_available is False:
+                    print(f'There are currently no available Dymola licenses available. Please try again later.')
+                    self.dymola.close()
+                    exit(1)
+        print(f'2: Using Dymola port {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
 
 
     def _checkmodel(self, model_list):  # Check models and return a Error Log, if the check failed
-        try:
-            pack_check = self.dymola.openModel(self.lib_path)
-            if pack_check is True:
-                print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
-            elif pack_check is False:
-                print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
-                exit(1)
-            error_model = []
-            error_message = []
-            for model in model_list:
-                result = self.dymola.checkModel(model)
-                if result is True:
+        pack_check = self.dymola.openModel(self.lib_path)
+        if pack_check is True:
+            print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
+        elif pack_check is False:
+            print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
+            exit(1)
+        error_model = []
+        error_message = []
+        for model in model_list:
+            result = self.dymola.checkModel(model)
+            if result is True:
+                print(f'\n {self.green} Successful: {self.CEND} {model} \n')
+                continue
+            if result is False:
+                print(f'Check for Model {model}{self.CRED} failed!{self.CEND}\n\n{self.CRED}Error:{self.CEND} {model}\nSecond Check Test for model {model}')
+                sec_result = self.dymola.checkModel(model)
+                if sec_result is True:
                     print(f'\n {self.green} Successful: {self.CEND} {model} \n')
                     continue
-                if result is False:
-                    print(
-                        f'Check for Model {model}{self.CRED} failed!{self.CEND}\n\n{self.CRED}Error:{self.CEND} {model}\nSecond Check Test for model {model}')
-                    sec_result = self.dymola.checkModel(model)
-                    if sec_result is True:
-                        print(f'\n {self.green} Successful: {self.CEND} {model} \n')
-                        continue
-                    if sec_result is False:
-                        print(f'\n   {self.CRED}  Error:   {self.CEND}  {model}  \n')
-                        log = self.dymola.getLastError()
-                        error_model.append(model)
-                        error_message.append(log)
-                        print(f'{log}')
-                        continue
-            self.dymola.savelog(self.mo_library + "." + self.package + "-log.txt")
-            self.dymola.close()
-            return error_model, error_message
-        except self.dymola_exception as ex:
-            print(f'2: Error:  {str(ex)}')
+                if sec_result is False:
+                    print(f'\n   {self.CRED}  Error:   {self.CEND}  {model}  \n')
+                    log = self.dymola.getLastError()
+                    error_model.append(model)
+                    error_message.append(log)
+                    print(f'{log}')
+                    continue
+        self.dymola.savelog(self.mo_library + "." + self.package + "-log.txt")
+        self.dymola.close()
+        return error_model, error_message
 
 
     def _sim_examples(self, example_list):  # Simulate examples or validations
-        try:
-            pack_check = self.dymola.openModel(self.lib_path)
-            if pack_check is True:
-                print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
-            elif pack_check is False:
-                print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
-                exit(1)
-            error_model = []
-            error_message = []
-            if len(example_list) == 0:
-                print(f'{self.CRED}Error:{self.CEND} Found no Examples')
-                exit(0)
-            for example in example_list:
-                print(f'Simulate Model: {example}')
-                result = self.dymola.checkModel(example, simulate=True)
-                if result is True:
-                    print(f'\n {self.green}Successful:{self.CEND} {example}\n')
-                if result is False:
-                    print(
-                        f'Simulate Model {example} {self.CRED} failed! {self.CEND} \n Second Check Test for model {example}')
-                    sec_result = self.dymola.checkModel(example, simulate=True)
-                    if sec_result is True:
-                        print(f'\n {self.green} Successful: {self.CEND} {example} \n')
-                    if sec_result is False:
-                        print(f'\n {self.CRED} Error: {self.CEND} {example}\n')
-                        log = self.dymola.getLastError()
-                        print(f'{log}')
-                        error_model.append(example)
-                        error_message.append(log)
-            self.dymola.savelog(self.mo_library + "." + self.package + "-log.txt")
-            self.dymola.close()
-            return error_model, error_message
-        except self.dymola_exception as ex:
-            print(f'2: Error:   {str(ex)}')
+        pack_check = self.dymola.openModel(self.lib_path)
+        if pack_check is True:
+            print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
+        elif pack_check is False:
+            print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
+            exit(1)
+        error_model = []
+        error_message = []
+        if len(example_list) == 0:
+            print(f'{self.CRED}Error:{self.CEND} Found no Examples')
+            exit(0)
+        for example in example_list:
+            print(f'Simulate Model: {example}')
+            result = self.dymola.checkModel(example, simulate=True)
+            if result is True:
+                print(f'\n {self.green}Successful:{self.CEND} {example}\n')
+            if result is False:
+                print(f'Simulate Model {example} {self.CRED} failed! {self.CEND} \n Second Check Test for model {example}')
+                sec_result = self.dymola.checkModel(example, simulate=True)
+                if sec_result is True:
+                    print(f'\n {self.green} Successful: {self.CEND} {example} \n')
+                if sec_result is False:
+                    print(f'\n {self.CRED} Error: {self.CEND} {example}\n')
+                    log = self.dymola.getLastError()
+                    print(f'{log}')
+                    error_model.append(example)
+                    error_message.append(log)
+        self.dymola.savelog(self.mo_library + "." + self.package + "-log.txt")
+        self.dymola.close()
+        return error_model, error_message
+
 
     def _write_errorlog(self, error_model,
                         error_message):  # Write a Error log with all models, that don´t pass the check

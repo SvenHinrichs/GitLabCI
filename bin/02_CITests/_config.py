@@ -30,6 +30,11 @@ chart_dir = f'bin{os.sep}07_templates{os.sep}02_charts'
 ref_file_path = f'Resources{os.sep}ReferenceResults{os.sep}Dymola'
 resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
 
+# image_name
+image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
+project_name = 'EBC/EBC_all/gitlab_ci/templates'
+variable_main_list =['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: git SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
+
 
 
 

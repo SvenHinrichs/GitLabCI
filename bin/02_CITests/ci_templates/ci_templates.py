@@ -23,7 +23,7 @@ class CI_yml_templates(object):
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
         self.bot_create_ref_commit = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
-        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]. Please pull the new whitelist before push again."
+        self.bot_update_wh_commit = "Update or created new whitelist. Please pull the new whitelist before push again. [skip ci]"
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit, self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_commit]
         # except branches
@@ -31,7 +31,7 @@ class CI_yml_templates(object):
 
         # files
         sys.path.append('bin/02_CITests')
-        from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir, exit_file, new_ref_file, chart_dir
+        from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list
         self.ch_file = ch_file.replace(os.sep, "/")
         self.wh_file = wh_file.replace(os.sep, "/")
 
@@ -45,6 +45,9 @@ class CI_yml_templates(object):
         self.exit_file = exit_file.replace(os.sep, "/")
         self.new_ref_file = new_ref_file.replace(os.sep, "/")
         self.chart_dir = chart_dir.replace(os.sep, "/")
+        self.image_name = image_name
+        self.project_name = project_name
+        self.variable_main_list = variable_main_list
 
 
     def _write_package(self):
@@ -146,15 +149,15 @@ class CI_yml_templates(object):
         yml_tmp.close()
 
     def _get_variables(self):
-        variable_list =['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: git SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
+        variable_list = self.variable_main_list
         return variable_list
 
     def _get_image_name(self):
-        image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
+        image_name = self.image_name
         return image_name
 
     def _get_project_name(self):
-        project_name = 'EBC/EBC_all/gitlab_ci/templates'
+        project_name = self.project_name
         return project_name
 
     def _get_yml_templates(self):
