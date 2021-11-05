@@ -10,7 +10,6 @@ class git_models(object):
 		self.list_path = list_path
 	
 	def sort_mos_script(self):
-		#list_path = ".."+os.sep+'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt' 
 		changed_models = codecs.open(self.list_path, "r", encoding='utf8')
 		mos_scripts = [] 
 		Lines =  changed_models.readlines()

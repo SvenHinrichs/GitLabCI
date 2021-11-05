@@ -18,15 +18,17 @@ class Plot_Charts(object):
 		self.library = library
 
 		# Set files for informations, templates and storage locations
-		self.temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}google_chart.txt'  # path for google chart template
-		self.index_temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}index.txt'
-		self.layout_temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}layout_index.txt'
+		sys.path.append('bin/02_CITests')
+		from _config import chart_dir, chart_temp, index_temp, layout_temp
+		self.temp_file = chart_temp  # path for google chart template
+		self.index_temp_file = index_temp
+		self.layout_temp_file = layout_temp
 		self.f_log = f'{self.library}{os.sep}unitTests-dymola.log'  # path for unitTest-dymola.log, important for errors
 		self.csv_file = f'reference.csv'
 		self.test_csv = f'test.csv'
 
-		self.index_path = f'bin{os.sep}07_templates{os.sep}02_charts'  # path for layout index
-		self.temp_chart_path = f'bin{os.sep}07_templates{os.sep}02_charts{os.sep}{self.package}'  # path for every single package
+		self.index_path = chart_dir  # path for layout index
+		self.temp_chart_path = f'{chart_dir}{os.sep}{self.package}'  # path for every single package
 		self.funnel_path = f'{self.library}{os.sep}funnel_comp'
 		self.ref_path = f'{self.library}{os.sep}Resources{os.sep}ReferenceResults{os.sep}Dymola'
 		self.index_html_file = f'{self.temp_chart_path}{os.sep}index.html'
@@ -54,7 +56,6 @@ class Plot_Charts(object):
 					legend = values[0]
 					measures = values[1]
 					if legend.find("time") > -1:
-						#time_list.append(f'{legend}:{measures}'
 						time_str = f'{legend}:{measures}'
 					else:
 						measure_len = len(measures.split(","))
@@ -81,7 +82,7 @@ class Plot_Charts(object):
 			if not os.path.exists(directory):
 				os.makedirs(directory)
 		except OSError:
-			print('Error: Creating directory. ' +  directory)
+			print(f'Error: Creating directory. {directory}')
 
 	def _func(self, label):  # For Matplot Plots: Create a Hitbox for different variables
 		index = labels.index(label)
@@ -328,4 +329,4 @@ if  __name__ == '__main__':
 			data = read_unitTest_log(f_log)
 			mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
 	if args.create_layout is True:
-		charts.create_layout()
+		charts._create_layout()

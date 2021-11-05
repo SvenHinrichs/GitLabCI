@@ -23,30 +23,28 @@ class CI_yml_templates(object):
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
         self.bot_update_wh_commit = "Update or created new whitelist [skip ci]. Please pull the new whitelist before push again."
-        # - $CI_COMMIT_MESSAGE =~ /CI - Create IBPSA Merge/
-        # - $CI_COMMIT_MESSAGE =~ /fix errors manually/
-        # - $CI_COMMIT_MESSAGE =~/Trigger CI - give different reference results/
-        # - $CI_COMMIT_MESSAGE  =~ /Trigger CI - Update reference results/
+        self.bot_create_ref_commit = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
 
-        self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit, self.bot_merge_commit , self.bot_push_commit]
-
+        self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit, self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
         # files
         sys.path.append('bin/02_CITests')
-        from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir, exitfile
-        self.ch_file = ch_file
-        self.wh_file = wh_file
+        from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, temp_dir, exit_file, new_ref_file, chart_dir
+        self.ch_file = ch_file.replace(os.sep, "/")
+        self.wh_file = wh_file.replace(os.sep, "/")
 
-        self.reg_temp = reg_temp
-        self.write_temp = write_temp
-        self.sim_temp = sim_temp
-        self.page_temp = page_temp
-        self.ibpsa_temp = ibpsa_temp
-        self.main_temp = main_temp
-        self.temp_dir = temp_dir
-        self.exitfile = exitfile.replace(os.sep, "/")
+        self.reg_temp = reg_temp.replace(os.sep, "/")
+        self.write_temp = write_temp.replace(os.sep, "/")
+        self.sim_temp = sim_temp.replace(os.sep, "/")
+        self.page_temp = page_temp.replace(os.sep, "/")
+        self.ibpsa_temp = ibpsa_temp.replace(os.sep, "/")
+        self.main_temp = main_temp.replace(os.sep, "/")
+        self.temp_dir = temp_dir.replace(os.sep, "/")
+        self.exit_file = exit_file.replace(os.sep, "/")
+        self.new_ref_file = new_ref_file.replace(os.sep, "/")
+        self.chart_dir = chart_dir.replace(os.sep, "/")
 
 
     def _write_package(self):
@@ -63,19 +61,27 @@ class CI_yml_templates(object):
 
     def _write_merge_template(self):
         mytemplate = Template(filename=self.ibpsa_temp)
-        yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch, dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
-                                    GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}", Github_Repository="${Github_Repository}", Merge_Branch="${Merge_Branch}", IBPSA_Repo="${IBPSA_Repo}",
-                                    GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Target_Branch="${Target_Branch}", GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit)
+        yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch, dymolaversion=self.dymolaversion,
+                                     except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
+                                     GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
+                                     Github_Repository="${Github_Repository}", Merge_Branch="${Merge_Branch}", IBPSA_Repo="${IBPSA_Repo}",
+                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Target_Branch="${Target_Branch}",
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit)
         yml_tmp = open(self.ibpsa_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
     def _write_regression_template(self):
         mytemplate = Template(filename=self.reg_temp)
-        yml_text = mytemplate.render(library=self.library, lib_package="${lib_package}", dymolaversion=self.dymolaversion, except_commit_list=self.except_commit_list, package_list=self.package_list,
-                                    update_commit=self.update_ref_commit,  merge_branch=self.merge_branch, TARGET_BRANCH="${TARGET_BRANCH}", GITLAB_Page="${GITLAB_Page}",
-                                    GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
-                                    CI_PROJECT_NAME="${CI_PROJECT_NAME}", exitfile=self.exitfile, ch_file=self.ch_file)
+        yml_text = mytemplate.render(library=self.library, lib_package="${lib_package}", dymolaversion=self.dymolaversion,
+                                     except_commit_list=self.except_commit_list, package_list=self.package_list,
+                                     update_commit=self.update_ref_commit,  merge_branch=self.merge_branch,
+                                     TARGET_BRANCH="${TARGET_BRANCH}", GITLAB_Page="${GITLAB_Page}",
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", Github_Repository="${Github_Repository}",
+                                     GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
+                                     CI_PROJECT_NAME="${CI_PROJECT_NAME}", exit_file=self.exit_file, ch_file=self.ch_file,
+                                     bot_create_ref_commit=self.bot_create_ref_commit, new_ref_file=self.new_ref_file,
+                                     chart_dir=self.chart_dir)
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -105,9 +111,12 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, wh_commit=self.create_wh_commit,
-                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"), ch_file=self.ch_file.replace(os.sep, "/"), bot_update_wh_commit=self.bot_update_wh_commit, TARGET_BRANCH="$CI_COMMIT_REF_NAME",
-                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", Github_Repository="${Github_Repository}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
-                                     exitfile=self.exitfile)
+                                     wh_library=self.wh_library, wh_path=wh_path, git_url=git_url, wh_file=self.wh_file.replace(os.sep, "/"),
+                                     ch_file=self.ch_file.replace(os.sep, "/"), bot_update_wh_commit=self.bot_update_wh_commit,
+                                     TARGET_BRANCH="$CI_COMMIT_REF_NAME", GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}",
+                                     GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
+                                     Github_Repository="${Github_Repository}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
+                                     exit_file=self.exit_file)
         yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -261,9 +270,7 @@ def _config_settings_check():
 if __name__ == '__main__':
     # python bin/02_CITests/ci_templates/ci_templates.py
 
-
     from ci_templates import CI_yml_templates
-
     config_list = _config_test()
     if len(config_list) == 0:
         exit(0)

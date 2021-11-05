@@ -17,11 +17,13 @@ class Reg_Reference(object):
         self.show_gui = show_gui
         self.path = path
 
-        self.ref_file_path = f'Resources{os.sep}ReferenceResults{os.sep}Dymola'
-        self.resource_file_path = f'Resources{os.sep}Scripts{os.sep}Dymola'
+        sys.path.append('bin/02_CITests')
+        from _config import ref_file_path, resource_dir, index_temp, layout_temp, exit_file, ref_file
+        self.ref_file_path = ref_file_path
+        self.resource_file_path = resource_dir
         self.ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
-        self.exit_file = f'..{os.sep}bin{os.sep}06_Configfiles{os.sep}exit.sh'
-        self.ref_file = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_list.txt'
+        self.exit_file = f'..{os.sep}{exit_file}'
+        self.ref_file = f'..{os.sep}{ref_file}'
 
         self.CRED = '\033[91m'  # Color
         self.CEND = '\033[0m'

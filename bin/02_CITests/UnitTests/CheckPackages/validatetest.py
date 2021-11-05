@@ -282,12 +282,10 @@ class Create_whitelist(object):
         self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
 
         sys.path.append('bin/02_CITests')
-        from _config import ch_file, wh_file, exitfile
+        from _config import ch_file, wh_file, exit_file
         self.ch_file = ch_file
         self.wh_file = wh_file
-        self.exitfile = exitfile
-
-
+        self.exit_file = exit_file
 
         self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
@@ -417,7 +415,7 @@ class Create_whitelist(object):
             print(f'2: Error:   {str(ex)}')
 
     def _write_exit_log(self, version_check):
-        exit = open(self.exitfile, "w")
+        exit = open(self.exit_file, "w")
         if version_check is False:
             exit.write(f'exit 1')
         else:
