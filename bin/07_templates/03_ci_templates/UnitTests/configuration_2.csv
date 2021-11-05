@@ -1,0 +1,15 @@
+Package;Whitelist;simulateexamples ;changedmodels;filterwhitelist
+Airflow;FALSCH;FALSCH;FALSCH;FALSCH
+BoundaryConditions;;;;
+Controls;;;;
+DataBase;;;;
+Electrical;;;;
+Fluid;;;;
+Media;;;;
+Obsolete;;;;
+Resources;;;;
+Systems;;;;
+ThermalZones;;;;
+Types;;;;
+UsersGuide;;;;
+Utilities;;;;

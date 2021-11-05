@@ -466,14 +466,4 @@ if  __name__ == '__main__':
 									  DymolaVersion = args.DymolaVersion)
 	
 	# Set path for python-dymola-interface: Operating System windows and linux
-	## List Regression models
-	#func_list_models.list_regression_tests()
-	#func_list_models._list_used_models()
-	#func_list_models._change_mos_script()
-	#func_list_models._change_txt_files()
 	func_list_models._remove_duplicate()
-	#func_list_models.list_changed_examples()
-	#func_list_models.compare_change_used_models()
-	
-	
-	

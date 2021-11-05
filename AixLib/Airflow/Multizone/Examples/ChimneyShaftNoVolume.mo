@@ -4,6 +4,12 @@ model ChimneyShaftNoVolume
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Air.SimpleAir;
 
+
+
+
+
+
+
   AixLib.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

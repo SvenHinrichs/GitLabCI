@@ -1,6 +1,5 @@
 import os
 import sys
-
 import codecs
 
 class git_models(object):
@@ -11,7 +10,6 @@ class git_models(object):
 		self.list_path = list_path
 	
 	def sort_mos_script(self):
-		#list_path = ".."+os.sep+'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt' 
 		changed_models = codecs.open(self.list_path, "r", encoding='utf8')
 		mos_scripts = [] 
 		Lines =  changed_models.readlines()
@@ -36,7 +34,6 @@ class git_models(object):
 						model_name = model_name[:model_name.rfind(".mos")]
 						model_name = model_name.replace("..",".")
 						mos_scripts.append(model_name)
-						#print(mos_scripts)
 						continue
 					else:
 						continue

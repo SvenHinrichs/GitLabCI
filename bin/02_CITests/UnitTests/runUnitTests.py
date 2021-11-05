@@ -31,14 +31,12 @@
 
 def _validate_experiment_setup(path):
     import buildingspy.development.validator as v
-
-    val = v.Validator()
+	val = v.Validator()
     retVal = val.validateExperimentSetup(path)
 
 def _validate_html(path):
     import buildingspy.development.validator as v
-
-    val = v.Validator()
+	val = v.Validator()
     errMsg = val.validateHTMLInPackage(path)
     n_msg = len(errMsg)
     for i in range(n_msg):
@@ -53,8 +51,8 @@ def _validate_html(path):
         return 1
 
 def _setEnvironmentVariables(var, value):
-    ''' Add to the environment variable `var` the value `value`
-    '''
+	""" Add to the environment variable `var` the value `value`
+    """
     import os
     import platform
     if var in os.environ:
@@ -75,7 +73,7 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	CRED = '\033[91m'
 	CEND = '\033[0m'
 	green = "\033[0;32m"	
-	mos_list = ref_check.compare_ref_mos()
+	mos_list = ref_check._compare_ref_mos()
 		
 	ut = u.Tester(tool=tool)
 	ut.batchMode(False)
@@ -84,26 +82,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 	exitFile = ".."+os.sep+"bin"+os.sep+"06_Configfiles"+os.sep+"exit.sh"
 	Exit = open(exitFile, "w")
 	Ref_List = []
-	'''if mos_list is not None:
-		ut.setSinglePackage(self.package)
-		ut.setNumberOfThreads(self.n_pro)
-		ut.pedanticModelica(False)
-		ut.showGUI(True)
-		#ut.showGUI(self.show_gui)
-		retVal = ut.run()'''
+
 			
 	Ref_Whitelist = open(".."+os.sep+"bin"+os.sep+"03_WhiteLists"+os.sep+"ref_Whitelist.txt", "r")
 	WhiteList = []
-	'''
-	line = Ref_Whitelist.readline()
-	if len(line) == 0:
-		print("Leere Zeile")
-		print(line)
-	else:
-		line = line.replace('\n','')
-		line = line.replace("'",'')
-		WhiteList.append(line)
-	Ref_Whitelist.close()'''
+
 	for x in Ref_Whitelist:
 		x = x.strip()
 		if len(x) == 0:
@@ -146,25 +129,11 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 			 
 		
 		for i in Ref:
-			
-			'''if i.find("DataBase")> -1:
-				continue
-			if i.find("Obsolete") > -1:
-				continue
-			if i.find("Types") >-1: 
-				continue
-			if i.find("UsersGuide") > -1:
-				continue
-			if i.find("Utilities") > -1:
-				continue'''			
 			print(green+"Generate new Reference File for "+CEND+i)
-			#name = i.replace("_",".")
-			#name = name[:name.rfind(".")]
 			ut.setSinglePackage(i)
 			ut.setNumberOfThreads(n_pro)
 			ut.pedanticModelica(False)
 			ut.showGUI(False)
-			#ut.showGUI(self.show_gui)
 			retVal = ut.run()
 			continue
 			
@@ -180,7 +149,6 @@ def create_ReferenceResults( tool, package, path, n_pro, show_gui):
 		
 def _update_ref(batch, tool, package,path,  n_pro, show_gui):
 	import buildingspy.development.regressiontest as u
-	
 	ut = u.Tester(tool=tool)
 	ut.batchMode(batch)
 	ut.setLibraryRoot(path)
@@ -199,7 +167,7 @@ def _update_ref(batch, tool, package,path,  n_pro, show_gui):
 	return retVal
 	
 	
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui,modified_models):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, modified_models):
 	
 	import buildingspy.development.regressiontest as u
 
@@ -367,19 +335,15 @@ if __name__ == '__main__':
 	unit_test_group.add_argument("--show-gui",
                         help='Show the GUI of the simulator',
                         action="store_true")
-
 	unit_test_group.add_argument("--coverage-only",
                         help='Only run the coverage test',
                         action="store_true")
-
 	unit_test_group.add_argument("--check-ref",
                         help='checks if all reference files exist',
                         action="store_true")
 	unit_test_group.add_argument("--update-ref",
                         help='update all reference files',
                         action="store_true")
-	
-	
 	unit_test_group.add_argument("--modified-models",
                         help='Regression test only for modified models',
 						default=False,
@@ -543,4 +507,3 @@ if __name__ == '__main__':
 			if dymola is not None:
 				dymola.close()
 				dymola = None
-			#   _runOpenModelicaUnitTests()
