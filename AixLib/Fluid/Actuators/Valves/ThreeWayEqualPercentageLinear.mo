@@ -13,9 +13,6 @@ model ThreeWayEqualPercentageLinear
     "Range of significant deviation from equal percentage law";
 
 
-
-
-
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
           20,-50},{12,-50}},
