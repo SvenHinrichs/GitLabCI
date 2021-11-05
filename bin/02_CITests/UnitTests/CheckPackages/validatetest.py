@@ -191,7 +191,6 @@ class ValidateTest(object):
                     modelica_models.append(model_name)
                     continue
         changed_models.close()
-        print(modelica_models)
         return modelica_models
 
     def _get_examples(self):  # list all examples in package
