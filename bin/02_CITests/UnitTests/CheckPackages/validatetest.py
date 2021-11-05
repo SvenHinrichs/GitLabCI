@@ -70,7 +70,7 @@ class ValidateTest(object):
                 time.sleep(180.0)
                 dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
                 lic_counter += 1
-                if lic_counter > 30:
+                if lic_counter > 10:
                     if dym_sta_lic_available is False:
                         print(
                             f'There are currently no available Dymola licenses available. Please try again later.')
@@ -361,57 +361,46 @@ class Create_whitelist(object):
         return model_list
 
     def _dym_check_lic(self):
-        try:
-            dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-            lic_counter = 0
-            while dym_sta_lic_available is False:
-                print(
-                    f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
-                self.dymola.close()
-                time.sleep(180.0)
-                dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-                lic_counter += 1
-                if lic_counter > 30:
-                    if dym_sta_lic_available is False:
-                        print(
-                            f'There are currently no available Dymola licenses available. Please try again later.')
-                        self.dymola.close()
-                        exit(1)
-            print(
-                f'2: Using Dymola port {str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
-        except self.dymola_exception as ex:
-            print(f'2: Error:   {str(ex)}')
+        dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+        lic_counter = 0
+        while dym_sta_lic_available is False:
+            print(f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
             self.dymola.close()
+            time.sleep(180.0)
+            dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+            lic_counter += 1
+            if lic_counter > 10:
+                if dym_sta_lic_available is False:
+                    print(f'There are currently no available Dymola licenses available. Please try again later.')
+                    self.dymola.close()
+                    exit(1)
+        print(f'2: Using Dymola port {str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
 
 
     def _check_wh_model(self, model_list):
-        try:
-            package_check = self.dymola.openModel(self.wh_lib_path)
-            if package_check is True:
-                print(f'Found {self.wh_lib} Library and check models in library {self.wh_lib} \n')
-            elif package_check is False:
-                print(f'Library Path is wrong. Please Check Path of {self.wh_lib} Library Path')
-                exit(1)
-            error_model = []
-            error_message = []
-            for model in model_list:
-                result = self.dymola.checkModel(model)
-                if result is True:
-                    print(f'\n{self.green}Successful:{self.CEND} {model}\n')
-                    continue
-                if result is False:
-                    print(f'\n{self.CRED}Error:{self.CEND} {model}\n')
-                    log = self.dymola.getLastError()
-                    print(f'{log}')
-                    error_model.append(model)
-                    error_message.append(log)
-                    continue
-            self.dymola.savelog(f'{self.wh_lib}-log.txt')
-            self.dymola.close()
-            return error_model, error_message
-
-        except self.dymola_exception as ex:
-            print(f'2: Error:   {str(ex)}')
+        package_check = self.dymola.openModel(self.wh_lib_path)
+        if package_check is True:
+            print(f'Found {self.wh_lib} Library and check models in library {self.wh_lib} \n')
+        elif package_check is False:
+            print(f'Library Path is wrong. Please Check Path of {self.wh_lib} Library Path')
+            exit(1)
+        error_model = []
+        error_message = []
+        for model in model_list:
+            result = self.dymola.checkModel(model)
+            if result is True:
+                print(f'\n{self.green}Successful:{self.CEND} {model}\n')
+                continue
+            if result is False:
+                print(f'\n{self.CRED}Error:{self.CEND} {model}\n')
+                log = self.dymola.getLastError()
+                print(f'{log}')
+                error_model.append(model)
+                error_message.append(log)
+                continue
+        self.dymola.savelog(f'{self.wh_lib}-log.txt')
+        self.dymola.close()
+        return error_model, error_message
 
     def _write_exit_log(self, version_check):
         exit = open(self.exit_file, "w")
@@ -524,7 +513,7 @@ def create_wh_workflow():
     if args.library is None:
         print(f'{CRED}Error{CEND}: Library is missing!')
         exit(1)
-    print(f'Setting: Package {args.wh_library}')
+    print(f'Setting: WhiteList Library {args.wh_library}')
     print(f'Setting: library {args.library}')
     Whitelist_class = Create_whitelist(library=args.library,
                                        wh_lib=args.wh_library)

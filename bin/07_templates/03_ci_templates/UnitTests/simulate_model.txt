@@ -58,7 +58,7 @@ simulate_${library}_${package}:
             - ${merge_branch}
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE !~ /${commit}/
+            - $CI_COMMIT_MESSAGE =~ /${commit}/
             %endfor
     retry:
         max: 2

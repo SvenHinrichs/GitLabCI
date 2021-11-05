@@ -37,17 +37,18 @@ stages:
           - ${library}/comparison-dymola.log
           - ${chart_dir}/${lib_package}
         expire_in: 7 day
-    retry:
-        max: 2
-        when: runner_system_failure
     only:
-        - external_pull_requests
+        refs;
+            - external_pull_requests
     except:
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
-
+    retry:
+        max: 2
+        when: runner_system_failure
+    
 %for package in package_list:
 Regressiontest_${library}_${package}:
     variables:
@@ -72,16 +73,17 @@ Regression_overall_coverage:
             - ${library}/simulator-dymola.log
             - ${library}/unitTests-dymola.log
         expire_in: 7 day
-    retry:
-        max: 2
-        when: runner_system_failure
     only:
-        - external_pull_requests
+        refs:
+            - external_pull_requests
     except:
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+	retry:
+        max: 2
+        when: runner_system_failure
 
 prepare_create_plots:
     stage: prepare
@@ -132,19 +134,20 @@ prepare_create_plots:
           - ${library}/funnel_comp/
           - ${library}/comparison-dymola.log
         expire_in: 7 day
-    retry:
-        max: 2
-        when: runner_system_failure
     except:
-        - external_pull_requests
-        - ${merge_branch}
-    only:
+        refs;
+            - external_pull_requests
+            - ${merge_branch}
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+    only:
         changes:
             - ${library}/**/*
+    retry:
+        max: 2
+        when: runner_system_failure
 
 %for package in package_list:
 Regressiontest_${library}_${package}:
