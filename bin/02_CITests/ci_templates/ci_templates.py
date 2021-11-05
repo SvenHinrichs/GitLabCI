@@ -22,8 +22,8 @@ class CI_yml_templates(object):
 
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
-        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]. Please pull the new whitelist before push again."
         self.bot_create_ref_commit = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
+        self.bot_update_wh_commit = "Update or created new whitelist [skip ci]. Please pull the new whitelist before push again."
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit, self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_commit]
         # except branches

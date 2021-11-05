@@ -11,8 +11,6 @@ model ThreeWayEqualPercentageLinear
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
-
-
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
           20,-50},{12,-50}},
