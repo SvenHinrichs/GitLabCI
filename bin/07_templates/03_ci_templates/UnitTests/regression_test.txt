@@ -37,7 +37,7 @@ stages:
           - ${chart_dir}/${lib_package}
         expire_in: 7 day
     only:
-        refs;
+        refs:
             - external_pull_requests
     except:
         variables:
