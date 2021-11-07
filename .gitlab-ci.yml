@@ -9,8 +9,7 @@ stages:
     - RegressionTest
     - check
     - prepare
-    
-    
+   
 variables:
     Praefix_Branch: "Correct_HTML_"
     TARGET_BRANCH: $CI_COMMIT_REF_NAME
