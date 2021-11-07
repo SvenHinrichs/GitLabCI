@@ -95,7 +95,7 @@ class CI_yml_templates(object):
                                      CI_PROJECT_NAME="${CI_PROJECT_NAME}", exit_file=self.exit_file,
                                      ch_file=self.ch_file, bot_create_ref_message=self.bot_create_ref_message,
                                      bot_create_ref_commit=self.bot_create_ref_commit, new_ref_file=self.new_ref_file,
-                                     chart_dir=self.chart_dir)
+                                     chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}")
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
