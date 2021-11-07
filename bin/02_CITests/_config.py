@@ -15,6 +15,7 @@ sim_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.
 page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
 ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
 main_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
+main_yml = f'.gitlab-ci.yml'
 
 temp_dir = f'bin{os.sep}07_templates{os.sep}03_ci_templates'
 
@@ -32,10 +33,8 @@ resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
 
 # image_name
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
-project_name = 'EBC/EBC_all/gitlab_ci/templates'
-variable_main_list =['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: git SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
+project_name = 'SvenHinrichs/GitLabCI'
+variable_main_list = ['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
 
-
-
-
-
+# Pull Request Comment
+#self.post_comment_message = f'Error in regression test.\\n Compare the results on the following page {self.page_url}'

@@ -2,66 +2,60 @@ import os
 import codecs
 import sys
 import shutil
-def read_artifacts(path):
-	artifact = open(path,"r")
-	
-def sort_mo_models():
-		list_path = 'bin'+os.sep+'03_WhiteLists'+os.sep+'changedmodels.txt' 
-		#print(list_path)
-		changed_models = codecs.open(list_path, "r", encoding='utf8')
-		modelica_models = [] 
-		Lines =  changed_models.readlines()
-		Line= str(Lines)
-		
-		if Line.find(":") > -1 :
-			Line = Line.split(":")
-		for i in Line:
-			if i.rfind(".mos")>-1:
-				continue
-			if i.find("Resources")> -1:
-				if i.rfind(".txt")> -1:
-					i = i.lstrip()
-					i = i[i.find("Resources"):i.find("txt")+3]
-					i = "AixLib"+os.sep+i
-					modelica_models.append(i)
-					#define modelica models
-					#model_number = i.rfind(self.package)
-					#model_name = i[model_number:]
-					#model_name = model_name.lstrip()
-					#model_name = model_name.replace(os.sep,".")
-					#model_name = model_name[:model_name.rfind(".mo")]
-					#model_name = model_name.replace("..",".")
-					#modelica_models.append(i)
-					continue
-				else:
-					continue
-		changed_models.close()
-	
-		#print(modelica_models)
-		return modelica_models
+import argparse
 
-	
-	
-def copy_txt(reffile):
-	os.mkdir('Referencefiles')
-	for i in reffile:
-		refName = i.split(os.sep)
-		refName = refName[len(refName)-1]
-		#print(refName)
-		try:
-			shutil.copy(i, 'Referencefiles'+os.sep+refName)
-		except FileNotFoundError:
-			print("Cant find Referencefiles"+os.sep+refName)
-			continue
+class Deploy_Artifacts(object):
+
+	def __init__(self, library):
+		self.library = library
+		self.folder = 'Referencefiles'
+
+		self.green = '\033[0;32m'
+		self.CRED = '\033[91m'
+		self.CEND = '\033[0m'
+
+		sys.path.append('bin/02_CITests')
+		from _config import ch_file
+		self.ch_file = ch_file
+
+
+	def _get_changed_ref(self):
+		changed_file = codecs.open(self.ch_file, "r", encoding='utf8')
+		lines = changed_file.readlines()
+		changed_ref = []
+		for line in lines:
+			if line.find("txt") > -1 and line.find("ReferenceResults") > -1 and line.find("Resources") > -1:
+				line = line.strip()
+				ref = line[line.find(self.library):line.rfind("txt")+3]
+				changed_ref.append(ref)
+				continue
+			else:
+				continue
+		changed_file.close()
+		return changed_ref
+
+	def copy_txt(self, changed_ref):
+		if os.path.exists(self.folder) is False:
+			os.mkdir(self.folder)
+		for ref in changed_ref:
+			destination = self.folder + os.sep + ref[ref.rfind(os.sep):]
+			try:
+				shutil.copy(ref, destination)
+				continue
+			except FileNotFoundError:
+				print(f'{self.CRED}Cannot find folder:{self.CEND} {destination}')
+				continue
 			
 if  __name__ == '__main__':
-	try:
-		'''parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
-		unit_test_group = parser.add_argument_group("arguments to run unit tests")
-		unit_test_group.add_argument("-p", "--path",
-							default = ".",
-							help="Path where top-level package.mo of the library is located")'''
-		reffile = sort_mo_models()
-		copy_txt(reffile)
-	except FileNotFoundError:
-		print("Can´t find file!")
+
+	parser = argparse.ArgumentParser(description='deploy artifacts')
+	unit_test_group = parser.add_argument_group("arguments to run deploy artifacts")
+	unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
+	unit_test_group.add_argument("--ref", help='Deploy new reference files', action="store_true")
+	args = parser.parse_args()
+
+	from deploy_artifacts import Deploy_Artifacts
+	if args.ref is True:
+		ref_artifact = Deploy_Artifacts(library=args.library)
+		changed_ref = ref_artifact._get_changed_ref()
+		ref_artifact.copy_txt(changed_ref)

@@ -255,30 +255,21 @@ class Extended_model(object):
         self.dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 
     def _dym_check_lic(self):  # check license
-        try:
+        dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+        lic_counter = 0
+        while dym_sta_lic_available is False:
+            print(f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
+            self.dymola.close()
+            time.sleep(180.0)
             dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-            lic_counter = 0
-            while dym_sta_lic_available is False:
-                print(
-                    f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
-                self.dymola.close()
-                time.sleep(180.0)
-                dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
-                lic_counter += 1
-                if lic_counter > 30:
-                    if dym_sta_lic_available is False:
-                        print(
-                            f'There are currently no available Dymola licenses available. Please try again later.')
-                        self.dymola.close()
-                        exit(1)
-            print(
-                f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
-        except self.dymola_exception as ex:
-            print(f'2: Error:   {str(ex)}')
-        finally:
-            if self.dymola is not None:
-                self.dymola.close()
-                self.dymola = None
+            lic_counter += 1
+            if lic_counter > 30:
+                if dym_sta_lic_available is False:
+                    print(f'There are currently no available Dymola licenses available. Please try again later.')
+                    self.dymola.close()
+                    exit(1)
+        print(f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
+
 
     def list_changed_models(self):
         list_mo_models = git_models(".mo", self.package, self.changed_file)

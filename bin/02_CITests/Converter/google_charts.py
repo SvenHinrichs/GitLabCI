@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.widgets import CheckButtons
 import numpy as np
-import sys,difflib
+import sys, difflib
 import os 
 from git import Repo
 from shutil import copyfile
@@ -19,7 +19,9 @@ class Plot_Charts(object):
 
 		# Set files for informations, templates and storage locations
 		sys.path.append('bin/02_CITests')
-		from _config import chart_dir, chart_temp, index_temp, layout_temp
+		from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file
+		self.new_ref_file = new_ref_file
+		self.ch_file = ch_file
 		self.temp_file = chart_temp  # path for google chart template
 		self.index_temp_file = index_temp
 		self.layout_temp_file = layout_temp
@@ -36,6 +38,17 @@ class Plot_Charts(object):
 		self.green = '\033[0;32m'
 		self.CRED = '\033[91m'
 		self.CEND = '\033[0m'
+
+	def _get_new_reference_files(self):
+		file = open(self.new_ref_file, "r")
+		lines = file.readlines()
+		ref_list = []
+		for line in lines:
+			line = line.strip()
+			if line.find(".txt") > -1 and line.find("_"):
+				ref_list.append(line)
+				continue
+		return ref_list
 
 	def _get_values(self, lines):
 		time_list = []
@@ -72,7 +85,7 @@ class Plot_Charts(object):
 		tim_seq = time_int / float(measure_len)
 		time_num = float(time_beg)
 		time_list = []
-		for time in range(0, measure_len):
+		for time in range(0, measure_len+1):
 			time_list.append(time_num)
 			time_num = time_num + tim_seq
 		return time_list
@@ -154,18 +167,32 @@ class Plot_Charts(object):
 		else:
 			print(f'Save plot in {self.temp_chart_path}')
 
+	def _get_var(self, model):
+		folder = os.listdir(f'{self.library}{os.sep}funnel_comp')
+		var_list = []
+		for ref in folder:
+			if ref.find(model) > -1:
+				var = ref[ref.rfind(".mat")+5:]
+				var_list.append(var)
+		return var_list
+
+	def _get_funnel_model(self, model):
+		folder = os.listdir(f'{self.library}{os.sep}funnel_comp')
+		funnel_list = []
+		for ref in folder:
+			if ref.find(model) > -1:
+				funnel_list.append(ref)
+		return funnel_list
+
 	def _mako_line_html_chart(self, model, var):  # Load and read the templates, write variables in the templates
 		from mako.template import Template
-
 		path_name = (f'{self.library}{os.sep}funnel_comp{os.sep}{model}.mat_{var}'.strip())
-
 		folder = os.path.isdir(path_name)
 		if folder is False:
 			print(f'Cant find folder: {self.CRED}{model}{self.CEND} with variable {self.CRED}{var}{self.CEND}')
 		else:
 			print(f'Plot model: {self.green}{model}{self.CEND} with variable:{self.green} {var}{self.CEND}')
 			value = Plot_Charts._read_csv_funnel(self, path_name)
-
 			mytemplate = Template(filename=self.temp_file)  # Render Template
 			hmtl_chart = mytemplate.render(values=value, var=[f'{var}_ref',var], model=model, title=f'{model}.mat_{var}')
 			file_tmp = open(f'{self.temp_chart_path}{os.sep}{model}_{var.strip()}.html', "w")
@@ -236,10 +263,21 @@ class Plot_Charts(object):
 			print(f'{self.f_log} exists.')
 
 	def _get_lines(self, ref_file):
-		ref = open(f'{self.ref_path}{os.sep}{ref_file}', "r")
+		ref = open(f'{ref_file}', "r")
 		lines = ref.readlines()
 		ref.close()
 		return lines
+
+def _delte_folder():
+	chart_dir = f'bin{os.sep}07_templates{os.sep}02_charts'
+	folder_list = os.listdir(chart_dir)
+	for folder in folder_list:
+		if folder.find(".") > -1:
+			os.remove(chart_dir+os.sep+folder)
+			continue
+		else:
+			shutil.rmtree(chart_dir+os.sep+folder)
+
 
 
 if  __name__ == '__main__':
@@ -262,11 +300,12 @@ if  __name__ == '__main__':
 	unit_test_group.add_argument("--line-matplot",
 								 help='plot a google html chart in line form',
 								 action="store_true")
-
 	unit_test_group.add_argument("-m", "--modellist",
-								metavar = "Modelica.Model",
-								help = "Plot this model")
-
+								metavar="Modelica.Model",
+								help="Plot this model")
+	unit_test_group.add_argument( "--new-ref",
+								 help="Plot new models with new created reference files",
+								 action="store_true")
 	unit_test_group.add_argument("-pM", "--plotModel",
 								 help="Plot this model",
 								 action="store_true")
@@ -289,14 +328,12 @@ if  __name__ == '__main__':
 								 action="store_true")
 	# Parse the arguments
 	args = parser.parse_args()
-
 	# *********************************************************************************************************
 	from google_charts import Plot_Charts
-
 	charts = Plot_Charts(package=args.single_package, library=args.library)
 	# python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
 	# python bin/02_CITests/Converter/google_charts.py --line-html --error --ref-txt --single-package Airflow
-
+	_delte_folder()
 	if args.line_html is True:  # Create Line chart html
 		if args.error is True:  # Plot all data with an error
 			charts._check_file()
@@ -312,6 +349,7 @@ if  __name__ == '__main__':
 
 				if args.ref_txt is True:  # Data from reference files
 					ref_file = charts._get_ref_file(model)
+					print(ref_file)
 					if ref_file is None:
 						print(f'Referencefile for model {model} does not exist.')
 						continue
@@ -325,8 +363,16 @@ if  __name__ == '__main__':
 						charts._mako_line_ref_chart(model, var)
 			charts._create_index_layout()
 
-		if args.single_package is False:  # Plot a Package
-			data = read_unitTest_log(f_log)
-			mako_line_html_chart(data, temp, temp_chart, f_log, csv_file, test_csv)
+		if args.new_ref is True: # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib
+			charts._check_folder_path()
+			ref_list = charts._get_new_reference_files()
+			for ref_file in ref_list:
+				model = ref_file[ref_file.rfind("_")+1:ref_file.rfind(".txt")]
+				var_list = charts._get_var(model)
+				for var in var_list:
+					charts._mako_line_html_chart(model, var)
+					continue
+			charts._create_index_layout()
+			charts._create_layout()
 	if args.create_layout is True:
 		charts._create_layout()
