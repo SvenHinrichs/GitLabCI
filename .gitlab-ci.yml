@@ -40,9 +40,8 @@ stages:
           - bin/07_templates/02_charts/${lib_package}
         expire_in: 7 day
     only:
-        refs;
+        refs:
             - external_pull_requests
-            
     except:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /ci_update_ref/
