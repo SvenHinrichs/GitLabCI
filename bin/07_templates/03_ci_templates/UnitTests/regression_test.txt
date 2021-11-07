@@ -99,7 +99,8 @@ prepare_create_plots:
         paths:
          - $CI_COMMIT_REF_NAME/plots
     only:
-        - external_pull_requests
+        refs:
+            - external_pull_requests
     except:
         variables:
             %for commit in except_commit_list:
