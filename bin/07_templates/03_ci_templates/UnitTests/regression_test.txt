@@ -160,7 +160,7 @@ prepare_create_plots:
         when: runner_system_failure
 
 %for package in package_list:
-Regressiontest_${library}_${package}:
+Regressiontest_Changed_${library}_${package}:
     variables:
         lib_package: ${library}.${package}
     extends: .Regressiontest_changed_Job
