@@ -186,7 +186,8 @@ Check_Create_References:
         - echo 'FAIL' > ${exit_file}
     script:
         - mkdir public && mkdir CorrectedVersion
-        - cd  CorrectedVersion && git clone --single-branch --branch ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
+        - cd  CorrectedVersion  
+        - git clone --single-branch --branch ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref < ../bin/06_Configfiles/EOF.sh
         - cd ..
