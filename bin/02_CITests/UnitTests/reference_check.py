@@ -17,11 +17,11 @@ class Reg_Reference(object):
         self.show_gui = show_gui
         self.path = path
 
-        sys.path.append('bin/02_CITests')
-        from _config import ref_file_path, resource_dir, index_temp, layout_temp, exit_file, ref_file
+        sys.path.append('../bin/02_CITests')
+        from _config import ref_file_path, resource_dir, index_temp, layout_temp, exit_file, ref_file, ref_whitelist
         self.ref_file_path = ref_file_path
         self.resource_file_path = resource_dir
-        self.ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
+        self.ref_whitelist = ref_whitelist
         self.exit_file = f'..{os.sep}{exit_file}'
         self.ref_file = f'..{os.sep}{ref_file}'
 

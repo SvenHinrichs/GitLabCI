@@ -6,6 +6,7 @@ wh_file = f'bin{os.sep}03_WhiteLists{os.sep}IBPSA_whitelist_model.txt'
 exit_file = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
 new_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}new_ref.txt' 
 ref_file = f'bin{os.sep}03_WhiteLists{os.sep}ref_list.txt'
+ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
 
 
 # Ci Templates
