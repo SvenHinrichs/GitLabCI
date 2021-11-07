@@ -170,6 +170,11 @@ Regressiontest_Changed_${library}_${package}:
 Check_Create_References:
     stage: Ref_Check
     before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - echo 'FAIL' > ${exit_file}
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -179,15 +184,11 @@ Check_Create_References:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}"
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > ${exit_file}
+
     script:
         - mkdir public && mkdir CorrectedVersion
         - cd  CorrectedVersion  
-        - git clone --single-branch --branch ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref < ../bin/06_Configfiles/EOF.sh
         - cd ..
