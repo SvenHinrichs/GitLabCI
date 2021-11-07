@@ -1,3 +1,4 @@
+#!/bin/bash
 stages:
     - RegressionTest
     - Ref_Check
