@@ -291,12 +291,8 @@ prepare_update_plots:
         paths:
          - $CI_COMMIT_REF_NAME/plots
     only:
-        - external_pull_requests
-    except:
         variables:
-            %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE  =~ /${commit}/
-            %endfor
+        - $CI_COMMIT_MESSAGE  =~ /${update_commit}/
     when: on_failure
     needs:
     - job: Update_Regression_Results
