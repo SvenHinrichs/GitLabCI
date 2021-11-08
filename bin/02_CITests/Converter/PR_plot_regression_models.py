@@ -72,7 +72,7 @@ class Pull_Request_Github(object):
         response = requests.request("PATCH", url, headers=headers, data=payload)
         print("User " + assignees_owner + " assignee to pull request Number " + str(pull_request_number))
 
-    def post_comment(pr_number,page_url, GITHUB_TOKEN , GITHUB_REPOSITORY):
+    def post_comment(pr_number, page_url, GITHUB_TOKEN , GITHUB_REPOSITORY):
         url = "https://api.github.com/repos/" + GITHUB_REPOSITORY + "/issues/" + str(pr_number)+"/comments"
 
         payload="{\"body\":\"Errors in regression test. Compare the results on the following page "+ page_url +"\"}"

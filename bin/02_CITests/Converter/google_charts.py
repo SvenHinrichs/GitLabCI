@@ -17,8 +17,8 @@ class Plot_Charts(object):
 		self.package = package
 		self.library = library
 
-		# Set files for informations, templates and storage locations
-		sys.path.append('bin/02_CITests')
+
+		sys.path.append('bin/02_CITests')  # Set files for informations, templates and storage locations
 		from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file
 		self.new_ref_file = new_ref_file
 		self.ch_file = ch_file
@@ -168,7 +168,12 @@ class Plot_Charts(object):
 			print(f'Save plot in {self.temp_chart_path}')
 
 	def _get_var(self, model):
-		folder = os.listdir(f'{self.library}{os.sep}funnel_comp')
+		if os.path.isdir(self.funnel_path) is False:
+			print(f'Funnel directonary does not exist.')
+			exit(0)
+		else:
+			print(f'Search for results in {self.funnel_path}')
+		folder = os.listdir(f'{self.funnel_path}')
 		var_list = []
 		for ref in folder:
 			if ref.find(model) > -1:
@@ -270,14 +275,20 @@ class Plot_Charts(object):
 		return lines
 
 def _delte_folder():
-	chart_dir = f'bin{os.sep}07_templates{os.sep}02_charts'
-	folder_list = os.listdir(chart_dir)
-	for folder in folder_list:
-		if folder.find(".") > -1:
-			os.remove(chart_dir+os.sep+folder)
-			continue
-		else:
-			shutil.rmtree(chart_dir+os.sep+folder)
+	sys.path.append('bin/02_CITests')
+	from _config import chart_dir
+
+	if os.path.isdir(chart_dir) is False:
+		print(f'directonary {chart_dir} does not exist.')
+	else:
+		print(f'Save plot results in {chart_dir}')
+		folder_list = os.listdir(chart_dir)
+		for folder in folder_list:
+			if folder.find(".") > -1:
+				os.remove(chart_dir+os.sep+folder)
+				continue
+			else:
+				shutil.rmtree(chart_dir+os.sep+folder)
 
 
 
