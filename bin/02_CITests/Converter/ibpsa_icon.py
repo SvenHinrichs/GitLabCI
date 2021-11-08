@@ -150,6 +150,12 @@ class Lock_model(object):
                 continue
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Lock models.')
+    unit_test_group = parser.add_argument_group("arguments to run class Lock_model")
+    unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
+    unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
+    unit_test_group.add_argument("-wh-l", "--wh-library", help="Library to test")
+    args = parser.parse_args()
 
     from ibpsa_icon import Lock_model
     lock = Lock_model()

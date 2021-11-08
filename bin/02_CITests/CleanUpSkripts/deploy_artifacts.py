@@ -35,10 +35,12 @@ class Deploy_Artifacts(object):
 		return changed_ref
 
 	def copy_txt(self, changed_ref):
+
 		if os.path.exists(self.folder) is False:
 			os.mkdir(self.folder)
 		for ref in changed_ref:
 			destination = self.folder + os.sep + ref[ref.rfind(os.sep):]
+			print(destination)
 			try:
 				shutil.copy(ref, destination)
 				continue
