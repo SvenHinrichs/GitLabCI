@@ -7,6 +7,7 @@ exit_file = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
 new_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}new_ref.txt' 
 ref_file = f'bin{os.sep}03_WhiteLists{os.sep}ref_list.txt'
 ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
+html_wh_file = f'bin{os.sep}03_WhiteLists{os.sep}HTML_IBPSA_WhiteList.txt'
 
 
 # Ci Templates
