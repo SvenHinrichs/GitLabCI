@@ -203,7 +203,21 @@ class Plot_Charts(object):
 			print(f'Plot model: {self.green}{model}{self.CEND} with variable:{self.green} {var}{self.CEND}')
 			value = Plot_Charts._read_csv_funnel(self, path_name)
 			mytemplate = Template(filename=self.temp_file)  # Render Template
-			hmtl_chart = mytemplate.render(values=value, var=[f'{var}_ref',var], model=model, title=f'{model}.mat_{var}')
+			hmtl_chart = mytemplate.render(values=value, var=[f'{var}_ref', var], model=model, title=f'{model}.mat_{var}')
+			file_tmp = open(f'{self.temp_chart_path}{os.sep}{model}_{var.strip()}.html', "w")
+			file_tmp.write(hmtl_chart)
+			file_tmp.close()
+
+	def _mako_line_html_new_chart(self, model, var):  # Load and read the templates, write variables in the templates
+		from mako.template import Template
+		path_name = (f'{self.library}{os.sep}funnel_comp{os.sep}{model}.mat_{var}'.strip())
+		if os.path.isdir(path_name) is False:
+			print(f'Cant find folder: {self.CRED}{model}{self.CEND} with variable {self.CRED}{var}{self.CEND}')
+		else:
+			print(f'Plot model: {self.green}{model}{self.CEND} with variable:{self.green} {var}{self.CEND}')
+			value = Plot_Charts._read_csv_funnel(self, path_name)
+			mytemplate = Template(filename=self.temp_file)  # Render Template
+			hmtl_chart = mytemplate.render(values=value, var=[var], model=model, title=f'{model}.mat_{var}')
 			file_tmp = open(f'{self.temp_chart_path}{os.sep}{model}_{var.strip()}.html', "w")
 			file_tmp.write(hmtl_chart)
 			file_tmp.close()
@@ -389,7 +403,7 @@ if  __name__ == '__main__':
 					continue
 				else:
 					for var in var_list:
-						charts._mako_line_html_chart(model, var)
+						charts._mako_line_html_new_chart(model, var)
 						continue
 			charts._create_index_layout()
 			charts._create_layout()
