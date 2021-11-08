@@ -1,10 +1,13 @@
 import os
 from pathlib import Path
+import argparse
+import sys
 
 class Lock_model(object):
 
-    def __init__(self, path):
-        self.path = path
+    def __init__(self,  library, wh_library):
+        self.library = library
+        self.wh_library = wh_library
         sys.path.append('bin/02_CITests')
 
         from _config import html_wh_file
@@ -17,29 +20,28 @@ class Lock_model(object):
         return wl_lines
 
     def _sort_list(self, wl_lines):  # Sort List of models
-        list = []
+        model_list = []
         for line in wl_lines:
             if len(line) == 1:
                 continue
-            if line.find("package.mo") > -1 :
+            if line.find("package.mo") > -1:
                 continue
-            if line.find("package.order") > -1 :
+            if line.find("package.order") > -1:
                 continue
             if line.find("UsersGuide") > -1:
                 continue
             else:
-                line = line.replace("IBPSA","AixLib")
-                numb = line.count(".")
-                mo = line.replace(".", os.sep, numb-1)
+                line = line.replace(self.wh_library, self.library)
+                mo = line.replace(".", os.sep, line.count(".")-1)
                 mo = mo.lstrip()
                 mo = mo.strip()
-                list.append(mo)
-        return list
+                model_list.append(mo)
+        return model_list
 
-    def _add_icon(self, mo_li): # Add ibpsa icon and search a suitable line
+    def _add_icon(self, mo_li):  # Add ibpsa icon and search a suitable line
         entry = "  extends AixLib.Icons.ibpsa;"
         for i in mo_li:
-            if (exist_file(i)) == True:
+            if Lock_model._exist_file(self, i) == True:
                 print(i)
                 f = open(i,"r+")
                 lines = f.readlines()
@@ -52,7 +54,7 @@ class Lock_model(object):
                 ano = 0
                 for t in lines:
                     c = c + 1
-                    if t.find(mo) > -1:  #ModelName == Zeile Mit Modelname
+                    if t.find(mo) > -1:  # ModelName == Zeile Mit Modelname
                         if len(y) == 0:
                             if t.find("type ") > -1:
                                 y = []
@@ -130,35 +132,29 @@ class Lock_model(object):
         old_text = '</html>"));'
         new_text = '</html>"), ' +"\n" + entry
         replacements = {old_text : new_text}
-        lines = []
         for model in mo_li:
-
-            if exist_file(model) == True:
-                print("lock object: "+model)
-                infile = open(model).read()
+            if Lock_model._exist_file(self, model) is True:
+                print(f'lock object: {model}')
+                infile = open(model, "r").read()
                 outfile = open(model, 'w')
-
                 for i in replacements.keys():
                     infile = infile.replace(i, replacements[i])
                 outfile.write(infile)
-                outfile.close
-
+                outfile.close()
             else:
-                print("\n************************************")
-                print(model)
-                print("File does not exist.")
+                print(f'\n************************************\n{model}\nFile does not exist.')
                 continue
 
 if __name__ == '__main__':
+    # python bin/02_CITests/Converter/ibpsa_icon.py --library "AixLib" --wh-library "IBPSA"
     parser = argparse.ArgumentParser(description='Lock models.')
     unit_test_group = parser.add_argument_group("arguments to run class Lock_model")
-    unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
     unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
     unit_test_group.add_argument("-wh-l", "--wh-library", help="Library to test")
     args = parser.parse_args()
 
     from ibpsa_icon import Lock_model
-    lock = Lock_model()
+    lock = Lock_model(library=args.library, wh_library=args.wh_library)
     wl_lines = lock._read_wh()
     mo_li = lock._sort_list(wl_lines)
     lock._lock_model(mo_li)

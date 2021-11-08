@@ -167,7 +167,7 @@ Regressiontest_Changed_${library}_${package}:
 
 %endfor
 
-Check_Create_References:
+RegressionTest_Check_References:
     stage: Ref_Check
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
