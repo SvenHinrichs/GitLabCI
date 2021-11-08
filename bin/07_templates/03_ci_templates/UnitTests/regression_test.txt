@@ -191,7 +191,8 @@ Check_Create_References:
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref < ../bin/06_Configfiles/EOF.sh
-        - cd ..
+    after_script:
+        - cd .
         - if cat ${exit_file} | grep "exit 1"; then
             rm -r ${library}/funnel_comp ;
             pushmodel=$(git ls-files --others --exclude-standard) ;
