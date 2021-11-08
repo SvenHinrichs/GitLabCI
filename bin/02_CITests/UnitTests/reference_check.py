@@ -553,7 +553,7 @@ if __name__ == '__main__':
     # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package ci_update_ref_AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise
     elif args.update_ref:
         ret_val = ref_check._update_ref()
-        exit(ret_val)
+        exit(1)
     else:
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019
         if args.modified_models is False:
