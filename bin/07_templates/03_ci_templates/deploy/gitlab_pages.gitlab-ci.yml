@@ -15,4 +15,4 @@ pages:
         expire_in: 7h
     only:
         - external_pull_requests
-    when: on_failure
+    when: always
