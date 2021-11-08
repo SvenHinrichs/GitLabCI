@@ -59,7 +59,6 @@ class Reg_Reference(object):
             wh_file.write(f'\n{mos}\n')
         wh_file.close()
 
-
     def _get_check_ref(self):  # give a reference list
         ref_list = []
         for subdir, dirs, files in os.walk(self.ref_file_path):
@@ -158,9 +157,6 @@ class Reg_Reference(object):
             exit(0)
 
     def _get_commit_package(self):
-        # commit = "ci_update_ref"
-        # - /^issue-.*$/i
-        # commit = "/^ci_update_ref_.*$/"
         commit = self.package[self.package.rfind("_") + 1:]
         print(f'Update model: {commit}')
         commit = commit[:commit.rfind(".")]
