@@ -8,6 +8,7 @@ pages:
         - apt-get install zip unzip -y
     script:
         - mkdir -p public/$CI_COMMIT_REF_NAME
+        - ls
         - cp -r $CI_COMMIT_REF_NAME/* public/$CI_COMMIT_REF_NAME
     artifacts:
         paths:
