@@ -131,6 +131,7 @@ class Reg_Reference(object):
         model_list = Reg_Reference._compare_wh_mos(self)
         package_list = []
         print(f'\n*************Create new reference results*************\n')
+        model_list = list(set(model_list))
         for model in model_list:
             print(f'{self.green}Generate new reference results for in model: {self.CEND} {model}')
             package_list.append(model[:model.rfind(".")])
@@ -144,7 +145,11 @@ class Reg_Reference(object):
                 response = self.ut.run()
                 if response == 1:
                     print(f'{self.CRED}Error in package: {self.CEND} {package}')
-                continue
+                    continue
+                else:
+                    print(f'{self.green}New reference results in package: {self.CEND} {package}')
+                    continue
+
         else:
             ex_file = open(self.exit_file, "w")
             ex_file.write("#!/bin/bash" + "\n" + "\n" + "exit 0")

@@ -192,9 +192,7 @@ Check_Create_References:
         - cd ${CI_PROJECT_NAME}
         - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref < ../bin/06_Configfiles/EOF.sh
     after_script:
-        - cd .
-        - if cat ${exit_file} | grep "exit 1"; then
-            rm -r ${library}/funnel_comp ;
+        - if cat ${exit_file} | grep "FAIL"; then
             pushmodel=$(git ls-files --others --exclude-standard) ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             (git diff --raw --diff-filter=AMT HEAD^1) > {ch_file} ;
@@ -218,7 +216,7 @@ Check_Create_References:
           else
             echo 'successful' > ${exit_file} ;
             (git diff --raw --diff-filter=AMT HEAD^1) >  {ch_file} ;
-            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py ;
+            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py --library ${library} --ref  ;
             mv Referencefiles/ ../../public/Referencefiles ;
             exit 0 ;
           fi
@@ -231,6 +229,7 @@ Check_Create_References:
             - ${chart_dir}
             - $CI_COMMIT_REF_NAME/plots
             - CorrectedVersion/${CI_PROJECT_NAME}/${new_ref_file}
+            - ${library}/funnel_comp 
         expire_in: 7 day
     except:
         refs:
