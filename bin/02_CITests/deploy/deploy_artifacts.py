@@ -16,11 +16,11 @@ class Deploy_Artifacts(object):
         self.CEND = '\033[0m'
 
         sys.path.append('bin/02_CITests')
-        from _config import ch_file
-        self.ch_file = ch_file
+        from _config import new_ref_file
+        self.new_ref_file = new_ref_file
 
     def _get_changed_ref(self):  # list all changed reference results to a list
-        changed_file = codecs.open(self.ch_file, "r", encoding='utf8')
+        changed_file = codecs.open(self.new_ref_file, "r", encoding='utf8')
         lines = changed_file.readlines()
         changed_ref = []
         for line in lines:
@@ -38,6 +38,7 @@ class Deploy_Artifacts(object):
         if os.path.exists(self.folder) is False:
             os.mkdir(self.folder)
         for ref in changed_ref:
+            print(ref)
             destination = self.folder + os.sep + ref[ref.rfind(os.sep):]
             try:
                 shutil.copy(ref, destination)
@@ -48,7 +49,7 @@ class Deploy_Artifacts(object):
 
 
 if __name__ == '__main__':
-    #  python bin/02_CITests/CleanUpSkripts/deploy_artifacts.py --library AixLib --ref
+    #  python bin/02_CITests/deploy/deploy_artifacts.py --library AixLib --ref
     parser = argparse.ArgumentParser(description='deploy artifacts')
     unit_test_group = parser.add_argument_group("arguments to run deploy artifacts")
     unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")

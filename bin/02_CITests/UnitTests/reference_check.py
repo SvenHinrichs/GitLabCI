@@ -92,7 +92,7 @@ class Reg_Reference(object):
         ref_wh.close()
         for wh_package in wh_list:
             print(
-                f'{self.green} Don´t create reference results for package{self.CEND} {wh_package}: This Package is on the whitelist')
+                f'{self.CRED} Don´t create reference results for package{self.CEND} {wh_package}: This Package is on the whitelist')
         return wh_list
 
     def _compare_ref_mos(self):  # compares if both files existed
@@ -129,14 +129,16 @@ class Reg_Reference(object):
         self.ut.setLibraryRoot(self.path)
         model_list = Reg_Reference._compare_wh_mos(self)
         package_list = []
-        print(f'\n*************Create new reference results*************\n')
+        print(f'\n \n')
         model_list = list(set(model_list))
         for model in model_list:
             print(f'{self.green}Generate new reference results for model: {self.CEND} {model}')
             package_list.append(model[:model.rfind(".")])
         package_list = list(set(package_list))
+        print(f'\n \n')
         if len(package_list) > 0:
             for package in package_list:
+                print(f'{self.green}Generate new reference results for package: {self.CEND} {package}')
                 self.ut.setSinglePackage(package)
                 self.ut.setNumberOfThreads(self.n_pro)
                 self.ut.pedanticModelica(True)

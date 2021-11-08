@@ -187,6 +187,7 @@ class Plot_Charts(object):
 	def _mako_line_html_chart(self, model, var):  # Load and read the templates, write variables in the templates
 		from mako.template import Template
 		path_name = (f'{self.library}{os.sep}funnel_comp{os.sep}{model}.mat_{var}'.strip())
+		print(path_name)
 		folder = os.path.isdir(path_name)
 		if folder is False:
 			print(f'Cant find folder: {self.CRED}{model}{self.CEND} with variable {self.CRED}{var}{self.CEND}')
@@ -349,7 +350,6 @@ if  __name__ == '__main__':
 
 				if args.ref_txt is True:  # Data from reference files
 					ref_file = charts._get_ref_file(model)
-					print(ref_file)
 					if ref_file is None:
 						print(f'Referencefile for model {model} does not exist.')
 						continue
@@ -363,12 +363,14 @@ if  __name__ == '__main__':
 						charts._mako_line_ref_chart(model, var)
 			charts._create_index_layout()
 
-		if args.new_ref is True: # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib
+		if args.new_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib
 			charts._check_folder_path()
 			ref_list = charts._get_new_reference_files()
 			for ref_file in ref_list:
 				model = ref_file[ref_file.rfind("_")+1:ref_file.rfind(".txt")]
+				print(model)
 				var_list = charts._get_var(model)
+				print(var_list)
 				for var in var_list:
 					charts._mako_line_html_chart(model, var)
 					continue
