@@ -8,7 +8,6 @@ class Git_Repository_Clone(object):
 
 	def  _CloneRepository(self):
 		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-		#git diff --raw HEAD^1
 		repo_dir = "IBPSA"
 		repo = Repo.clone_from(git_url, repo_dir)
 		print(repo)

@@ -131,6 +131,7 @@ class Reg_Reference(object):
         package_list = []
         print(f'\n*************Create new reference results*************\n')
         model_list = list(set(model_list))
+        print(model_list)
         for model in model_list:
             print(f'{self.green}Generate new reference results for in model: {self.CEND} {model}')
             package_list.append(model[:model.rfind(".")])
