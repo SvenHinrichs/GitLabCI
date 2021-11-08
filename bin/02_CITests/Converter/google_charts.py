@@ -29,12 +29,12 @@ class Plot_Charts(object):
 		self.csv_file = f'reference.csv'
 		self.test_csv = f'test.csv'
 
-		self.index_path = chart_dir  # path for layout index
+		self.chart_dir = chart_dir  # path for layout index
 		self.temp_chart_path = f'{chart_dir}{os.sep}{self.package}'  # path for every single package
 		self.funnel_path = f'{self.library}{os.sep}funnel_comp'
 		self.ref_path = f'{self.library}{os.sep}Resources{os.sep}ReferenceResults{os.sep}Dymola'
 		self.index_html_file = f'{self.temp_chart_path}{os.sep}index.html'
-		self.layout_html_file = f'{self.index_path}{os.sep}index.html'
+		self.layout_html_file = f'{self.chart_dir}{os.sep}index.html'
 		self.green = '\033[0;32m'
 		self.CRED = '\033[91m'
 		self.CEND = '\033[0m'
@@ -163,7 +163,10 @@ class Plot_Charts(object):
 
 	def _check_folder_path(self):
 		if os.path.isdir(self.temp_chart_path) is False:
+			if os.path.isdir(self.chart_dir) is False:
+				os.mkdir(self.chart_dir)
 			os.mkdir(self.temp_chart_path)
+			print(f'Save plot in {self.temp_chart_path}')
 		else:
 			print(f'Save plot in {self.temp_chart_path}')
 
@@ -243,7 +246,7 @@ class Plot_Charts(object):
 
 	def _create_layout(self):  # Creates a layout index that has all links to the subordinate index files
 		package_list = []
-		for folder in os.listdir(self.index_path):
+		for folder in os.listdir(self.chart_dir):
 			if folder == "style.css" or folder == "index.html":
 				continue
 			else:

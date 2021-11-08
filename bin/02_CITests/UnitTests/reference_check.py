@@ -321,7 +321,6 @@ class Extended_model(object):
                         if extendedmodel.find("String") > -1:
                             continue
                         use_model_list.append(extendedmodel)
-
                 ch_model_list = Extended_model.get_changed_used_model(self, lines, use_model_list)
                 if len(ch_model_list) > 0:
                     model_list.append(model)
