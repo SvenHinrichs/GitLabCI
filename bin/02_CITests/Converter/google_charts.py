@@ -177,6 +177,7 @@ class Plot_Charts(object):
 		else:
 			print(f'Search for results in {self.funnel_path}')
 		folder = os.listdir(f'{self.funnel_path}')
+		print(folder)
 		var_list = []
 		for ref in folder:
 			if ref.find(model) > -1:
@@ -382,9 +383,7 @@ if  __name__ == '__main__':
 			ref_list = charts._get_new_reference_files()
 			for ref_file in ref_list:
 				model = ref_file[ref_file.rfind("_")+1:ref_file.rfind(".txt")]
-				print(model)
 				var_list = charts._get_var(model)
-				print(var_list)
 				for var in var_list:
 					charts._mako_line_html_chart(model, var)
 					continue
