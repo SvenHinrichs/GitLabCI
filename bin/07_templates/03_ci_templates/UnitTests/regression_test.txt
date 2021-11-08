@@ -196,7 +196,7 @@ RegressionTest_Check_References:
             pushmodel=$(git ls-files --others --exclude-standard) ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             (git diff --raw --diff-filter=AMT HEAD^1) > {ch_file} ;
-            python bin/02_CITests/CleanUpSkripts/deploy_artifacts.py --library ${library} --ref ;
+            python bin/02_CITests/deploy/deploy_artifacts.py --library ${library} --ref ;
             message="${bot_create_ref_commit}" ;
             git add $pushmodel ;
             git commit -m "$message";
@@ -216,7 +216,7 @@ RegressionTest_Check_References:
           else
             echo 'successful' > ${exit_file} ;
             (git diff --raw --diff-filter=AMT HEAD^1) >  {ch_file} ;
-            python  bin/02_CITests/CleanUpSkripts/deploy_artifacts.py --library ${library} --ref  ;
+            python  bin/02_CITests/deploy/deploy_artifacts.py --library ${library} --ref  ;
             mv Referencefiles/ ../../public/Referencefiles ;
             exit 0 ;
           fi

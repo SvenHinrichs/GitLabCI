@@ -32,7 +32,7 @@ class Reg_Reference(object):
         import buildingspy.development.regressiontest as u  # Buildingspy
         self.ut = u.Tester(tool=self.tool)
 
-    def _get_mos_scripts(self):  # Sort mos scripts
+    def _get_mos_scripts(self):  # obtain mos scripts that are feasible for regression testing
         mos_list = []
         for subdir, dirs, files in os.walk(self.resource_file_path):
             for file in files:
@@ -52,7 +52,7 @@ class Reg_Reference(object):
                     continue
         return mos_list
 
-    def _write_reg_list(self):  # write a list with regression models
+    def _write_reg_list(self):  # writes a list for feasible regression tests
         mos_list = Reg_Reference._get_mos_scripts(self)
         wh_file = open(self.ref_file, "w")
         for mos in mos_list:
@@ -69,7 +69,7 @@ class Reg_Reference(object):
                     ref_list.append(ref_file)
         return ref_list
 
-    def _get_ref_package(self):
+    def _get_ref_package(self):  # reproduces packages in which reference results are missing
         mos_list = Reg_Reference._compare_ref_mos(self)
         package_list = []
         if mos_list is not None:
@@ -108,7 +108,7 @@ class Reg_Reference(object):
             mos_list.remove(err)  # remove all mos script for that a ref file exists
         return mos_list
 
-    def _compare_wh_mos(self):  # filtter
+    def _compare_wh_mos(self):  # filter model from whitelist
         package_list = Reg_Reference._get_ref_package(self)
         wh_list = Reg_Reference._get_whitelist_package(self)
         err_list = []
@@ -124,16 +124,15 @@ class Reg_Reference(object):
             package_list.remove(err)
         return package_list
 
-    def _create_reference_results(self):
+    def _create_reference_results(self):  # creates reference files that do not yet exist
         self.ut.batchMode(False)
         self.ut.setLibraryRoot(self.path)
         model_list = Reg_Reference._compare_wh_mos(self)
         package_list = []
         print(f'\n*************Create new reference results*************\n')
         model_list = list(set(model_list))
-        print(model_list)
         for model in model_list:
-            print(f'{self.green}Generate new reference results for in model: {self.CEND} {model}')
+            print(f'{self.green}Generate new reference results for model: {self.CEND} {model}')
             package_list.append(model[:model.rfind(".")])
         package_list = list(set(package_list))
         if len(package_list) > 0:
@@ -156,14 +155,14 @@ class Reg_Reference(object):
             print(f'{self.green}All Reference files exists, except the Models on WhiteList.{self.CEND}')
             exit(0)
 
-    def _get_commit_package(self):
+    def _get_commit_package(self):  # get a model to check
         commit = self.package[self.package.rfind("_") + 1:]
         print(f'Update model: {commit}')
         commit = commit[:commit.rfind(".")]
         print(commit)
         return commit
 
-    def _update_ref(self):
+    def _update_ref(self):  # Update reference results
         pack = Reg_Reference._get_commit_package(self)
         self.ut.batchMode(False)
         self.ut.setLibraryRoot(self.path)
@@ -194,14 +193,13 @@ class Reg_Reference(object):
                     reg_list.append(model)
         return reg_list
 
-    def _check_regression_test(self, package):
+    def _check_regression_test(self, package):  # start regression test for a package
         if package is None:
             print(f'{self.CRED}Error:{self.CEND} Package is missing! (e.g. Airflow)')
             exit(1)
         if self.library is None:
             print(f'{self.CRED}Error:{self.CEND} Library is missing! (e.g. AixLib)')
             exit(1)
-
         self.ut.batchMode(self.batch)
         self.ut.setLibraryRoot(self.path)
         if package is not None:
@@ -255,7 +253,7 @@ class Extended_model(object):
 
         self.dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 
-    def _dym_check_lic(self):  # check license
+    def _dym_check_lic(self):  # check dymola license
         dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
         lic_counter = 0
         while dym_sta_lic_available is False:
@@ -271,35 +269,11 @@ class Extended_model(object):
                     exit(1)
         print(f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
 
-
-    def list_changed_models(self):
-        list_mo_models = git_models(".mo", self.package, self.changed_file)
-        model_list = list_mo_models.sort_mo_models()
-        return model_list
-
     def _get_lines(self):  # get lines from reference whitelist
         changed_models = open(self.changed_file, "r", encoding='utf8')
         lines = changed_models.readlines()
         changed_models.close()
         return lines
-
-    def _get_data_model(self, mo_list):
-        model_list = []
-        for model in mo_list:
-            mo_file = open(model[model.find(self.library) + len(self.library) + 1:].replace(".", os.sep) + ".mo")
-            lines = mo_file.readlines()
-            for line in lines:
-                line = line.strip()
-                line = line.lstrip()
-                if len(line) == 0:
-                    continue
-
-                if line.find("Resources") > -1 or line.find(".mos") > -1 or line.find("<") > -1:
-                    continue
-                if line.find(self.package) > -1 and line.find(self.library) > -1:
-                    model_list.append(line[line.find(self.library):line.find(" ")])
-            mo_file.close()
-        return model_list
 
     def _get_usedmodel(self, mo_list):  # get a list with all used models of regression models
         model_list = []
@@ -347,7 +321,7 @@ class Extended_model(object):
             model_list = list(set(model_list))
             return model_list
 
-    def get_changed_used_model(self, lines, model_list):
+    def get_changed_used_model(self, lines, model_list):  # return all used models, that changed
         ch_model_list = []
         for line in lines:
             for model in model_list:
@@ -355,7 +329,7 @@ class Extended_model(object):
                     ch_model_list.append(model)
         return ch_model_list
 
-    def _insert_list(self, ref_list, mos_list, modelica_list, ch_model_list):
+    def _insert_list(self, ref_list, mos_list, modelica_list, ch_model_list):  # return models, scripts, reference results and used models, that changed
         changed_list = []
         if ref_list is not None:
             for ref in ref_list:
@@ -373,16 +347,10 @@ class Extended_model(object):
             for usedmodel in ch_model_list:
                 print(f'Changed used model files: {usedmodel}')
                 changed_list.append(usedmodel[:usedmodel.rfind(".")])
-        '''
-        if extend_model is not None:
-            for ex_model in extend_model:
-                print(f'Changed innert model files: {ex_model}')
-                changed_list.append(ex_model[:ex_model.rfind(".")])'''
-
         changed_list = list(set(changed_list))
         return changed_list
 
-    def _get_ref(self, lines):
+    def _get_ref(self, lines):  # return all reference results, that changed
         ref_list = []
         for line in lines:
             if line.rfind(".txt") > -1 and line.rfind("ReferenceResults") > -1 and line.find(
@@ -394,7 +362,7 @@ class Extended_model(object):
                 continue
         return ref_list
 
-    def _get_mos(self, lines):
+    def _get_mos(self, lines):  # return all mos script, that changed
         mos_list = []
         for line in lines:
             if line.rfind(".mos") > -1 and line.rfind("Scripts") > -1 and line.find(".package") == -1 and line.rfind(
@@ -405,7 +373,7 @@ class Extended_model(object):
                 mos_list.append(line[line.rfind(self.library):line.rfind(".mos")])
         return mos_list
 
-    def _get_mo(self, lines):
+    def _get_mo(self, lines):  # return all models, that changed
         modelica_list = []
         for line in lines:
             if line.rfind(".mo") > -1 and line.find("package.") == -1 and line.rfind(self.package) > -1 and line.rfind(
@@ -418,11 +386,7 @@ class Extended_model(object):
         return modelica_list
 
 
-def _setEnvironmentVariables(var, value):
-    ''' Add to the environment variable `var` the value `value`
-    '''
-    import os
-    import platform
+def _setEnvironmentVariables(var, value):  # Add to the environment variable `var` the value `value`
     if var in os.environ:
         if platform.system() == "Windows":
             os.environ[var] = value + ";" + os.environ[var]
@@ -432,7 +396,7 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _validate_html(path):
+def _validate_html(path):  # validate the html syntax
     import buildingspy.development.validator as v
     val = v.Validator()
     errMsg = val.validateHTMLInPackage(path)
@@ -448,16 +412,15 @@ def _validate_html(path):
         return 1
 
 
-def _validate_experiment_setup(path):
+def _validate_experiment_setup(path):  # validate regression test setup
     import buildingspy.development.validator as v
     val = v.Validator()
     retVal = val.validateExperimentSetup(path)
     return retVal
 
 
-def _run_coverage_only(batch, tool, package, path):
+def _run_coverage_only(batch, tool, package, path):  # Specifies which models are tested
     import buildingspy.development.regressiontest as u
-
     ut = u.Tester(tool=tool)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
@@ -584,8 +547,6 @@ if __name__ == '__main__':
     elif args.update_ref:
         ret_val = ref_check._update_ref()
         exit(ret_val)
-
-
     else:
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019
         if args.modified_models is False:
