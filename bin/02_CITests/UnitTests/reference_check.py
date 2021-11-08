@@ -223,7 +223,6 @@ class Extended_model(object):
         self.changed_file = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
         self.resource_file_path = f'Resources{os.sep}Scripts{os.sep}Dymola{os.sep}{self.package.replace(self.library + ".", "")}'
         self.package_path = f'{self.package}'
-
         self.CRED = '\033[91m'  # Color
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
@@ -245,14 +244,12 @@ class Extended_model(object):
         self.dymola = dymola
         self.dymola_exception = DymolaException()
         self.dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
-
         librarycheck = self.dymola.openModel(self.path)
         if librarycheck == True:
             print(f'Found {self.library} Library. Start regression test.')
         elif librarycheck == False:
             print(f'Library Path is wrong. Please Check Path of {self.library} Library Path')
             exit(1)
-
         self.dymola.ExecuteCommand("Advanced.TranslationInCommandLog:=true;")
 
     def _dym_check_lic(self):  # check dymola license
@@ -269,7 +266,8 @@ class Extended_model(object):
                     print(f'There are currently no available Dymola licenses available. Please try again later.')
                     self.dymola.close()
                     exit(1)
-        print(f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
+        print(
+            f'2: Using Dymola port   {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
 
     def _get_lines(self):  # get lines from reference whitelist
         changed_models = open(self.changed_file, "r", encoding='utf8')
@@ -289,32 +287,40 @@ class Extended_model(object):
                     'cd("/opt/dymola-' + self.dymolaversion + '-x86_64/Modelica/Library/ModelManagement 1.1.8/package.moe");')
             for model in mo_list:
                 use_model_list = []
-                usedmodel_list = self.dymola.ExecuteCommand(f'ModelManagement.Structure.Instantiated.UsedModels("{model}");')
-                for usemodel in usedmodel_list:
-                    if usemodel.find("Modelica") > -1:
-                        continue
-                    if usemodel.find("Real") > -1:
-                        continue
-                    if usemodel.find("Integer") > -1:
-                        continue
-                    if usemodel.find("Boolean") > -1:
-                        continue
-                    if usemodel.find("String") > -1:
-                        continue
-                    use_model_list.append(usemodel)
-                extendedmodel_list = self.dymola.ExecuteCommand(f'ModelManagement.Structure.AST.ExtendsInClass("{model}");')
-                for extendedmodel in extendedmodel_list:
-                    if extendedmodel.find("Modelica") > -1:
-                        continue
-                    if extendedmodel.find("Real") > -1:
-                        continue
-                    if extendedmodel.find("Integer") > -1:
-                        continue
-                    if extendedmodel.find("Boolean") > -1:
-                        continue
-                    if extendedmodel.find("String") > -1:
-                        continue
-                    use_model_list.append(extendedmodel)
+                usedmodel_list = self.dymola.ExecuteCommand(
+                    f'ModelManagement.Structure.Instantiated.UsedModels("{model}");')
+                if usedmodel_list is None:
+                    continue
+                else:
+                    for usemodel in usedmodel_list:
+                        if usemodel.find("Modelica") > -1:
+                            continue
+                        if usemodel.find("Real") > -1:
+                            continue
+                        if usemodel.find("Integer") > -1:
+                            continue
+                        if usemodel.find("Boolean") > -1:
+                            continue
+                        if usemodel.find("String") > -1:
+                            continue
+                        use_model_list.append(usemodel)
+                extendedmodel_list = self.dymola.ExecuteCommand(
+                    f'ModelManagement.Structure.AST.ExtendsInClass("{model}");')
+                if extendedmodel_list is None:
+                    continue
+                else:
+                    for extendedmodel in extendedmodel_list:
+                        if extendedmodel.find("Modelica") > -1:
+                            continue
+                        if extendedmodel.find("Real") > -1:
+                            continue
+                        if extendedmodel.find("Integer") > -1:
+                            continue
+                        if extendedmodel.find("Boolean") > -1:
+                            continue
+                        if extendedmodel.find("String") > -1:
+                            continue
+                        use_model_list.append(extendedmodel)
 
                 ch_model_list = Extended_model.get_changed_used_model(self, lines, use_model_list)
                 if len(ch_model_list) > 0:
@@ -331,7 +337,8 @@ class Extended_model(object):
                     ch_model_list.append(model)
         return ch_model_list
 
-    def _insert_list(self, ref_list, mos_list, modelica_list, ch_model_list):  # return models, scripts, reference results and used models, that changed
+    def _insert_list(self, ref_list, mos_list, modelica_list,
+                     ch_model_list):  # return models, scripts, reference results and used models, that changed
         changed_list = []
         if ref_list is not None:
             for ref in ref_list:
@@ -570,9 +577,11 @@ if __name__ == '__main__':
             mo_list = ref_check._get_ref_model()  # get the regression models from reference file list
             modelica_list = ref_check._compare_reg_model(modelica_list, mo_list)  # filter: get mo_list == modelica_list
 
-            model_list = list_reg_model._get_usedmodel(mo_list)  # gives a list of regression models where submodels have been modified
+            model_list = list_reg_model._get_usedmodel(
+                mo_list)  # gives a list of regression models where submodels have been modified
 
-            changed_list = list_reg_model._insert_list(ref_list, mos_list, modelica_list, model_list)  # give a list with packages to check
+            changed_list = list_reg_model._insert_list(ref_list, mos_list, modelica_list,
+                                                       model_list)  # give a list with packages to check
             if len(changed_list) == 0:
                 print(f'No models to check and cannot start a regression test')
                 retVal = 0
