@@ -162,6 +162,12 @@ class Plot_Charts(object):
 			print(f'{csv_file} is empty')
 
 	def _check_folder_path(self):
+		if os.path.isdir(self.funnel_path) is False:
+			print(f'Funnel directonary does not exist.')
+			exit(0)
+		else:
+			print(f'Search for results in {self.funnel_path}')
+
 		if os.path.isdir(self.temp_chart_path) is False:
 			if os.path.isdir(self.chart_dir) is False:
 				os.mkdir(self.chart_dir)
@@ -171,16 +177,11 @@ class Plot_Charts(object):
 			print(f'Save plot in {self.temp_chart_path}')
 
 	def _get_var(self, model):
-		if os.path.isdir(self.funnel_path) is False:
-			print(f'Funnel directonary does not exist.')
-			exit(0)
-		else:
-			print(f'Search for results in {self.funnel_path}')
 		folder = os.listdir(f'{self.funnel_path}')
-		print(folder)
 		var_list = []
 		for ref in folder:
-			if ref.find(model) > -1:
+			if ref[:ref.find(".mat")] == model:
+			#if ref.find(model) > -1:
 				var = ref[ref.rfind(".mat")+5:]
 				var_list.append(var)
 		return var_list
@@ -196,9 +197,7 @@ class Plot_Charts(object):
 	def _mako_line_html_chart(self, model, var):  # Load and read the templates, write variables in the templates
 		from mako.template import Template
 		path_name = (f'{self.library}{os.sep}funnel_comp{os.sep}{model}.mat_{var}'.strip())
-		print(path_name)
-		folder = os.path.isdir(path_name)
-		if folder is False:
+		if os.path.isdir(path_name) is False:
 			print(f'Cant find folder: {self.CRED}{model}{self.CEND} with variable {self.CRED}{var}{self.CEND}')
 		else:
 			print(f'Plot model: {self.green}{model}{self.CEND} with variable:{self.green} {var}{self.CEND}')
@@ -285,7 +284,6 @@ def _delte_folder():
 	if os.path.isdir(chart_dir) is False:
 		print(f'directonary {chart_dir} does not exist.')
 	else:
-		print(f'Save plot results in {chart_dir}')
 		folder_list = os.listdir(chart_dir)
 		for folder in folder_list:
 			if folder.find(".") > -1:
@@ -378,15 +376,21 @@ if  __name__ == '__main__':
 						charts._mako_line_ref_chart(model, var)
 			charts._create_index_layout()
 
-		if args.new_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib
+		if args.new_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib --library AixLib
 			charts._check_folder_path()
 			ref_list = charts._get_new_reference_files()
+			print(f'\n\n')
 			for ref_file in ref_list:
+				print(f'\nCreate plots for reference result {ref_file}')
 				model = ref_file[ref_file.rfind("_")+1:ref_file.rfind(".txt")]
 				var_list = charts._get_var(model)
-				for var in var_list:
-					charts._mako_line_html_chart(model, var)
+				if len(var_list) == 0:
+					print(f'No Results for {ref_file}')
 					continue
+				else:
+					for var in var_list:
+						charts._mako_line_html_chart(model, var)
+						continue
 			charts._create_index_layout()
 			charts._create_layout()
 	if args.create_layout is True:
