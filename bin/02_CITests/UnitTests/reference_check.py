@@ -150,7 +150,6 @@ class Reg_Reference(object):
                 else:
                     print(f'{self.green}New reference results in package: {self.CEND} {package}\n')
                     continue
-
         else:
             ex_file = open(self.exit_file, "w")
             ex_file.write("#!/bin/bash" + "\n" + "\n" + "exit 0")
@@ -550,7 +549,7 @@ if __name__ == '__main__':
     # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref
     elif args.create_ref:
         ref_check._create_reference_results()
-        exit(0)
+        exit(1)
     # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package ci_update_ref_AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise
     elif args.update_ref:
         ret_val = ref_check._update_ref()
