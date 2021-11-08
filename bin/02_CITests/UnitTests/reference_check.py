@@ -141,14 +141,14 @@ class Reg_Reference(object):
                 print(f'{self.green}Generate new reference results for package: {self.CEND} {package}')
                 self.ut.setSinglePackage(package)
                 self.ut.setNumberOfThreads(self.n_pro)
-                self.ut.pedanticModelica(True)
+                self.ut.pedanticModelica(False)
                 self.ut.showGUI(False)
                 response = self.ut.run()
                 if response == 1:
                     print(f'{self.CRED}Error in package: {self.CEND} {package}')
                     continue
                 else:
-                    print(f'{self.green}New reference results in package: {self.CEND} {package}')
+                    print(f'{self.green}New reference results in package: {self.CEND} {package}\n')
                     continue
         else:
             ex_file = open(self.exit_file, "w")
@@ -211,7 +211,6 @@ class Reg_Reference(object):
         self.ut.showGUI(self.show_gui)
         retVal = self.ut.run()
         return retVal
-
 
 class Extended_model(object):
 

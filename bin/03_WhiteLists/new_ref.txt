@@ -2,3 +2,4 @@ AixLib\Resources\ReferenceResults\Dymola\AixLib_Airflow_Multizone_BaseClasses_Ex
 AixLib\Resources\ReferenceResults\Dymola\AixLib_Airflow_Multizone_BaseClasses_Examples_PowerLaw.txt
 
 AixLib\Resources\ReferenceResults\Dymola\AixLib_Airflow_Multizone_BaseClasses_Examples_PowerLawFixedM.txt
+AixLib\Resources\ReferenceResults\Dymola\AixLib_Airflow_AirHandlingUnit_Examples_AHU.txt
