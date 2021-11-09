@@ -187,14 +187,8 @@ class Reg_Reference(object):
             print(f'No reference files in file {self.update_ref_file}. Please add here your reference files you want to update')
             exit(0)
         return ref_list
-        #commit = self.package[self.package.rfind("_") + 1:]
-        #print(f'Update model: {commit}')
-        #commit = commit[:commit.rfind(".")]
-        #print(commit)
-        #return commit
 
     def _update_ref(self, package):  # Update reference results
-
         self.ut.batchMode(False)
         self.ut.setLibraryRoot(self.path)
         if package is not None:

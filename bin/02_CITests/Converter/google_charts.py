@@ -50,6 +50,10 @@ class Plot_Charts(object):
             else:
                 ref_list.append(line.strip())
                 continue
+        file.close()
+        if len(ref_list) == 0:
+            print(f'No reference files in file {self.show_ref_file}. Please add here your reference files you want to update')
+            exit(0)
         return ref_list
 
     def _prepare_data(self, results):  # prepare data from reference results(.txt)
