@@ -97,7 +97,7 @@ prepare_create_plots:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plots
+        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -319,7 +319,6 @@ plot_reference_results:
     stage: plot_ref
     before_script:
         - source activate python36
-        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install pandas mako matplot
         - export PYTHONIOENCODING=utf-8 # just in case
@@ -327,7 +326,7 @@ plot_reference_results:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib 
         - cp -r bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots 
-        - python bin/02_CITests/api_script/api_github.py --prepare-plots --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --show-plot --post-pr-comment
+        - python bin/02_CITests/api_script/api_github.py --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
         - exit 1
     artifacts:
         when: always
