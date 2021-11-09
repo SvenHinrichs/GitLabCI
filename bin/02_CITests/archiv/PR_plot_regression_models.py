@@ -86,8 +86,6 @@ class Pull_Request_Github(object):
         print(response.text)
 
 if  __name__ == '__main__':
-    # python api.py --GITHUB-REPOSITORY SvenHinrichs/GitLabCI --Working-Branch master
-
     parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
     check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
     check_test_group.add_argument("-GR", "--GITHUB-REPOSITORY", default="RWTH-EBC/AixLib",
@@ -96,11 +94,10 @@ if  __name__ == '__main__':
                                   help="Your current working Branch")
     check_test_group.add_argument('-GT', "--GITHUB-TOKEN", default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
     check_test_group.add_argument('-GP', "--GITLAB-Page", default="${GITLAB_Page}", help="Set your gitlab page url")
-
     args = parser.parse_args()  # Parse the arguments
+
     page_url = f'{args.GITLAB_Page}/{args.Working_Branch}/plots'
     print(f'Setting page url: {page_url}')
-
     pr_number = _get_pull_branch(args.Working_Branch, args.GITHUB_REPOSITORY)
     print(f'Setting Pull Request Number: {pr_number}')
 

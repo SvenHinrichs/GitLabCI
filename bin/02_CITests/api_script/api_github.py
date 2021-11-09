@@ -43,18 +43,12 @@ class PULL_REQUEST_GITHUB(object):
 		response = requests.request("POST", url, headers=headers, data = payload)
 		return response
 
-		
-	def _get_pull_request_number(self, pull_request_response):
-		pull_request_number = pull_request_response.json()
-		pull_request_number = pull_request_number["number"]
-		return pull_request_number
-	
 	def _update_pull_request_assignees(self,pull_request_number,assignees_owner):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pull_request_number)}'
 		payload = '{ \"assignees\": [\r\n    \"'+assignees_owner+'\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"IBPSA_Merge\"\r\n    \r\n  ]\r\n}'
 		
 		headers = {
-		  'Authorization': 'Bearer '+self.github_token,
+		  'Authorization': 'Bearer '+ self.github_token,
 		  'Content-Type': 'application/json'
 		}
 		response = requests.request("PATCH", url, headers=headers, data = payload)

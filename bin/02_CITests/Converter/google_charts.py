@@ -41,6 +41,11 @@ class Plot_Charts(object):
         self.CEND = '\033[0m'
 
     def _read_show_reference(self):
+        if os.path.isdir(self.show_ref_file) is False:
+            print(f'File {self.show_ref_file} directonary does not exist.')
+            exit(0)
+        else:
+            print(f'Plot results from file {self.show_ref_file}')
         file = open(self.show_ref_file, "r")
         lines = file.readlines()
         ref_list = []
@@ -143,6 +148,11 @@ class Plot_Charts(object):
             return distriction_values, distriction_time, Value_List, X_Axis, ref_file
 
     def _get_new_reference_files(self):
+        if os.path.isdir(self.new_ref_file) is False:
+            print(f'File {self.new_ref_file} directonary does not exist.')
+            exit(0)
+        else:
+            print(f'Plot results from file {self.new_ref_file}')
         file = open(self.new_ref_file, "r")
         lines = file.readlines()
         ref_list = []
@@ -266,10 +276,8 @@ class Plot_Charts(object):
     def _check_folder_path(self):
         if os.path.isdir(self.funnel_path) is False:
             print(f'Funnel directonary does not exist.')
-            exit(0)
         else:
             print(f'Search for results in {self.funnel_path}')
-
         if os.path.isdir(self.temp_chart_path) is False:
             if os.path.isdir(self.chart_dir) is False:
                 os.mkdir(self.chart_dir)
@@ -411,14 +419,10 @@ def _delte_folder():
 
 
 if __name__ == '__main__':
-    # Set colors
-    green = "\033[0;32m"
+    green = "\033[0;32m"  # Set colors
     CRED = '\033[91m'
     CEND = '\033[0m'
-
-    ## Initialize a Parser
-    # Set environment variables
-    parser = argparse.ArgumentParser(description='Plot diagramms')
+    parser = argparse.ArgumentParser(description='Plot diagramms')  # Initialize a Parser
     unit_test_group = parser.add_argument_group("arguments to plot diagrams")
 
     unit_test_group.add_argument("--line-html",
@@ -459,11 +463,9 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-ref', "--ref-txt",
                                  help="Take the datas from reference datas",
                                  action="store_true")
-    # Parse the arguments
-    args = parser.parse_args()
-    # *********************************************************************************************************
-    from google_charts import Plot_Charts
 
+    args = parser.parse_args()  # Parse the arguments
+    from google_charts import Plot_Charts
     charts = Plot_Charts(package=args.single_package, library=args.library)
     # python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
     # python bin/02_CITests/Converter/google_charts.py --line-html --error --ref-txt --single-package Airflow
@@ -497,7 +499,6 @@ if __name__ == '__main__':
             charts._create_index_layout()
 
         if args.new_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib --library AixLib
-            charts._check_folder_path()
             ref_list = charts._get_new_reference_files()
             print(f'\n\n')
             for ref_file in ref_list:
@@ -511,11 +512,9 @@ if __name__ == '__main__':
                     legend_List = results[2]  # Legend name
                     ref_file = results[4]  # Reference File
                     charts._mako_line_html_new_chart(ref_file, value_list, legend_List)
-
             charts._create_index_layout()
             charts._create_layout()
         if args.show_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib
-            charts._check_folder_path()
             ref_list = charts._read_show_reference()
             print(f'\n\n')
             for ref_file in ref_list:
