@@ -7,7 +7,7 @@ import sys
 
 class GET_API_GITHUB(object):
 
-	def  __init__(self, github_repo, working_branch):
+	def __init__(self, github_repo, working_branch):
 		self.github_repo = github_repo
 		self.working_branch = working_branch
 
@@ -27,7 +27,7 @@ class GET_API_GITHUB(object):
 		
 class PULL_REQUEST_GITHUB(object):
 	
-	def  __init__(self, github_repo, working_branch,  github_token, page_url):
+	def __init__(self, github_repo, working_branch,  github_token, page_url):
 		self.github_repo = github_repo
 		self.working_branch = working_branch
 		self.github_token = github_token
@@ -43,7 +43,7 @@ class PULL_REQUEST_GITHUB(object):
 		response = requests.request("POST", url, headers=headers, data = payload)
 		return response
 
-	def _update_pull_request_assignees(self,pull_request_number,assignees_owner):
+	def _update_pull_request_assignees(self, pull_request_number,assignees_owner):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pull_request_number)}'
 		payload = '{ \"assignees\": [\r\n    \"'+assignees_owner+'\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"IBPSA_Merge\"\r\n    \r\n  ]\r\n}'
 		
@@ -64,24 +64,25 @@ class PULL_REQUEST_GITHUB(object):
 			'Content-Type': 'application/json'
 		}
 		response = requests.request("POST", url, headers=headers, data=payload)
-
-
+		print(response.text)
 	def _post_comment_show_plots(self, pr_number):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
-		message = f'Reference results have been displayed graphically and are created under the following page\\n {self.page_url}'
+		message = f'Reference results have been displayed graphically and are created under the following page {self.page_url}'
+		#payload = "{\"body\":\"Errors in regression test. Compare the results on the following page " + self.page_url + "\"}"
 		payload = "{\"body\":\"" + message + "\"}"
 		headers = {
 			'Authorization': 'Bearer ' + self.github_token,
 			'Content-Type': 'application/json'
 		}
 		response = requests.request("POST", url, headers=headers, data=payload)
+		print(response.text)
 
 
 	
 
 
 if  __name__ == '__main__':
-	parser = argparse.ArgumentParser(description = "Set Github Environment Variables")  # Configure the argument parser
+	parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
 	check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
 	check_test_group.add_argument("-CB", "--correct-branch", default ="${Newbranch}", help="Branch to correct your Code")
 	check_test_group.add_argument("-GR", "--github-repo", default="RWTH-EBC/AixLib", help="Environment Variable owner/RepositoryName" )
@@ -97,12 +98,10 @@ if  __name__ == '__main__':
 	check_test_group.add_argument('-GP', "--gitlab-page", default="${GITLAB_Page}", help="Set your gitlab page url")
 	args = parser.parse_args()  # Parse the arguments
 
-
 	from api_github import GET_API_GITHUB
 	get_api = GET_API_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch)
 	pr_number = get_api._get_pr_number()
 	print(f'Setting pull request number: {pr_number}')
-
 	if args.post_pr_comment is True:
 		page_url = f'{args.gitlab_page}/{args.working_branch}/plots'
 		print(f'Setting gitlab page url: {page_url}')
