@@ -10,33 +10,23 @@ stages:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package ${lib_package} --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${lib_package}-log.txt
+            - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
-        refs:
-            - external_pull_requests
-    except:
-        variables:
-            %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE =~ /${commit}/
-            %endfor
+        - external_pull_requests
     retry:
         max: 2
         when: runner_system_failure  
-    
-%for package in package_list:
-Check_${library}_${package}:
-    variables:
-        lib_package: ${package}
-    extends: .check_model_job
-    
-
-%endfor
+    except:
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            %endfor
 
 .check_changed_models_job:
     stage: check
@@ -46,38 +36,28 @@ Check_${library}_${package}:
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - (git diff --raw --diff-filter=AMT HEAD^1) > ${ch_file}
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package ${lib_package} --library ${library} -DS ${dymolaversion} -CM 
+        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
+        - echo $model >  bin/03_WhiteLists/changedmodels.txt
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
-            - ${ch_file}
+            - ${library}/${lib_package}-log.txt
+            - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
-        refs:
-            - external_pull_requests
-            - ${merge_branch}
+        - external_pull_requests
+        - ${merge_branch}
+    only:
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE =~ /${commit}/
+            - $CI_COMMIT_MESSAGE  !~ /${commit}/
             %endfor
+        changes:
+            - ${library}/${package_name}/**/*
     retry:
         max: 2
         when: runner_system_failure
-
-%for package in package_list:
-Check_${library}_${package}_changed_models:
-    variables:
-        lib_package: ${package}
-    only:
-        changes:
-            - ${library}/${package}/**/* 
-    extends: .check_changed_models_job
-
-%endfor
-
 
 whitelist_job:
     stage: create_whitelist
@@ -86,33 +66,33 @@ whitelist_job:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
-        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-        - eval $(ssh-agent -s)
-        - mkdir -p ~/.ssh
-        - ssh-keyscan github.com >> ~/.ssh/known_hosts
-        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
-        - chmod 600 ~/.ssh/id_rsa
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
-        - mkdir whitelist && cd whitelist
-        - git clone --single-branch --branch ${TARGET_BRANCH} git@github.com:${Github_Repository}.git
-        - cd ${CI_PROJECT_NAME} && python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
-        - if cat ${exit_file} | grep "exit 1"; then 
-            message="${bot_update_wh_commit}";
-            git add ${wh_file};
-            git commit -m "$message"; 
-            git push --force git@github.com:${Github_Repository}.git;
-            exit 0;
-          else 
-            exit 0; 
-          fi
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
     artifacts:
         paths:
-            - whitelist/${CI_PROJECT_NAME}/${wh_file}
+            - bin/03_WhiteLists/WhiteList_CheckModel.txt
         expire_in: 7 day 
-        when: on_success  
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
+
+%for package in package_list:
+Check_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .check_model_job
+
+%endfor
+
+
+%for package in package_list:
+Check_${library}_${package}_changed_models:
+    variables:
+        lib_package: ${library}.${package}
+        package_name: ${package}  
+    extends: .check_changed_models_job
+
+%endfor
+
+    
+

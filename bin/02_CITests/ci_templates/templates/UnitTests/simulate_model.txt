@@ -17,16 +17,25 @@ stages:
             - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
-        - external_pull_requests
-    retry:
-        max: 2
-        when: runner_system_failure  
+        refs:
+            - external_pull_requests
     except:
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+    retry:
+        max: 2
+        when: runner_system_failure  
+        
+%for package in package_list:
+simulate_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .simulate_model_job
 
+%endfor
+    
 .simulate_changed_models_job:
     stage: simulate
     before_script:
@@ -45,37 +54,24 @@ stages:
             - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
-        - external_pull_requests
-        - ${merge_branch}
-    only:
+        refs:
+            - external_pull_requests
+            - ${merge_branch}
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE  !~ /${commit}/
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
-        changes:
-            - ${library}/${package_name}/**/*
     retry:
         max: 2
         when: runner_system_failure
-
-
-%for package in package_list:
-simulate_${library}_${package}:
-    variables:
-        lib_package: ${library}.${package}
-    extends: .simulate_model_job
-
-%endfor
-
 
 %for package in package_list:
 simulate_${library}_${package}_changed_models:
     variables:
         lib_package: ${library}.${package}
-        package_name: ${package}  
+    only:
+        changes:
+            - ${library}/${package_name}/**/*  
     extends: .simulate_changed_models_job
 
 %endfor
-
-    
-

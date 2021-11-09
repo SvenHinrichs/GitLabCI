@@ -81,7 +81,6 @@ class PULL_REQUEST_GITHUB(object):
 
 
 if  __name__ == '__main__':
-	# python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py   --github-repo SvenHinrichs/GitLabCI --working-branch Master  --github-token b187ab7adbe05d54b0bd866271bf225d561413a1
 	parser = argparse.ArgumentParser(description = "Set Github Environment Variables")  # Configure the argument parser
 	check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
 	check_test_group.add_argument("-CB", "--correct-branch", default ="${Newbranch}", help="Branch to correct your Code")

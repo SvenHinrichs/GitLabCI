@@ -15,9 +15,8 @@ class CI_yml_templates(object):
         self.wh_path = wh_path
 
         # except commits
-        #self.update_ref_commit = "^ci_update_ref_.*$"
         self.update_ref_commit = "ci_update_ref"
-
+        self.show_ref_commit = "ci_show_ref"
         self.dif_ref_commit = "ci_dif_ref"
         self.html_commit = "ci_correct_html"
         self.create_wh_commit = "ci_create_whitelist"
@@ -29,7 +28,7 @@ class CI_yml_templates(object):
         self.bot_create_ref_commit = "Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/"
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
-                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message]
+                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
@@ -95,7 +94,7 @@ class CI_yml_templates(object):
                                      CI_PROJECT_NAME="${CI_PROJECT_NAME}", exit_file=self.exit_file,
                                      ch_file=self.ch_file, bot_create_ref_message=self.bot_create_ref_message,
                                      bot_create_ref_commit=self.bot_create_ref_commit, new_ref_file=self.new_ref_file,
-                                     chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}")
+                                     chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", show_ref_commit=self.show_ref_commit, update_ref_commit=self.update_ref_commit)
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -272,7 +271,7 @@ def _config_settings_check():
                 print(f'path of library: {wh_path}')
                 git_url = None
             else:
-                git_url = input(f'Give the url of the library repository: ')
+                git_url = input(f'Give the url of the library repository (eg. "https://github.com/ibpsa/modelica-ibpsa.git"):  ')
                 print(f'Setting git_url: {git_url}')
                 wh_path = None
 

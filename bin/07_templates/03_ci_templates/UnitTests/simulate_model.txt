@@ -13,8 +13,8 @@ stages:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${lib_package}-log.txt
+            - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         refs:
@@ -22,20 +22,20 @@ stages:
     except:
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE =~ /${commit}/
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
     retry:
         max: 2
         when: runner_system_failure  
-    
+        
 %for package in package_list:
 simulate_${library}_${package}:
     variables:
-        lib_package: ${package}
+        lib_package: ${library}.${package}
     extends: .simulate_model_job
 
 %endfor
-
+    
 .simulate_changed_models_job:
     stage: simulate
     before_script:
@@ -44,13 +44,14 @@ simulate_${library}_${package}:
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - (git diff --raw --diff-filter=AMT HEAD^1) >  ${ch_file}
+        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
+        - echo $model >  bin/03_WhiteLists/changedmodels.txt
         - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM --simulateexamples
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${lib_package}-log.txt
+            - ${library}/${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
         refs:
@@ -58,7 +59,7 @@ simulate_${library}_${package}:
             - ${merge_branch}
         variables:
             %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE =~ /${commit}/
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
     retry:
         max: 2
@@ -67,13 +68,10 @@ simulate_${library}_${package}:
 %for package in package_list:
 simulate_${library}_${package}_changed_models:
     variables:
-        lib_package: ${package}
+        lib_package: ${library}.${package}
     only:
         changes:
-            - ${library}/${package}/**/* 
+            - ${library}/${package_name}/**/*  
     extends: .simulate_changed_models_job
 
 %endfor
-
-    
-
