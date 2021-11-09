@@ -1,0 +1,43 @@
+{
+    "testCase": [
+        {
+            "check": {
+                "command": "checkModel(\"AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM\");",
+                "result": true
+            },
+            "file": "AixLib/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos",
+            "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos\");",
+                "result": true,
+                "translationLog": "/tmp/tmp-AixLib-0-tovg2cjc/AixLib/AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise\");",
+                "result": true
+            },
+            "file": "AixLib/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos",
+            "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos\");",
+                "result": true,
+                "translationLog": "/tmp/tmp-AixLib-1-vqeongvm/AixLib/AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLaw\");",
+                "result": true
+            },
+            "file": "AixLib/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos",
+            "model": "AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLaw",
+            "simulate": {
+                "command": "RunScript(\"Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos\");",
+                "result": true,
+                "translationLog": "/tmp/tmp-AixLib-2-66oepfp8/AixLib/AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLaw.translation.log"
+            }
+        }
+    ]
+}
