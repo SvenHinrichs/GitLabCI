@@ -19,7 +19,7 @@ class Plot_Charts(object):
         self.library = library
 
         sys.path.append('bin/02_CITests')  # Set files for informations, templates and storage locations
-        from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file
+        from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file, show_ref_file
         self.new_ref_file = new_ref_file
         self.ch_file = ch_file
         self.temp_file = chart_temp  # path for google chart template
@@ -28,6 +28,7 @@ class Plot_Charts(object):
         self.f_log = f'{self.library}{os.sep}unitTests-dymola.log'  # path for unitTest-dymola.log, important for errors
         self.csv_file = f'reference.csv'
         self.test_csv = f'test.csv'
+        self.show_ref_file = show_ref_file
 
         self.chart_dir = chart_dir  # path for layout index
         self.temp_chart_path = f'{chart_dir}{os.sep}{self.package}'  # path for every single package
@@ -38,6 +39,18 @@ class Plot_Charts(object):
         self.green = '\033[0;32m'
         self.CRED = '\033[91m'
         self.CEND = '\033[0m'
+
+    def _read_show_reference(self):
+        file = open(self.show_ref_file, "r")
+        lines = file.readlines()
+        ref_list = []
+        for line in lines:
+            if len(line) == 0:
+                continue
+            else:
+                ref_list.append(line.strip())
+                continue
+        return ref_list
 
     def _prepare_data(self, results):  # prepare data from reference results(.txt)
         distriction_values = results[0]  # Value Number with Legend
@@ -428,6 +441,9 @@ if __name__ == '__main__':
     unit_test_group.add_argument("-e", "--error",
                                  help='Plot only model with errors',
                                  action="store_true")
+    unit_test_group.add_argument("--show-ref",
+                                 help='Plot only model with errors',
+                                 action="store_true")
 
     unit_test_group.add_argument('-s', "--single-package",
                                  metavar="Modelica.Package",
@@ -491,17 +507,24 @@ if __name__ == '__main__':
                     legend_List = results[2]  # Legend name
                     ref_file = results[4]  # Reference File
                     charts._mako_line_html_new_chart(ref_file, value_list, legend_List)
-                    '''
-    
-                    model = ref_file[ref_file.rfind("_") + 1:ref_file.rfind(".txt")]
-                    var_list = charts._get_var(model)
-                    if len(var_list) == 0:
-                        print(f'No Results for {ref_file}')
-                        continue
-                    else:
-                        for var in var_list:
-                            charts._mako_line_html_new_chart(model, var)
-                            continue  '''
+
+            charts._create_index_layout()
+            charts._create_layout()
+        if args.show_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib
+            charts._check_folder_path()
+            ref_list = charts._read_show_reference()
+            print(f'\n\n')
+            for ref_file in ref_list:
+                if os.path.isfile(ref_file) is False:
+                    print(f'File {ref_file} does not exist.')
+                    continue
+                else:
+                    print(f'\nCreate plots for reference result {ref_file}')
+                    results = charts._read_data(ref_file)
+                    value_list = charts._prepare_data(results)
+                    legend_List = results[2]  # Legend name
+                    ref_file = results[4]  # Reference File
+                    charts._mako_line_html_new_chart(ref_file, value_list, legend_List)
             charts._create_index_layout()
             charts._create_layout()
     if args.create_layout is True:

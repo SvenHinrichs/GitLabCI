@@ -85,7 +85,6 @@ class PULL_REQUEST_GITHUB(object):
 
 
 if  __name__ == '__main__':
-	# GITHUB_REPOSITORY
 	"""Parser"""
 	# Configure the argument parser
 	parser = argparse.ArgumentParser(description = "Set Github Environment Variables")

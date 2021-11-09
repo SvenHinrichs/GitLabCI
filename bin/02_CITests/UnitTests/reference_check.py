@@ -18,10 +18,11 @@ class Reg_Reference(object):
         self.path = path
 
         sys.path.append('../bin/02_CITests')
-        from _config import ref_file_path, resource_dir, index_temp, layout_temp, exit_file, ref_file, ref_whitelist
+        from _config import ref_file_path, resource_dir, index_temp, layout_temp, exit_file, ref_file, ref_whitelist, update_ref_file
         self.ref_file_path = ref_file_path
         self.resource_file_path = resource_dir
         self.ref_whitelist = ref_whitelist
+        self.update_ref_file = update_ref_file
         self.exit_file = f'..{os.sep}{exit_file}'
         self.ref_file = f'..{os.sep}{ref_file}'
 
@@ -68,6 +69,15 @@ class Reg_Reference(object):
                     ref_file = filepath[filepath.rfind(self.library):filepath.find(".txt")]
                     ref_list.append(ref_file)
         return ref_list
+
+    def _delte_ref_file(self, ref_list):
+        ref_dir = f'{self.library}{os.sep}{self.ref_file_path}'
+        for ref in ref_list:
+            print(f'Update reference file {ref_dir}{os.sep}{ref}\n')
+            if os.path.exists(f'..{os.sep}{ref_dir}{os.sep}{ref}'):
+                os.remove(f'..{os.sep}{ref_dir}{os.sep}{ref}')
+            else:
+                print(f'File ..{os.sep}{ref_dir}{os.sep}{ref} does not exist\n')
 
     def _get_ref_package(self):  # reproduces packages in which reference results are missing
         mos_list = Reg_Reference._compare_ref_mos(self)
@@ -157,20 +167,39 @@ class Reg_Reference(object):
             print(f'{self.green}All Reference files exists, except the Models on WhiteList.{self.CEND}')
             exit(0)
 
-    def _get_commit_package(self):  # get a model to check
-        commit = self.package[self.package.rfind("_") + 1:]
-        print(f'Update model: {commit}')
-        commit = commit[:commit.rfind(".")]
-        print(commit)
-        return commit
+    def _get_update_package(self, ref_list):
+        ref_package_list = []
+        for ref in ref_list:
+            ref_package_list.append(ref[:ref.rfind("_")].replace("_","."))
+        return ref_package_list
 
-    def _update_ref(self):  # Update reference results
-        pack = Reg_Reference._get_commit_package(self)
+    def _get_update_ref(self):  # get a model to update
+        file = open(".."+os.sep+self.update_ref_file, "r")
+        lines = file.readlines()
+        ref_list = []
+        for line in lines:
+            if len(line) == 0:
+                continue
+            else:
+                ref_list.append(line.strip())
+        file.close()
+        if len(ref_list) == 0:
+            print(f'No reference files in file {self.update_ref_file}. Please add here your reference files you want to update')
+            exit(0)
+        return ref_list
+        #commit = self.package[self.package.rfind("_") + 1:]
+        #print(f'Update model: {commit}')
+        #commit = commit[:commit.rfind(".")]
+        #print(commit)
+        #return commit
+
+    def _update_ref(self, package):  # Update reference results
+
         self.ut.batchMode(False)
         self.ut.setLibraryRoot(self.path)
-        if pack is not None:
-            self.ut.setSinglePackage(pack)
-            print(f'{self.green}Update reference results for the packages: {self.CEND} {pack}')
+        if package is not None:
+            self.ut.setSinglePackage(package)
+            print(f'{self.green}Update reference results for the packages: {self.CEND} {package}')
         self.ut.setNumberOfThreads(self.n_pro)
         self.ut.pedanticModelica(False)
         self.ut.showGUI(self.show_gui)
@@ -550,9 +579,13 @@ if __name__ == '__main__':
     elif args.create_ref:
         ref_check._create_reference_results()
         exit(1)
-    # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package ci_update_ref_AixLib.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise
+    # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package
     elif args.update_ref:
-        ret_val = ref_check._update_ref()
+        ref_list = ref_check._get_update_ref()
+        ref_check._delte_ref_file(ref_list)
+        package_list = ref_check._get_update_package(ref_list)
+        for package in package_list:
+            ret_val = ref_check._update_ref(package)
         exit(1)
     else:
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019

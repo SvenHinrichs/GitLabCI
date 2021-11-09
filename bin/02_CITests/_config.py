@@ -8,7 +8,8 @@ new_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}new_ref.txt'
 ref_file = f'bin{os.sep}03_WhiteLists{os.sep}ref_list.txt'
 ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
 html_wh_file = f'bin{os.sep}03_WhiteLists{os.sep}HTML_IBPSA_WhiteList.txt'
-
+show_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}user{os.sep}show_ref.txt'
+update_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}user{os.sep}update_ref.txt'
 
 # Ci Templates
 reg_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'

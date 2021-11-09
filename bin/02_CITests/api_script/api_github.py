@@ -16,12 +16,11 @@ class GET_API_GITHUB(object):
         text = json.dumps(obj, sort_keys=True, indent=4)
 
     def _get_github_username(self):
-        url = "https://api.github.com/repos/" + self.GITHUB_REPOSITORY + "/branches/" + self.Working_Branch
+        url = f'https://api.github.com/repos/{self.GITHUB_REPOSITORY}/branches/{self.Working_Branch}'
         payload = {}
         headers = {}
         response = requests.request("GET", url, headers=headers, data=payload)
         branch = response.json()
-        print(branch)
         commit = branch["commit"]
         author = commit["author"]
         login = author["login"]
@@ -43,7 +42,7 @@ class PULL_REQUEST_GITHUB(object):
         self.GITHUB_TOKEN = GITHUB_TOKEN
         self.OWNER = OWNER
 
-    def post_pull_request(self):
+    def _post_pull_request(self):
         url = "https://api.github.com/repos/" + self.GITHUB_REPOSITORY + "/pulls"
         payload = '{\n    \"title\": \"Corrected HTML Code in branch ' + self.Working_Branch + '\",\n    \"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository. **Delete** the Branch ' + self.Correct_Branch + '\",\n    \"head\": \"' + self.OWNER + ':' + self.Correct_Branch + '\",\n    \"base\": \"' + self.Working_Branch + '\"\n  \n}'
         headers = {
@@ -54,14 +53,14 @@ class PULL_REQUEST_GITHUB(object):
         print(response.text.encode('utf8'))
         return response
 
-    def get_pull_request_number(self, pull_request_response):  # returns the number of the pull request from your working branch
+    def _get_pull_request_number(self, pull_request_response):  # returns the number of the pull request from your working branch
         pull_request_number = pull_request_response.json()
         pull_request_number = pull_request_number["number"]
         print(f' Pull request number: {pull_request_number}')
         return pull_request_number
 
-    def update_pull_request_assignees(self, pull_request_number, assignees_owner):
-        url = "https://api.github.com/repos/" + self.GITHUB_REPOSITORY + "/issues/" + str(pull_request_number)
+    def _update_pull_request_assignees(self, pull_request_number, assignees_owner):
+        url = f'https://api.github.com/repos/{self.GITHUB_REPOSITORY }/issues/{str(pull_request_number)}'
         payload = '{ \"assignees\": [\r\n    \"' + assignees_owner + '\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"Correct HTML\"\r\n    \r\n  ]\r\n}'
         headers = {
             'Authorization': 'Bearer ' + self.GITHUB_TOKEN,
@@ -81,6 +80,9 @@ if __name__ == '__main__':
     check_test_group.add_argument('-WB', "--Working-Branch", default="${TARGET_BRANCH}",
                                   help="Your current working Branch")
     check_test_group.add_argument('-GT', "--GITHUB-TOKEN", default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
+    check_test_group.add_argument("--show-ref",
+                                 help='Plot only model',
+                                 action="store_true")
     args = parser.parse_args()  # Parse the arguments
 
     GET_API_DATA = GET_API_GITHUB(GITHUB_REPOSITORY=args.GITHUB_REPOSITORY, Correct_Branch=args.Correct_Branch,
