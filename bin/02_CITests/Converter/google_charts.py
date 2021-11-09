@@ -53,7 +53,7 @@ class Plot_Charts(object):
             if len(line) == 0:
                 continue
             else:
-                ref_list.append(line.strip())
+                ref_list.append(f'{self.ref_path}{os.sep}{line.strip()}')
                 continue
         file.close()
         if len(ref_list) == 0:
@@ -504,6 +504,7 @@ if __name__ == '__main__':
             ref_list = charts._get_new_reference_files()
             print(f'\n\n')
             for ref_file in ref_list:
+                print(ref_file)
                 if os.path.isfile(ref_file) is False:
                     print(f'File {ref_file} does not exist.')
                     continue
@@ -521,7 +522,6 @@ if __name__ == '__main__':
             ref_list = charts._read_show_reference()
             print(f'\n\n')
             for ref_file in ref_list:
-                ref_file = args.library+os.sep+ref_file_path+os.sep+ref_file
                 if os.path.isfile(ref_file) is False:
                     print(f'File {ref_file} does not exist.')
                     continue
