@@ -2,6 +2,7 @@ stages:
     - RegressionTest
     - Ref_Check
     - Update_Ref
+    - plot_ref
     - prepare
 
 
