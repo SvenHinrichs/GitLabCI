@@ -41,7 +41,7 @@ class Plot_Charts(object):
         self.CEND = '\033[0m'
 
     def _read_show_reference(self):
-        if os.path.isdir(self.show_ref_file) is False:
+        if os.path.isfile(self.show_ref_file) is False:
             print(f'File {self.show_ref_file} directonary does not exist.')
             exit(0)
         else:
@@ -148,7 +148,7 @@ class Plot_Charts(object):
             return distriction_values, distriction_time, Value_List, X_Axis, ref_file
 
     def _get_new_reference_files(self):
-        if os.path.isdir(self.new_ref_file) is False:
+        if os.path.isfile(self.new_ref_file) is False:
             print(f'File {self.new_ref_file} directonary does not exist.')
             exit(0)
         else:
@@ -465,6 +465,8 @@ if __name__ == '__main__':
                                  action="store_true")
 
     args = parser.parse_args()  # Parse the arguments
+    sys.path.append('bin/02_CITests')  # Set files for informations, templates and storage locations
+    from _config import ref_file_path
     from google_charts import Plot_Charts
     charts = Plot_Charts(package=args.single_package, library=args.library)
     # python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package Airflow
@@ -515,9 +517,11 @@ if __name__ == '__main__':
             charts._create_index_layout()
             charts._create_layout()
         if args.show_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib
+            charts._check_folder_path()
             ref_list = charts._read_show_reference()
             print(f'\n\n')
             for ref_file in ref_list:
+                ref_file = args.library+os.sep+ref_file_path+os.sep+ref_file
                 if os.path.isfile(ref_file) is False:
                     print(f'File {ref_file} does not exist.')
                     continue
