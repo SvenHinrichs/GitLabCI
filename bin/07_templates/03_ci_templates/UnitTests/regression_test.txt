@@ -266,7 +266,7 @@ Update_Regression_Results:
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - echo "FAIL" > bin/06_Configfiles/exit.sh
-        - cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package AixLib < ../bin/06_Configfiles/EOF.sh
+        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package ${library} < ../bin/06_Configfiles/EOF.sh
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
@@ -278,16 +278,16 @@ Update_Regression_Results:
             echo $pushmodel ;
             (git ls-files --others --exclude-standard) > bin/03_WhiteLists/new_ref.txt ;
             (git diff --raw --diff-filter=AMT HEAD^1) > bin/03_WhiteLists/changedmodels.txt ;
-            python bin/02_CITests/deploy/deploy_artifacts.py --library AixLib --ref ;
+            python bin/02_CITests/deploy/deploy_artifacts.py --library ${library} --ref ;
             message="Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/ [skip ci]" ;
-            git add $pushmodel ;
+            git add ${library}/Resources/ReferenceResults/Dymola/* ;
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "$GREEN New or updated reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
             pip install pandas mako matplot;
-            python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package ${library} ;
             cd .. ; 
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
