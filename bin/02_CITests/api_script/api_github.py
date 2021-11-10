@@ -68,7 +68,6 @@ class PULL_REQUEST_GITHUB(object):
 	def _post_comment_show_plots(self, pr_number):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
 		message = f'Reference results have been displayed graphically and are created under the following page {self.page_url}'
-		#payload = "{\"body\":\"Errors in regression test. Compare the results on the following page " + self.page_url + "\"}"
 		payload = "{\"body\":\"" + message + "\"}"
 		headers = {
 			'Authorization': 'Bearer ' + self.github_token,
