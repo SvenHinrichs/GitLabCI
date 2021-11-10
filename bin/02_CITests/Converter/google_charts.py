@@ -30,7 +30,6 @@ class Plot_Charts(object):
         self.test_csv = f'test.csv'
         self.show_ref_file = show_ref_file
         self.update_ref_file = update_ref_file
-
         self.chart_dir = chart_dir  # path for layout index
         self.temp_chart_path = f'{chart_dir}{os.sep}{self.package}'  # path for every single package
         self.funnel_path = f'{self.library}{os.sep}funnel_comp'
