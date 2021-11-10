@@ -35,7 +35,7 @@ class CI_yml_templates(object):
         # files
         sys.path.append('bin/02_CITests')
         from _config import ch_file, wh_file, reg_temp, write_temp, sim_temp, page_temp, ibpsa_temp, main_temp, \
-            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml
+            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml, stage_list
         self.ch_file = ch_file.replace(os.sep, "/")
         self.wh_file = wh_file.replace(os.sep, "/")
 
@@ -54,6 +54,7 @@ class CI_yml_templates(object):
         self.image_name = image_name
         self.project_name = project_name
         self.variable_main_list = variable_main_list
+        self.stage_list = stage_list
 
     def _write_package(self):
         data = {'Package': self.package_list}
@@ -212,6 +213,13 @@ class CI_yml_templates(object):
             print(f'No stages')
             exit(1)
         stage_list = list(set(stage_list))
+        new_list = []
+        for stage in self.stage_list:
+            for st in stage_list:
+                if stage == st:
+                    new_list.append(stage)
+        print(new_list)
+        print(stage_list)
         return stage_list
 
 
