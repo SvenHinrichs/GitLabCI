@@ -220,8 +220,6 @@ RegressionTest_Check_References:
             mkdir -p data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/simulator-dymola.log data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
-            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/failed-simulator-dymola.log data;
-            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/comparison-dymola.log data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp/* data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles/* data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;

@@ -162,6 +162,7 @@ class Plot_Charts(object):
             if line.find(".txt") > -1 and line.find("_"):
                 ref_list.append(f'{self.ref_path}{os.sep}{line.strip()}')
                 continue
+        file.close()
         return ref_list
 
     def _get_new_reference_files(self):
