@@ -33,7 +33,7 @@ stages:
           - ${library}/simulator-dymola.log
           - ${library}/unitTests-dymola.log
           - ${library}/failed-simulator-dymola.log
-          - ${library}/funnel_comp/
+          - ${library}/funnel_comp
           - ${library}/comparison-dymola.log
           - bin/07_templates/02_charts/${lib_package}
         expire_in: 7 day
@@ -217,6 +217,13 @@ RegressionTest_Check_References:
             cd .. ; 
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
+            mkdir -p data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/simulator-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/failed-simulator-dymola.log data;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/comparison-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp/* data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles/* data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
@@ -302,7 +309,6 @@ Update_Regression_Results:
         paths:
             - CorrectedVersion/${CI_PROJECT_NAME}/AixLib/simulator-dymola.log
             - $CI_COMMIT_REF_NAME/plots
-            - CorrectedVersion/${CI_PROJECT_NAME}/bin/03_WhiteLists/new_ref.txt
             - CorrectedVersion/${CI_PROJECT_NAME}/AixLib/funnel_comp 
             - CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles 
         expire_in: 7 day
