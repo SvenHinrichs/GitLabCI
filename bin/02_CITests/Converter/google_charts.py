@@ -19,7 +19,7 @@ class Plot_Charts(object):
         self.library = library
 
         sys.path.append('bin/02_CITests')  # Set files for informations, templates and storage locations
-        from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file, show_ref_file
+        from _config import chart_dir, chart_temp, index_temp, layout_temp, ch_file, new_ref_file, show_ref_file, update_ref_file
         self.new_ref_file = new_ref_file
         self.ch_file = ch_file
         self.temp_file = chart_temp  # path for google chart template
@@ -29,6 +29,7 @@ class Plot_Charts(object):
         self.csv_file = f'reference.csv'
         self.test_csv = f'test.csv'
         self.show_ref_file = show_ref_file
+        self.update_ref_file = update_ref_file
 
         self.chart_dir = chart_dir  # path for layout index
         self.temp_chart_path = f'{chart_dir}{os.sep}{self.package}'  # path for every single package
@@ -147,6 +148,22 @@ class Plot_Charts(object):
 
             return distriction_values, distriction_time, Value_List, X_Axis, ref_file
 
+    def _get_updated_reference_files(self):
+        if os.path.isfile(self.update_ref_file) is False:
+            print(f'File {self.update_ref_file} directonary does not exist.')
+            exit(0)
+        else:
+            print(f'Plot results from file {self.update_ref_file}')
+        file = open(self.update_ref_file, "r")
+        lines = file.readlines()
+        ref_list = []
+        for line in lines:
+            line = line.strip()
+            if line.find(".txt") > -1 and line.find("_"):
+                ref_list.append(f'{self.ref_path}{os.sep}{line.strip()}')
+                continue
+        return ref_list
+
     def _get_new_reference_files(self):
         if os.path.isfile(self.new_ref_file) is False:
             print(f'File {self.new_ref_file} directonary does not exist.')
@@ -159,7 +176,7 @@ class Plot_Charts(object):
         for line in lines:
             line = line.strip()
             if line.find(".txt") > -1 and line.find("_"):
-                ref_list.append(line)
+                ref_list.append(f'{line.strip()}')
                 continue
         return ref_list
 
@@ -452,6 +469,9 @@ if __name__ == '__main__':
     unit_test_group.add_argument("--show-ref",
                                  help='Plot only model with errors',
                                  action="store_true")
+    unit_test_group.add_argument("--update-ref",
+                                 help='Plot only updated models',
+                                 action="store_true")
 
     unit_test_group.add_argument('-s', "--single-package",
                                  metavar="Modelica.Package",
@@ -501,10 +521,11 @@ if __name__ == '__main__':
             charts._create_index_layout()
 
         if args.new_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib --library AixLib
+            charts._check_folder_path()
             ref_list = charts._get_new_reference_files()
             print(f'\n\n')
             for ref_file in ref_list:
-                print(ref_file)
+
                 if os.path.isfile(ref_file) is False:
                     print(f'File {ref_file} does not exist.')
                     continue
@@ -517,6 +538,24 @@ if __name__ == '__main__':
                     charts._mako_line_html_new_chart(ref_file, value_list, legend_List)
             charts._create_index_layout()
             charts._create_layout()
+        if args.update_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --update-ref --single-package AixLib --library AixLib
+            charts._check_folder_path()
+            ref_list = charts._get_updated_reference_files()
+            print(f'\n\n')
+            for ref_file in ref_list:
+                if os.path.isfile(ref_file) is False:
+                    print(f'File {ref_file} does not exist.')
+                    continue
+                else:
+                    print(f'\nCreate plots for reference result {ref_file}')
+                    results = charts._read_data(ref_file)
+                    value_list = charts._prepare_data(results)
+                    legend_List = results[2]  # Legend name
+                    ref_file = results[4]  # Reference File
+                    charts._mako_line_html_new_chart(ref_file, value_list, legend_List)
+            charts._create_index_layout()
+            charts._create_layout()
+
         if args.show_ref is True:  # python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib
             charts._check_folder_path()
             ref_list = charts._read_show_reference()

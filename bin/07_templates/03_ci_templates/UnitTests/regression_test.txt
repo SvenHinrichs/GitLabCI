@@ -287,7 +287,7 @@ Update_Regression_Results:
             NC='\033[0m' ;
             echo  -e "$GREEN New or updated reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
             pip install pandas mako matplot;
-            python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package ${library} ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --update-ref --single-package ${library} ;
             cd .. ; 
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;

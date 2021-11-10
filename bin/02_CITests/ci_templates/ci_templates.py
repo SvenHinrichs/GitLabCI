@@ -218,9 +218,7 @@ class CI_yml_templates(object):
             for st in stage_list:
                 if stage == st:
                     new_list.append(stage)
-        print(new_list)
-        print(stage_list)
-        return stage_list
+        return new_list
 
 
 def _get_package(library):
