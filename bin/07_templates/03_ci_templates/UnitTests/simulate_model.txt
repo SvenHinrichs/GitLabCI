@@ -18,7 +18,7 @@ stages:
         expire_in: 7 day 
     only:
         variables:
-            - CI_COMMIT_MESSAGE =~ /${simulate_commit}/
+            - $CI_COMMIT_MESSAGE =~ /${simulate_commit}/
     retry:
         max: 2
         when: runner_system_failure  
