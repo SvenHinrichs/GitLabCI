@@ -5,6 +5,77 @@ stages:
     - plot_ref
     - prepare
 
+.CI_Regressiontest:
+    stage: RegressionTest
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - echo 'FAIL' > bin/06_Configfiles/exit.sh
+    script:
+        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
+    after_script:
+        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+            export PIP_CACHE_DIR="/opt/cache/pip" ;
+            source activate python36 ;
+            pip install pandas mako matplot ;
+            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
+            mkdir -p data ;
+            cp -r ${library}/simulator-dymola.log data ;
+            cp -r ${library}/unitTests-dymola.log data ;
+            cp -r ${library}/funnel_comp data ;
+          else
+            echo "Test was succesful!" ;
+          fi
+    artifacts:
+        when: on_failure
+        paths:
+          - data
+          - bin/07_templates/02_charts/${lib_package}
+        expire_in: 7 day
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /${regression_test_commit}/
+    retry:
+        max: 2
+        when: runner_system_failure
+
+%for package in package_list:
+CI_Regressiontest_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .CI_Regressiontest
+
+%endfor
+
+CI_create_plots:
+    stage: prepare
+    before_script:
+        - source activate python36
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install pandas mako matplot
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - mkdir -p $CI_COMMIT_REF_NAME/plots
+        - python bin/02_CITests/Converter/google_charts.py  --create-layout
+        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
+        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+    artifacts:
+        paths:
+         - $CI_COMMIT_REF_NAME/plots
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /${regression_test_commit}/
+    when: on_failure
+    needs:
+    %for package in package_list:
+    - job: CI_Regressiontest_${library}_${package}
+      artifacts: true
+    %endfor
 
 .Regressiontest_job:
     stage: RegressionTest
@@ -56,7 +127,6 @@ Regressiontest_${library}_${package}:
     extends: .Regressiontest_job
 
 %endfor
-
 
 Regression_overall_coverage:
     stage: RegressionTest
@@ -163,12 +233,51 @@ prepare_create_plots:
         when: runner_system_failure
 
 %for package in package_list:
-Regressiontest_${library}_${package}:
+Changed_Regressiontest_${library}_${package}:
     variables:
         lib_package: ${library}.${package}
     extends: .Regressiontest_changed_Job
 
 %endfor
+
+
+Changed_create_plots:
+    stage: prepare
+    before_script:
+        - source activate python36
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install pandas mako matplot
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - mkdir -p $CI_COMMIT_REF_NAME/plots
+        - python bin/02_CITests/Converter/google_charts.py  --create-layout
+        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
+        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+    artifacts:
+        paths:
+         - $CI_COMMIT_REF_NAME/plots
+    except:
+        refs:
+            - external_pull_requests
+            - ${merge_branch}
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE  =~ /${commit}/
+            %endfor
+    only:    
+        changes:
+            - ${library}/**/*
+    retry:
+        max: 2
+        when: runner_system_failure
+    when: on_failure
+    needs:
+    %for package in package_list:
+    - job: Changed_Regressiontest_${library}_${package}
+      artifacts: true
+    %endfor
+
 
 RegressionTest_Check_References:
     stage: Ref_Check

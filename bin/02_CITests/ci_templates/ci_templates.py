@@ -20,6 +20,9 @@ class CI_yml_templates(object):
         self.dif_ref_commit = "ci_dif_ref"
         self.html_commit = "ci_correct_html"
         self.create_wh_commit = "ci_create_whitelist"
+        self.simulate_commit = "ci_simulate"
+        self.check_commit = "ci_check"
+        self.regression_test_commit = "ci_regression_test"
 
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
@@ -28,7 +31,7 @@ class CI_yml_templates(object):
         self.bot_create_ref_commit = "Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/"
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
-                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit]
+                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
@@ -95,7 +98,7 @@ class CI_yml_templates(object):
                                      CI_PROJECT_NAME="${CI_PROJECT_NAME}", exit_file=self.exit_file,
                                      ch_file=self.ch_file, bot_create_ref_message=self.bot_create_ref_message,
                                      bot_create_ref_commit=self.bot_create_ref_commit, new_ref_file=self.new_ref_file,
-                                     chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", show_ref_commit=self.show_ref_commit, update_ref_commit=self.update_ref_commit)
+                                     chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", show_ref_commit=self.show_ref_commit, update_ref_commit=self.update_ref_commit, regression_test_commit=self.regression_test_commit)
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -133,7 +136,7 @@ class CI_yml_templates(object):
                                      TARGET_BRANCH="$CI_COMMIT_REF_NAME", GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}",
                                      GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
                                      Github_Repository="${Github_Repository}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
-                                     exit_file=self.exit_file)
+                                     exit_file=self.exit_file, check_commit=self.check_commit)
         yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -150,7 +153,7 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=self.merge_branch, git_url=self.git_url,
-                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library, ch_file=self.ch_file)
+                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library, ch_file=self.ch_file, simulate_commit=self.simulate_commit)
         yml_tmp = open(self.sim_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()

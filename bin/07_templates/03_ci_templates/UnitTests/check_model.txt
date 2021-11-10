@@ -27,6 +27,14 @@ stages:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+            
+%for package in package_list:
+Check_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .check_model_job
+
+%endfor
 
 .check_changed_models_job:
     stage: check
@@ -59,6 +67,48 @@ stages:
         max: 2
         when: runner_system_failure
 
+%for package in package_list:
+Check_${library}_${package}_changed_models:
+    variables:
+        lib_package: ${library}.${package}
+        package_name: ${package}  
+    extends: .check_changed_models_job
+
+%endfor
+
+.CI_check_model_job:
+    stage: check
+    before_script:
+        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+    artifacts:
+        when: on_failure
+        paths:
+            - ${library}/${lib_package}-log.txt
+            - ${library}/${lib_package}-Errorlog.txt
+        expire_in: 7 day 
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /${check_commit}/
+    retry:
+        max: 2
+        when: runner_system_failure  
+    
+            
+%for package in package_list:
+CI_Check_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .CI_check_model_job
+
+%endfor
+
+
+
 whitelist_job:
     stage: create_whitelist
     before_script:
@@ -75,24 +125,3 @@ whitelist_job:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
-
-%for package in package_list:
-Check_${library}_${package}:
-    variables:
-        lib_package: ${library}.${package}
-    extends: .check_model_job
-
-%endfor
-
-
-%for package in package_list:
-Check_${library}_${package}_changed_models:
-    variables:
-        lib_package: ${library}.${package}
-        package_name: ${package}  
-    extends: .check_changed_models_job
-
-%endfor
-
-    
-
