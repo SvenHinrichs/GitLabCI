@@ -14,8 +14,8 @@ stages:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -31,7 +31,7 @@ stages:
 %for package in package_list:
 Check_${library}_${package}:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     extends: .check_model_job
 
 %endfor
@@ -50,8 +50,8 @@ Check_${library}_${package}:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
         - external_pull_requests
@@ -62,7 +62,7 @@ Check_${library}_${package}:
             - $CI_COMMIT_MESSAGE  !~ /${commit}/
             %endfor
         changes:
-            - ${library}/${package_name}/**/*
+            - ${library}/${lib_package}/**/*
     retry:
         max: 2
         when: runner_system_failure
@@ -70,8 +70,7 @@ Check_${library}_${package}:
 %for package in package_list:
 Check_${library}_${package}_changed_models:
     variables:
-        lib_package: ${library}.${package}
-        package_name: ${package}  
+        lib_package: ${package}
     extends: .check_changed_models_job
 
 %endfor
@@ -88,8 +87,8 @@ Check_${library}_${package}_changed_models:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         variables:
@@ -102,7 +101,7 @@ Check_${library}_${package}_changed_models:
 %for package in package_list:
 CI_Check_${library}_${package}:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     extends: .CI_check_model_job
 
 %endfor

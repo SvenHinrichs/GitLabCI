@@ -427,7 +427,7 @@ def check_model_workflow():
         exit(1)
     print(f'Setting: Package {args.single_package}')
     print(f'Setting: library {args.library}')
-    #CheckModelTest._dym_check_lic()
+    CheckModelTest._dym_check_lic()
     if args.changedmodels is True:  # Test only changed or new models
         print(f'Test only changed or new models')
         model_list = CheckModelTest._get_ch_models()
@@ -463,7 +463,7 @@ def sim_example_workflow():
         exit(1)
     print(f'Setting: Package {args.single_package}')
     print(f'Setting: library {args.library}')
-    CheckModelTest._dym_check_lic()
+    #CheckModelTest._dym_check_lic()
     print(f'Simulate examples and validations')
     if args.changedmodels is True:
         print(f'Test only changed or new models')
@@ -481,7 +481,6 @@ def sim_example_workflow():
         example_list = CheckModelTest._filter_wh_models(models, wh_list)
     else:
         example_list = CheckModelTest._get_examples()
-        print("test")
         if len(example_list) == 0:
             print(f'No models in package {args.single_package}')
             exit(1)
@@ -538,11 +537,9 @@ def create_wh_workflow():
 
 if __name__ == '__main__':
     # python bin\02_CITests\UnitTests\CheckPackages\validatetest.py -DS 2019 --single-package "Airflow" --library "AixLib"
-    # python bin\02_CITests\UnitTests\CheckPackages\validatetest.py -DS 2019 --single-package "Airflow" --library "AixLib" --SimulateExamples
+    # python bin\02_CITests\UnitTests\CheckPackages\validatetest.py -DS 2019 --single-package "Airflow" --library "AixLib" --simulateexamples
     # python bin\02_CITests\UnitTests\CheckPackages\validatetest.py -DS 2019 --single-package "Airflow" --library "AixLib" --wh-library "IBPSA" --filterwhitelist
     # python bin\02_CITests\UnitTests\CheckPackages\validatetest.py -DS 2019 --repo-dir IBPSA --git-url https://github.com/ibpsa/modelica-ibpsa.git --library AixLib --wh-library IBPSA --whitelist
-
-    # Parser
     parser = argparse.ArgumentParser(description="Check and Validate single Packages")  # Configure the argument parser
     check_test_group = parser.add_argument_group("arguments to run check tests")
     check_test_group.add_argument('-s', "--single-package", metavar="AixLib.Package",

@@ -13,8 +13,8 @@ stages:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         variables:
@@ -26,7 +26,7 @@ stages:
 %for package in package_list:
 CI_simulate_${library}_${package}:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     extends: .CI_simulate_model_job
 
 %endfor
@@ -44,8 +44,8 @@ CI_simulate_${library}_${package}:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day 
     only:
         refs:
@@ -62,7 +62,7 @@ CI_simulate_${library}_${package}:
 %for package in package_list:
 simulate_${library}_${package}:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     extends: .simulate_model_job
 
 %endfor
@@ -81,8 +81,8 @@ simulate_${library}_${package}:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${lib_package}-log.txt
-            - ${library}/${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-Errorlog.txt
         expire_in: 7 day
     except:
         refs:
@@ -99,7 +99,7 @@ simulate_${library}_${package}:
 %for package in package_list:
 simulate_${library}_${package}_changed_models:
     variables:
-        lib_package: ${library}.${package}
+        lib_package: ${package}
     only:
         changes:
             - ${library}/${package_name}/**/*  

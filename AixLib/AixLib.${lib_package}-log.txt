@@ -1,0 +1,10 @@
+﻿RunScript("c:/program files/dymola 2019/insert/dymola.mos", true);
+ = true
+Successfully loaded settings file C:/Users/sven-/AppData/Roaming/DassaultSystemes/Dymola/setup.dymx
+HTTP server listening on port 44204. Only local connections allowed.
+DymolaVersionNumber()
+ = 2019.0
+Advanced.TranslationInCommandLog:=true;
+openModel("AixLib\\package.mo", true, true)
+ = true
+savelog("AixLib.${lib_package}-log.txt")

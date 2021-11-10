@@ -38,6 +38,6 @@ resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
 project_name = 'SvenHinrichs/GitLabCI'
 variable_main_list = ['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
-stage_list = ["check", "Ref_Check", "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
+stage_list = ["Ref_Check", "check",  "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
 # Pull Request Comment
 #self.post_comment_message = f'Error in regression test.\\n Compare the results on the following page {self.page_url}'
