@@ -560,7 +560,7 @@ if __name__ == '__main__':
     check_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
     check_test_group.add_argument("-wh-l", "--wh-library", help="Library to test")
     check_test_group.add_argument("--repo-dir", help="Library to test")
-    check_test_group.add_argument("--git-url", help="url repository")
+    check_test_group.add_argument("--git-url", default="https://github.com/ibpsa/modelica-ibpsa.git", help="url repository")
     check_test_group.add_argument("--wh-path", help="path of white library")
     args = parser.parse_args()  # Parse the arguments
     CRED = '\033[91m'

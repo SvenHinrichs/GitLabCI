@@ -24,21 +24,21 @@ Example
 You can use this script on the command line and point it
 to your Modelica file::
 
-	$ python html_tidy_errors.py <file> [file [...]]
+$ python html_tidy_errors.py <file> [file [...]]
 
 Note:
 -----
-	* This script uses Python 3.6 for printing syntax and
-	function parameter annotations.
-	* The script assumes that you have installed pytidylib
+* This script uses Python 3.6 for printing syntax and
+function parameter annotations.
+* The script assumes that you have installed pytidylib
 
-	`$ pip install pytidylib`
+`$ pip install pytidylib`
 
-	* You also need to install the necessary dll's and
-	your python interpreter must be able to find the files.
-	In case of trouble just put the dll in your working dir.
+* You also need to install the necessary dll's and
+your python interpreter must be able to find the files.
+In case of trouble just put the dll in your working dir.
 
-	[http://binaries.html-tidy.org/](http://binaries.html-tidy.org/)
+[https://binaries.html-tidy.org/](https://binaries.html-tidy.org/)
 """
 
 
@@ -46,23 +46,21 @@ class HTML_Tidy(object):
     """Class to Check Packages and run CheckModel Tests"""
     """Import Python Libraries"""
 
-    def __init__(self, package, rootDir, correct_overwrite, correct_backup, log, font, align, WhiteList, correct_view,
+    def __init__(self, package, correct_overwrite, correct_backup, log, font, align, correct_view,
                  library, wh_library):
         self.package = package
-        self.rootDir = rootDir
         self.correct_overwrite = correct_overwrite
         self.correct_backup = correct_backup
         self.log = log
         self.font = font
         self.align = align
-        self.WhiteList = WhiteList
         self.correct_view = correct_view
         self.library = library
         self.wh_library = wh_library
-        sys.path.append('../bin/02_CITests')
-        from _config import html_wh_file
+        sys.path.append('bin/02_CITests')
+        from _config import exit_file, html_wh_file
+        self.exit_file = exit_file
         self.html_wh_file = html_wh_file
-
         self.CRED = '\033[91m'
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
@@ -180,8 +178,8 @@ class HTML_Tidy(object):
 				The name of a Modelica source file.
 		Returns
 		-------
-		list
-				The list of strings of the info and revisions section. """
+		The list of strings of the info and revisions section. """
+
         with open(moFile, mode="r", encoding="utf-8-sig") as f:
             lines = f.readlines()
         nLin = len(lines)
@@ -211,17 +209,14 @@ class HTML_Tidy(object):
                         isTagClosed = False
         return entries
 
-    def _correct_overwrite(self, moFulNam, document_corr):
-        """ This function overwrites the old modeilca files with
-       	the corrected files """
+    def _correct_overwrite(self, moFulNam,
+                           document_corr):  # This function overwrites the old modelica files with the corrected files
         os.remove(moFulNam)
         newfile = open(moFulNam, "w+b")
         newfile.write(document_corr.encode("utf-8"))
 
-    def _backup_old_files(self, moFulNam, document_corr, file_counter):
-        """
-		This function backups the root folder and creates
-		the corrected files """
+    def _backup_old_files(self, moFulNam, document_corr,
+                          file_counter):  # This function backups the root folder and creates the corrected files
         rootDir = self.package.replace(".", os.sep)
         if os.path.exists(rootDir + "_backup") is False and file_counter == 1:
             shutil.copytree(rootDir, rootDir + "_backup")
@@ -230,58 +225,45 @@ class HTML_Tidy(object):
         newfile = open(moFulNam, "w+b")
         newfile.write(document_corr.encode("utf-8"))
 
-    def _return_logfile(self, errMsg):
-        """
-		This function creates the logfile
-		"""
-        rootDir = self.package.replace(".", os.sep)
-        File = rootDir + os.sep + "HTML-logfile.txt"
-        logfile = open(File, "w")
-        if len(errMsg) >= 0:
-            for line in errMsg:
-                logfile.write(line + '\n')
-        logfile.close()
-        return File
+    def _return_logfile(self, err_message):  # This function creates the logfile
+        htmL_log_file = f'{self.package.replace(".", os.sep)}{os.sep}HTML-logfile.txt'
+        log_file = open(htmL_log_file, "w")
+        if len(err_message) >= 0:
+            for error in err_message:
+                log_file.write(error + '\n')
+        logfilelog_file.close()
+        return htmL_log_file
 
-    def read_logFile(self, File):
-        exitFile = "bin" + os.sep + "06_Configfiles" + os.sep + "exit.sh"
-        font = self.font
-        align = self.align
-        logfile = open(File, "r")
-        Exit = open(exitFile, "w")
-        ErrList = []
-        for i in logfile:
-            FileTag = i.find("--")
-            FileNameTag = i.find(".mo")
-            ErrWhiteList_table = "Warning: The summary attribute on the <table> element is obsolete in HTML5"
-            ErrWhiteList_font = "Warning: <font> element removed from HTML5"
-            ErrWhiteList_align = 'Warning: <p> attribute "align" not allowed for HTML5'
-            i = i.replace("\n", "")
-            ErrorList = "Warning"
-            if i.find(ErrWhiteList_table) > -1:
+    def read_logFile(self, file):  # read logfile for possible errors
+        log_file = open(file, "r")
+        lines = log_file.readlines()
+        err_list = []
+        for line in lines:
+            line = line.replace("\n", "")
+            if line.find("Warning: The summary attribute on the <table> element is obsolete in HTML5") > -1:
                 continue
-            if font == False:
-                if i.find(ErrWhiteList_font) > -1:
+            if self.font is False:
+                if line.find("Warning: <font> element removed from HTML5") > -1:
                     continue
-            if align == False:
-                if i.find(ErrWhiteList_align) > -1:
+            if self.align is False:
+                if line.find('Warning: <p> attribute "align" not allowed for HTML5') > -1:
                     continue
-            if FileTag > -1 and FileNameTag > -1:
+            if line.find("--") > -1 and line.find(".mo") > -1:
                 continue
-            elif i.find(ErrorList) > -1:
-                ErrList.append(i)
-
-        logfile.close()
-        if len(ErrList) > 0:
+            elif line.find("Warning") > -1:
+                err_list.append(line)
+        log_file.close()
+        exit_file = open(self.exit_file, "w")
+        if len(err_list) > 0:
             print("Syntax Error: Check HTML-logfile")
-            Exit.write("#!/bin/bash" + "\n" + "\n" + "exit 1")
-            Exit.close()
+            exit_file.write("#!/bin/bash" + "\n" + "\n" + "exit 1")
+            exit_file.close()
             var = 1
             return (var)
         else:
             print("HTML Check was successful!")
-            Exit.write("#!/bin/bash" + "\n" + "\n" + "exit 0")
-            Exit.close()
+            exit_file.write("#!/bin/bash" + "\n" + "\n" + "exit 0")
+            exit_file.close()
             var = 0
             return var
 
@@ -296,7 +278,6 @@ class HTML_Tidy(object):
 								section.
 		"""
 
-        align = self.align
         with io.open(moFile, mode="r", encoding="utf-8-sig") as f:
             lines = f.readlines()
             nLin = len(lines)
@@ -557,57 +538,63 @@ class HTML_Tidy(object):
                     line = ""
         return line, CloseFound
 
-    def _listAllModel(self):  # List AixLib and IBPSA model
-        rootdir = self.package
-        rootdir = rootdir.replace(".", os.sep)
-        AixLib_Model = []
+    def _list_all_model(self):  # List library and whitelist models
+        rootdir = self.package.replace(".", os.sep)
+        library_list = []
         file = open(self.html_wh_file, "r")
-        IBPSA_Models = []
-        for i in file:
-            if i.find(".mo") > -1:
-                i = i.replace(self.wh_library, self.library)
-                i = i.replace("\n", "")
-                IBPSA_Models.append(i)
+        lines = file.readlines()
+        wh_library_list = []
+        for line in lines:
+            if line.find(".mo") > -1:
+                line = line.replace(self.wh_library, self.library)
+                line = line.replace("\n", "")
+                wh_library_list.append(line)
         file.close()
-        for subdir, dirs, files in os.walk(rootdir):  # Return AixLib models
+        for subdir, dirs, files in os.walk(rootdir):  # Return library models
             for file in files:
                 filepath = subdir + os.sep + file
                 if filepath.endswith(".mo"):
                     model = filepath.replace(os.sep, ".")
-                    model = model[model.rfind("AixLib"):]
-                    AixLib_Model.append(model)
-        return AixLib_Model, IBPSA_Models
+                    model = model[model.rfind(self.library):]
+                    library_list.append(model)
+        return library_list, wh_library_list
 
-    def _ListAixLibModel(self):  # Remove IBPSA models and list all AixLib model
-        AixLib_Models, IBPSA_Models = HTML_Tidy._listAllModel(self)
-        WhiteListModel = []
-        for element in AixLib_Models:
-            for subelement in IBPSA_Models:
+    def _ListAixLibModel(self):  # Remove whitelist models and list all library model
+        library_list, wh_library_list = HTML_Tidy._list_all_model(self)
+        model_whitelist = []
+        for element in library_list:
+            for subelement in wh_library_list:
                 if element == subelement:
-                    WhiteListModel.append(element)
-        for i in WhiteListModel:
-            AixLib_Models.remove(i)
-        return AixLib_Models
+                    model_whitelist.append(element)
+        for model in model_whitelist:
+            library_list.remove(model)
+        return library_list
+
 
 class HTML_whitelist(object):
 
-    def __init__(self,wh_library,git_url):
-    def create_IBPSA_WhiteList(self):  # Create a new whiteList
-        git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-        Repo.clone_from(git_url, self.wh_library)
+    def __init__(self, wh_library, git_url):
+        self.wh_library = wh_library
+        self.git_url = git_url
+        sys.path.append('bin/02_CITests')
+        from _config import html_wh_file
+        self.html_wh_file = html_wh_file
+
+    def create_whitelist(self):  # Create a new whiteList
+        Repo.clone_from(self.git_url, self.wh_library)
         model_list = []
         for subdir, dirs, files in os.walk(self.wh_library):
             for file in files:
                 filepath = subdir + os.sep + file
                 if filepath.endswith(".mo"):
-                    model = filepath
-                    model = model.replace(os.sep, ".")
+                    model = filepath.replace(os.sep, ".")
                     model = model[model.rfind(self.wh_library):model.rfind(".mo")]
                     model_list.append(model)
         file = open(self.html_wh_file, "w")
-        for i in ModelList:
-            file.write("\n" + i + ".mo" + "\n")
+        for model in model_list:
+            file.write("\n" + model + ".mo" + "\n")
         file.close()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -632,36 +619,27 @@ if __name__ == '__main__':
                         help="Print the Correct HTML Code")
     parser.add_argument("-L", "--library", default="AixLib", help="Library to test")
     parser.add_argument("--wh_library", default="IBPSA", help="Library on whitelist")
-    parser.add_argument("--git-url", help="url repository")
+    parser.add_argument("--git-url", default="https://github.com/ibpsa/modelica-ibpsa.git", help="url repository")
 
     args = parser.parse_args()
     from html_tidy_errors import HTML_Tidy
 
     HTML_Check = HTML_Tidy(package=args.single_package,
-                           rootDir=args.path,
                            correct_overwrite=args.correct_overwrite,
                            correct_backup=args.correct_backup,
                            log=args.log,
                            font=args.font,
                            align=args.align,
-                           WhiteList=args.WhiteList,
                            correct_view=args.correct_view,
                            library=args.library,
                            wh_library=args.wh_library)
-    if args.correct_overwrite is False and args.correct_backup is False and args.log is False and args.correct_view is False:
-        print("please use -h or --help for help")
-    if args.WhiteList is True:
-        print("Create a Whitelist of IBPSA Library")
-        HTML_Check.create_IBPSA_WhiteList()
-    elif args.correct_backup is True:
+    if args.correct_backup is True:
         print("Create a Backup")
         HTML_Check.run_files()
         var = HTML_Check.run_files()
         print(var)
-
     elif args.correct_overwrite is True:
         print("Overwrite the Library")
-        # HTML_Check.run_files()
         var = HTML_Check.run_files()
         HTML = HTML_Tidy(package=args.single_package,
                          rootDir=args.path,
@@ -670,15 +648,16 @@ if __name__ == '__main__':
                          log=False,
                          font=args.font,
                          align=args.align,
-                         WhiteList=args.WhiteList,
                          correct_view=args.correct_view)
         HTML.run_files()
-        print(var)
-        print("Finish")
-
-
     elif args.correct_view is True:
         print("Print the Correct HTML Code")
         HTML_Check.run_files()
+    elif args.WhiteList is True:
+        from html_tidy_errors import HTML_whitelist
 
-        print("Finish")
+        whitelist = HTML_whitelist(wh_library=args.wh_library, git_url=args.git_url)
+        print(f'Create a whitelist of {args.wh_library} Library')
+        whitelist.create_whitelist()
+    elif args.correct_overwrite is False and args.correct_backup is False and args.log is False and args.correct_view is False:
+        print("please use -h or --help for help")

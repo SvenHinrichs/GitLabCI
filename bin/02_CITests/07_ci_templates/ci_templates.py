@@ -3,7 +3,6 @@ import os
 from mako.template import Template
 import sys
 
-
 class CI_yml_templates(object):
 
     def __init__(self, library, package_list, dymolaversion, wh_library, git_url, wh_path):
@@ -38,7 +37,7 @@ class CI_yml_templates(object):
         # files
         sys.path.append('bin/02_CITests')
         from _config import ch_file, wh_file, reg_temp_file, write_temp_file, sim_temp_file, page_temp_file, ibpsa_temp_file, main_temp_file, \
-            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file
+            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, style_check_temp_file
         self.ch_file = ch_file.replace(os.sep, "/")
         self.wh_file = wh_file.replace(os.sep, "/")
         self.eof_file = eof_file.replace(os.sep, "/")
@@ -53,6 +52,8 @@ class CI_yml_templates(object):
         self.exit_file = exit_file.replace(os.sep, "/")
         self.new_ref_file = new_ref_file.replace(os.sep, "/")
         self.chart_dir = chart_dir.replace(os.sep, "/")
+        self.html_temp_file = html_temp_file.replace(os.sep, "/")
+        self.style_check_temp_file = style_check_temp_file.replace(os.sep, "/")
         self.main_yml = main_yml_file
 
         self.image_name = image_name
@@ -71,6 +72,28 @@ class CI_yml_templates(object):
         df = pd.DataFrame(data, columns=['Package'])
         csv_file = f'bin{os.sep}02_CITests{os.sep}ci_templates{os.sep}templates{os.sep}UnitTests{os.sep}configuration.csv'
         df.to_csv(csv_file, index=False, header=True)
+
+    def _write_html_template(self):
+        mytemplate = Template(filename=self.html_temp_file)
+        yml_text = mytemplate.render(merge_branch=self.merge_branch,
+                                     except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
+                                     GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
+                                     Github_Repository="${Github_Repository}", exit_file=self.exit_file,
+                                     GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Newbranch="${Newbranch}",
+                                     Target_Branch="${Target_Branch}", Praefix_Branch="${Praefix_Branch}", CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}",
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", html_commit=self.html_commit)
+        yml_tmp = open(self.html_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
+        yml_tmp.write(yml_text.replace("\n", ""))
+        yml_tmp.close()
+
+    def _write_style_template(self):
+        mytemplate = Template(filename=self.style_check_temp_file)
+        yml_text = mytemplate.render(merge_branch=self.merge_branch,
+                                     except_commit_list=self.except_commit_list, library=self.library, dymolaversion=self.dymolaversion,
+                                        ch_file=self.ch_file)
+        yml_tmp = open(self.style_check_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
+        yml_tmp.write(yml_text.replace("\n", ""))
+        yml_tmp.close()
 
     def _write_merge_template(self):
         mytemplate = Template(filename=self.ibpsa_temp)
@@ -104,8 +127,6 @@ class CI_yml_templates(object):
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
-
-    # def _write_setting_template(self):
 
     def _write_check_template(self):
         if self.wh_library is not None:
@@ -209,7 +230,6 @@ class CI_yml_templates(object):
                 elif stage_content is True:
                     line = line.replace("-", "")
                     line = line.replace(" ", "")
-                    print("stage: " + line)
                     stage_list.append(line)
                 else:
                     continue
@@ -232,6 +252,14 @@ def _get_package(library):
 
 def _config_test():
     config_list = []
+    response = input(f'Config template: check html Syntax in models? (y/n) ')
+    if response == "y":
+        print(f'Create html template')
+        config_list.append("html")
+    response = input(f'Config template: check style of models? (y/n) ')
+    if response == "y":
+        print(f'Create style template')
+        config_list.append("style")
     response = input(f'Config template: check models? (y/n) ')
     if response == "y":
         print(f'Create check template')
@@ -254,7 +282,6 @@ def _config_test():
 def _config_settings_check():
     library = input(f'What library should test package? ')
     print(f'Setting library: {library}')
-
     package_list = _get_package(library)
     package_list_final = []
     for package in package_list:
@@ -263,7 +290,6 @@ def _config_settings_check():
             package_list_final.append(package)
             continue
     print(f'Setting packages: {package_list_final}')
-
     dymolaversion = input(f'Give the dymolaversion (e.g. 2020): ')
     print(f'Setting dymola version: {dymolaversion}')
 
@@ -320,8 +346,13 @@ if __name__ == '__main__':
             CI_Class._write_simulate_template()
         if temp == "regression":
             CI_Class._write_regression_template()
+        if temp == "html":
+            CI_Class._write_html_template()
+        if temp == "style":
+            CI_Class._write_style_template()
         if temp == "Merge":
             CI_Class._write_merge_template()
+
     variable_list = CI_Class._get_variables()
     print(f'Setting variables: {variable_list}')
     image_name = CI_Class._get_image_name()

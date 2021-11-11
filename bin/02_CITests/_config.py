@@ -18,6 +18,8 @@ write_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTe
 sim_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
 page_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
 ibpsa_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
+style_check_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}03_SyntaxTest{os.sep}style_check.txt'
+html_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}03_SyntaxTest{os.sep}html_check.txt'
 main_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
 main_yml_file = f'.gitlab-ci.yml'
 
@@ -38,6 +40,6 @@ resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
 project_name = 'SvenHinrichs/GitLabCI'
 variable_main_list = ['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COMMIT_REF_NAME', 'Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}', 'Github_Repository: SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
-stage_list = ["Ref_Check", "check",  "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
+stage_list = ["Ref_Check", "build", "HTMLCheck", "StyleCheck", "check", "openMR", "post", "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
 # Pull Request Comment
 #self.post_comment_message = f'Error in regression test.\\n Compare the results on the following page {self.page_url}'
