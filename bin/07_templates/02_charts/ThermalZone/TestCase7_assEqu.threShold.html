@@ -1,0 +1,45 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'time');
+				data.addColumn('number','assEqu.threShold_ref');
+				data.addColumn('number','assEqu.threShold');
+
+	  
+      data.addRows([
+				[0.0, 1.5, 1.5],
+				[5184000.0, 1.5, 1.5],
+      ]);
+
+      var options = {
+        chart: {
+          title: 'TestCase7.mat_assEqu.threShold',
+          subtitle: 'TestCase7'
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'bottom'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>
+</head>
+<body>
+  <div id="line_top_x"></div>
+</body>
+</html>
+

@@ -10,7 +10,7 @@ stages:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
     artifacts:
         when: on_failure
         paths:
@@ -44,9 +44,8 @@ Check_${library}_${package}:
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - model=$(git diff --raw --diff-filter=AMT HEAD^1)
-        - echo $model >  bin/03_WhiteLists/changedmodels.txt
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
+        - git diff --raw --diff-filter=AMT HEAD^1 >  ${ch_file}
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM 
     artifacts:
         when: on_failure
         paths:
@@ -83,7 +82,7 @@ Check_${library}_${package}_changed_models:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
     artifacts:
         when: on_failure
         paths:
@@ -116,10 +115,10 @@ whitelist_job:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
     artifacts:
         paths:
-            - bin/03_WhiteLists/WhiteList_CheckModel.txt
+            - ${wh_file}
         expire_in: 7 day 
     only:
         variables:

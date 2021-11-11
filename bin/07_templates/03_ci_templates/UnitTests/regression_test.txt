@@ -13,16 +13,16 @@ stages:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > bin/06_Configfiles/exit.sh
+        - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
-        - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd .. && echo 'successful' > ${exit_file}
     after_script:
-        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+        - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas mako matplot ;
-            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
+            python bin/02_CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -61,9 +61,9 @@ CI_create_plots:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/Converter/google_charts.py  --create-layout
+        - python bin/02_CITests/05_Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+        - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -85,16 +85,16 @@ CI_create_plots:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > bin/06_Configfiles/exit.sh
+        - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
-        - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd .. && echo 'successful' > ${exit_file}
     after_script:
-        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+        - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
             source activate python36 ;
             pip install pandas mako matplot ;
-            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
+            python bin/02_CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -136,7 +136,7 @@ Regression_overall_coverage:
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --coverage-only
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --coverage-only
     artifacts:
         when: on_failure
         paths:
@@ -165,9 +165,9 @@ prepare_create_plots:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/Converter/google_charts.py  --create-layout
+        - python bin/02_CITests/05_Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+        - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -194,17 +194,17 @@ prepare_create_plots:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
-        - echo 'FAIL' > bin/06_Configfiles/exit.sh
+        - echo 'FAIL' > ${exit_file}
     script:
-        - (git diff --raw --diff-filter=AMT HEAD^1) >  bin/03_WhiteLists/changedmodels.txt
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --single-package ${lib_package} --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model
-        - cd .. && echo 'successful' > bin/06_Configfiles/exit.sh
+        - (git diff --raw --diff-filter=AMT HEAD^1) > ${ch_file}
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package ${lib_package} --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model
+        - cd .. && echo 'successful' > ${exit_file}
     after_script:
-        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+        - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip";
             source activate python36;
             pip install pandas mako matplot;
-            python bin/02_CITests/Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package};
+            python bin/02_CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package};
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -251,9 +251,9 @@ Changed_create_plots:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/Converter/google_charts.py  --create-layout
+        - python bin/02_CITests/05_Converter/google_charts.py  --create-layout
         - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+        - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -300,20 +300,19 @@ RegressionTest_Check_References:
         - cd CorrectedVersion
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
-        - echo "FAIL" > bin/06_Configfiles/exit.sh
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --create-ref < ../bin/06_Configfiles/EOF.sh
+        - echo "FAIL" > ${exit_file}
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --create-ref < ../${eof_file}
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
         - cd CorrectedVersion && cd ${CI_PROJECT_NAME}
         - git ls-files --others --exclude-standard
-        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+        - if cat ${exit_file} | grep "FAIL"; then
             pushmodel=$(git ls-files --others --exclude-standard) ;
             echo $pushmodel ;
-            (git ls-files --others --exclude-standard) > bin/03_WhiteLists/new_ref.txt ;
-            (git diff --raw --diff-filter=AMT HEAD^1) > bin/03_WhiteLists/changedmodels.txt ;
-            python bin/02_CITests/deploy/deploy_artifacts.py --library AixLib --ref --new-ref;
+            (git ls-files --others --exclude-standard) > ${new_ref_file} ;
+            python bin/02_CITests/06_deploy/deploy_artifacts.py --library AixLib --ref --new-ref;
             message="Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/ [skip ci]" ;
             git add $pushmodel ;
             git commit -m "$message";
@@ -322,7 +321,7 @@ RegressionTest_Check_References:
             NC='\033[0m' ;
             echo  -e "$GREEN New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
             pip install pandas mako matplot;
-            python bin/02_CITests/Converter/google_charts.py --line-html --new-ref --single-package AixLib ;
+            python bin/02_CITests/05_Converter/google_charts.py --line-html --new-ref --single-package AixLib ;
             cd .. ; 
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
@@ -334,7 +333,7 @@ RegressionTest_Check_References:
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
-            echo 'successful' > bin/06_Configfiles/exit.sh ;
+            echo 'successful' > ${exit_file} ;
             exit 0 ;
           fi
     artifacts:
@@ -370,26 +369,25 @@ Update_Regression_Results:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}"
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        - echo 'FAIL' > bin/06_Configfiles/exit.sh
+        - echo 'FAIL' > ${exit_file}
     script:
         - mkdir CorrectedVersion
         - cd  CorrectedVersion  
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
-        - echo "FAIL" > bin/06_Configfiles/exit.sh
-        - cd ${library} && python ../bin/02_CITests/UnitTests/reference_check.py --update-ref --single-package ${library} < ../bin/06_Configfiles/EOF.sh
+        - echo "FAIL" > ${exit_file}
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --update-ref --single-package ${library} < ../${eof_file}
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36
         - export PYTHONIOENCODING=utf-8 # just in case
         - cd CorrectedVersion && cd ${CI_PROJECT_NAME}
         - git ls-files --others --exclude-standard
-        - if cat bin/06_Configfiles/exit.sh | grep "FAIL"; then
+        - if cat ${exit_file} | grep "FAIL"; then
             pushmodel=$(git ls-files --others --exclude-standard) ;
             echo $pushmodel ;
-            (git ls-files --others --exclude-standard) > bin/03_WhiteLists/new_ref.txt ;
-            (git diff --raw --diff-filter=AMT HEAD^1) > bin/03_WhiteLists/changedmodels.txt ;
-            python bin/02_CITests/deploy/deploy_artifacts.py --library ${library} --ref --updated-ref;
+            (git ls-files --others --exclude-standard) > ${new_ref_file} ;
+            python bin/02_CITests/06_deploy/deploy_artifacts.py --library ${library} --ref --updated-ref;
             message="Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/ [skip ci]" ;
             git add ${library}/Resources/ReferenceResults/Dymola/* ;
             git commit -m "$message";
@@ -398,7 +396,7 @@ Update_Regression_Results:
             NC='\033[0m' ;
             echo  -e "$GREEN New or updated reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
             pip install pandas mako matplot;
-            python bin/02_CITests/Converter/google_charts.py --line-html --update-ref --single-package ${library} ;
+            python bin/02_CITests/05_Converter/google_charts.py --line-html --update-ref --single-package ${library} ;
             cd .. ; 
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
@@ -410,7 +408,7 @@ Update_Regression_Results:
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
-            echo 'successful' > bin/06_Configfiles/exit.sh ;
+            echo 'successful' > ${exit_file} ;
             exit 0 ;
           fi
     artifacts:
@@ -437,9 +435,9 @@ plot_reference_results:
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib 
+        - python bin/02_CITests/05_Converter/google_charts.py --line-html --show-ref --single-package AixLib --library AixLib 
         - cp -r bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots 
-        - python bin/02_CITests/api_script/api_github.py --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
+        - python bin/02_CITests/04_api_script/api_github.py --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
         - exit 1
     artifacts:
         when: always

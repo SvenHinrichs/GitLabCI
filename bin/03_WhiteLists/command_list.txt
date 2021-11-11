@@ -1,4 +1,0 @@
-self.update_ref_commit = "^ci_update_ref_.*$"
-self.dif_ref_commit = "ci_dif_ref"
-self.html_commit = "ci_correct_html"
-self.create_wh_commit = "ci_create_whitelist"

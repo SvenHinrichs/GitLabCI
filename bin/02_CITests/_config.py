@@ -1,37 +1,37 @@
 import os
 
-# Whitelist files
-ch_file = f'bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
-wh_file = f'bin{os.sep}03_WhiteLists{os.sep}IBPSA_whitelist_model.txt'
+#[Whitelist files]
+ch_file = f'bin{os.sep}06_Configfiles{os.sep}ci_changed_model_list.txt'
+wh_file = f'bin{os.sep}03_ci_whitelist{os.sep}model_whitelist.txt'
 exit_file = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
-new_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}new_ref.txt' 
-ref_file = f'bin{os.sep}03_WhiteLists{os.sep}ref_list.txt'
-ref_whitelist = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}ref_Whitelist.txt'
-html_wh_file = f'bin{os.sep}03_WhiteLists{os.sep}HTML_IBPSA_WhiteList.txt'
-show_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}user{os.sep}show_ref.txt'
-update_ref_file = f'bin{os.sep}03_WhiteLists{os.sep}user{os.sep}update_ref.txt'
+eof_file = f'bin{os.sep}06_Configfiles{os.sep}EOF.sh'
+new_ref_file = f'bin{os.sep}06_Configfiles{os.sep}ci_new_created_reference.txt'
+ref_file = f'bin{os.sep}06_Configfiles{os.sep}ci_reference_list.txt'
+ref_whitelist_file = f'bin{os.sep}03_ci_whitelist{os.sep}reference_check_whitelist.txt'
+html_wh_file = f'bin{os.sep}03_ci_whitelist{os.sep}html_whitelist.txt'
+show_ref_file = f'bin{os.sep}08_interact_CI{os.sep}show_ref.txt'
+update_ref_file = f'bin{os.sep}08_interact_CI{os.sep}update_ref.txt'
 
 # Ci Templates
-reg_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
-write_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
-sim_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
-page_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
-ibpsa_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
-main_temp = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
-main_yml = f'.gitlab-ci.yml'
+reg_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
+write_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
+sim_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
+page_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
+ibpsa_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
+main_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
+main_yml_file = f'.gitlab-ci.yml'
 
 temp_dir = f'bin{os.sep}07_templates{os.sep}03_ci_templates'
 
 # Charts
-chart_temp = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}google_chart.txt'
-index_temp = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}index.txt'
-layout_temp = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}layout_index.txt'
+chart_temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}google_chart.txt'
+index_temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}index.txt'
+layout_temp_file = f'bin{os.sep}07_templates{os.sep}01_google_templates{os.sep}layout_index.txt'
 
-index_path = f'bin{os.sep}07_templates{os.sep}02_charts'
 chart_dir = f'bin{os.sep}07_templates{os.sep}02_charts'
 
 # Reference files
-ref_file_path = f'Resources{os.sep}ReferenceResults{os.sep}Dymola'
+ref_file_dir = f'Resources{os.sep}ReferenceResults{os.sep}Dymola'
 resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
 
 # image_name
