@@ -225,12 +225,11 @@ class HTML_Tidy(object):
         newfile.write(document_corr.encode("utf-8"))
 
     def _return_logfile(self, err_message):  # This function creates the logfile
-        htmL_log_file = f'{self.package.replace(".", os.sep)}{os.sep}HTML-logfile.txt'
-        log_file = open(htmL_log_file, "w")
+        log_file = open(f'{self.package.replace(".", os.sep)}{os.sep}HTML-logfile.txt', "w")
         if len(err_message) >= 0:
             for error in err_message:
                 log_file.write(error + '\n')
-        logfilelog_file.close()
+        log_file.close()
         return htmL_log_file
 
     def read_logFile(self, file):  # read logfile for possible errors
