@@ -485,8 +485,6 @@ if __name__ == '__main__':
                                  action="store_true")
 
     args = parser.parse_args()  # Parse the arguments
-    sys.path.append('bin/02_CITests')  # Set files for informations, templates and storage locations
-    from _config import ref_file_path
     from google_charts import Plot_Charts
     charts = Plot_Charts(package=args.single_package, library=args.library)
 

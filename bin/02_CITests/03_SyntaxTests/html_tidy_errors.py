@@ -46,7 +46,8 @@ class HTML_Tidy(object):
     """Class to Check Packages and run CheckModel Tests"""
     """Import Python Libraries"""
 
-    def __init__(self, package, rootDir, correct_overwrite, correct_backup, log, font, align, WhiteList, correct_view, library,  wh_library):
+    def __init__(self, package, rootDir, correct_overwrite, correct_backup, log, font, align, WhiteList, correct_view,
+                 library, wh_library):
         self.package = package
         self.rootDir = rootDir
         self.correct_overwrite = correct_overwrite
@@ -294,7 +295,7 @@ class HTML_Tidy(object):
 		:return: list The list of strings of the info and revisions
 								section.
 		"""
-        font = self.font
+
         align = self.align
         with io.open(moFile, mode="r", encoding="utf-8-sig") as f:
             lines = f.readlines()
@@ -309,7 +310,8 @@ class HTML_Tidy(object):
                 if idxO > -1:  # if found opening tag insert everything up to opening tag into the code list
                     code.append(lines[i][:idxO + 6])  # search for closing tag on same line as opening tag
                     idxC1 = lines[i].find("</html>")
-                    idxC2 = lines[i].find("<\html>")  # check for both, correct and incorrect html tags, because dymola except also <\html>
+                    idxC2 = lines[i].find(
+                        "<\html>")  # check for both, correct and incorrect html tags, because dymola except also <\html>
                     if idxC1 > -1:
                         idxC = idxC1
                     elif idxC2 > -1:
@@ -328,8 +330,7 @@ class HTML_Tidy(object):
                 else:
                     code.append(lines[i])
                     isTagClosed = True
-
-            else:   # check for both, correct and incorrect html tags, because dymola except also <\html>
+            else:  # check for both, correct and incorrect html tags, because dymola except also <\html>
                 idxC1 = lines[i].find("</html>")
                 idxC2 = lines[i].find("<\html>")
                 if idxC1 > -1:
@@ -363,10 +364,10 @@ class HTML_Tidy(object):
         document_corr_img = ""
         CloseFound = True
         for line in document_corr.splitlines():
-            if font == True:
+            if self.font == True:
                 line, CloseFound = HTML_Tidy.correct_font(
                     self, line, CloseFound)
-            if align == True:
+            if self.align == True:
                 line, CloseFound = HTML_Tidy.correct_p_align(
                     self, line, CloseFound)
             document_corr_img += line + '\n'
@@ -388,7 +389,8 @@ class HTML_Tidy(object):
             self, theString=htmlCorrect, substitutions_dict=substitutions_dict)
         return document_corr, errors
 
-    def htmlCorrection(self, htmlStr: str, substitutions_dict: dict = {'"': '\\"', '<br>': '<br/>', '<br/>': '<br/>'}) -> (str, str):
+    def htmlCorrection(self, htmlStr: str,
+                       substitutions_dict: dict = {'"': '\\"', '<br>': '<br/>', '<br/>': '<br/>'}) -> (str, str):
         """Returns cleaned html code and found errors
 		Calls tidylib which will produce a clean version of the html code
 		and also the errors that it has found.
@@ -431,7 +433,6 @@ class HTML_Tidy(object):
                        line[sumTag:].replace('summary=', '<caption>', 1)
                 line = (line.replace('">', '</caption>', 1))
         return line, CloseFound
-
 
     def correct_th_align(self, line, CloseFound):  # Correct algin with th and replace style="text-align"
         if CloseFound == True:
@@ -480,7 +481,6 @@ class HTML_Tidy(object):
                     closetag = line.encode("utf-8").find(b">")
                     line = (line[:pTag + 3] + tline + line[closetag + 1:])
         return line, CloseFound
-
 
     def correct_font(self, line, CloseFound):  # Replace font to style für html5
         # <h4><font color=\"#008000\">Overview</font></h4>
@@ -557,23 +557,6 @@ class HTML_Tidy(object):
                     line = ""
         return line, CloseFound
 
-    def create_IBPSA_WhiteList(self):  # Create a new whiteList
-        git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-        repo = Repo.clone_from(git_url, self.wh_library)
-        model_list = []
-        for subdir, dirs, files in os.walk(self.wh_library):
-            for file in files:
-                filepath = subdir + os.sep + file
-                if filepath.endswith(".mo"):
-                    model = filepath
-                    model = model.replace(os.sep, ".")
-                    model = model[model.rfind(self.wh_library):model.rfind(".mo")]
-                    model_list.append(model)
-        file = open(self.html_wh_file, "w")
-        for i in ModelList:
-            file.write("\n" + i + ".mo" + "\n")
-        file.close()
-
     def _listAllModel(self):  # List AixLib and IBPSA model
         rootdir = self.package
         rootdir = rootdir.replace(".", os.sep)
@@ -595,7 +578,7 @@ class HTML_Tidy(object):
                     AixLib_Model.append(model)
         return AixLib_Model, IBPSA_Models
 
-    def _ListAixLibModel(self):   # Remove IBPSA models and list all AixLib model
+    def _ListAixLibModel(self):  # Remove IBPSA models and list all AixLib model
         AixLib_Models, IBPSA_Models = HTML_Tidy._listAllModel(self)
         WhiteListModel = []
         for element in AixLib_Models:
@@ -606,10 +589,29 @@ class HTML_Tidy(object):
             AixLib_Models.remove(i)
         return AixLib_Models
 
+class HTML_whitelist(object):
+
+    def __init__(self,wh_library,git_url):
+    def create_IBPSA_WhiteList(self):  # Create a new whiteList
+        git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
+        Repo.clone_from(git_url, self.wh_library)
+        model_list = []
+        for subdir, dirs, files in os.walk(self.wh_library):
+            for file in files:
+                filepath = subdir + os.sep + file
+                if filepath.endswith(".mo"):
+                    model = filepath
+                    model = model.replace(os.sep, ".")
+                    model = model[model.rfind(self.wh_library):model.rfind(".mo")]
+                    model_list.append(model)
+        file = open(self.html_wh_file, "w")
+        for i in ModelList:
+            file.write("\n" + i + ".mo" + "\n")
+        file.close()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Run HTML correction on files, print found errors or backup old files')   # Configure the argument parser
+        description='Run HTML correction on files, print found errors or backup old files')  # Configure the argument parser
     parser.add_argument("--correct-overwrite", action="store_true", default=False,
                         help="correct html code in modelica files and overwrite old files")
     parser.add_argument("--correct-backup", action="store_true", default=False,
@@ -630,6 +632,7 @@ if __name__ == '__main__':
                         help="Print the Correct HTML Code")
     parser.add_argument("-L", "--library", default="AixLib", help="Library to test")
     parser.add_argument("--wh_library", default="IBPSA", help="Library on whitelist")
+    parser.add_argument("--git-url", help="url repository")
 
     args = parser.parse_args()
     from html_tidy_errors import HTML_Tidy
