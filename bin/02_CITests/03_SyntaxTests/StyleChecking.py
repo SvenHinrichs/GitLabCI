@@ -13,174 +13,147 @@ from git import Repo
 
 from sort_models import git_models
 
-class Git_Repository_Clone(object):
-	"""work with Repository in Git"""
-	def __init__(self, Repository):
-		self.Repository = Repository
-
-	def  _CloneRepository(self):
-		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-		repo_dir = "IBPSA"
-		repo = Repo.clone_from(git_url, repo_dir)
-		print(repo)
-
-	def _git_push_WhiteList(self):
-		WhiteList_file = "bin"+os.sep+"03_WhiteLists"+os.sep+"WhiteList_CheckModel.txt"
-		repo_dir = ""
-		try:
-			repo = Repo(repo_dir)
-			commit_message = "Update new WhiteList [ci skip]"
-			repo.git.add(WhiteList_file)
-			repo.index.commit(commit_message)
-			origin = repo.remote('origin')
-			origin.push('master')
-			repo.git.add(update=True)
-			print("repo push succesfully")
-		except Exception as e:
-			print(str(e))
-		
-
-
 class StyleCheck(object):
 	""" Class to Check the Style of Packages and Models
 	Export a HTML-Log File"""
 	
-	def __init__(self, Package, Library, tool,DymolaVersion,Changedmodels):
-		self.Package = Package 
-		self.Library = Library
-		self.tool = tool
-		self.DymolaVersion = DymolaVersion
-		self.Changedmodels = Changedmodels
-	
-	def _CheckStyle(self):
-		DymolaVersion = self.DymolaVersion
-		from dymola.dymola_interface import DymolaInterface
+	def __init__(self, package, library, dymolaversion, changed_models):
+		self.package = package
+		self.library = library
+		self.dymolaversion = dymolaversion
+		self.changed_models = changed_models
+
+		self.CRED = '\033[91m'  # Colors
+		self.CEND = '\033[0m'
+		self.green = "\033[0;32m"
+		from dymola.dymola_interface import DymolaInterface  # Load modelica python interface
 		from dymola.dymola_exception import DymolaException
-		import buildingspy.development.regressiontest as u
-		ut = u.Tester(tool = self.tool)
-		if platform.system()  == "Windows":
-			dymola = DymolaInterface(showwindow=True)
+		print(f'1: Starting Dymola instance')
+		if platform.system() == "Windows":
+			dymola = DymolaInterface()
 		else:
 			dymola = DymolaInterface(dymolapath="/usr/local/bin/dymola")
-		# Load AixLib
-		LibraryCheck = dymola.openModel(self.Library)
-		if LibraryCheck == True:
-			print("Found AixLib Library and start style check")
-		elif LibraryCheck == False:
-			print("Library Path is wrong. Please Check Path of AixLib Library Path")
+		self.dymola = dymola
+		self.dymola_exception = DymolaException()
+		self.dymola.ExecuteCommand(
+			"Advanced.TranslationInCommandLog:=true;")  # Writes all information in the log file, not only the
+
+	def _dym_check_lic(self):  # check the license
+		dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+		lic_counter = 0
+		while dym_sta_lic_available is False:
+			print(f'{self.CRED} No Dymola License is available {self.CEND} \n Check Dymola license after 180.0 seconds')
+			self.dymola.close()
+			time.sleep(180.0)
+			dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
+			lic_counter += 1
+			if lic_counter > 10:
+				if dym_sta_lic_available is False:
+					print(f'There are currently no available Dymola licenses available. Please try again later.')
+					self.dymola.close()
+					exit(1)
+		print(f'2: Using Dymola port {str(self.dymola._portnumber)} \n {self.green} Dymola License is available {self.CEND}')
+
+	def _checkstyle(self):
+		library_check = self.dymola.openModel(self.library)  # Load AixLib
+		if library_check == True:
+			print(f'Found {self.library} library and start style check')
+		elif library_check == False:
+			print(f'Path of library {self.library} is wrong. Please Check Path.')
 			exit(1)
-		
-		# Load ModelManagement
-		if platform.system()  == "Windows":
-			dymola.ExecuteCommand('cd("C:\Program Files\Dymola '+DymolaVersion+'\Modelica\Library\ModelManagement 1.1.8\package.moe");')
-		
+		if platform.system() == "Windows":  # Load ModelManagement
+			self.dymola.ExecuteCommand(
+				'cd("C:\Program Files\Dymola ' + self.dymolaversion + '\Modelica\Library\ModelManagement 1.1.8\package.moe");')
 		else:
-			dymola.ExecuteCommand('cd("/opt/dymola-'+DymolaVersion+'-x86_64/Modelica/Library/ModelManagement 1.1.8/package.moe");')
-		# Start CheckLibrary in ModelManagement
-		print("Start Style Check")
-		if self.Changedmodels == False:
-			print("Check package or model "+ self.Package)
-			dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+self.Package+'", translationStructure=false);')
-			Logfile = self.Library.replace("package.mo",self.Package+"_StyleCheckLog.html")
+			self.dymola.ExecuteCommand(
+				'cd("/opt/dymola-' + self.dymolaversion + '-x86_64/Modelica/Library/ModelManagement 1.1.8/package.moe");')
+		print("Start Style Check")  # Start CheckLibrary in ModelManagement
+		if self.changed_models is False:
+			print(f'Check package or model: {self.package}')
+			self.dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "' + self.package +'", translationStructure=false);')
+			Logfile = self.library.replace("package.mo", self.package +"_StyleCheckLog.html")
 			model_list = []
 		else:
-			changed_model_list=[]
-			list_mo_models = git_models(".mo",self.Package)
+			changed_model_list = []
+			list_mo_models = git_models(".mo", self.package)
 			model_list= list_mo_models.sort_mo_models()
-			#print(model_list)
 			if len(model_list) > 100:
 				print("Over 100 changed models. Check all models in AixLib Library")
-				print("Check AixLib Library: "+ self.Package)
-				dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+self.Package+'", translationStructure=false);')
-				Logfile = self.Library.replace("package.mo",self.Package+"_StyleCheckLog.html")
-				self.Changedmodels = False
+				print(f'Check AixLib Library: {self.package}')
+				self.dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "' + self.package + '", translationStructure=false);')
+				logfile = self.library.replace("package.mo", self.package +"_StyleCheckLog.html")
+				self.changed_models = False
 			else:
-				for l in model_list:
-					print("Check package or model "+ l)
-					path = self.Library.replace("package.mo", "")
-					dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "'+l+'", translationStructure=false);')
-					inputfile = path+l+"_StyleCheckLog.html"
-					log = codecs.open(inputfile,"r",encoding='utf8')
+				for model in model_list:
+					print(f'Check package or model {model}')
+					path = self.library.replace("package.mo", "")
+					self.dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "' + model + '", translationStructure=false);')
+					inputfile = path + model + "_StyleCheckLog.html"
+					log = codecs.open(inputfile, "r", encoding='utf8')
 					for line in log:
 						changed_model_list.append(line)
 					log.close()	
 					os.remove(inputfile)
-				path_outfile = 	"ChangedModels_StyleCheckLog.html"
-				all_logs = codecs.open(path+path_outfile, "w", encoding='utf8')
-				for i in changed_model_list:
-					all_logs.write(i)
+				all_logs = codecs.open(path + "ChangedModels_StyleCheckLog.html", "w", encoding='utf8')
+				for model in changed_model_list:
+					all_logs.write(model)
 				all_logs.close()
-				Logfile = path+path_outfile
-		dymola.close()
-		print("Style Check Complete")
-		return Logfile, model_list
+				logfile = path + "ChangedModels_StyleCheckLog.html"
+		self.dymola.close()
+		return logfile, model_list
 
 	def _StyleCheckLog_Check(self):
-		CRED = '\033[91m'
-		CEND = '\033[0m'
-		green = "\033[0;32m"
+		StyleCheck._dym_check_lic(self)
 		result = StyleCheck._CheckStyle(self)
 		inputfile = result[0]
 		model_list = result[1]
-		#print(inputfile)
-		#outputfile = self.Package+"_StyleErrorLog.html"
 		outputfile = inputfile.replace("_StyleCheckLog.html", "_StyleErrorLog.html")
-		Logfile = codecs.open(inputfile, "r", encoding='utf8')
-		ErrorLog = codecs.open(outputfile, "w", encoding='utf8')
+		log_file = codecs.open(inputfile, "r", encoding='utf8')
+		error_log = codecs.open(outputfile, "w", encoding='utf8')
 		ErrorCount = 0
-		
-		for line in Logfile:
+		for line in log_file:
 			line = line.strip()
-			if line.find("Check ok") > -1 :
+			if line.find("Check ok") > -1:
 				continue
 			if line.find("Library style check log") > -1:
 				continue
-			if self.Changedmodels == False:
-				if line.find("HTML style check log for "+ self.Package) > -1:
+			if self.changed_models is False:
+				if line.find(f'HTML style check log for {self.package}') > -1:
 					continue
-			if self.Changedmodels == True:
+			if self.changed_models is True:
 				correct = 0
-				for l in model_list:
-					if line.find("HTML style check log for "+ l) > -1:
+				for model in model_list:
+					if line.find(f'HTML style check log for {model}') > -1:
 						correct = correct + 1
 						break 
 				if correct > 0 :
 					continue
-				
 			if len(line) == 0:
 				continue
 			else:
-				print(CRED+"Error in model: \n "+CEND+line.lstrip())
+				print(f'{self.CRED}Error in model:\n{self.CEND}{line.lstrip()}')
 				ErrorCount = ErrorCount + 1 
-				ErrorLog.write(line)
-			
-			
-		Logfile.close()
-		ErrorLog.close()
-		if self.Changedmodels == False:
+				error_log.write(line)
+		log_file.close()
+		error_log.close()
+		if self.changed_models is False:
 			if ErrorCount == 0:
-				print(green+"Style Check of model or package "+self.Package+ " was successful"+CEND)
+				print(f'{self.green}Style check of model or package {self.package} was successful{self.CEND}')
 				exit(0)
 			elif ErrorCount > 0 :
-				print(CRED+"Test failed. Look in "+ self.Package + "_StyleErrorLog.html"+CEND)
+				print(f'{self.CRED}Test failed. Look in {self.package}_StyleErrorLog.html{self.CEND}')
 				exit(1)
 		else:
 			if ErrorCount == 0:
-				for l in model_list:
-					print(green+"\n Style Check of model or package "+l+ " was successful"+CEND)
+				for model in model_list:
+					print(f'{green}\n Style check of model or package {model} was successful.{self.CEND}')
 					continue
 				exit(0)
 			elif ErrorCount > 0 :
-				print(CRED+"\nTest failed. Look in "+ outputfile.lstrip() +CEND)
+				print(f'{self.CRED}\nTest failed. Look in {outputfile.lstrip()}{self.CEND}')
 				exit(1)
 			
-		
-
-### Add to the environemtn variable 'var' the value 'value'
-def _setEnvironmentVariables(var,value):
-	import os
-	import platform
-	
+def _setEnvironmentVariables(var,value):  # Add to the environemtn variable 'var' the value 'value'
 	if var in os.environ:
 		if platform.system() == "Windows":
 			os.environ[var] = value + ";" + os.environ[var]
@@ -190,34 +163,23 @@ def _setEnvironmentVariables(var,value):
 		os.environ[var] = value	
 
 if  __name__ == '__main__':
-	
-	"""Parser"""
-	# Configure the argument parser
-	parser = argparse.ArgumentParser(description = "Check the Style of Packages")
+	parser = argparse.ArgumentParser(description = "Check the Style of Packages")  # Configure the argument parser
 	check_test_group = parser.add_argument_group("arguments to run check tests")
-	check_test_group.add_argument("-t", "--tool", metavar="dymola",default="dymola", help="Tool for the Checking Tests. Set to Dymola")
 	check_test_group.add_argument('-s',"--single-package",metavar="AixLib.Package", help="Test only the Modelica package AixLib.Package")
 	check_test_group.add_argument("-p","--path", default=".", help = "Path where top-level package.mo of the library is located")
-	check_test_group.add_argument("-DS", "--DymolaVersion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
-	check_test_group.add_argument("-CM", "--Changedmodels",default=False, action="store_true")
-	
-	# Parse the arguments
-	args = parser.parse_args()
-	
+	check_test_group.add_argument("-DS", "--dymolaversion",default="2020", help="Version of Dymola(Give the number e.g. 2020")
+	check_test_group.add_argument("-CM", "--changed_models",default=False, action="store_true")
+	args = parser.parse_args()  # Parse the arguments
 	from StyleChecking import StyleCheck
-	
-	CheckStyleTest = StyleCheck(Package = args.single_package, 
-								Library = args.path,
-								tool = args.tool,
-								DymolaVersion = args.DymolaVersion,
-								Changedmodels = args.Changedmodels)	
-								
-	# Set path for python-dymola-interface: Operating System windows and linux
-	if platform.system()  == "Windows":
+	CheckStyleTest = StyleCheck(package=args.single_package,
+								library=args.path,
+								dymolaversion=args.dymolaversion,
+								changed_models=args.changed_models)
+	if platform.system()  == "Windows":  # Set path for python-dymola-interface: Operating System windows and linux
 		_setEnvironmentVariables("PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
 		sys.path.insert(0, os.path.join('C:\\',
                             'Program Files',
-                            'Dymola '+ args.DymolaVersion,
+                            'Dymola '+ args.dymolaversion,
                             'Modelica',
                             'Library',
                             'python_interface',
@@ -228,18 +190,10 @@ if  __name__ == '__main__':
 		_setEnvironmentVariables("LD_LIBRARY_PATH", os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32") + ":" +
 								os.path.join(os.path.abspath('.'),"Resources","Library","linux64"))
 		sys.path.insert(0, os.path.join('opt',
-							'dymola-'+args.DymolaVersion+'-x86_64',
+							'dymola-'+args.dymolaversion+'-x86_64',
 							'Modelica',
 							'Library',
 							'python_interface',
 							'dymola.egg'))
-	sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
-		
-		
-	"""Start Check and Validate Test"""
-	if args.single_package:
-		single_package = args.single_package
-		
-	else:
-		single_package = None
+
 	CheckStyleTest._StyleCheckLog_Check()

@@ -5,11 +5,6 @@ stages:
     - openMR
     - Release
 
-variables:
-    Target_Branch: "master"
-    IBPSA_Repo: ${git_url}
-    Merge_Branch: ${merge_branch}
-    
 IBPSA:
     stage: IBPSA_Merge
     before_script:
@@ -26,16 +21,14 @@ IBPSA:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        
-      
     script:
         - mkdir Merge_Package
         - cd Merge_Package
-        - git clone --single-branch --branch  ${Merge_Branch} git@github.com:${Github_Repository}.git
+        - git clone --single-branch --branch  ${merge_branch} git@github.com:${Github_Repository}.git
         - ls 
         - cd ${CI_PROJECT_NAME}
         - ls 
-        - git clone ${IBPSA_Repo}
+        - git clone ${git_url}
         - cd ${library}/Resources/Scripts
         - python mergeModelicaIBPSA.py
         - cd ..
@@ -75,8 +68,6 @@ WhiteList:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        
-      
     script:
         - cd Merge_Package/${CI_PROJECT_NAME}
         - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
@@ -102,7 +93,6 @@ WhiteList:
     - job: IBPSA
       artifacts: true
     
-
 IBPSA_Pull_Request:
     stage: openMR
     only:
@@ -114,7 +104,7 @@ IBPSA_Pull_Request:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
   
     script:
-       - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch ${Target_Branch} --Correct-Branch ${Merge_Branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${merge_branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
     only:
         - IBPSA_Merge
     except:    

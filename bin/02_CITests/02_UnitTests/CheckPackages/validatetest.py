@@ -46,8 +46,8 @@ class ValidateTest(object):
         self.CRED = '\033[91m'  # Colors
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
-        # Load modelica python interface
-        from dymola.dymola_interface import DymolaInterface
+
+        from dymola.dymola_interface import DymolaInterface  # Load modelica python interface
         from dymola.dymola_exception import DymolaException
         print(f'1: Starting Dymola instance')
         if platform.system() == "Windows":
