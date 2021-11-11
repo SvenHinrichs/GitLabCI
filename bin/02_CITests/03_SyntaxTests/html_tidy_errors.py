@@ -3,7 +3,7 @@ import io
 import argparse
 import shutil
 from git import Repo
-
+import sys
 # ! /usr/bin/env python3.6
 # -*- coding: utf-8 -*-
 """View errors in the HTML code of a Modelica .mo file
