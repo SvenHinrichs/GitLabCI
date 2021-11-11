@@ -242,9 +242,12 @@ class Extended_model(object):
         self.library = library
         self.dymolaversion = dymolaversion
         self.path = path
-        self.changed_file = f'..{os.sep}bin{os.sep}03_WhiteLists{os.sep}changedmodels.txt'
-        self.resource_file_path = f'Resources{os.sep}Scripts{os.sep}Dymola{os.sep}{self.package.replace(self.library + ".", "")}'
+        sys.path.append('../bin/02_CITests')
+        from _config import ch_file, resource_dir
+        self.changed_file = f'..{os.sep}{ch_file}'
+        self.resource_file_path = f'{resource_dir}{os.sep}{self.package.replace(self.library + ".", "")}'
         self.package_path = f'{self.package}'
+
         self.CRED = '\033[91m'  # Color
         self.CEND = '\033[0m'
         self.green = "\033[0;32m"
@@ -479,7 +482,6 @@ if __name__ == '__main__':
     unit_test_group.add_argument("-p", "--path",
                                  default=".",
                                  help="Path where top-level package.mo of the library is located")
-
     unit_test_group.add_argument("-L", "--library", default="AixLib", help="Library to test")
     unit_test_group.add_argument("-n", "--number-of-processors", type=int, default=multiprocessing.cpu_count(),
                                  help='Maximum number of processors to be used')
