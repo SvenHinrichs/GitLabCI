@@ -46,7 +46,7 @@ Check_HTML:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
-        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
             echo "Second test was not successful!"
             echo "Read HTML - logfile!"
@@ -72,7 +72,7 @@ Merge_Checks:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
-        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
             echo "HTML Check was not successfully"
             echo "Read HTML - logfile!"
@@ -110,12 +110,12 @@ HTML_Check:
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
             mkdir CorrectedVersion &&  cd CorrectedVersion ;
             git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git;
             cd ${CI_PROJECT_NAME};
-            python bin/02_CITests/SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
+            python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
             message="Correct HTML Code";
             git add . ;

@@ -25,17 +25,15 @@ IBPSA:
         - mkdir Merge_Package
         - cd Merge_Package
         - git clone --single-branch --branch  ${merge_branch} git@github.com:${Github_Repository}.git
-        - ls 
         - cd ${CI_PROJECT_NAME}
-        - ls 
         - git clone ${git_url}
         - cd ${library}/Resources/Scripts
         - python mergeModelicaIBPSA.py
         - cd ..
         - cd ..
         - cd .. 
-        - python bin/02_CITests/deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "${library}/Resources/Scripts"
-        - python bin/02_CITests/deploy/IBPSA_Merge/correct_userguide.py
+        - python bin/02_CITests/06_deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "${library}/Resources/Scripts"
+        - python bin/02_CITests/06_deploy/IBPSA_Merge/correct_userguide.py
         - rm -r modelica-ibpsa
     only:
         - ${merge_branch}
@@ -52,7 +50,6 @@ IBPSA:
         expire_in: 6 h     
 
 WhiteList:
-    
     stage: Update_WhiteList
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
@@ -70,14 +67,13 @@ WhiteList:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
         - cd Merge_Package/${CI_PROJECT_NAME}
-        - python bin/02_CITests/SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
-        - python bin/02_CITests/UnitTests/CheckPackages/validatetest.py --WhiteList -DS ${dymolaversion} -s ${library} # Update WhiteList for CheckPackages
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py --whitelist -DS ${dymolaversion} -s ${library} 
         - rm  -r IBPSA 
         - message="${bot_commit}"
         - git add  . 
         - git commit -m "$message" 
         - git push --force git@github.com:${Github_Repository}.git
-           
     only:
         - IBPSA_Merge
     except:   
@@ -104,9 +100,9 @@ IBPSA_Pull_Request:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
   
     script:
-       - python bin/02_CITests/deploy/IBPSA_Merge/PR_IPBSA_Merge.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${merge_branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       - python bin/02_CITests/04_api_script/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${merge_branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
     only:
-        - IBPSA_Merge
+        - ${merge_branch}
     except:    
         refs: 
             - external_pull_requests

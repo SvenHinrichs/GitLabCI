@@ -44,7 +44,6 @@ In case of trouble just put the dll in your working dir.
 
 class HTML_Tidy(object):
     """Class to Check Packages and run CheckModel Tests"""
-    """Import Python Libraries"""
 
     def __init__(self, package, correct_overwrite, correct_backup, log, font, align, correct_view,
                  library, wh_library):

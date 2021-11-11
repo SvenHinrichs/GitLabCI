@@ -22,6 +22,10 @@ class StyleCheck(object):
 		self.library = library
 		self.dymolaversion = dymolaversion
 		self.changed_models = changed_models
+		sys.path.append('bin/02_CITests')
+		from _config import exit_file, html_wh_file
+		self.exit_file = exit_file
+		self.html_wh_file = html_wh_file
 
 		self.CRED = '\033[91m'  # Colors
 		self.CEND = '\033[0m'
@@ -71,17 +75,16 @@ class StyleCheck(object):
 		if self.changed_models is False:
 			print(f'Check package or model: {self.package}')
 			self.dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "' + self.package +'", translationStructure=false);')
-			Logfile = self.library.replace("package.mo", self.package +"_StyleCheckLog.html")
+			logfile = self.library.replace("package.mo", self.package +"_StyleCheckLog.html")
 			model_list = []
 		else:
 			changed_model_list = []
-			list_mo_models = git_models(".mo", self.package)
-			model_list= list_mo_models.sort_mo_models()
+			model_list = StyleCheck._sort_mo_models(self)
 			if len(model_list) > 100:
 				print("Over 100 changed models. Check all models in AixLib Library")
 				print(f'Check AixLib Library: {self.package}')
 				self.dymola.ExecuteCommand('ModelManagement.Check.checkLibrary(false, false, false, true, "' + self.package + '", translationStructure=false);')
-				logfile = self.library.replace("package.mo", self.package +"_StyleCheckLog.html")
+				logfile = self.library.replace("package.mo", self.package + "_StyleCheckLog.html")
 				self.changed_models = False
 			else:
 				for model in model_list:
@@ -101,6 +104,22 @@ class StyleCheck(object):
 				logfile = path + "ChangedModels_StyleCheckLog.html"
 		self.dymola.close()
 		return logfile, model_list
+
+	def _sort_mo_models(self):
+		changed_file= codecs.open(self.exit_file, "r", encoding='utf8')
+		model_list = []
+		lines = changed_file.readlines()
+		for line in lines:
+			if line.rfind(".mo") > -1:
+				model = line[line.rfind(self.package):line.rfind(".mo")].replace(os.sep, ".")
+				model = model.lstrip()
+				model_list.append(model)
+				continue
+		changed_file.close()
+		if len(model_list) == 0:
+			print("No Models to check")
+			exit(0)
+		return model_list
 
 	def _StyleCheckLog_Check(self):
 		StyleCheck._dym_check_lic(self)
