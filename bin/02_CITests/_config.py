@@ -13,11 +13,11 @@ show_ref_file = f'bin{os.sep}08_interact_CI{os.sep}show_ref.txt'
 update_ref_file = f'bin{os.sep}08_interact_CI{os.sep}update_ref.txt'
 
 # Ci Templates
-reg_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}regression_test.txt'
-write_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}check_model.txt'
-sim_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}UnitTests{os.sep}simulate_model.txt'
-page_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}gitlab_pages.txt'
-ibpsa_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}deploy{os.sep}IBPSA_Merge.txt'
+reg_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}02_UnitTests{os.sep}regression_test.txt'
+write_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}02_UnitTests{os.sep}check_model.txt'
+sim_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}02_UnitTests{os.sep}simulate_model.txt'
+page_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}01_deploy{os.sep}gitlab_pages.txt'
+ibpsa_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}01_deploy{os.sep}IBPSA_Merge.txt'
 style_check_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}03_SyntaxTest{os.sep}style_check.txt'
 html_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}03_SyntaxTest{os.sep}html_check.txt'
 main_temp_file = f'bin{os.sep}07_templates{os.sep}03_ci_templates{os.sep}gitlab-ci.txt'
@@ -35,6 +35,9 @@ chart_dir = f'bin{os.sep}07_templates{os.sep}02_charts'
 # Reference files
 ref_file_dir = f'Resources{os.sep}ReferenceResults{os.sep}Dymola'
 resource_dir = f'Resources{os.sep}Scripts{os.sep}Dymola'
+
+# Setting file
+setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.txt'
 
 # image_name
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'

@@ -19,6 +19,7 @@ class CI_yml_templates(object):
         self.dif_ref_commit = "ci_dif_ref"
         self.html_commit = "ci_correct_html"
         self.create_wh_commit = "ci_create_whitelist"
+        self.create_html_wh_commit = "ci_create_html_whitelist"
         self.simulate_commit = "ci_simulate"
         self.check_commit = "ci_check"
         self.regression_test_commit = "ci_regression_test"
@@ -30,17 +31,20 @@ class CI_yml_templates(object):
         self.bot_create_ref_commit = "Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/"
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
-                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit]
+                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
+                                   self.create_html_wh_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
         # files
         sys.path.append('bin/02_CITests')
         from _config import ch_file, wh_file, reg_temp_file, write_temp_file, sim_temp_file, page_temp_file, ibpsa_temp_file, main_temp_file, \
-            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, style_check_temp_file
+            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, html_wh_file,\
+            style_check_temp_file, setting_file
         self.ch_file = ch_file.replace(os.sep, "/")
         self.wh_file = wh_file.replace(os.sep, "/")
         self.eof_file = eof_file.replace(os.sep, "/")
+        self.html_wh_file = html_wh_file.replace(os.sep, "/")
 
         self.reg_temp = reg_temp_file.replace(os.sep, "/")
         self.write_temp = write_temp_file.replace(os.sep, "/")
@@ -55,6 +59,7 @@ class CI_yml_templates(object):
         self.html_temp_file = html_temp_file.replace(os.sep, "/")
         self.style_check_temp_file = style_check_temp_file.replace(os.sep, "/")
         self.main_yml = main_yml_file
+        self.setting_file = setting_file
 
         self.image_name = image_name
         self.project_name = project_name
@@ -81,7 +86,8 @@ class CI_yml_templates(object):
                                      Github_Repository="${Github_Repository}", exit_file=self.exit_file,
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Newbranch="${Newbranch}",
                                      Target_Branch="${Target_Branch}", Praefix_Branch="${Praefix_Branch}", CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}",
-                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", html_commit=self.html_commit)
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", html_commit=self.html_commit, create_html_wh_commit=self.create_html_wh_commit,
+                                     html_wh_file=self.html_wh_file)
         yml_tmp = open(self.html_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -244,6 +250,16 @@ class CI_yml_templates(object):
                     new_list.append(stage)
         return new_list
 
+    def _write_settings(self, image_name, stage_list, variable_list, project, file_list):  # write CI setting
+        mytemplate = Template(filename=self.setting_file)
+        yml_text = mytemplate.render(library=self.library, wh_library=self.wh_library, dymolaversion=self.dymolaversion,
+                                     package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
+                                     image_name=image_name, project_name=project, variable_main_list=variable_list,
+                                      except_commit_list=self.except_commit_list, file_list=file_list)
+        yml_tmp = open(self.setting_file.replace(".txt", ".html"), "w")
+        yml_tmp.write(yml_text.replace("\n", ""))
+        yml_tmp.close()
+
 
 def _get_package(library):
     for subdir, dirs, files in os.walk(library):
@@ -277,7 +293,6 @@ def _config_test():
         print(f'Create merge template')
         config_list.append("Merge")
     return config_list
-
 
 def _config_settings_check():
     library = input(f'What library should test package? ')
@@ -326,6 +341,9 @@ if __name__ == '__main__':
 
     from ci_templates import CI_yml_templates
 
+    sys.path.append('bin/02_CITests')
+    from _config import setting_file
+
     config_list = _config_test()
     if len(config_list) == 0:
         exit(0)
@@ -364,3 +382,5 @@ if __name__ == '__main__':
     stage_list = CI_Class._get_stages(file_list)
     print(f'Setting stages: {stage_list}')
     CI_Class._write_main_yml(image_name, stage_list, variable_list, project, file_list)
+    CI_Class._write_settings(image_name, stage_list, variable_list, project, file_list)
+    print(f'The CI settings are saved in file {setting_file}')

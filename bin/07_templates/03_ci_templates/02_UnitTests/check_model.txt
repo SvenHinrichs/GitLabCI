@@ -105,20 +105,34 @@ CI_Check_${library}_${package}:
 
 %endfor
 
-
-
 whitelist_job:
     stage: create_whitelist
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
-        - export PYTHONIOENCODING=utf-8 # just in case
+        - export PYTHONIOENCODING=utf-8 
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
+        - mkdir whitelist && cd whitelist
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
+        - message="Automatic push of CI: Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
+        - git add ${wh_file}
+        - git commit -m "$message"
+        - git push git@github.com:${Github_Repository}.git
     artifacts:
         paths:
-            - ${wh_file}
+            - whitelist/${CI_PROJECT_NAME}/${wh_file}
         expire_in: 7 day 
     only:
         variables:

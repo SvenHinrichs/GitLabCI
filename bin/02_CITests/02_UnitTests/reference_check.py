@@ -586,6 +586,11 @@ if __name__ == '__main__':
     else:
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019
         if args.modified_models is False:
+            list_reg_model = Extended_model(package=args.single_package,
+                                            library=args.library,
+                                            dymolaversion=args.dymolaversion,
+                                            path="package.mo")
+            list_reg_model._dym_check_lic()
             ret_val = ref_check._check_regression_test(args.single_package)
             exit(ret_val)
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019 -n 2 --modified-model
