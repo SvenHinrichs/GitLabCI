@@ -641,13 +641,14 @@ if __name__ == '__main__':
         print("Overwrite the Library")
         var = HTML_Check.run_files()
         HTML = HTML_Tidy(package=args.single_package,
-                         rootDir=args.path,
                          correct_overwrite=args.correct_overwrite,
                          correct_backup=args.correct_backup,
                          log=False,
                          font=args.font,
                          align=args.align,
-                         correct_view=args.correct_view)
+                         correct_view=args.correct_view,
+                         library=args.library,
+                         wh_library=args.wh_library)
         HTML.run_files()
     elif args.correct_view is True:
         print("Print the Correct HTML Code")
