@@ -184,7 +184,7 @@ htmL_whitelist_job:
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList
-        - message="Automatic push of CI: Update html_whitelist. Please pull the new files before push again. [skip ci]" 
+        - message="Automatic push of CI - Update html_whitelist. Please pull the new files before push again. [skip ci]" 
         - git add ${html_wh_file}
         - git commit -m "$message"
         - git push git@github.com:${Github_Repository}.git

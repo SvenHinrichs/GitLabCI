@@ -126,7 +126,7 @@ whitelist_job:
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
-        - message="Automatic push of CI: Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
+        - message="Automatic push of CI - Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
         - git add ${wh_file}
         - git commit -m "$message"
         - git push git@github.com:${Github_Repository}.git
