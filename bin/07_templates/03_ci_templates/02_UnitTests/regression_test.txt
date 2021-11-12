@@ -15,7 +15,7 @@ stages:
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
@@ -87,7 +87,7 @@ CI_create_plots:
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
@@ -197,7 +197,7 @@ prepare_create_plots:
         - echo 'FAIL' > ${exit_file}
     script:
         - (git diff --raw --diff-filter=AMT HEAD^1) > ${ch_file}
-        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py --single-package ${lib_package} --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model
+        - cd ${library} && python ../bin/02_CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package ${lib_package} --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
