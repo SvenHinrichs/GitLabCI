@@ -67,7 +67,7 @@ HTML_Merge_Checks:
             %endfor
   
 HTML_Check:
-    stage: HTMLCheck
+    stage: HTML_Check
     before_script:
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
