@@ -35,6 +35,7 @@ class CI_yml_templates(object):
                                    self.create_html_wh_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
+        #self.correct_html_branch = "Correct_HTML_"+
 
         # files
         sys.path.append('bin/02_CITests')

@@ -1,6 +1,6 @@
 stages:
     - build
-    - HTMLCheck
+    - HTML_Check
     - create_html_whitelist
     - deploy
     - openMR
@@ -11,7 +11,7 @@ variables:
         Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}    
 
 
-trigger_branch:
+trigger_check_HTML:
     stage: build
     before_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
@@ -20,10 +20,8 @@ trigger_branch:
     script:
         - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
     after_script:
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
         - if cat ${exit_file} | grep "exit 1"; then 
-            echo "Test was not successful!"
+            echo "Test was not successful!" ;
             exit 1;
           else 
             exit 0; 
@@ -38,47 +36,19 @@ trigger_branch:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${html_commit}/
- 
-Check_HTML:
-    stage: HTMLCheck
-    before_script:
-        - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate python36  
-        - export PYTHONIOENCODING=utf-8 # just in case
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
-    script:
-        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
-        - if cat ${exit_file} | grep "exit 1"; then 
-            echo "Second test was not successful!"
-            echo "Read HTML - logfile!"
-            exit 1;
-          else 
-            exit 0; 
-          fi
-    artifacts:
-        when: on_failure
-        paths:
-            - ${library}/HTML-logfile.txt
-        expire_in: 7 day
-    only:
-        variables:
-            - $CI_COMMIT_MESSAGE =~ /${html_commit}/
             
 HTML_Merge_Checks:
-    stage: HTMLCheck
+    stage: HTML_Check
     before_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
         - export PYTHONIOENCODING=utf-8 # just in case
-        - git config --global user.name "${GITLAB_USER_NAME}" 
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
         - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
-            echo "HTML Check was not successfully"
-            echo "Read HTML - logfile!"
-            exit 1;
+            echo "HTML Check was not successfully" ;
+            echo "Read HTML - logfile!" ;
+            exit 1 ;
           else 
             exit 0; 
           fi
@@ -119,7 +89,7 @@ HTML_Check:
             cd ${CI_PROJECT_NAME};
             python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
-            message="Correct HTML Code";
+            message="ci_correct_html";
             git add . ;
             echo $message;
             git commit -m "$message" ;
@@ -155,7 +125,7 @@ Open_Pull_Request:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
-        - python bin/02_CITests/04_api_script/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${Newbranch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+        - python bin/02_CITests/04_api_script/api_github.py --github-repo ${Github_Repository} --working-branch $CI_COMMIT_REF_NAME --github-token ${GITHUB_API_TOKEN} --create-pr --correct-html
     except:
         refs:
             - external_pull_requests 
