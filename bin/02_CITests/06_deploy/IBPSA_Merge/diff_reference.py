@@ -143,10 +143,10 @@ class Return_diff_files(object):
 			source = path_new+os.sep+i
 			ibp = path_new+os.sep+i.replace(self.wh_library, self.library)
 			file = pathlib.Path(ibp)
-			if file.exists ():
+			if file.exists():
 				new_ref_list.append(file)
 				continue
-			if i.find(self.wh_library)> -1 :
+			if i.find(self.wh_library) > -1 :
 				i = i.replace(self.wh_library, self.library)
 				i = path_new+os.sep+i
 				os.rename(source, i)
@@ -156,7 +156,6 @@ class Return_diff_files(object):
 		for i in new_ref_list:  # Copy New Files
 			path = path_aix
 			shutil.copy2(i, path)
-
 		for i in diff_ref:
 			path = path_aix
 			i = i.replace(self.library, self.wh_library)

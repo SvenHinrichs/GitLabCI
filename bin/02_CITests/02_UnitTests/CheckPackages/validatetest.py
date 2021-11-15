@@ -344,7 +344,7 @@ class Create_whitelist(object):
             exit(1)
         return model_list
 
-    def _dym_check_lic(self):
+    def _dym_check_lic(self):  # check dymola license
         dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
         lic_counter = 0
         while dym_sta_lic_available is False:
@@ -361,7 +361,7 @@ class Create_whitelist(object):
         print(f'2: Using Dymola port {str(self.dymola._portnumber)}\n{self.green}Dymola License is available{self.CEND}')
 
 
-    def _check_wh_model(self, model_list):
+    def _check_wh_model(self, model_list):  # check models for creating whitelist
         package_check = self.dymola.openModel(self.wh_lib_path)
         if package_check is True:
             print(f'Found {self.wh_lib} Library and check models in library {self.wh_lib} \n')
@@ -386,7 +386,7 @@ class Create_whitelist(object):
         self.dymola.close()
         return error_model, error_message
 
-    def _write_exit_log(self, version_check):
+    def _write_exit_log(self, version_check):  # write entry in exit file
         exit = open(self.exit_file, "w")
         if version_check is False:
             exit.write(f'FAIL')
@@ -395,7 +395,7 @@ class Create_whitelist(object):
         exit.close()
 
 
-    def _write_whitelist(self, error_model_list, version):
+    def _write_whitelist(self, error_model_list, version):  # write a new whitelist
         wh_file = open(self.wh_file, "w")
         wh_file.write(f'\n{version} \n \n')
         for model in error_model_list:
@@ -404,7 +404,7 @@ class Create_whitelist(object):
         wh_file.close()
 
 
-def _setEnvironmentVariables(var, value):  # Add to the environemtn variable 'var' the value 'value'
+def _setEnvironmentVariables(var, value):  # Add to the environment variable 'var' the value 'value'
     import os
     import platform
     if var in os.environ:
