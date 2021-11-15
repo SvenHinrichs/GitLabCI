@@ -109,6 +109,7 @@ HTML_Check:
         refs:
             - external_pull_requests
             - ${merge_branch} 
+			- $Newbranch
     only:
         variables:
             %for commit in except_commit_list:

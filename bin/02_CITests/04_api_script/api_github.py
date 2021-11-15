@@ -3,7 +3,7 @@ import json
 import argparse
 import os
 import sys 
-
+import time
 
 class GET_API_GITHUB(object):
 
@@ -25,20 +25,19 @@ class GET_API_GITHUB(object):
 				return pull["number"]
 
 	def _get_github_username(self):
-		url = "https://api.github.com/repos/" + self.GITHUB_REPOSITORY + "/branches/" + self.Working_Branch
+		branch = self.working_branch.replace("Correct_HTML_", "")
+		url = f'https://api.github.com/repos/{self.github_repo}/branches/{branch}'
 		payload = {}
 		headers = {}
 		response = requests.request("GET", url, headers=headers, data=payload)
 		branch = response.json()
 		commit = branch["commit"]
-		author = commit["author"]
-		login = author["login"]
+		commit = commit["author"]
+		login = commit["login"]
 		return login
 
 	def return_owner(self):
-		owner = self.GITHUB_REPOSITORY
-		owner = owner.split("/")
-		print(owner[0])
+		owner = self.github_repo.split("/")
 		return owner[0]
 
 class PULL_REQUEST_GITHUB(object):
@@ -56,44 +55,43 @@ class PULL_REQUEST_GITHUB(object):
 			'Authorization': 'Bearer '+self.github_token,
 			'Content-Type': 'application/json'
 		}
-		response = requests.request("POST", url, headers=headers, data = payload)
+		response = requests.request("POST", url, headers=headers, data=payload)
 		return response
 
 	def _post_pr_correct_html(self, owner):
-		url = "https://api.github.com/repos/" + self.github_repo + "/pulls"
-		payload = '{\n    \"title\": \"Corrected HTML Code in branch ' + self.working_branch + '\",\n    \"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository. **Delete** the Branch ' + self.correct_branch + '\",\n    \"head\": \"' + owner + ':' + self.correct_branch + '\",\n    \"base\": \"' + self.working_branch + '\"\n  \n}'
+		branch = self.working_branch.replace("Correct_HTML_", "")
+		title = f'\"title\":\"Corrected HTML Code in branch {self.working_branch}\"'
+		body = f'\"body\":\"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository. **Delete** the Branch {self.working_branch}\"'
+		head = f'\"head\":\"{owner}:{self.working_branch}\"'
+		base = f'\"base\":\"{branch}\"'
+		message = f'\n	{title},\n	{body},\n	{head},\n	{base}\n'
+		url = f'https://api.github.com/repos/{self.github_repo}/pulls'
+		payload = "{"+message+"}"
 		headers = {
 			'Authorization': 'Bearer ' + self.github_token,
 			'Content-Type': 'application/json'
 		}
 		response = requests.request("POST", url, headers=headers, data=payload)
-		print(response.text.encode('utf8'))
-
-	def _post_comment_correct_html(self, owner):
-		url = "https://api.github.com/repos/" + self.github_repo + "/pulls"
-		payload = '{\n    \"title\": \"Corrected HTML Code in branch ' + self.working_branch + '\",\n    \"body\": \"Merge the corrected HTML Code. After confirm the pull request, **pull** your branch to your local repository. **Delete** the Branch ' + self.correct_branch + '\",\n    \"head\": \"' + owner + ':' + self.correct_branch + '\",\n    \"base\": \"' + self.working_branch + '\"\n  \n}'
-		headers = {
-			'Authorization': 'Bearer ' + self.github_token,
-			'Content-Type': 'application/json'
-		}
-		response = requests.request("POST", url, headers=headers, data=payload)
-		print(response.text.encode('utf8'))
+		return response
 
 	def _update_pr_assignees_correct_html(self, pr_number, assignees_owner):
-		url = "https://api.github.com/repos/" + self.github_repo + "/issues/" + str(pr_number)
-		payload = '{ \"assignees\": [\r\n    \"' + assignees_owner + '\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"Correct HTML\"\r\n    \r\n  ]\r\n}'
+		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}'
+		assignees = f'\"assignees\":[\"{assignees_owner}\"]'
+		labels = f'\"labels\":[\"CI\", \"Correct HTML\"]'
+		payload = "{\r\n" + assignees + ",\r\n" + labels + "\r\n}"
 		headers = {
 			'Authorization': 'Bearer ' + self.github_token,
 			'Content-Type': 'application/json'
 		}
 		response = requests.request("PATCH", url, headers=headers, data=payload)
+		print(response.text.encode('utf8'))
 		print("User " + assignees_owner + " assignee to pull request Number " + str(pr_number))
 
 	def _update_pr_assignees_IPBSA_Merge(self, pr_number, assignees_owner):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}'
 		payload = '{ \"assignees\": [\r\n    \"'+assignees_owner+'\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"IBPSA_Merge\"\r\n    \r\n  ]\r\n}'
 		headers = {
-		  'Authorization': 'Bearer '+ self.github_token,
+		  'Authorization': 'Bearer ' + self.github_token,
 		  'Content-Type': 'application/json'
 		}
 		response = requests.request("PATCH", url, headers=headers, data = payload)
@@ -103,13 +101,15 @@ class PULL_REQUEST_GITHUB(object):
 	def _post_comment_regression(self, pr_number):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
 		message = f'Errors in regression test. Compare the results on the following page\\n {page_url}'
-		payload = "{\"body\":\"" + message + "\"}"
+		body = f'\"body\":\"{message}\"'
+		payload = "{"+body+"}"
 		headers = {
 			'Authorization': 'Bearer ' + self.github_token,
 			'Content-Type': 'application/json'
 		}
 		response = requests.request("POST", url, headers=headers, data=payload)
 		print(response.text)
+
 	def _post_comment_show_plots(self, pr_number):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
 		message = f'Reference results have been displayed graphically and are created under the following page {page_url}'
@@ -120,9 +120,6 @@ class PULL_REQUEST_GITHUB(object):
 		}
 		response = requests.request("POST", url, headers=headers, data=payload)
 		print(response.text)
-
-
-	
 
 
 if  __name__ == '__main__':
@@ -162,13 +159,15 @@ if  __name__ == '__main__':
 			pull_request._post_comment_show_plots(pr_number, page_url)
 	if args.create_pr is True:
 		if args.correct_html is True:
+			print(args.working_branch)
 			pull_request = PULL_REQUEST_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch,
 											   github_token=args.github_token)
 			get_api = GET_API_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch)
 			owner = get_api.return_owner()
 			pr_response = pull_request._post_pr_correct_html(owner)
-			pr_number = pull_request._get_pr_number()
+			time.sleep(3)
+			pr_number = get_api._get_pr_number()
 			print(f'Setting pull request number: {pr_number}')
-			assignees_owner = GET_API_DATA.get_GitHub_Username()
+			assignees_owner = get_api._get_github_username()
 			pull_request._update_pr_assignees_correct_html(pr_number, assignees_owner)
 			exit(0)
