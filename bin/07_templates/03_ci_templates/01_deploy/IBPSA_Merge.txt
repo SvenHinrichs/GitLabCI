@@ -99,7 +99,7 @@ IBPSA_Pull_Request:
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
-       - python bin/02_CITests/04_api_script/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${merge_branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
+       - python bin/02_CITests/04_api_script/api_github.py --github-repo ${Github_Repository} --working-branch $CI_COMMIT_REF_NAME  --github-token ${GITHUB_API_TOKEN} --create-pr --ibpsa-merge
     only:
         - ${merge_branch}
     except:    
