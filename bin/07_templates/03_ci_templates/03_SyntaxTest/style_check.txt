@@ -40,14 +40,15 @@ Style_Check_ChangedModel:
     only:
         changes:
             - ${library}/**/*
-        variables:
-            %for commit in except_commit_list:
-            - $CI_COMMIT_MESSAGE !~ /${commit}/
-            %endfor
+        
     except:
         refs:
             - external_pull_requests
             - ${merge_branch} 
+        variables:
+            %for commit in except_commit_list:
+            - $CI_COMMIT_MESSAGE =~ /${commit}/
+            %endfor
     artifacts:
         when: on_failure
         paths:

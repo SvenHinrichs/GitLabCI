@@ -371,7 +371,7 @@ Update_Regression_Results:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "${GITLAB_USER_NAME}"
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-        - echo 'FAIL' > ${exit_file}
+        
     script:
         - mkdir CorrectedVersion && cd CorrectedVersion
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
@@ -413,7 +413,7 @@ Update_Regression_Results:
             exit 0 ;
           fi
     artifacts:
-        when: on_failure
+        when: always
         paths:
             - data
             - $CI_COMMIT_REF_NAME/plots
