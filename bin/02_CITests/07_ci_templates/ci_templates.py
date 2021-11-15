@@ -23,7 +23,7 @@ class CI_yml_templates(object):
         self.simulate_commit = "ci_simulate"
         self.check_commit = "ci_check"
         self.regression_test_commit = "ci_regression_test"
-        self.ci_html_commit = "ci_check_html"
+        self.ci_html_commit = "ci_html"
 
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
