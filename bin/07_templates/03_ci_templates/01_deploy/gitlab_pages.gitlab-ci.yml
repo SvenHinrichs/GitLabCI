@@ -13,8 +13,6 @@ pages:
         paths:
          - public
         expire_in: 7h
-    only:
-        - external_pull_requests
     when: always
     allow_failure: true 
     
