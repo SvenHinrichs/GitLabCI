@@ -195,7 +195,7 @@ class ValidateTest(object):
                     ex_file.close()
         return example_list
 
-    def _get_ch_examples(self):
+    def _get_ch_examples(self):  # list all changed examples in package
         changed_models = open(self.ch_file, "r", encoding='utf8',
                               errors='ignore')
         example_list = []
