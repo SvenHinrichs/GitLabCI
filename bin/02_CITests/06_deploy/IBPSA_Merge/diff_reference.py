@@ -30,7 +30,7 @@ def createFolder(directory):
         print ('Error: Creating directory. ' +  directory)
 
 
-def diff_mos(path_aix_mos,path_ibpsa_mos,path_diff_mos,path_new_mos):
+def diff_mos(path_aix_mos, path_ibpsa_mos, path_diff_mos, path_new_mos):
 	
 	aix_mos_files = glob.glob(path_aix_mos+os.sep+'**/*.mos',recursive=True)
 	ibpsa_mos_files = glob.glob(path_ibpsa_mos+os.sep+'**/*.mos',recursive=True)
@@ -180,34 +180,14 @@ def add_new_ref(diff_ref,new_ref,path_aix,path_ibpsa,path_new,path_diff):
 	
 	for i in diff_ref:
 		path = path_aix
-		i = i.replace("AixLib","IBPSA")
+		i = i.replace("AixLib", "IBPSA")
 		source = path_ibpsa+os.sep+i
-		target = path+os.sep+i.replace("IBPSA","AixLib")
-		shutil.copy2(source,target)	
+		target = path+os.sep+i.replace("IBPSA", "AixLib")
+		shutil.copy2(source, target)
 
-def removeEmptyFolders(path, removeRoot=True):
-  #'Function to remove empty folders'
-  if not os.path.isdir(path):
-    return
 
-  # remove empty subfolders
-  files = os.listdir(path)
-  if len(files):
-    for f in files:
-      fullpath = os.path.join(path, f)
-      if os.path.isdir(fullpath):
-        removeEmptyFolders(fullpath)
-
-  # if folder empty, delete it
-  files = os.listdir(path)
-  if len(files) == 0 and removeRoot:
-    #print("Removing empty folder: "+ path)
-    os.rmdir(path)
-
-	
 if  __name__ == '__main__':
-	### Settings
-	
+
 	path_aix = "AixLib"+os.sep+"Resources"+os.sep+"ReferenceResults"+os.sep+"Dymola"
 	path_ibpsa = "modelica-ibpsa"+os.sep+"IBPSA"+os.sep+"Resources"+os.sep+"ReferenceResults"+os.sep+"Dymola"
 	
@@ -227,13 +207,13 @@ if  __name__ == '__main__':
 	
 	_CloneRepository()
 	
-	results = diff_ref(path_aix,path_ibpsa,path_diff,path_new)
+	results = diff_ref(path_aix, path_ibpsa, path_diff, path_new)
 	diff_ref = results[0]
 	new_ref = results[1]
 	
-	add_new_ref(diff_ref,new_ref,path_aix,path_ibpsa,path_new,path_diff)
+	add_new_ref(diff_ref, new_ref, path_aix, path_ibpsa, path_new, path_diff)
 		
-	mos_results = diff_mos(path_aix_mos,path_ibpsa_mos,path_diff_mos,path_new_mos)
+	mos_results = diff_mos(path_aix_mos, path_ibpsa_mos, path_diff_mos, path_new_mos)
 
 	
 	removeRoot = True
