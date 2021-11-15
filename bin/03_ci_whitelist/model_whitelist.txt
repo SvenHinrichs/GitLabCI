@@ -1,10 +1,9 @@
 
-
+ConvertAixLib_from_0.12.0_to_0.12.1 
  
 
 IBPSA.Resources.src.fluid.heatpumps.calibration.Examples.SomeManufacturer_ABC060_70kW_4_0COP_R410A 
  
-IBPSA.BoundaryConditions.InternalGains.Examples.InternalGains.BaseClasses.Humans
 
 IBPSA.Utilities.Psychrometrics.TWetBul_TDryBulXi 
  
