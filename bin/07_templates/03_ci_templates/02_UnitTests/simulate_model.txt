@@ -14,7 +14,7 @@ stages:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         variables:
@@ -45,7 +45,7 @@ CI_simulate_${library}_${package}:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         refs:
@@ -81,7 +81,7 @@ simulate_${library}_${package}:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day
     except:
         refs:

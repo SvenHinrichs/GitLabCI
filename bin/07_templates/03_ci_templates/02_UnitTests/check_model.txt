@@ -15,7 +15,7 @@ stages:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -50,7 +50,7 @@ Check_${library}_${package}:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day
     except:
         - external_pull_requests
@@ -87,7 +87,7 @@ Check_${library}_${package}_changed_models:
         when: on_failure
         paths:
             - ${library}/${library}.${lib_package}-log.txt
-            - ${library}/${library}.${lib_package}-Errorlog.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         variables:
