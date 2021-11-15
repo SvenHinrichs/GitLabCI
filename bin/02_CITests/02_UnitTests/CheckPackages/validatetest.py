@@ -4,7 +4,6 @@ import os
 import sys
 import platform
 from git import Repo
-from sort_models import git_models
 import time
 import glob
 

@@ -116,8 +116,8 @@ class Return_diff_files(object):
 			line2 = inputFile2.readline()
 			while line1 != "" or line2 != "":
 				if line1 != line2:
-					outputFile.write("AixLib: "+line1)
-					outputFile.write("IBPSA: "+line2+"\n")
+					outputFile.write(f'{self.library}: {line1}')
+					outputFile.write(f'{self.wh_library}: {line2} \n')
 				line1 = inputFile1.readline()
 				line2 = inputFile2.readline()
 			inputFile1.close()
