@@ -10,7 +10,6 @@ variables:
         Praefix_Branch: "Correct_HTML_"
         Newbranch: ${Praefix_Branch}${CI_COMMIT_REF_NAME}    
 
-
 trigger_check_HTML:
     stage: build
     before_script:
@@ -109,7 +108,7 @@ HTML_Check:
         refs:
             - external_pull_requests
             - ${merge_branch} 
-            - Correct_HTML_*
+            - /^Correct_HTML.*$/
     only:
         variables:
             %for commit in except_commit_list:
@@ -121,6 +120,7 @@ Open_Pull_Request:
     before_script:
         - source activate python36  
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install requests
         - export PYTHONIOENCODING=utf-8 # just in case
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"

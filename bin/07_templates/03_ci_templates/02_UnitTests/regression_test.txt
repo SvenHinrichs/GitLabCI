@@ -57,6 +57,7 @@ CI_create_plots:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install requests
         - pip install pandas mako matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -161,6 +162,7 @@ prepare_create_plots:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install requests
         - pip install pandas mako matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -247,6 +249,7 @@ Changed_create_plots:
         - source activate python36
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install requests
         - pip install pandas mako matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -430,6 +433,7 @@ plot_reference_results:
     before_script:
         - source activate python36
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
+        - pip install requests
         - pip install pandas mako matplot
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
