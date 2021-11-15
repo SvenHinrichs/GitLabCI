@@ -1,16 +1,4 @@
 
-IBPSA.Airflow.Multizone.package.mo
-
-IBPSA.Airflow.Multizone.UsersGuide.mo
-
-IBPSA.Airflow.Multizone.ZonalFlow_ACS.mo
-
-IBPSA.Airflow.Multizone.ZonalFlow_m_flow.mo
-
-IBPSA.Airflow.Multizone.BaseClasses.Door.mo
-
-IBPSA.Airflow.Multizone.BaseClasses.DoorDiscretized.mo
-
 IBPSA.Airflow.Multizone.BaseClasses.ErrorControl.mo
 
 IBPSA.Airflow.Multizone.BaseClasses.package.mo
