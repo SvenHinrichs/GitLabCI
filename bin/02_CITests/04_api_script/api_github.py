@@ -136,8 +136,10 @@ if  __name__ == '__main__':
 	check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
 	check_test_group.add_argument("-CB", "--correct-branch", default ="${Newbranch}", help="Branch to correct your Code")
 	check_test_group.add_argument("-GR", "--github-repo", default="RWTH-EBC/AixLib", help="Environment Variable owner/RepositoryName" )
-	check_test_group.add_argument('-WB',"--working-branch",default="${TARGET_BRANCH}", help="Your current working Branch")
-	check_test_group.add_argument('-GT',"--github-token",default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
+	check_test_group.add_argument('-WB', "--working-branch",default="${TARGET_BRANCH}", help="Your current working Branch")
+	check_test_group.add_argument("--base-branch", default="master",
+								  help="your base branch (master or develpment)")
+	check_test_group.add_argument('-GT', "--github-token",default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
 	check_test_group.add_argument("--prepare-plot", help="Plot new models with new created reference files", action="store_true")
 	check_test_group.add_argument("--show-plot", help="Plot new models with new created reference files",
 								  action="store_true")
