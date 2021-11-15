@@ -121,6 +121,7 @@ Open_Pull_Request:
     only:
         - /^feature\/*/
     before_script:
+        - pip install --upgrade pip && apt-get update -y
         - sudo apt-get install jq -y
         - pip install requests
         - export PIP_CACHE_DIR="/opt/cache/pip"
