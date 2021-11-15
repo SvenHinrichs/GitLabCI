@@ -118,14 +118,9 @@ HTML_Check:
 
 Open_Pull_Request:
     stage: openMR
-    only:
-        - /^feature\/*/
     before_script:
-        - pip install --upgrade pip && apt-get update -y
-        - sudo apt-get install jq -y
-        - pip install requests
-        - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate python36  
+        - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - export PYTHONIOENCODING=utf-8 # just in case
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
