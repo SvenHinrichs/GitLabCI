@@ -68,7 +68,7 @@ WhiteList:
     script:
         - cd Merge_Package/${CI_PROJECT_NAME}
         - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
-        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py --whitelist -DS ${dymolaversion} -s ${library} 
+        - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
         - rm  -r IBPSA 
         - message="${bot_commit}"
         - git add  . 
@@ -91,14 +91,13 @@ WhiteList:
     
 IBPSA_Pull_Request:
     stage: openMR
-    only:
-        - /^feature\/*/
     before_script:
-        - sudo apt-get install jq -y
+        - source activate python36  
+        - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
+        - export PYTHONIOENCODING=utf-8 # just in case
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
-  
     script:
        - python bin/02_CITests/04_api_script/api_github.py --GITHUB-REPOSITORY ${Github_Repository} --Working-Branch $CI_COMMIT_REF_NAME --Correct-Branch ${merge_branch} --GITHUB-TOKEN ${GITHUB_API_TOKEN}
     only:
