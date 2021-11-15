@@ -48,9 +48,16 @@ class PULL_REQUEST_GITHUB(object):
 		self.github_token = github_token
 		self.correct_branch = f'Correct_HTML_{self.working_branch}'
 	
-	def _post_comment_IBBSA_merge(self, owner):
+	def _post_comment_IBBSA_merge(self, owner, base_branch):
 		url = f'https://api.github.com/repos/{self.github_repo}/pulls'
-		payload = '{\n    \"title\": \"IBPSA Merge ' + self.working_branch + '\",\n    \"body\": \"**Following you will find the instructions for the IBPSA merge:**\\n  1. Please pull this branch IBPSA_Merge to your local repository.\\n 2. As an additional saftey check please open the AixLib library in dymola and check whether errors due to false package orders may have occurred. You do not need to translate the whole library or simulate any models. This was already done by the CI.\\n 3. If you need to fix bugs or perform changes to the models of the AixLib, push these changes using this commit message to prevent to run the automatic IBPSA merge again: **`fix errors manually`**. \\n  4. You can also output the different reference files between the IBPSA and the AixLib using the CI or perform an automatic update of the referent files which lead to problems. To do this, use one of the following commit messages \\n  **`Trigger CI - give different reference results`** \\n  **`Trigger CI - Update reference results`** \\n The CI outputs the reference files as artifacts in GitLab. To find them go to the triggered pipeline git GitLab and find the artifacts as download on the right site. \\n 5. If the tests in the CI have passed successfully, merge the branch IBPSA_Merge to development branch. **Delete** the Branch ' + self.correct_branch + '\",\n    \"head\": \"' + self.OWNER + ':' + self.correct_branch + '\",\n    \"base\": \"' + self.working_branch + '\"\n  \n}'
+		#payload = '{\n    \"title\": \"IBPSA Merge ' + self.working_branch + '\",\n    \"body\": \"**Following you will find the instructions for the IBPSA merge:**\\n  1. Please pull this branch IBPSA_Merge to your local repository.\\n 2. As an additional saftey check please open the AixLib library in dymola and check whether errors due to false package orders may have occurred. You do not need to translate the whole library or simulate any models. This was already done by the CI.\\n 3. If you need to fix bugs or perform changes to the models of the AixLib, push these changes using this commit message to prevent to run the automatic IBPSA merge again: **`fix errors manually`**. \\n  4. You can also output the different reference files between the IBPSA and the AixLib using the CI or perform an automatic update of the referent files which lead to problems. To do this, use one of the following commit messages \\n  **`Trigger CI - give different reference results`** \\n  **`Trigger CI - Update reference results`** \\n The CI outputs the reference files as artifacts in GitLab. To find them go to the triggered pipeline git GitLab and find the artifacts as download on the right site. \\n 5. If the tests in the CI have passed successfully, merge the branch IBPSA_Merge to development branch. **Delete** the Branch ' + self.correct_branch + '\",\n    \"head\": \"' + self.OWNER + ':' + self.correct_branch + '\",\n    \"base\": \"' + self.working_branch + '\"\n  \n}'
+		title = f'\"title\": \"IBPSA Merge {self.working_branch}\"'
+		body = f'\"body\":\"**Following you will find the instructions for the IBPSA merge:**\\n  1. Please pull this branch IBPSA_Merge to your local repository.\\n 2. As an additional saftey check please open the AixLib library in dymola and check whether errors due to false package orders may have occurred. You do not need to translate the whole library or simulate any models. This was already done by the CI.\\n 3. If you need to fix bugs or perform changes to the models of the AixLib, push these changes using this commit message to prevent to run the automatic IBPSA merge again: **`fix errors manually`**. \\n  4. You can also output the different reference files between the IBPSA and the AixLib using the CI or perform an automatic update of the referent files which lead to problems. To do this, use one of the following commit messages \\n  **`ci_dif_ref`** \\n  **`ci_update_ref`** \\n The CI outputs the reference files as artifacts in GitLab. To find them go to the triggered pipeline git GitLab and find the artifacts as download on the right site. \\n 5. If the tests in the CI have passed successfully, merge the branch IBPSA_Merge to development branch. **Delete** the Branch {self.working_branch}\"'
+		head = f'\"head\":\"{self.OWNER}:{self.correct_branch}\"'
+		base = f'\"base\": \"{base_branch}\"'
+		message = f'\n	{title},\n	{body},\n	{head},\n	{base}\n'
+		payload = "{" + message + "}"
+
 		headers = {
 			'Authorization': 'Bearer '+self.github_token,
 			'Content-Type': 'application/json'
@@ -89,7 +96,9 @@ class PULL_REQUEST_GITHUB(object):
 
 	def _update_pr_assignees_IPBSA_Merge(self, pr_number, assignees_owner):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}'
-		payload = '{ \"assignees\": [\r\n    \"'+assignees_owner+'\"\r\n  ],\r\n    \"labels\": [\r\n    \"CI\", \r\n    \"IBPSA_Merge\"\r\n    \r\n  ]\r\n}'
+		assignees = f'\"assignees\":[\"{assignees_owner}\"]'
+		labels = f'\"labels\":[\"CI\", \"IBPSA_Merge\"]'
+		payload = "{\r\n" + assignees + ",\r\n" + labels + "\r\n}"
 		headers = {
 		  'Authorization': 'Bearer ' + self.github_token,
 		  'Content-Type': 'application/json'
@@ -138,6 +147,8 @@ if  __name__ == '__main__':
 								  action="store_true")
 	check_test_group.add_argument("--correct-html", help="Plot new models with new created reference files",
 								  action="store_true")
+	check_test_group.add_argument("--ibpsa-merge", help="Plot new models with new created reference files",
+								  action="store_true")
 	check_test_group.add_argument("--merge-request", help="Comment for a IBPSA Merge request",  action="store_true")
 	check_test_group.add_argument('-GP', "--gitlab-page", default="${GITLAB_Page}", help="Set your gitlab page url")
 	args = parser.parse_args()  # Parse the arguments
@@ -159,7 +170,6 @@ if  __name__ == '__main__':
 			pull_request._post_comment_show_plots(pr_number, page_url)
 	if args.create_pr is True:
 		if args.correct_html is True:
-			print(args.working_branch)
 			pull_request = PULL_REQUEST_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch,
 											   github_token=args.github_token)
 			get_api = GET_API_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch)
@@ -169,5 +179,20 @@ if  __name__ == '__main__':
 			pr_number = get_api._get_pr_number()
 			print(f'Setting pull request number: {pr_number}')
 			assignees_owner = get_api._get_github_username()
+			print(f'Setting login name: {assignees_owner}')
 			pull_request._update_pr_assignees_correct_html(pr_number, assignees_owner)
+			exit(0)
+		if args.ibpsa_merge is True:
+			pull_request = PULL_REQUEST_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch,
+											   github_token=args.github_token)
+			get_api = GET_API_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch)
+			owner = get_api.return_owner()
+			base_branch = "master"
+			pr_response = pull_request._post_comment_IBBSA_merge(owner, base_branch)
+			time.sleep(3)
+			pr_number = get_api._get_pr_number()
+			print(f'Setting pull request number: {pr_number}')
+			assignees_owner = get_api._get_github_username()
+			print(f'Setting login name: {assignees_owner}')
+			pull_request._update_pr_assignees_IPBSA_Merge(pr_number, assignees_owner)
 			exit(0)

@@ -123,6 +123,9 @@ Open_Pull_Request:
     before_script:
         - sudo apt-get install jq -y
         - pip install requests
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
         - git config --global user.name "${GITLAB_USER_NAME}" 
         - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
