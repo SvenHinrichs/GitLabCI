@@ -1,24 +1,4 @@
 
-IBPSA.package.mo
-
-IBPSA.Airflow.package.mo
-
-IBPSA.Airflow.Multizone.DoorDiscretizedOpen.mo
-
-IBPSA.Airflow.Multizone.DoorDiscretizedOperable.mo
-
-IBPSA.Airflow.Multizone.DoorOpen.mo
-
-IBPSA.Airflow.Multizone.DoorOperable.mo
-
-IBPSA.Airflow.Multizone.EffectiveAirLeakageArea.mo
-
-IBPSA.Airflow.Multizone.MediumColumn.mo
-
-IBPSA.Airflow.Multizone.MediumColumnDynamic.mo
-
-IBPSA.Airflow.Multizone.Orifice.mo
-
 IBPSA.Airflow.Multizone.package.mo
 
 IBPSA.Airflow.Multizone.UsersGuide.mo
