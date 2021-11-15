@@ -582,7 +582,7 @@ if __name__ == '__main__':
         package_list = ref_check._get_update_package(ref_list)
         for package in package_list:
             ret_val = ref_check._update_ref(package)
-        exit(1)
+        exit(0)
     else:
         # cd AixLib && python ../bin/02_CITests/UnitTests/reference_check.py --single-package Airflow --library AixLib --batch -DS 2019
         if args.modified_models is False:

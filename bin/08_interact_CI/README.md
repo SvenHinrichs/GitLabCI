@@ -16,4 +16,4 @@ update_ref : Updates the model and the whole package in which the model is locat
 - simulate_commit = "ci_simulate" y
 - check_commit = "ci_check" y
 - regression_test_commit = "ci_regression_test"
-- ci_html_commit = "ci_html"
+- ci_html_commit = "ci_html" y
