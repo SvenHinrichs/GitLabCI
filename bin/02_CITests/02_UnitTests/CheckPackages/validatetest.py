@@ -110,22 +110,22 @@ class ValidateTest(object):
     def _sim_examples(self, example_list):  # Simulate examples or validations
         pack_check = self.dymola.openModel(self.lib_path)
         if pack_check is True:
-            print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
+            print(f'Found {self.mo_library} Library and start check model test. \n Check Package {self.package} \n')
         elif pack_check is False:
-            print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
+            print(f'Library path is wrong. Please check the path of {self.mo_library} library path')
             exit(1)
         error_model = []
         error_message = []
         if len(example_list) == 0:
-            print(f'{self.CRED}Error:{self.CEND} Found no Examples')
+            print(f'{self.CRED}Error:{self.CEND} Found no examples')
             exit(0)
         for example in example_list:
-            print(f'Simulate Model: {example}')
+            print(f'Simulate model: {example}')
             result = self.dymola.checkModel(example, simulate=True)
             if result is True:
                 print(f'\n {self.green}Successful:{self.CEND} {example}\n')
             if result is False:
-                print(f'Simulate Model {example} {self.CRED} failed! {self.CEND} \n Second Check Test for model {example}')
+                print(f'Simulate model {example} {self.CRED} failed! {self.CEND} \n Second check test for model {example}')
                 sec_result = self.dymola.checkModel(example, simulate=True)
                 if sec_result is True:
                     print(f'\n {self.green} Successful: {self.CEND} {example} \n')

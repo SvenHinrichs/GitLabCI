@@ -13,6 +13,6 @@ update_ref : Updates the model and the whole package in which the model is locat
 - html_commit = "ci_correct_html"
 - create_wh_commit = "ci_create_whitelist" y
 - create_html_wh_commit = "ci_create_html_whitelist"  y
-- simulate_commit = "ci_simulate"
-- check_commit = "ci_check"
+- simulate_commit = "ci_simulate" y
+- check_commit = "ci_check" y
 - regression_test_commit = "ci_regression_test"
