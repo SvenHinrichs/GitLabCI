@@ -104,30 +104,14 @@ class CI_yml_templates(object):
         yml_tmp.close()
 
     def _write_merge_template(self):
-        if self.wh_library is not None:
-            filterflag = "--filterwhitelist"
-            wh_flag = "--wh-library " + self.wh_library
-            if self.wh_path is not None:
-                wh_path = "--wh-path " + self.wh_path
-                git_url = ""
-            elif self.git_url is not None:
-                git_url = "--git-url " + self.git_url
-                wh_path = ""
-            else:
-                wh_path = ""
-                git_url = ""
-        else:
-            wh_flag = ""
-            git_url = ""
-            filterflag = ""
-            wh_path = ""
+
         mytemplate = Template(filename=self.ibpsa_temp)
         yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch,
                                      dymolaversion=self.dymolaversion,
                                      except_commit_list=self.except_commit_list, GITLAB_USER_NAME="${GITLAB_USER_NAME}",
                                      GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
                                      Github_Repository="${Github_Repository}", Merge_Branch="${Merge_Branch}",
-                                     IBPSA_Repo="${IBPSA_Repo}", wh_path=wh_path,
+                                     IBPSA_Repo="${IBPSA_Repo}",
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library,
                                      Target_Branch="${Target_Branch}", wh_library=self.wh_library,
                                      GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit)
