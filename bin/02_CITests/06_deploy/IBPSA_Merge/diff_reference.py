@@ -10,22 +10,8 @@ import glob
 
 
 
-def _CloneRepository():
-	git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-	repo_dir = "modelica-ibpsa"
-	if os.path.exists(repo_dir):
-		print("IBPSA folder exists already!")
-	else:
-		print("Clone IBPSA Repo")
-		repo = Repo.clone_from(git_url, repo_dir)
 
 
-def createFolder(directory):
-	try:
-    	if not os.path.exists(directory):
-        	os.makedirs(directory)
-	except OSError:
-    	print('Error: Creating directory. ' +  directory)
 
 class Return_diff_files(object):
 
@@ -34,197 +20,158 @@ class Return_diff_files(object):
 		self.wh_library = wh_library
 
 		sys.path.append('bin/02_CITests')
-		from _config import ref_file_dir, resource_dir, exit_file, ref_file, ref_whitelist_file, update_ref_file
-		path_aix = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
-		path_ibpsa = "modelica-ibpsa" + os.sep + "IBPSA" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
+		from _config import ref_file_dir, new_ref_file, resource_dir, artifacts_dir
+		self.artifacts_dir = artifacts_dir
+		self.ref_file_dir = ref_file_dir
+		self.new_ref_file = new_ref_file
+		self.resource_dir = resource_dir
+		self.path_lib_script = f'{self.library}{os.sep}{self.resource_dir}'
+		self.path_wh_lib_script = f'modelica-ibpsa{os.sep}{self.wh_library}{os.sep}{self.resource_dir}'
 
-		path_aix_mos = "AixLib" + os.sep + "Resources" + os.sep + "Scripts" + os.sep + "Dymola"
-		path_ibpsa_mos = "modelica-ibpsa" + os.sep + "IBPSA" + os.sep + "Resources" + os.sep + "Scripts" + os.sep + "Dymola"
+		self.diff_ref_dir = f'{self.artifacts_dir}{os.sep}diff_ref'
+		self.diff_mos_dir = f'{self.artifacts_dir}{os.sep}diff_mos'
+		self.new_mos_dir = f'{self.artifacts_dir}{os.sep}new_mos'
 
-		path_diff = "bin" + os.sep + "03_WhiteLists" + os.sep + "Ref_list" + os.sep + "diff_ref"
-		createFolder(path_diff)
-		path_new = "bin" + os.sep + "03_WhiteLists" + os.sep + "Ref_list" + os.sep + "new_ref"
-		createFolder(path_new)
+	def _CloneRepository(self):
+		git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
+		repo_dir = "modelica-ibpsa"
+		if os.path.exists(repo_dir):
+			print(f'{self.wh_library} folder exists already!')
+		else:
+			print(f'Clone {self.wh_library} Repository.')
+			repo = Repo.clone_from(git_url, repo_dir)
 
-		path_diff_mos = "bin" + os.sep + "03_WhiteLists" + os.sep + "mos_list" + os.sep + "diff_mos"
-		createFolder(path_diff_mos)
-		path_new_mos = "bin" + os.sep + "03_WhiteLists" + os.sep + "mos_list" + os.sep + "new_mos"
-
-	def diff_mos(self, path_aix_mos, path_ibpsa_mos, path_diff_mos, path_new_mos):
-
-		aix_mos_files = glob.glob(path_aix_mos+os.sep+'**/*.mos',recursive=True)
-		ibpsa_mos_files = glob.glob(path_ibpsa_mos+os.sep+'**/*.mos',recursive=True)
-
-		ibpsa_list = []
-		aixlib_list = []
-
-		for i in ibpsa_mos_files:  # Give double mos files
-			ibpsa_list.append(i.split(os.sep)[-1])
-		for i in aix_mos_files:
-			aixlib_list.append(i.split(os.sep)[-1])
-
-
-		set1 = set(aixlib_list)
-		set2 = set(ibpsa_list)
-		set3 = set1.intersection(set2)
-		list3 = list(set3)
-		for i in list3:
-			aixlib = glob.glob(path_aix_mos+os.sep+'**/*'+os.sep+i,recursive=True)
-			ibpsa = glob.glob(path_ibpsa_mos+os.sep+'**/*'+os.sep+i,recursive=True)
-			for l in aixlib:
-				aix = l
-				ibpsa = "modelica-ibpsa"+os.sep+l.replace("AixLib","IBPSA")
-				result = path_diff_mos +os.sep+l
-				result = (result.replace(os.sep+"AixLib"+os.sep+"Resources"+os.sep+"Scripts"+os.sep+"Dymola",""))
-				createFolder(result[:result.rfind(os.sep)])
-
-				outputFile = open(result,"w")
-				inputFile1 = open(aix,"r")
-				inputFile2 = open(ibpsa,"r")
-
-				line1 = inputFile1.readline()
-				line2 = inputFile2.readline()
-				line3 = line2.replace("IBPSA","AixLib")
-				while line1 != "" or line3 != "":
-					if line1 != line3:
-						outputFile.write("AixLib: "+line1)
-						outputFile.write("IBPSA: "+line2+"\n")
-
+	def _diff_mos(self):
+		lib_mos_list = glob.glob(f'{self.path_lib_script}{os.sep}**/*.mos', recursive=True)
+		wh_mos_list = glob.glob(f'{self.path_wh_lib_script}{os.sep}**/*.mos', recursive=True)
+		wh_lib_list = []
+		lib_list = []
+		for wh_mos in wh_mos_list:  # Give double mos files
+			wh_lib_list.append(wh_mos.split(os.sep)[-1])
+		for lib_mos in lib_mos_list:
+			lib_list.append(lib_mos.split(os.sep)[-1])
+		set_lib = set(lib_list)
+		set_wh_lib = set(wh_lib_list)
+		inter_set = set_lib.intersection(set_wh_lib)
+		mos_list = list(inter_set)
+		for mos in mos_list:
+			lib_list = glob.glob(f'{self.path_lib_script}{os.sep}**/*{os.sep}{mos}', recursive=True)
+			wh_lib_list = glob.glob(f'{self.path_wh_lib_script}{os.sep}**/*{os.sep}{mos}', recursive=True)
+			for lib_mos in lib_list:
+				ibpsa = f'modelica-ibpsa{os.sep}{lib_mos.replace(self.library, self.wh_library)}'
+				result = f'{self.diff_mos_dir}{os.sep}{lib_mos}'
+				result = result.replace(self.path_lib_script, "")
+				#createFolder(result[:result.rfind(os.sep)])
+				output_file = open(result, "w")
+				input_lib_file = open(aix, "r")
+				input_wh_lib_file = open(ibpsa, "r")
+				lib_line = input_lib_file.readline()
+				wh_lib_line = (input_wh_lib_file.readline()).replace(self.wh_library, self.library)
+				while lib_line != "" or wh_lib_line != "":
+					if lib_line != wh_lib_line:
+						output_file.write(f'{self.library}: {lib_line}')
+						output_file.write(f'{self.wh_library: {wh_lib_line}}\n')
 					line1 = inputFile1.readline()
 					line3 = inputFile2.readline()
-				inputFile1.close()
-				inputFile2.close()
-				outputFile.close()
-				#print(result)
+				input_lib_file.close()
+				input_wh_lib_file.close()
+				output_file.close()
 				if os.stat(result).st_size == 0:
 					os.remove(result)
 
-		new_ref =(set1^set2)&set2
+		new_ref_list =(set_lib ^ set_wh_lib) & inter_set
 		new_mos_list = []
-		for i in new_ref:
-			if i.find("ConvertIBPSA") > -1 :
+		for ref in new_ref_list:
+			if ref.find("ConvertIBPSA") > -1:
 				continue
 			else:
-				ibpsa = glob.glob(path_ibpsa_mos+os.sep+'**/*'+os.sep+i,recursive=True)
+				ibpsa = glob.glob(self.path_wh_lib_script+os.sep+'**/*'+os.sep+i, recursive=True)
 				new_mos_list.append(ibpsa)
-				source = path_new_mos+os.sep+i
+				source = self.new_mos_dir +os.sep+i
 				for l in ibpsa:
 					shutil.copy2(l,source)
 
 
-	def diff_ref(self, path_aix, path_ibpsa, path_diff, path_new):
+	def _diff_ref(self, path_aix, path_ibpsa, path_diff, path_new):
 		aix_ref_files = os.listdir(path_aix)
 		ibpsa_ref_files = os.listdir(path_ibpsa)
 		ibpsa_list = []
-		## Give double reference files
-		for i in ibpsa_ref_files:
-			i = i.replace("IBPSA","AixLib")
+		for i in ibpsa_ref_files:  # Give double reference files
+			i = i.replace(self.wh_library, self.library)
 			ibpsa_list.append(i)
-
 		set1 = set(aix_ref_files)
 		set2 = set(ibpsa_list)
 		set3 = set1.intersection(set2)
 		list3 = list(set3)
-
 		for f in list3:
 			aix_ref = f
-			ibpsa_ref = f.replace("AixLib","IBPSA")
-
+			ibpsa_ref = f.replace(self.library, self.wh_library)
 			aix_ref = path_aix+os.sep+ aix_ref
 			ibpsa_ref = path_ibpsa+os.sep+ibpsa_ref
 			result = path_diff +os.sep+f
-
-
-			outputFile = open(result,"w")
-			inputFile1 = open(aix_ref,"r")
-			inputFile2 = open(ibpsa_ref,"r")
-
+			outputFile = open(result, "w")
+			inputFile1 = open(aix_ref, "r")
+			inputFile2 = open(ibpsa_ref, "r")
 			line1 = inputFile1.readline()
 			line2 = inputFile2.readline()
-
 			while line1 != "" or line2 != "":
 				if line1 != line2:
 					outputFile.write("AixLib: "+line1)
 					outputFile.write("IBPSA: "+line2+"\n")
-
 				line1 = inputFile1.readline()
 				line2 = inputFile2.readline()
 			inputFile1.close()
 			inputFile2.close()
 			outputFile.close()
-
-		for root,dirs,files in os.walk(path_diff):
+		for root, dirs, files in os.walk(path_diff):
 			for name in files:
 				filename = os.path.join(root,name)
 				if os.stat(filename).st_size == 0:
 					os.remove(filename)
-
-
 		diff_ref = os.listdir(path_diff)
 		new_ref =(set1^set2)&set2
-
 		for i in new_ref:
-			i = i.replace("AixLib","IBPSA")
+			i = i.replace(self.library, self.wh_library)
 			source = path_ibpsa+os.sep+i
-			shutil.copy2(source,path_new)
-
-
+			shutil.copy2(source, path_new)
 		new_ref =os.listdir(path_new)
 		return diff_ref, new_ref
 
-
-
-	def add_new_ref(self, diff_ref,new_ref,path_aix,path_ibpsa,path_new,path_diff):
+	def _add_new_ref(self, diff_ref,new_ref,path_aix,path_ibpsa,path_new,path_diff):
 		new_ref_list = []
 		for i in new_ref:
 			source = path_new+os.sep+i
-			ibp = path_new+os.sep+i.replace("IBPSA","AixLib")
+			ibp = path_new+os.sep+i.replace(self.wh_library, self.library)
 			file = pathlib.Path(ibp)
-
 			if file.exists ():
 				new_ref_list.append(file)
 				continue
-
-			if i.find("IBPSA")> -1 :
-				i = i.replace("IBPSA","AixLib")
+			if i.find(self.wh_library)> -1 :
+				i = i.replace(self.wh_library, self.library)
 				i = path_new+os.sep+i
 				os.rename(source, i)
 			else:
 				i = path_new+os.sep+i
 			new_ref_list.append(i)
-
-		## Copy New Files
-		for i in new_ref_list:
+		for i in new_ref_list:  # Copy New Files
 			path = path_aix
-			shutil.copy2(i,path)
+			shutil.copy2(i, path)
 
 		for i in diff_ref:
 			path = path_aix
-			i = i.replace("AixLib", "IBPSA")
+			i = i.replace(self.library, self.wh_library)
 			source = path_ibpsa+os.sep+i
-			target = path+os.sep+i.replace("IBPSA", "AixLib")
+			target = path+os.sep+i.replace(self.wh_library, self.library)
 			shutil.copy2(source, target)
 
 
-if  __name__ == '__main__':
-
-
+if __name__ == '__main__':
 	createFolder(path_new_mos)
-	
-	
 	_CloneRepository()
-	
 	results = diff_ref(path_aix, path_ibpsa, path_diff, path_new)
 	diff_ref = results[0]
 	new_ref = results[1]
-	
 	add_new_ref(diff_ref, new_ref, path_aix, path_ibpsa, path_new, path_diff)
-		
 	mos_results = diff_mos(path_aix_mos, path_ibpsa_mos, path_diff_mos, path_new_mos)
-
-	
 	removeRoot = True
 	removeEmptyFolders(path_diff_mos, removeRoot)
-	
-	
-	

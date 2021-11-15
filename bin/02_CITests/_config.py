@@ -2,11 +2,13 @@ import os
 
 #[Whitelist files]
 ch_file = f'bin{os.sep}06_Configfiles{os.sep}ci_changed_model_list.txt'
-wh_file = f'bin{os.sep}03_ci_whitelist{os.sep}model_whitelist.txt'
 exit_file = f'bin{os.sep}06_Configfiles{os.sep}exit.sh'
 eof_file = f'bin{os.sep}06_Configfiles{os.sep}EOF.sh'
 new_ref_file = f'bin{os.sep}06_Configfiles{os.sep}ci_new_created_reference.txt'
 ref_file = f'bin{os.sep}06_Configfiles{os.sep}ci_reference_list.txt'
+
+artifacts_dir = f'bin{os.sep}07_templates{os.sep}04_artifacts'
+wh_file = f'bin{os.sep}03_ci_whitelist{os.sep}model_whitelist.txt'
 ref_whitelist_file = f'bin{os.sep}03_ci_whitelist{os.sep}reference_check_whitelist.txt'
 html_wh_file = f'bin{os.sep}03_ci_whitelist{os.sep}html_whitelist.txt'
 show_ref_file = f'bin{os.sep}08_interact_CI{os.sep}show_ref.txt'

@@ -11,7 +11,7 @@ update_ref : Updates the model and the whole package in which the model is locat
 - show_ref_commit = "ci_show_ref"
 - dif_ref_commit = "ci_dif_ref"
 - html_commit = "ci_correct_html"
-- create_wh_commit = "ci_create_whitelist"
+- create_wh_commit = "ci_create_whitelist" y
 - create_html_wh_commit = "ci_create_html_whitelist"  y
 - simulate_commit = "ci_simulate"
 - check_commit = "ci_check"
