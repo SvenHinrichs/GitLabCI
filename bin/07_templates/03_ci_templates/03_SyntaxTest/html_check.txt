@@ -114,6 +114,49 @@ HTML_Check:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
 
+CI_HTML_Check:
+    stage: HTML_Check
+    before_script:
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - git config --global user.name "${GITLAB_USER_NAME}" 
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36  
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
+        - if cat ${exit_file} | grep "exit 1"; then 
+            mkdir CorrectedVersion &&  cd CorrectedVersion ;
+            git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git;
+            cd ${CI_PROJECT_NAME};
+            python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
+            git checkout -B $Newbranch;
+            message="ci_correct_html";
+            git add . ;
+            echo $message;
+            git commit -m "$message" ;
+            git push --force git@github.com:${Github_Repository}.git;
+            wait ;
+            exit 1;
+          else 
+            exit 0; 
+          fi
+    artifacts:
+        when: on_failure
+        paths:
+            - ${library}/HTML-logfile.txt
+        expire_in: 7 day 
+    only:
+        variables:
+            - $CI_COMMIT_MESSAGE  =~ /${ci_html_commit}/
+
+
 Open_Pull_Request:
     stage: openMR
     before_script:

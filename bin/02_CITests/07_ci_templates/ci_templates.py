@@ -23,6 +23,7 @@ class CI_yml_templates(object):
         self.simulate_commit = "ci_simulate"
         self.check_commit = "ci_check"
         self.regression_test_commit = "ci_regression_test"
+        self.ci_html_commit = "ci_check_html"
 
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
@@ -32,7 +33,7 @@ class CI_yml_templates(object):
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
                                    self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
-                                   self.create_html_wh_commit]
+                                   self.create_html_wh_commit, self.ci_html_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
         #self.correct_html_branch = "Correct_HTML_"+
@@ -88,7 +89,7 @@ class CI_yml_templates(object):
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Newbranch="${Newbranch}",
                                      Target_Branch="${Target_Branch}", Praefix_Branch="${Praefix_Branch}", CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}",
                                      GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", html_commit=self.html_commit, create_html_wh_commit=self.create_html_wh_commit,
-                                     html_wh_file=self.html_wh_file)
+                                     html_wh_file=self.html_wh_file, ci_html_commit=self.ci_html_commit)
         yml_tmp = open(self.html_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
