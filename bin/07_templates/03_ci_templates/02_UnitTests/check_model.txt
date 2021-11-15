@@ -143,6 +143,7 @@ whitelist_job:
             exit 0;
           else 
             echo 'successful' > ${exit_file} ;
+            echo  -e "$GREEN Whitelist is already up to date. Please delete the version number in file ${wh_file}, if you want to recreate the whitelist.$NC" ;
             exit 0 ;
           fi
     artifacts:
