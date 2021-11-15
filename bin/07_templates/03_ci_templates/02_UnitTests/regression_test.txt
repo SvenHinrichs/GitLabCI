@@ -422,8 +422,6 @@ Update_Regression_Results:
         max: 2
         when: runner_system_failure
     only:
-        refs:
-            - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE  =~ /${update_ref_commit}/
     
