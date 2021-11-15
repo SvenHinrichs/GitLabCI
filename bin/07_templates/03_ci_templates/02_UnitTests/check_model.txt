@@ -125,11 +125,26 @@ whitelist_job:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
+        - echo "FAIL" > ${exit_file}
         - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
-        - message="Automatic push of CI - Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
-        - git add ${wh_file}
-        - git commit -m "$message"
-        - git push git@github.com:${Github_Repository}.git
+    after_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate python36
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - cd whitelist && cd ${CI_PROJECT_NAME}
+        - if cat ${exit_file} | grep "FAIL"; then
+            message="Automatic push of CI - Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
+            git add ${wh_file} ;
+            git commit -m "$message" ;
+            git push git@github.com:${Github_Repository}.git ;
+            GREEN='\033[0;32m' ;
+            NC='\033[0m' ;
+            echo  -e "$GREEN New html whitelist files were pushed to this branch.$NC" ;
+            exit 0;
+          else 
+            echo 'successful' > ${exit_file} ;
+            exit 0 ;
+          fi
     artifacts:
         paths:
             - whitelist/${CI_PROJECT_NAME}/${wh_file}

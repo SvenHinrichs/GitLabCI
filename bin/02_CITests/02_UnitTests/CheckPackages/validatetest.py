@@ -319,8 +319,7 @@ class Create_whitelist(object):
 
     def _check_whitelist(self,
                          version):  # Write a new Whitelist with all models in IBPSA Library of those models who have not passed the Check Test
-        # Read the last version of whitelist
-        vfile = open(self.wh_file, "r")
+        vfile = open(self.wh_file, "r")  # Read the last version of whitelist
         lines = vfile.readlines()
         version_check = False
         for line in lines:
@@ -391,9 +390,9 @@ class Create_whitelist(object):
     def _write_exit_log(self, version_check):
         exit = open(self.exit_file, "w")
         if version_check is False:
-            exit.write(f'exit 1')
+            exit.write(f'FAIL')
         else:
-            exit.write(f'exit 0')
+            exit.write(f'successful')
         exit.close()
 
 
@@ -493,12 +492,12 @@ def sim_example_workflow():
 
 def create_wh_workflow():
     if args.wh_library is None:
-        print(f'{CRED}Error:{CEND} Whitelist Library is missing!')
+        print(f'{CRED}Error:{CEND} Whitelist library is missing!')
         exit(1)
     if args.library is None:
         print(f'{CRED}Error{CEND}: Library is missing!')
         exit(1)
-    print(f'Setting: WhiteList Library {args.wh_library}')
+    print(f'Setting: WhiteList library {args.wh_library}')
     print(f'Setting: library {args.library}')
     Whitelist_class = Create_whitelist(library=args.library,
                                        wh_lib=args.wh_library)

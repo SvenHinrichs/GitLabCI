@@ -373,8 +373,7 @@ Update_Regression_Results:
         - git config --global user.email "${GITLAB_USER_EMAIL}"
         - echo 'FAIL' > ${exit_file}
     script:
-        - mkdir CorrectedVersion
-        - cd  CorrectedVersion  
+        - mkdir CorrectedVersion && cd CorrectedVersion
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
         - echo "FAIL" > ${exit_file}

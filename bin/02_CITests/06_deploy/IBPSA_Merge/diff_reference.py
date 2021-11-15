@@ -33,7 +33,8 @@ class Return_diff_files(object):
 		self.library = library
 		self.wh_library = wh_library
 
-
+		sys.path.append('bin/02_CITests')
+		from _config import ref_file_dir, resource_dir, exit_file, ref_file, ref_whitelist_file, update_ref_file
 		path_aix = "AixLib" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 		path_ibpsa = "modelica-ibpsa" + os.sep + "IBPSA" + os.sep + "Resources" + os.sep + "ReferenceResults" + os.sep + "Dymola"
 
