@@ -54,7 +54,7 @@ equation
         Text(
           extent={{98,-46},{-22,-96}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(V, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(V, leftJustified=false, significantDigits=3)))}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>
@@ -84,6 +84,5 @@ September 22, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end To_VolumeFraction;

@@ -78,6 +78,5 @@ Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>
 and added documentation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end CO2TransportStep;

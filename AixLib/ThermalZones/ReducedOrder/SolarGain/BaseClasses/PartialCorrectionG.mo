@@ -59,6 +59,5 @@ partial model PartialCorrectionG
   Implemented.
   </li>
   </ul>
-  </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+  </html>"));
 end PartialCorrectionG;

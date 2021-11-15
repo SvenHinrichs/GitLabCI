@@ -99,6 +99,5 @@ Initial version for refactoring inputs of sources.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">AixLib, #882</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PartialSource;

@@ -34,6 +34,5 @@ November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end BooleanDelay;

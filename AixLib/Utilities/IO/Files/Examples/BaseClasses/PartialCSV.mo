@@ -17,6 +17,5 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 <p>
 Partial model that contains a step function and cosine signal.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PartialCSV;

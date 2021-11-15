@@ -139,8 +139,7 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 
   end RealVectorExpression;
 
@@ -353,6 +352,5 @@ April 14, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end HVAC;

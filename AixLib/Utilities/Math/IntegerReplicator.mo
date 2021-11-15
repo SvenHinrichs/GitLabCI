@@ -34,6 +34,5 @@ This block replicates the integer input signal to an array of <code>nout</code> 
 <li>August 31, 2012, by Michael Wetter:<br/>Revised documentation. </li>
 <li>July 27, 2012, by Kaustubh Phalak:<br/>First implementation. </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end IntegerReplicator;

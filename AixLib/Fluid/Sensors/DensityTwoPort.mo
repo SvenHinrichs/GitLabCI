@@ -72,7 +72,7 @@ annotation (defaultComponentName="senDen",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(d, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(d, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the density of the fluid flowing from
@@ -114,6 +114,5 @@ September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end DensityTwoPort;

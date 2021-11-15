@@ -80,6 +80,5 @@ September 25, 2018, by Michael Wetter:<br/>
 Refactored model to use a common base class.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end DryCoilEffectivenessNTU;

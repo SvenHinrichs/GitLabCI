@@ -27,6 +27,5 @@ This is for issue
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1373\">#1373</a>. 
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end solarAzimuthWithEvent;

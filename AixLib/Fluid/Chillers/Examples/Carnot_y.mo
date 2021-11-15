@@ -142,6 +142,5 @@ Example that simulates a chiller whose efficiency is scaled based on the
 Carnot cycle.
 The chiller control signal is the compressor speed.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Carnot_y;

@@ -19,6 +19,5 @@ First implementation.
 <p>
 Function for writing data to cache such that the results can be written at destruction.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end cacheVals;

@@ -28,6 +28,5 @@ November 15, 2017, by Ana Constantin:<br/>
 First implementation, as part of solution to <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end getTimeSpanTMY3;

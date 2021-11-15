@@ -265,6 +265,5 @@ April 14 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Cylindrical;

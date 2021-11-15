@@ -257,6 +257,5 @@ March 19, 2014, by Christoph Nytsch-Geusen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PrescribedOutlet;

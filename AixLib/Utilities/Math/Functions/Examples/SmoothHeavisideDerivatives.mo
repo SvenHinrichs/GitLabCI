@@ -24,6 +24,5 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end SmoothHeavisideDerivatives;

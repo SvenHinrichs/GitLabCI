@@ -34,7 +34,7 @@ annotation (defaultComponentName="senMasFra",
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(X, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(X, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the mass fraction of the fluid connected to its port.
@@ -98,6 +98,5 @@ First implementation.
 Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MassFraction;

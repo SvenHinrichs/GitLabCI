@@ -265,6 +265,5 @@ February 24, 2005 by Michael Wetter:<br/>
 Released first version.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MediumColumn;

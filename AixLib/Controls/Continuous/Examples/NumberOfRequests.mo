@@ -43,6 +43,5 @@ The figure below shows the inputs and the output of the block.
 <p align=\"center\">
 <img alt=\"Simulation results\" src=\"modelica://AixLib/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png\" border=\"1\" />
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end NumberOfRequests;

@@ -38,6 +38,5 @@ equation
         Test model for <a href=\"modelica://AixLib.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
         AixLib.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
         </p>
-        </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+        </html>"));
 end HANaturalCylinder;

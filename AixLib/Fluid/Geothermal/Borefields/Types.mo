@@ -32,12 +32,10 @@ July 15, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   annotation (preferredView="info", Documentation(info="<html>
  <p>
  This package contains type definitions.
  </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
 end Types;

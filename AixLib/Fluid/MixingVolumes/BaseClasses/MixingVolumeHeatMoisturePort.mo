@@ -43,7 +43,7 @@ equation
   connect(heaFloSen.port_a, heatPort)
     annotation (Line(points={{-90,0},{-100,0}}, color={191,0,0}));
   annotation (
-  defaultComonentName="vol",
+  defaultComponentName="vol",
   Documentation(info="<html>
 <p>
 Mixing volume with a heat port.
@@ -68,11 +68,16 @@ and all others to <code>false</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+November 9, 2021, by Michael Wetter:<br/>
+Corrected annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1547\">AixLib, issue 1547</a>.
+</li>
+<li>
 October 23, 2017, by Michael Wetter:<br/>
 First implementation for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1013\">Buildings, issue 1013</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MixingVolumeHeatMoisturePort;

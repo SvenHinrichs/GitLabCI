@@ -22,7 +22,7 @@ algorithm
     end if;
 
     annotation (
-smoothOrder=1,
+smoothOrder=3,
 derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>
@@ -49,6 +49,5 @@ May 20, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end spliceFunction;

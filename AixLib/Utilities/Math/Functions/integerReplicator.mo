@@ -20,6 +20,5 @@ Implementation based on Kaustubh Phalak&apos;s block
 AixLib.Utilities.Math.IntegerReplicator</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end integerReplicator;

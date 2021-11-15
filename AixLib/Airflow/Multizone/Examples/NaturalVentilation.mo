@@ -5,11 +5,6 @@ model NaturalVentilation
 
   package Medium = AixLib.Media.Air;
 
-
-
-
-
-
   AixLib.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*10*5,
@@ -123,6 +118,5 @@ November 10, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end NaturalVentilation;

@@ -110,6 +110,5 @@ October 9, 2020 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end OpenDoorBuoyancyPressureDynamic;

@@ -160,6 +160,5 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Stratified;

@@ -85,6 +85,5 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end powerLawFixedM;

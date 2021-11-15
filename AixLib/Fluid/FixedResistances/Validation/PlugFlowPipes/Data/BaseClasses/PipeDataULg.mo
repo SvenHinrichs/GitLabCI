@@ -70,6 +70,5 @@ the fluid temperature (determined by EES software).
 </li>
 </ul>
 
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PipeDataULg;

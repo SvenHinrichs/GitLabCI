@@ -111,6 +111,5 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/451\">issue 451</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end FlowJunctionSteadyStateNoPressureDrop;

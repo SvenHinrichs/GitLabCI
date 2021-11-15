@@ -28,8 +28,7 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
     end testDensity_TX_a;
 
   function testDynamicViscosity_TX_a
@@ -57,8 +56,7 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end testDynamicViscosity_TX_a;
 
   function testFusionTemperature_TX_a
@@ -86,8 +84,7 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end testFusionTemperature_TX_a;
 
   function testSpecificHeatCapacityCp_TX_a
@@ -115,8 +112,7 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end testSpecificHeatCapacityCp_TX_a;
 
   function testThermalConductivity_TX_a
@@ -144,8 +140,7 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end testThermalConductivity_TX_a;
 annotation (Documentation(info="<html>
 <p>
@@ -165,6 +160,5 @@ May 14, 2018 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end EthyleneGlycolWater;

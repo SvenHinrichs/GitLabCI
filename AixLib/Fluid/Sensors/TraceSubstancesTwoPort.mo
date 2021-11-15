@@ -68,7 +68,7 @@ annotation (defaultComponentName="senTraSub",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(C, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(C, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substance of the passing fluid.
@@ -146,6 +146,5 @@ September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end TraceSubstancesTwoPort;

@@ -26,5 +26,4 @@ March 6, 2017, by Massimo Cimmino:<br/>
 Calibrated parameters.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));

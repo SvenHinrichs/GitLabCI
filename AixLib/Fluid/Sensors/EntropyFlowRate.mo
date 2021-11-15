@@ -71,7 +71,7 @@ annotation (defaultComponentName="senS_flow",
         Text(
          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(S_flow, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(S_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the entropy flow rate of the medium in the flow
@@ -108,6 +108,5 @@ First implementation based on
 AixLib.Fluid.Sensors.EnthalpyFlowRate</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end EntropyFlowRate;

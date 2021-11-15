@@ -204,6 +204,5 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\
 issue 1182</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end StratifiedUnloadAtMinimumTemperature;

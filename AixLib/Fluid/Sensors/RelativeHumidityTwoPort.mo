@@ -98,7 +98,7 @@ annotation (defaultComponentName="senRelHum",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(phi, leftjustified=false, significantDigits=2)))}),
+          textString=DynamicSelect("", String(phi, leftJustified=false, significantDigits=2)))}),
   Documentation(info="<html>
 <p>
 This model outputs the relative humidity of the fluid flowing from
@@ -148,6 +148,5 @@ Feb. 5, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end RelativeHumidityTwoPort;

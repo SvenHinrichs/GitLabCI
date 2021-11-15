@@ -29,6 +29,5 @@ October 30, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end OccupancyScheduleNegativeStartTime;

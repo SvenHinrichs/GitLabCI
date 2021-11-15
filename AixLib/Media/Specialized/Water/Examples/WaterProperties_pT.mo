@@ -30,6 +30,5 @@ September 12, 2016, by Marcus Fuchs:<br/>
 First implementation
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end WaterProperties_pT;

@@ -46,6 +46,5 @@ December 17, 2018, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end FirstOrder;

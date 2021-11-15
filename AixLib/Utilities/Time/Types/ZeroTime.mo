@@ -47,5 +47,4 @@ August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));

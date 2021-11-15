@@ -132,6 +132,5 @@ November 14, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ReciprocatingWaterToWater_VariableSpeed;

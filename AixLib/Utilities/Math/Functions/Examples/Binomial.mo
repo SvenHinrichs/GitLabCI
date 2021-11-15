@@ -33,6 +33,5 @@ June 6, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Binomial;

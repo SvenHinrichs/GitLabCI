@@ -99,8 +99,7 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end Plant;
 
   model Controller "PID controller with optional output reset"
@@ -183,8 +182,7 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end Controller;
 
 equation
@@ -224,6 +222,5 @@ September 29, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end LimPIDWithReset;

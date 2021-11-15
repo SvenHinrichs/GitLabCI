@@ -56,6 +56,5 @@ August 11, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end der_smoothTransition;

@@ -223,6 +223,5 @@ Mar 27, 2013 by Peter Grant:<br/>
 First implementation
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end StratifiedEnhancedInternalHex;

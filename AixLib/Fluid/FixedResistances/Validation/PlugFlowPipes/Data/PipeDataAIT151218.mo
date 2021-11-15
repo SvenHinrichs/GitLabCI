@@ -58,6 +58,5 @@ Notice that length are approximated
 <li>Wall roughness coefficient: 0.1 mm </li>
 </ul>
 
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PipeDataAIT151218;

@@ -82,6 +82,5 @@ July 9, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PartialBorehole;

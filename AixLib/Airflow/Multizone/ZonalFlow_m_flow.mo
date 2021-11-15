@@ -36,6 +36,5 @@ January 17, 2006, by Michael Wetter:<br/>
 Implemented first version.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ZonalFlow_m_flow;

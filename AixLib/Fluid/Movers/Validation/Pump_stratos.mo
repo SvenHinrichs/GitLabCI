@@ -45,6 +45,5 @@ Updated parameter names for
        Initial version
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Pump_stratos;

@@ -31,6 +31,5 @@ July 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end OneUTube;

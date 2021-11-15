@@ -50,6 +50,5 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PartialFlowSensor;

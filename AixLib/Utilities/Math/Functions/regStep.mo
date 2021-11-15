@@ -48,6 +48,5 @@ by a smooth characteristic, so that the expression is continuous and differentia
 In the region <code>-x_small &lt; x &lt; x_small</code> a 2nd order polynomial is used
 for a smooth transition from <code>y1</code> to <code>y2</code>.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end regStep;

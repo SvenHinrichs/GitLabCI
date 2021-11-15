@@ -20,6 +20,28 @@ package Air
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
 
+  // In the assignments below, we compute cv as OpenModelica
+  // cannot evaluate cv=cp-R as defined in GasProperties.
+  constant GasProperties dryair(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
+    cp =   AixLib.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   AixLib.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    "Dry air properties";
+  constant GasProperties steam(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
+    cp =   AixLib.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   AixLib.Utilities.Psychrometrics.Constants.cpSte
+             -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    "Steam properties";
+
+  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
+
+  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
+    "Molar masses of components";
+
   constant AbsolutePressure pStp = reference_p
     "Pressure for which fluid density is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
@@ -45,7 +67,7 @@ package Air
   // Therefore, the statement
   //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
   // has been removed.
-  redeclare model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
+  redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
 
   parameter Boolean preferredMediumStates=false
     "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
@@ -180,8 +202,7 @@ First implementation based on Modelica Standard Library,
 but with <code>noEvent</code> added to check of bounds.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end BaseProperties;
 
 redeclare function density "Gas density"
@@ -194,8 +215,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end density;
 
 redeclare function extends dynamicViscosity
@@ -232,8 +252,7 @@ December 19, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end dynamicViscosity;
 
 redeclare function enthalpyOfCondensingGas
@@ -300,8 +319,7 @@ algorithm
     Inline=true,
     Documentation(info="<html>
 The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end gasConstant;
 
 redeclare function extends pressure
@@ -314,8 +332,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Pressure is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end pressure;
 
 redeclare function extends isobaricExpansionCoefficient
@@ -348,8 +365,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end isobaricExpansionCoefficient;
 
 redeclare function extends isothermalCompressibility
@@ -382,8 +398,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end isothermalCompressibility;
 
 redeclare function extends saturationPressure
@@ -472,8 +487,7 @@ November 27, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end specificEntropy;
 
 redeclare function extends density_derp_T
@@ -495,8 +509,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end density_derp_T;
 
 redeclare function extends density_derT_p
@@ -521,8 +534,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end density_derT_p;
 
 redeclare function extends density_derX
@@ -547,8 +559,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end density_derX;
 
 redeclare replaceable function extends specificHeatCapacityCp
@@ -595,8 +606,7 @@ algorithm
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
     is computed from density <code>d</code>, temperature <code>T</code> and composition <code>X</code>.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end setState_dTX;
 
 redeclare function extends setState_phX
@@ -612,8 +622,7 @@ algorithm
   Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end setState_phX;
 
 redeclare function extends setState_pTX
@@ -629,8 +638,7 @@ algorithm
   Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end setState_pTX;
 
 redeclare function extends setState_psX
@@ -685,8 +693,7 @@ November 27, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end setState_psX;
 
 redeclare replaceable function extends specificEnthalpy
@@ -725,8 +732,7 @@ Added <code>Inline=true</code> for
 issue 227</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end specificEnthalpy_pTX;
 
 redeclare replaceable function extends specificGibbsEnergy
@@ -768,8 +774,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end isentropicEnthalpy;
 
 redeclare function extends specificInternalEnergy "Specific internal energy"
@@ -789,8 +794,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Temperature is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end temperature;
 
 redeclare function extends molarMass "Return the molar mass"
@@ -811,8 +815,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end molarMass;
 
 redeclare replaceable function temperature_phX
@@ -842,8 +845,7 @@ Added <code>Inline=true</code> for
 issue 227</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end temperature_phX;
 
 redeclare function extends thermalConductivity
@@ -890,30 +892,8 @@ November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end GasProperties;
-  // In the assignments below, we compute cv as OpenModelica
-  // cannot evaluate cv=cp-R as defined in GasProperties.
-  constant GasProperties dryair(
-    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
-    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   AixLib.Utilities.Psychrometrics.Constants.cpAir,
-    cv =   AixLib.Utilities.Psychrometrics.Constants.cpAir
-             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
-    "Dry air properties";
-  constant GasProperties steam(
-    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
-    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   AixLib.Utilities.Psychrometrics.Constants.cpSte,
-    cv =   AixLib.Utilities.Psychrometrics.Constants.cpSte
-             -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
-    "Steam properties";
-
-  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
-
-  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
-    "Molar masses of components";
 
   constant Modelica.SIunits.SpecificEnergy h_fg=
     AixLib.Utilities.Psychrometrics.Constants.h_fg

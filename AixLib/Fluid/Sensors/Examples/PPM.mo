@@ -153,6 +153,5 @@ See issue
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">#372</a>
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PPM;

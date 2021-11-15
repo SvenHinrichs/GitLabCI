@@ -51,6 +51,5 @@ equation
   case heat transfer through windows and exterior walls is handled separately in
   the Reduced Order Model. The sum of all weightfactors for windows should be
   one as well as the sum for all wall elements.</p>
-  </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+  </html>"));
 end VDI6007WithWindow;

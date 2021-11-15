@@ -21,6 +21,5 @@ May 28, 2017, by Iago Cupeiro:
 Initial version
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end VeroLine50slash150dash4slash2;

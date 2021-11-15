@@ -577,6 +577,5 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">AixL
   First implementation.
   </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end OneElement;

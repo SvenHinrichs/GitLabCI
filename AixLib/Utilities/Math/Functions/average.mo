@@ -18,6 +18,5 @@ Implementation based on Michael Wetter&apos;s block
 AixLib.Utilities.Math.Average</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end average;

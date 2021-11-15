@@ -31,6 +31,5 @@ September 29, 2020, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end WeatherStation;

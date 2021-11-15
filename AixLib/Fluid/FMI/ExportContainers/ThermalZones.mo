@@ -242,6 +242,5 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ThermalZones;

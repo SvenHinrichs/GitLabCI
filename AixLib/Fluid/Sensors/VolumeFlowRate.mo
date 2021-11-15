@@ -82,7 +82,7 @@ annotation (defaultComponentName="senVolFlo",
         Text(
          extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(V_flow, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(V_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the volume flow rate flowing from
@@ -135,6 +135,5 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end VolumeFlowRate;

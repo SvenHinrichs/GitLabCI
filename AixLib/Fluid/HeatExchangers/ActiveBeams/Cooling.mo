@@ -335,6 +335,5 @@ May 20, 2016, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Cooling;

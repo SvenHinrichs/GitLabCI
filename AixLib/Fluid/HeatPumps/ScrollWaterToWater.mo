@@ -89,7 +89,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -103,6 +103,5 @@ November 11, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ScrollWaterToWater;

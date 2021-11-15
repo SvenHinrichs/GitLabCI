@@ -443,8 +443,7 @@ equation
     experiment(
       StopTime=603900,
       Tolerance=1e-006),
-       __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT.mos"
+       __Dymola_Commands(file="modelica://AixLib/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -531,6 +530,5 @@ influence of allowFlowReversal and the presence of explicit volumes in the pipe.
 </li>
 <li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MSLAIT;

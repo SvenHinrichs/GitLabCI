@@ -77,6 +77,5 @@ March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end FiniteLineSource_Integrand_Length;

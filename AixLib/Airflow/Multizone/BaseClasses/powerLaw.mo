@@ -94,6 +94,5 @@ Reimplemented model so that it is continuously differentiable.
 <li><i>February 4, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end powerLaw;

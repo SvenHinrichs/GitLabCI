@@ -147,6 +147,5 @@ Example that simulates a heat pump whose efficiency is scaled based on the
 Carnot cycle.
 The control signal of the heat pump is the compressor speed.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Carnot_y;

@@ -44,6 +44,5 @@ March 12, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end SmoothMin;

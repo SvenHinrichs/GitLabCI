@@ -252,6 +252,5 @@ it cools down fast. Once it cooled down sufficiently,
 the flow direction between the three rooms reverses
 because the air in the bottom east is heaviest.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ReverseBuoyancy3Zones;

@@ -47,6 +47,5 @@ ordinate derivative and ordinate second derivative of the function at <code>x1</
 Variables <code>y2</code>, <code>y2d</code>, <code>y2dd</code> are respectively the ordinate,
 ordinate derivative and ordinate second derivative of the function at <code>x2</code>.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end quinticHermite;

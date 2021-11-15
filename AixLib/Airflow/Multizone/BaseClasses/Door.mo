@@ -121,6 +121,5 @@ First implementation for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1353\">#1353</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Door;

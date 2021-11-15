@@ -26,5 +26,4 @@ to the bottom port.
     <td>Use this setting to use the density based on the actual flow direction.
 </td></tr>
  </table>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));

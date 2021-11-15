@@ -17,6 +17,5 @@ November 29, 2013 by Marcus Fuchs:<br/>
 Implementation based on Functions.trapezoidalIntegration.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end TrapezoidalIntegration;

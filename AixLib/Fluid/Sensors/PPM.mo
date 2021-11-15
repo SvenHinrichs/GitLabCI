@@ -69,7 +69,7 @@ annotation (defaultComponentName="senPPM",
         Text(
           extent={{180,90},{60,40}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(ppm, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(ppm, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substance concentration in ppm contained in the fluid connected to its port.
@@ -124,6 +124,5 @@ December 2, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PPM;

@@ -36,6 +36,5 @@ November 20, 2013 by Michael Wetter:<br/>
 First implementation, moved from <code>AixLib.Media</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end saturationPressureLiquid;

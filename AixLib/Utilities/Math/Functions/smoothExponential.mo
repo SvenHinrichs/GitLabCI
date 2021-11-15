@@ -41,6 +41,5 @@ Implemented to reduce chattering in
 AixLib.Fluid.Storage.BaseClasses.Stratifier</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end smoothExponential;

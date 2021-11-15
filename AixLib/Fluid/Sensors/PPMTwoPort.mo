@@ -99,7 +99,7 @@ annotation (defaultComponentName="senPPM",
         Text(
           extent={{-20,120},{-140,70}},
           lineColor={0,0,0},
-          textString=DynamicSelect("", String(ppm, leftjustified=false, significantDigits=3)))}),
+          textString=DynamicSelect("", String(ppm, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the trace substance of the passing fluid
@@ -126,6 +126,5 @@ See issue
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/372\">#372</a>
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PPMTwoPort;

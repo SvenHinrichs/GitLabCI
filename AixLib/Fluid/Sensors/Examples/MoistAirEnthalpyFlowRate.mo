@@ -110,6 +110,5 @@ Changed time constant of <code>senH</code> so that it has
 the same transient response model as <code>senH_flow</code>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MoistAirEnthalpyFlowRate;

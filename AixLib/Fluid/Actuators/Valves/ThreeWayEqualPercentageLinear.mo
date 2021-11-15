@@ -1,9 +1,5 @@
 within AixLib.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
-
-
-
-
   "Three way valve with equal percentage and linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
       redeclare TwoWayEqualPercentage res1(
@@ -15,6 +11,7 @@ model ThreeWayEqualPercentageLinear
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
+
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
           20,-50},{12,-50}},
@@ -58,6 +55,13 @@ for the implementation of the regularization near the origin.
 revisions="<html>
 <ul>
 <li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>
 This is for
@@ -92,6 +96,5 @@ June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end ThreeWayEqualPercentageLinear;

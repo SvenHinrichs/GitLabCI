@@ -38,6 +38,5 @@ See <a href=\"AixLib.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseCl
 AixLib.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses.PipeDataULg</a>
 for more information.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end PipeDataULg151202;

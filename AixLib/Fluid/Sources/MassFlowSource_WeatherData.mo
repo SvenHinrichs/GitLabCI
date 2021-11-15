@@ -205,6 +205,5 @@ substances, outside enthalpy and composition. Weather bus is used.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/777\">#777</a>.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end MassFlowSource_WeatherData;

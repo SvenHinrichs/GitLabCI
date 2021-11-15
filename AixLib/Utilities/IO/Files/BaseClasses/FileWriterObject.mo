@@ -26,8 +26,7 @@ the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 c
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end constructor;
 
   function destructor "Release storage and close the external object"
@@ -48,8 +47,7 @@ May 12, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end destructor;
 
 annotation(Documentation(info="<html>
@@ -65,6 +63,5 @@ May 10 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end FileWriterObject;

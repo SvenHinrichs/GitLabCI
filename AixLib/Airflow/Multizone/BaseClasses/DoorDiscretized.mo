@@ -168,6 +168,5 @@ Renamed protected parameters for consistency with the naming conventions.
        Released first version.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end DoorDiscretized;

@@ -43,6 +43,5 @@ Added <code>defaultComponentPrefixes</code> and
        Initial version
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Stratos40slash1to8;

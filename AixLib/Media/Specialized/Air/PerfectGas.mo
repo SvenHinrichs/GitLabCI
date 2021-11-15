@@ -96,8 +96,7 @@ as required from medium model \"" + mediumName + "\".");
   Inline=true,
   Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end setState_phX;
 
   redeclare function setState_dTX
@@ -127,8 +126,7 @@ Function to set the state for given pressure, enthalpy and species concentration
     Documentation(info="<html>
   The thermodynamic state record
   is computed from density d, temperature T and composition X.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end setState_dTX;
 
 redeclare function extends gasConstant "Gas constant"
@@ -156,8 +154,7 @@ algorithm
     Documentation(info="<html>
 Saturation pressure of water above the triple point temperature is computed from temperature. It's range of validity is between
 273.16 and 373.16 K. Outside these limits a less accurate result is returned.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end saturationPressureLiquid;
 
 function saturationPressureLiquid_der
@@ -178,8 +175,7 @@ Documentation(info="<html>
 Derivative function of
 <a href=\"modelica://AixLib.Media.Specialized.Air.PerfectGas.saturationPressureLiquid\">
 AixLib.Media.Specialized.Air.PerfectGas.saturationPressureLiquid</a>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end saturationPressureLiquid_der;
 
   function sublimationPressureIce =
@@ -214,8 +210,7 @@ end saturationPressure;
     Inline=true,
     Documentation(info="<html>
 Pressure is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
  end pressure;
 
  redeclare function extends temperature "Gas temperature"
@@ -226,8 +221,7 @@ Pressure is returned from the thermodynamic state record input as a simple assig
     Inline=true,
     Documentation(info="<html>
 Temperature is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
  end temperature;
 
  redeclare function extends density "Gas density"
@@ -238,8 +232,7 @@ Temperature is returned from the thermodynamic state record input as a simple as
     Inline=true,
     Documentation(info="<html>
 Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
  end density;
 
  redeclare function extends specificEntropy
@@ -254,8 +247,7 @@ Density is computed from pressure, temperature and composition in the thermodyna
     Inline=true,
     Documentation(info="<html>
 Specific entropy is calculated from the thermodynamic state record, assuming ideal gas behavior and including entropy of mixing. Liquid or solid water is not taken into account, the entire water content X[1] is assumed to be in the vapor state (relative humidity below 1.0).
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
  end specificEntropy;
 
  redeclare function extends enthalpyOfVaporization
@@ -506,8 +498,7 @@ algorithm
 Temperature as a function of specific enthalpy and species concentration.
 The pressure is input for compatibility with the medium models, but the temperature
 is independent of the pressure.
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end temperature_phX;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
@@ -562,8 +553,7 @@ November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
   end GasProperties;
   // In the assignments below, we compute cv as OpenModelica
   // cannot evaluate cv=cp-R as defined in GasProperties.

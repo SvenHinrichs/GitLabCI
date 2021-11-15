@@ -30,6 +30,5 @@ April 4, 2019 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end X_pTphi;

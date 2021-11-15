@@ -49,6 +49,5 @@ First implementation.
 <p>
 Block that converts enthalpy to temperature.
 </p>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end hOut_toT;

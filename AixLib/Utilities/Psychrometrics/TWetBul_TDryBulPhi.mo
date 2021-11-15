@@ -197,6 +197,5 @@ October 1, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end TWetBul_TDryBulPhi;

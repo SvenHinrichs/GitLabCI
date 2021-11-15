@@ -424,6 +424,5 @@ January 26, 2016, by Michael Wetter:<br/>
 First implementation of this base class.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Carnot;

@@ -20,6 +20,5 @@ February 10, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
-   __Dymola_LockedEditing="ibpsa");
+</html>"));
 end Carnot_TEva_LimitedCapacity;
