@@ -69,6 +69,7 @@ WhiteList:
         - cd Merge_Package/${CI_PROJECT_NAME}
         - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML
         - python bin/02_CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} --git-url ${git_url} --library ${library} --wh-library ${wh_library} --whitelist
+        - python bin/02_CITests/05_Converter/lock_model.py --library {library} --wh-library ${wh_library}
         - rm  -r IBPSA 
         - message="${bot_commit}"
         - git add  . 

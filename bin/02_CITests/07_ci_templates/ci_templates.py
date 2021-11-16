@@ -12,7 +12,6 @@ class CI_yml_templates(object):
         self.wh_library = wh_library
         self.git_url = git_url
         self.wh_path = wh_path
-
         # except commits
         self.update_ref_commit = "ci_update_ref"
         self.show_ref_commit = "ci_show_ref"
@@ -24,7 +23,6 @@ class CI_yml_templates(object):
         self.check_commit = "ci_check"
         self.regression_test_commit = "ci_regression_test"
         self.ci_html_commit = "ci_html"
-
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
         self.bot_create_ref_message = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
@@ -36,10 +34,8 @@ class CI_yml_templates(object):
                                    self.create_html_wh_commit, self.ci_html_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
-        #self.correct_html_branch = "Correct_HTML_"+
 
-        # files
-        sys.path.append('bin/02_CITests')
+        sys.path.append('bin/02_CITests')  # files
         from _config import ch_file, wh_file, reg_temp_file, write_temp_file, sim_temp_file, page_temp_file, ibpsa_temp_file, main_temp_file, \
             temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, html_wh_file,\
             style_check_temp_file, setting_file

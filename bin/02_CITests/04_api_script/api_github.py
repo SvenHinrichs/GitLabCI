@@ -182,7 +182,11 @@ if  __name__ == '__main__':
 			pr_number = get_api._get_pr_number()
 			print(f'Setting pull request number: {pr_number}')
 			assignees_owner = get_api._get_github_username()
-			print(f'Setting login name: {assignees_owner}')
+			if assignees_owner is not None:
+				print(f'Setting login name: {assignees_owner}')
+			else:
+				assignees_owner = "ebc-aixlib-bot"
+				print(f'Setting login name: {assignees_owner}')
 			pull_request._update_pr_assignees_correct_html(pr_number, assignees_owner)
 			exit(0)
 		if args.ibpsa_merge is True:
