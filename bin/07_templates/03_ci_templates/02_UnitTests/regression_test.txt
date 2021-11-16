@@ -221,8 +221,8 @@ prepare_create_plots:
     artifacts:
         when: on_failure
         paths:
-          - data
-        - ${chart_dir}/${lib_package}
+            - data
+            - ${chart_dir}/${lib_package}
         expire_in: 7 day
     except:
         refs:
