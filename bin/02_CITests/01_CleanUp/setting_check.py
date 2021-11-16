@@ -1,6 +1,7 @@
 import sys
 import configparser
 import os
+import argparse
 
 class Check_Settings(object):
 
@@ -40,9 +41,19 @@ def _check_file(file_list):
         else:
             print(f' File {file} exist.')
 
+def _check_variables(variable_main_list, gitlab_ci_variables):
+    for var in variable_main_list:
+        if var is None:
+            print(f'Please set variable {var}.')
+        else:
+            print(f'Please variable {var}.')
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
+    check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
+    check_test_group.add_argument('-GT', "--github-token", default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
+
     sys.path.append('bin/02_CITests')
 
     from setting_check import Check_Settings
@@ -52,4 +63,5 @@ if __name__ == '__main__':
     path_list = [artifacts_dir, temp_dir, chart_dir, ref_file_dir, resource_dir]
     _check_dir(path_list)
     _check_file(file_list)
+    _check_variables(variable_main_list, gitlab_ci_variables)
 

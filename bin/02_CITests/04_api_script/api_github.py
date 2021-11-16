@@ -140,7 +140,7 @@ if  __name__ == '__main__':
 	check_test_group.add_argument('-WB', "--working-branch",default="${TARGET_BRANCH}", help="Your current working Branch")
 	check_test_group.add_argument("--base-branch", default="master",
 								  help="your base branch (master or develpment)")
-	check_test_group.add_argument('-GT', "--github-token",default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
+	check_test_group.add_argument('-GT', "--github-token", default="${GITHUB_API_TOKEN}", help="Your Set GITHUB Token")
 	check_test_group.add_argument("--prepare-plot", help="Plot new models with new created reference files", action="store_true")
 	check_test_group.add_argument("--show-plot", help="Plot new models with new created reference files",
 								  action="store_true")

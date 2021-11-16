@@ -38,7 +38,7 @@ class CI_yml_templates(object):
 
         sys.path.append('bin/02_CITests')  # files
         from _config import ch_file, wh_file, reg_temp_file, write_temp_file, sim_temp_file, page_temp_file, ibpsa_temp_file, main_temp_file, \
-            temp_dir, exit_file, new_ref_file, chart_dir, image_name, project_name, variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, html_wh_file,\
+            temp_dir, exit_file, new_ref_file, chart_dir, image_name,  variable_main_list, main_yml_file, stage_list, eof_file, html_temp_file, html_wh_file,\
             style_check_temp_file, setting_file
         self.ch_file = ch_file.replace(os.sep, "/")
         self.wh_file = wh_file.replace(os.sep, "/")
@@ -61,7 +61,7 @@ class CI_yml_templates(object):
         self.setting_file = setting_file
 
         self.image_name = image_name
-        self.project_name = project_name
+        #self.project_name = project_name
         self.variable_main_list = variable_main_list
         self.stage_list = stage_list
 
@@ -186,10 +186,10 @@ class CI_yml_templates(object):
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
-    def _write_main_yml(self, image_name, stage_list, variable_list, project, file_list):
+    def _write_main_yml(self, image_name, stage_list, variable_list,  file_list):
         mytemplate = Template(filename=self.main_temp)
         yml_text = mytemplate.render(image_name=image_name, stage_list=stage_list, variable_list=variable_list,
-                                     project=project, file_list=file_list)
+                                     file_list=file_list)
         yml_tmp = open(self.main_yml, "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -202,9 +202,9 @@ class CI_yml_templates(object):
         image_name = self.image_name
         return image_name
 
-    def _get_project_name(self):
-        project_name = self.project_name
-        return project_name
+    #def _get_project_name(self):
+        #project_name = self.project_name
+        #return project_name
 
     def _get_yml_templates(self):
         file_list = []
@@ -250,11 +250,11 @@ class CI_yml_templates(object):
                     new_list.append(stage)
         return new_list
 
-    def _write_settings(self, image_name, stage_list, variable_list, project, file_list):  # write CI setting
+    def _write_settings(self, image_name, stage_list, variable_list,  file_list):  # write CI setting
         mytemplate = Template(filename=self.setting_file)
         yml_text = mytemplate.render(library=self.library, wh_library=self.wh_library, dymolaversion=self.dymolaversion,
                                      package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
-                                     image_name=image_name, project_name=project, variable_main_list=variable_list,
+                                     image_name=image_name,  variable_main_list=variable_list,
                                       except_commit_list=self.except_commit_list, file_list=file_list)
         yml_tmp = open(self.setting_file.replace(".txt", ".html"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
@@ -375,12 +375,12 @@ if __name__ == '__main__':
     print(f'Setting variables: {variable_list}')
     image_name = CI_Class._get_image_name()
     print(f'Setting image: {image_name}')
-    project = CI_Class._get_project_name()
-    print(f'Setting project: {project}')
+    #project = CI_Class._get_project_name()
+    #print(f'Setting project: {project}')
     file_list = CI_Class._get_yml_templates()
     print(f'Setting yml files: {file_list}')
     stage_list = CI_Class._get_stages(file_list)
     print(f'Setting stages: {stage_list}')
-    CI_Class._write_main_yml(image_name, stage_list, variable_list, project, file_list)
-    CI_Class._write_settings(image_name, stage_list, variable_list, project, file_list)
+    CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
+    CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
     print(f'The CI settings are saved in file {setting_file}')

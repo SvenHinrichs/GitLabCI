@@ -23,3 +23,43 @@ update_ref : Updates the model and the whole package in which the model is locat
 - python bin/02_CITests/07_ci_templates/ci_templates.py
 ## Check files and paths in _config.py
 - python bin/02_CITests/01_CleanUp/setting_check.py
+
+- CI_Regressiontest
+- CI_create_plots
+
+- Regressiontest_job
+- Regression_overall_coverage
+- prepare_create_plots
+
+- Regressiontest_changed_Job
+- Changed_create_plots
+
+- RegressionTest_Check_References
+- Update_Regression_Results
+- plot_reference_results
+
+- check_model_job
+- check_changed_models_job
+- CI_check_model_job
+- whitelist_job
+
+- CI_simulate_model_job
+- simulate_model_job
+- simulate_changed_models_job
+
+- trigger_check_HTML
+- HTML_Merge_Checks
+- HTML_Check
+- CI_HTML_Check
+- Open_Pull_Request
+- htmL_whitelist_job
+
+
+- Style_Check_AixLib
+- Style_Check_ChangedModel
+
+- IBPSA
+- WhiteList
+- IBPSA_Pull_Request
+
+- pages

@@ -43,11 +43,11 @@ setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.txt'
 
 # image_name
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest'
-project_name = 'SvenHinrichs/GitLabCI'
 variable_main_list = ['Github_Repository: SvenHinrichs/GitLabCI', 'GITLAB_Page: "https://svenhinrichs.pages.rwth-aachen.de/GitLabCI"']
 stage_list = ["Ref_Check", "build", "HTML_Check", "IBPSA_Merge", "create_html_whitelist", "Update_WhiteList", "Release", "StyleCheck", "check", "openMR", "post", "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
 # Pull Request Comment
 #self.post_comment_message = f'Error in regression test.\\n Compare the results on the following page {self.page_url}'
+gitlab_ci_variables = ["GITHUB_API_TOKEN", "GITHUB_PRIVATE_KEY", "GL_TOKEN"]
 
 
 

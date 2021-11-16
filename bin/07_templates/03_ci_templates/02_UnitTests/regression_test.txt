@@ -34,7 +34,7 @@ stages:
         when: on_failure
         paths:
           - data
-          - bin/07_templates/02_charts/${lib_package}
+          - ${chart_dir}/${lib_package}
         expire_in: 7 day
     only:
         refs:
@@ -65,7 +65,7 @@ CI_create_plots:
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
+        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
@@ -111,7 +111,7 @@ CI_create_plots:
         when: on_failure
         paths:
           - data
-          - bin/07_templates/02_charts/${lib_package}
+          - ${chart_dir}/${lib_package}
         expire_in: 7 day
     only:
         refs:
@@ -172,7 +172,7 @@ prepare_create_plots:
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
+        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
@@ -222,6 +222,7 @@ prepare_create_plots:
         when: on_failure
         paths:
           - data
+        - ${chart_dir}/${lib_package}
         expire_in: 7 day
     except:
         refs:
@@ -259,7 +260,7 @@ Changed_create_plots:
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
-        - cp -r bin/03_WhiteLists/charts/* $CI_COMMIT_REF_NAME/plots
+        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
         
     artifacts:
         paths:
@@ -336,7 +337,7 @@ RegressionTest_Check_References:
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles data ;
-            cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
             echo 'successful' > ${exit_file} ;
@@ -410,7 +411,7 @@ Update_Regression_Results:
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles data ;
-            cp -r CorrectedVersion/${CI_PROJECT_NAME}/bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
             echo 'successful' > ${exit_file} ;
@@ -440,7 +441,7 @@ plot_reference_results:
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py --line-html --show-ref --single-package ${library} --library ${library} 
-        - cp -r bin/07_templates/02_charts/* $CI_COMMIT_REF_NAME/plots 
+        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots 
         - python bin/02_CITests/04_api_script/api_github.py --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
         - exit 1
     artifacts:

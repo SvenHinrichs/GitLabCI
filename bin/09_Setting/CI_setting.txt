@@ -23,16 +23,11 @@
 [image_name]
 - ${image_name}
 
-[project_name]
-- ${project_name}
 
 [variable_list]
 %for variable in variable_main_list:
 	- ${variable}
 %endfor
-
-[project_name]
-- ${project_name}
 
 [ci commit commands]
 %for commit in except_commit_list:
