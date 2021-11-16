@@ -365,7 +365,7 @@ def _read_merge_branch(data):
     Merge_Branch = data["Merge_Branch"]
     Merge_Branch = Merge_Branch["merge_branch"]
     print(f'Setting merge branch: {Merge_Branch}')
-    return data
+    return Merge_Branch
 
 def _read_image_name(data):
     image_name = data["image_name"]
@@ -379,16 +379,18 @@ def _read_variable_list(data):
     print(f'Setting variables: {variable_list}')
     return variable_list
 
-def _read_ci_commands(data)
+def _read_ci_commands(data):
     ci_commit_commands = data["ci_commit_commands"]
     ci_commit_commands = ci_commit_commands["commitlist"]
-    print(f'Setting library: {ci_commit_commands}')
+    print(f'Setting ci commands: {ci_commit_commands}')
+    return ci_commit_commands
 
+def _read_file_list(data):
     file_list = data["File_list"]
     file_list = file_list["filelist"]
-    print(f'Setting library: {file_list}')
-    return library, wh_library, packagelist, dymolaversion, variable_list,   image_name, stage_list, variable_list, file_list
-    # image_name, stage_list, variable_list, file_list
+    print(f'Setting yaml file list: {file_list}')
+    return file_list
+
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
@@ -442,5 +444,32 @@ if __name__ == '__main__':
         CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
         print(f'The CI settings are saved in file {setting_file}')
     if args.setting is True:
-        result = _read_setting_file()
+        git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
+        wh_path = None
+        data = _read_setting_file()
+        library = _read_library(data)
+        wh_library = _read_wh_library(data)
+        package_list = _read_package_list(data)
+        dymolaversion = _read_dymolaversion(data)
+        stages = _read_stages(data)
+        Merge_Branch = _read_merge_branch(data)
+        image_name = _read_image_name(data)
+        variable_list = _read_variable_list(data)
+        ci_commit_commands = _read_ci_commands(data)
+        file_list = _read_file_list(data)
         CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
+
+        if temp == "check":
+            CI_Class._write_check_template()
+        if temp == "simulate":
+            CI_Class._write_simulate_template()
+        if temp == "regression":
+            CI_Class._write_regression_template()
+        if temp == "html":
+            CI_Class._write_html_template()
+        if temp == "style":
+            CI_Class._write_style_template()
+        if temp == "Merge":
+            CI_Class._write_merge_template()
+        CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
+        CI_Class._write_settings(image_name, stage_list, variable_list, file_list)

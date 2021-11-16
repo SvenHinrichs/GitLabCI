@@ -429,6 +429,9 @@ Update_Regression_Results:
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /${update_ref_commit}/
+    except:
+        refs:
+            - external_pull_requests
     
 plot_reference_results:
     stage: plot_ref
