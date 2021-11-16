@@ -48,3 +48,6 @@ variable_main_list = ['Praefix_Branch: "Correct_HTML_"', 'TARGET_BRANCH: $CI_COM
 stage_list = ["Ref_Check", "build", "HTML_Check", "IBPSA_Merge", "create_html_whitelist", "Update_WhiteList", "Release", "StyleCheck", "check", "openMR", "post", "create_whitelist", "simulate", "RegressionTest", "Update_Ref", "plot_ref", "prepare", "deploy"]
 # Pull Request Comment
 #self.post_comment_message = f'Error in regression test.\\n Compare the results on the following page {self.page_url}'
+
+
+
