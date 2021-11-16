@@ -37,6 +37,8 @@ stages:
           - bin/07_templates/02_charts/${lib_package}
         expire_in: 7 day
     only:
+        refs:
+            - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE  =~ /${regression_test_commit}/
     retry:
@@ -69,6 +71,8 @@ CI_create_plots:
         paths:
          - $CI_COMMIT_REF_NAME/plots
     only:
+        refs:
+            - external_pull_requests
         variables:
             - $CI_COMMIT_MESSAGE  =~ /${regression_test_commit}/
     when: on_failure

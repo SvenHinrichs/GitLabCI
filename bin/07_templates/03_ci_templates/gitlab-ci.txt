@@ -13,7 +13,6 @@ variables:
     
 include:
   %for file in file_list:
-  - project: '${project}'
-    file:  '${file}'  
+    - '${file}'  
   %endfor
   

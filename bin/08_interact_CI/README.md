@@ -15,5 +15,9 @@ update_ref : Updates the model and the whole package in which the model is locat
 - create_html_wh_commit = "ci_create_html_whitelist"  y
 - simulate_commit = "ci_simulate" y
 - check_commit = "ci_check" y
-- regression_test_commit = "ci_regression_test" y
+- regression_test_commit = "ci_regression_test" [nur als pull_request] y
 - ci_html_commit = "ci_html" y
+
+
+## Create yaml templates
+- python bin/02_CITests/07_ci_templates/ci_templates.py
