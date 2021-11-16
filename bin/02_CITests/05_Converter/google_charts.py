@@ -380,7 +380,6 @@ class Plot_Charts(object):
 
     def _create_layout(self):  # Creates a layout index that has all links to the subordinate index files
         package_list = []
-        print(self.chart_dir)
         for folder in os.listdir(self.chart_dir):
             if folder == "style.css" or folder == "index.html":
                 continue
