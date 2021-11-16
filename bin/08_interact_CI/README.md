@@ -40,7 +40,7 @@ update_ref : Updates the model and the whole package in which the model is locat
 - check_model_job
 - check_changed_models_job
 - CI_check_model_job xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
-- whitelist_job
+- whitelist_job xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
 
 - CI_simulate_model_job xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
 - simulate_model_job

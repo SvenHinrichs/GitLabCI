@@ -206,4 +206,7 @@ htmL_whitelist_job:
         expire_in: 7 day 
     only:
         variables:
-            - $CI_COMMIT_MESSAGE =~ /${create_html_wh_commit}/           
+            - $CI_COMMIT_MESSAGE =~ /${create_html_wh_commit}/      
+    except:
+        refs:
+            - external_pull_requests
