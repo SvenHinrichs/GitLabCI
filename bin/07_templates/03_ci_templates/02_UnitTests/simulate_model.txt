@@ -19,6 +19,9 @@ stages:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${simulate_commit}/
+    except:
+        refs:
+            - external_pull_requests
     retry:
         max: 2
         when: runner_system_failure  
