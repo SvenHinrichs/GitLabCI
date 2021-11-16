@@ -153,7 +153,7 @@ if __name__ == '__main__':
     unit_test_group.add_argument("-wh-l", "--wh-library", help="Library to test")
     args = parser.parse_args()
 
-    from ibpsa_icon import Lock_model
+    from lock_model import Lock_model
     lock = Lock_model(library=args.library, wh_library=args.wh_library)
     wl_lines = lock._read_wh()
     mo_li = lock._sort_list(wl_lines)
