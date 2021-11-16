@@ -96,7 +96,6 @@ Check_${library}_${package}_changed_models:
     except:
         refs:
             - external_pull_requests
-    except
     retry:
         max: 2
         when: runner_system_failure  

@@ -329,7 +329,8 @@ def _config_settings_check():
 def _read_setting_file():
     setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.toml'
     data = toml.load(setting_file)
-    print(data)
+    library = data["library"]
+    library = library["library_name"]
 
 
 if __name__ == '__main__':
