@@ -2,6 +2,8 @@ import pandas as pd
 import os
 from mako.template import Template
 import sys
+import argparse
+import toml
 
 class CI_yml_templates(object):
 
@@ -296,7 +298,6 @@ def _config_settings_check():
     print(f'Setting packages: {package_list_final}')
     dymolaversion = input(f'Give the dymolaversion (e.g. 2020): ')
     print(f'Setting dymola version: {dymolaversion}')
-
     response = input(
         f'Create whitelist? Useful if your own library has been assembled from other libraries. A whitelist is created, where faulty models from the foreign library are no longer tested in the future and are filtered out. (y/n)  ')
     if response == "y":
@@ -324,52 +325,62 @@ def _config_settings_check():
     wh_path = None
     return library, package_list_final, dymolaversion, wh_library, git_url, wh_path
 
+def _read_setting_file():
+    setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.toml'
+    data = toml.load(setting_file)
+    print(data)
+
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
+    parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
+    check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
+    check_test_group.add_argument("--setting", help="Create the CI from file bin\9_Setting\CI_setting.txt",
+                                  action="store_true")
+    args = parser.parse_args()  # Parse the arguments
 
     from ci_templates import CI_yml_templates
-
     sys.path.append('bin/02_CITests')
     from _config import setting_file
+    if args.setting is False:
+        config_list = _config_test()
+        if len(config_list) == 0:
+            exit(0)
+        result = _config_settings_check()
+        library = result[0]
+        package_list = result[1]
+        dymolaversion = result[2]
+        wh_library = result[3]
+        # git_url = result[4]
+        wh_path = result[5]
+        git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
+        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
+        for temp in config_list:
+            if temp == "check":
+                CI_Class._write_check_template()
+            if temp == "simulate":
+                CI_Class._write_simulate_template()
+            if temp == "regression":
+                CI_Class._write_regression_template()
+            if temp == "html":
+                CI_Class._write_html_template()
+            if temp == "style":
+                CI_Class._write_style_template()
+            if temp == "Merge":
+                CI_Class._write_merge_template()
 
-    config_list = _config_test()
-    if len(config_list) == 0:
-        exit(0)
-
-    result = _config_settings_check()
-    library = result[0]
-    package_list = result[1]
-    dymolaversion = result[2]
-    wh_library = result[3]
-    # git_url = result[4]
-    wh_path = result[5]
-    git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
-    CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
-    for temp in config_list:
-        if temp == "check":
-            CI_Class._write_check_template()
-        if temp == "simulate":
-            CI_Class._write_simulate_template()
-        if temp == "regression":
-            CI_Class._write_regression_template()
-        if temp == "html":
-            CI_Class._write_html_template()
-        if temp == "style":
-            CI_Class._write_style_template()
-        if temp == "Merge":
-            CI_Class._write_merge_template()
-
-    variable_list = CI_Class._get_variables()
-    print(f'Setting variables: {variable_list}')
-    image_name = CI_Class._get_image_name()
-    print(f'Setting image: {image_name}')
-    #project = CI_Class._get_project_name()
-    #print(f'Setting project: {project}')
-    file_list = CI_Class._get_yml_templates()
-    print(f'Setting yml files: {file_list}')
-    stage_list = CI_Class._get_stages(file_list)
-    print(f'Setting stages: {stage_list}')
-    CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
-    CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
-    print(f'The CI settings are saved in file {setting_file}')
+        variable_list = CI_Class._get_variables()
+        print(f'Setting variables: {variable_list}')
+        image_name = CI_Class._get_image_name()
+        print(f'Setting image: {image_name}')
+        #project = CI_Class._get_project_name()
+        #print(f'Setting project: {project}')
+        file_list = CI_Class._get_yml_templates()
+        print(f'Setting yml files: {file_list}')
+        stage_list = CI_Class._get_stages(file_list)
+        print(f'Setting stages: {stage_list}')
+        CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
+        CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
+        print(f'The CI settings are saved in file {setting_file}')
+    if args.setting is True:
+        _read_setting_file()
