@@ -157,3 +157,6 @@ whitelist_job:
     only:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${wh_commit}/
+    except:
+        refs:
+            - external_pull_requests
