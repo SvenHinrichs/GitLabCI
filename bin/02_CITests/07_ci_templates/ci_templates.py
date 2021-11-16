@@ -329,38 +329,57 @@ def _config_settings_check():
 def _read_setting_file():
     setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.toml'
     data = toml.load(setting_file)
+    return data
+
+def _read_library(data):
     library = data["library"]
     library = library["library_name"]
     print(f'Setting library: {library}')
+    return library
 
+def _read_wh_library(data):
     wh_library = data["whitelist_library"]
     wh_library = wh_library["wh_library_name"]
     print(f'Setting whitelist_librar: {wh_library}')
+    return wh_library
 
+def _read_package_list(data):
     packagelist = data["Package"]
     packagelist = packagelist["packagelist"]
     print(f'Setting packagelist: {packagelist}')
+    return packagelist
 
+def _read_dymolaversion(data):
     dymolaversion = data["dymola_version"]
     dymolaversion = dymolaversion["dymolaversion"]
     print(f'Setting dymolaversion: {dymolaversion}')
+    return dymolaversion
 
+def _read_stages(data):
     stages = data["stages"]
     stages = stages["stagelist"]
-    print(f'Setting library: {stages}')
+    print(f'Setting stages: {stages}')
+    return stages
 
+def _read_merge_branch(data):
     Merge_Branch = data["Merge_Branch"]
     Merge_Branch = Merge_Branch["merge_branch"]
-    print(f'Setting library: {Merge_Branch}')
+    print(f'Setting merge branch: {Merge_Branch}')
+    return data
 
+def _read_image_name(data):
     image_name = data["image_name"]
     image_name = image_name["image"]
-    print(f'Setting library: {image_name}')
+    print(f'Setting image: {image_name}')
+    return image_name
 
+def _read_variable_list(data):
     variable_list = data["variable_list"]
     variable_list = variable_list["variablelist"]
-    print(f'Setting library: {variable_list}')
+    print(f'Setting variables: {variable_list}')
+    return variable_list
 
+def _read_ci_commands(data)
     ci_commit_commands = data["ci_commit_commands"]
     ci_commit_commands = ci_commit_commands["commitlist"]
     print(f'Setting library: {ci_commit_commands}')
