@@ -48,3 +48,10 @@ image = "${image_name}"
 	"${file}",
 	%endfor
 	]
+	
+[config_list]
+	configlist = [
+	%for config in config_list:
+	"${config}",
+	%endfor
+	]

@@ -242,12 +242,12 @@ class CI_yml_templates(object):
                     new_list.append(stage)
         return new_list
 
-    def _write_settings(self, image_name, stage_list, variable_list,  file_list):  # write CI setting
+    def _write_settings(self, image_name, stage_list, variable_list,  file_list, config_list):  # write CI setting
         mytemplate = Template(filename=self.setting_file)
         yml_text = mytemplate.render(library=self.library, wh_library=self.wh_library, dymolaversion=self.dymolaversion,
                                      package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
                                      image_name=image_name,  variable_main_list=variable_list,
-                                      except_commit_list=self.except_commit_list, file_list=file_list)
+                                      except_commit_list=self.except_commit_list, file_list=file_list, config_list=config_list)
         yml_tmp = open(self.setting_file.replace("_template.txt", ".toml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -391,6 +391,12 @@ def _read_file_list(data):
     print(f'Setting yaml file list: {file_list}')
     return file_list
 
+def _read_config_list(data):
+    config_list = data["config_list"]
+    config_list = config_list["configlist"]
+    print(f'Setting config list: {config_list}')
+    return config_list
+
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
@@ -441,7 +447,7 @@ if __name__ == '__main__':
         stage_list = CI_Class._get_stages(file_list)
         print(f'Setting stages: {stage_list}')
         CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
-        CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
+        CI_Class._write_settings(image_name, stage_list, variable_list, file_list, config_list)
         print(f'The CI settings are saved in file {setting_file}')
     if args.setting is True:
         git_url = "https://github.com/ibpsa/modelica-ibpsa.git"
@@ -451,25 +457,25 @@ if __name__ == '__main__':
         wh_library = _read_wh_library(data)
         package_list = _read_package_list(data)
         dymolaversion = _read_dymolaversion(data)
-        stages = _read_stages(data)
+        stage_list = _read_stages(data)
         Merge_Branch = _read_merge_branch(data)
         image_name = _read_image_name(data)
         variable_list = _read_variable_list(data)
         ci_commit_commands = _read_ci_commands(data)
         file_list = _read_file_list(data)
+        config_list = _read_config_list(data)
         CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
-
-        if temp == "check":
-            CI_Class._write_check_template()
-        if temp == "simulate":
-            CI_Class._write_simulate_template()
-        if temp == "regression":
-            CI_Class._write_regression_template()
-        if temp == "html":
-            CI_Class._write_html_template()
-        if temp == "style":
-            CI_Class._write_style_template()
-        if temp == "Merge":
-            CI_Class._write_merge_template()
+        for temp in config_list:
+            if temp == "check":
+                CI_Class._write_check_template()
+            if temp == "simulate":
+                CI_Class._write_simulate_template()
+            if temp == "regression":
+                CI_Class._write_regression_template()
+            if temp == "html":
+                CI_Class._write_html_template()
+            if temp == "style":
+                CI_Class._write_style_template()
+            if temp == "Merge":
+                CI_Class._write_merge_template()
         CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
-        CI_Class._write_settings(image_name, stage_list, variable_list, file_list)

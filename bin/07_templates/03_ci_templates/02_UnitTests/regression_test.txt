@@ -320,7 +320,7 @@ RegressionTest_Check_References:
             echo $pushmodel ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             python bin/02_CITests/06_deploy/deploy_artifacts.py --library AixLib --ref --new-ref;
-            message="Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/ [skip ci]" ;
+            message="Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/$CI_COMMIT_REF_NAME/plots/ [skip ci]" ;
             git add $pushmodel ;
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git ;
@@ -394,7 +394,7 @@ Update_Regression_Results:
             echo $pushmodel ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             python bin/02_CITests/06_deploy/deploy_artifacts.py --library ${library} --ref --updated-ref;
-            message="Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/ [skip ci]" ;
+            message="Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/$CI_COMMIT_REF_NAME/plots/ [skip ci]" ;
             git add ${library}/Resources/ReferenceResults/Dymola/* ;
             git commit -m "$message";
             git push git@github.com:${Github_Repository}.git ;
@@ -412,7 +412,7 @@ Update_Regression_Results:
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles data ;
             cp -r CorrectedVersion/${CI_PROJECT_NAME}/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
-            exit 1 ;
+            exit 0 ;
           else
             echo 'successful' > ${exit_file} ;
             exit 0 ;
