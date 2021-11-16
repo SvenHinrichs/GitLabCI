@@ -443,7 +443,6 @@ plot_reference_results:
         - python bin/02_CITests/05_Converter/google_charts.py --line-html --show-ref --single-package ${library} --library ${library} 
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots 
         - python bin/02_CITests/04_api_script/api_github.py --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
-        - exit 1
     artifacts:
         when: always
         paths:

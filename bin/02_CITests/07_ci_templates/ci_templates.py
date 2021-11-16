@@ -368,7 +368,7 @@ def _read_setting_file():
     File_list = data["File_list"]
     File_list = File_list["filelist"]
     print(f'Setting library: {File_list}')
-    return library, wh_library, packagelist, dymolaversion, stages, Merge_Branch, image_name, variable_list, ci_commit_commands, File_list
+    return library, wh_library, packagelist, dymolaversion, variable_list, ci_commit_commands, File_list
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
