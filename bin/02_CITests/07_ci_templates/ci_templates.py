@@ -365,10 +365,11 @@ def _read_setting_file():
     ci_commit_commands = ci_commit_commands["commitlist"]
     print(f'Setting library: {ci_commit_commands}')
 
-    File_list = data["File_list"]
-    File_list = File_list["filelist"]
-    print(f'Setting library: {File_list}')
-    return library, wh_library, packagelist, dymolaversion, variable_list, ci_commit_commands, File_list
+    file_list = data["File_list"]
+    file_list = file_list["filelist"]
+    print(f'Setting library: {file_list}')
+    return library, wh_library, packagelist, dymolaversion, variable_list,   image_name, stage_list, variable_list, file_list
+    # image_name, stage_list, variable_list, file_list
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py

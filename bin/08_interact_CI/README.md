@@ -31,13 +31,11 @@ update_ref : Updates the model and the whole package in which the model is locat
 - Regressiontest_job
 - Regression_overall_coverage
 - prepare_create_plots
-
 - Regressiontest_changed_Job
 - Changed_create_plots
-
 - RegressionTest_Check_References
 - Update_Regression_Results
-- plot_reference_results
+- plot_reference_results xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
 
 - check_model_job
 - check_changed_models_job
