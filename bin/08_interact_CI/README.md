@@ -43,7 +43,7 @@ update_ref : Updates the model and the whole package in which the model is locat
 - CI_check_model_job
 - whitelist_job
 
-- CI_simulate_model_job
+- CI_simulate_model_job y (aber doppelte Pipeline Belegung)
 - simulate_model_job
 - simulate_changed_models_job
 

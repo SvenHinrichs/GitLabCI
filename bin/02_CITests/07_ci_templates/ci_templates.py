@@ -26,6 +26,7 @@ class CI_yml_templates(object):
         self.regression_test_commit = "ci_regression_test"
         self.ci_html_commit = "ci_html"
         self.ci_merge_except_commit = "fix errors manually"
+        self.ci_setting_commit = "ci_setting"
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
         self.bot_create_ref_message = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
@@ -34,7 +35,7 @@ class CI_yml_templates(object):
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
                                    self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
-                                   self.create_html_wh_commit, self.ci_html_commit]
+                                   self.create_html_wh_commit, self.ci_html_commit, self.ci_setting_commit]
         # except branches
         self.merge_branch = wh_library + "_Merge"
 
@@ -247,7 +248,7 @@ class CI_yml_templates(object):
                                      package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
                                      image_name=image_name,  variable_main_list=variable_list,
                                       except_commit_list=self.except_commit_list, file_list=file_list)
-        yml_tmp = open(self.setting_file.replace("_template", ""), "w")
+        yml_tmp = open(self.setting_file.replace("_template.txt", ".toml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 

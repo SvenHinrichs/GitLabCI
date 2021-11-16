@@ -1,41 +1,50 @@
 [library]
-- ${library}
+library_name =  "${library}"
 
 [whitelist_library]
-- ${wh_library}
+wh_library_name = "${wh_library}"
 
-[dymola version]
-- ${dymolaversion}
+[dymola_version]
+dymolaversion = "${dymolaversion}"
 
 [Package]
-%for package in package_list:
-	- ${package}
-%endfor
+	packagelist = [ 
+	%for package in package_list:
+	"${package}",
+	%endfor
+	]
 
 [stages]
-%for stage in stage_list:
-	- ${stage}
-%endfor
-
-[Merge Branch]
-- ${merge_branch}
+	stagelist = [
+	%for stage in stage_list:
+	"${stage}",
+	%endfor
+	]
+	
+[Merge_Branch]
+merge_branch = "${merge_branch}"
 
 [image_name]
-- ${image_name}
+image = "${image_name}"
 
 
 [variable_list]
-%for variable in variable_main_list:
-	- ${variable}
-%endfor
+	variablelist = [
+	%for variable in variable_main_list:
+	"${variable}",
+	%endfor
+	]
 
-[ci commit commands]
-%for commit in except_commit_list:
-	- ${commit}
-%endfor
-
-[File list]
-%for file in file_list:
-	- ${file}
-%endfor
-
+[ci_commit_commands]
+	commitlist = [
+	%for commit in except_commit_list:
+	"${commit}",
+	%endfor
+	]
+	
+[File_list]
+	filelist = [
+	%for file in file_list:
+	"${file}",
+	%endfor
+	]
