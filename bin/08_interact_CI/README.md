@@ -24,8 +24,8 @@ update_ref : Updates the model and the whole package in which the model is locat
 ## Check files and paths in _config.py
 - python bin/02_CITests/01_CleanUp/setting_check.py
 
-- CI_Regressiontest y
-- CI_create_plots y
+- CI_Regressiontest xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y
+- CI_create_plots xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y
 
 - Regressiontest_job
 - Regression_overall_coverage
@@ -40,10 +40,10 @@ update_ref : Updates the model and the whole package in which the model is locat
 
 - check_model_job
 - check_changed_models_job
-- CI_check_model_job y (aber doppelte Pipeline Belegung)
+- CI_check_model_job xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
 - whitelist_job
 
-- CI_simulate_model_job y (aber doppelte Pipeline Belegung)
+- CI_simulate_model_job xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx y 
 - simulate_model_job
 - simulate_changed_models_job
 

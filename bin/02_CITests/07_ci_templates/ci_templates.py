@@ -331,7 +331,44 @@ def _read_setting_file():
     data = toml.load(setting_file)
     library = data["library"]
     library = library["library_name"]
+    print(f'Setting library: {library}')
 
+    wh_library = data["whitelist_library"]
+    wh_library = wh_library["wh_library_name"]
+    print(f'Setting whitelist_librar: {wh_library}')
+
+    packagelist = data["Package"]
+    packagelist = packagelist["packagelist"]
+    print(f'Setting packagelist: {packagelist}')
+
+    dymolaversion = data["dymola_version"]
+    dymolaversion = dymolaversion["dymolaversion"]
+    print(f'Setting dymolaversion: {dymolaversion}')
+
+    stages = data["stages"]
+    stages = stages["stagelist"]
+    print(f'Setting library: {stages}')
+
+    Merge_Branch = data["Merge_Branch"]
+    Merge_Branch = Merge_Branch["merge_branch"]
+    print(f'Setting library: {Merge_Branch}')
+
+    image_name = data["image_name"]
+    image_name = image_name["image"]
+    print(f'Setting library: {image_name}')
+
+    variable_list = data["variable_list"]
+    variable_list = variable_list["variablelist"]
+    print(f'Setting library: {variable_list}')
+
+    ci_commit_commands = data["ci_commit_commands"]
+    ci_commit_commands = ci_commit_commands["commitlist"]
+    print(f'Setting library: {ci_commit_commands}')
+
+    File_list = data["File_list"]
+    File_list = File_list["filelist"]
+    print(f'Setting library: {File_list}')
+    return library, wh_library, packagelist, dymolaversion, stages, Merge_Branch, image_name, variable_list, ci_commit_commands, File_list
 
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
@@ -385,4 +422,5 @@ if __name__ == '__main__':
         CI_Class._write_settings(image_name, stage_list, variable_list, file_list)
         print(f'The CI settings are saved in file {setting_file}')
     if args.setting is True:
-        _read_setting_file()
+        result = _read_setting_file()
+        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
