@@ -33,8 +33,9 @@ class GET_API_GITHUB(object):
 		branch = response.json()
 		commit = branch["commit"]
 		commit = commit["author"]
-		login = commit["login"]
-		return login
+		if commit is not None:
+			login = commit["login"]
+			return login
 
 	def return_owner(self):
 		owner = self.github_repo.split("/")
@@ -195,6 +196,10 @@ if  __name__ == '__main__':
 			pr_number = get_api._get_pr_number()
 			print(f'Setting pull request number: {pr_number}')
 			assignees_owner = get_api._get_github_username()
-			print(f'Setting login name: {assignees_owner}')
+			if assignees_owner is not None:
+				print(f'Setting login name: {assignees_owner}')
+			else:
+				assignees_owner = "ebc-aixlib-bot"
+				print(f'Setting login name: {assignees_owner}')
 			pull_request._update_pr_assignees_IPBSA_Merge(pr_number, assignees_owner)
 			exit(0)
