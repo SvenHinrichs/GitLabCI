@@ -29,9 +29,8 @@ def _check_dir(path_list):
             print(f'Path {path} does not exist and will be created')
             os.makedirs(path)
         else:
-            print(f'Path {path} exist.')
+            continue
 
-    
 def _check_file(file_list):
     for file in file_list:
         if os.path.isfile(file) is False:
@@ -39,14 +38,15 @@ def _check_file(file_list):
             file_in = open(file, "w")
             file_in.close()
         else:
-            print(f' File {file} exist.')
+            continue
+
 
 def _check_variables(variable_main_list, github_token, github_private_key, GL_Token):
     for var in variable_main_list:
         if var is None:
             print(f'Please set variable {var}.')
         else:
-            print(f'variable {var}.')
+            print(f'variable {var} is set in file .gitlab-ci.yml.')
     if github_token is None:
         print(f'Please set variable GITHUB_API_TOKEN in your gitlab ci repo under CI/Variables.')
     if github_private_key is None:
@@ -58,12 +58,14 @@ def _check_variables(variable_main_list, github_token, github_private_key, GL_To
 
 
 if __name__ == '__main__':
+
     parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
     check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
     check_test_group.add_argument('-GT', "--github-token", help="Your Set GITHUB Token")
     check_test_group.add_argument("-GR", "--github-private-key",
                                   help="Environment Variable owner/RepositoryName")
     check_test_group.add_argument('-GP', "--GL-Token",  help="Set your gitlab page url")
+    args = parser.parse_args()
     sys.path.append('bin/02_CITests')
 
     from setting_check import Check_Settings

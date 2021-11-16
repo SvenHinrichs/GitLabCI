@@ -43,7 +43,7 @@ class GET_API_GITHUB(object):
 
 class PULL_REQUEST_GITHUB(object):
 	
-	def __init__(self, github_repo, working_branch,  github_token):
+	def __init__(self, github_repo, working_branch, github_token):
 		self.github_repo = github_repo
 		self.working_branch = working_branch
 		self.github_token = github_token
@@ -104,11 +104,11 @@ class PULL_REQUEST_GITHUB(object):
 		  'Authorization': 'Bearer ' + self.github_token,
 		  'Content-Type': 'application/json'
 		}
-		response = requests.request("PATCH", url, headers=headers, data = payload)
+		response = requests.request("PATCH", url, headers=headers, data=payload)
 		print(f'User {assignees_owner} assignee to pull request Number {str(pr_number)}')
 
 
-	def _post_comment_regression(self, pr_number):
+	def _post_comment_regression(self, pr_number, page_url):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
 		message = f'Errors in regression test. Compare the results on the following page\\n {page_url}'
 		body = f'\"body\":\"{message}\"'
@@ -120,7 +120,7 @@ class PULL_REQUEST_GITHUB(object):
 		response = requests.request("POST", url, headers=headers, data=payload)
 		print(response.text)
 
-	def _post_comment_show_plots(self, pr_number):
+	def _post_comment_show_plots(self, pr_number, page_url):
 		url = f'https://api.github.com/repos/{self.github_repo}/issues/{str(pr_number)}/comments'
 		message = f'Reference results have been displayed graphically and are created under the following page {page_url}'
 		payload = "{\"body\":\"" + message + "\"}"

@@ -65,17 +65,7 @@ class CI_yml_templates(object):
         self.variable_main_list = variable_main_list
         self.stage_list = stage_list
 
-    def _write_package(self):
-        data = {'Package': self.package_list}
-        df = pd.DataFrame(data, columns=['Package'])
-        csv_file = f'bin{os.sep}02_CITests{os.sep}ci_templates{os.sep}templates{os.sep}UnitTests{os.sep}configuration.csv'
-        df.to_csv(csv_file, index=False, header=True)
 
-    def _write_conf_csv(self):
-        data = {'Package': self.package_list}
-        df = pd.DataFrame(data, columns=['Package'])
-        csv_file = f'bin{os.sep}02_CITests{os.sep}ci_templates{os.sep}templates{os.sep}UnitTests{os.sep}configuration.csv'
-        df.to_csv(csv_file, index=False, header=True)
 
     def _write_html_template(self):
         mytemplate = Template(filename=self.html_temp_file)
@@ -95,13 +85,12 @@ class CI_yml_templates(object):
         mytemplate = Template(filename=self.style_check_temp_file)
         yml_text = mytemplate.render(merge_branch=self.merge_branch,
                                      except_commit_list=self.except_commit_list, library=self.library, dymolaversion=self.dymolaversion,
-                                        ch_file=self.ch_file)
+                                     ch_file=self.ch_file)
         yml_tmp = open(self.style_check_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
     def _write_merge_template(self):
-
         mytemplate = Template(filename=self.ibpsa_temp)
         yml_text = mytemplate.render(git_url=self.git_url, merge_branch=self.merge_branch,
                                      dymolaversion=self.dymolaversion,
@@ -111,7 +100,7 @@ class CI_yml_templates(object):
                                      IBPSA_Repo="${IBPSA_Repo}",
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library,
                                      Target_Branch="${Target_Branch}", wh_library=self.wh_library,
-                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit,ci_merge_except_commit=self.ci_merge_except_commit)
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit, ci_merge_except_commit=self.ci_merge_except_commit)
         yml_tmp = open(self.ibpsa_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
