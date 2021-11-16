@@ -66,7 +66,7 @@ CI_create_plots:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+        - python bin/02_CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -173,7 +173,7 @@ prepare_create_plots:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
-        - python bin/02_CITests/04_api_script/api_github.py  --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
+        - python bin/02_CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -442,7 +442,7 @@ plot_reference_results:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/02_CITests/05_Converter/google_charts.py --line-html --show-ref --single-package ${library} --library ${library} 
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots 
-        - python bin/02_CITests/04_api_script/api_github.py --working-branch ${TARGET_BRANCH} --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
+        - python bin/02_CITests/04_api_script/api_github.py --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
         - exit 1
     artifacts:
         when: always

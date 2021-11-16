@@ -256,7 +256,7 @@ class CI_yml_templates(object):
                                      package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
                                      image_name=image_name,  variable_main_list=variable_list,
                                       except_commit_list=self.except_commit_list, file_list=file_list)
-        yml_tmp = open(self.setting_file.replace(".txt", ".html"), "w")
+        yml_tmp = open(self.setting_file.replace("_template", ""), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
 
