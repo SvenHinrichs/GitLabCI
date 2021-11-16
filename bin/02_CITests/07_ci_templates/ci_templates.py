@@ -23,6 +23,7 @@ class CI_yml_templates(object):
         self.check_commit = "ci_check"
         self.regression_test_commit = "ci_regression_test"
         self.ci_html_commit = "ci_html"
+        self.ci_merge_except_commit = "fix errors manually"
         self.bot_merge_commit = "Update WhiteList_CheckModel.txt and HTML_IBPSA_WhiteList.txt"
         self.bot_push_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again."
         self.bot_create_ref_message = "New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit."
@@ -110,7 +111,7 @@ class CI_yml_templates(object):
                                      IBPSA_Repo="${IBPSA_Repo}",
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library,
                                      Target_Branch="${Target_Branch}", wh_library=self.wh_library,
-                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit)
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit,ci_merge_except_commit=self.ci_merge_except_commit)
         yml_tmp = open(self.ibpsa_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()

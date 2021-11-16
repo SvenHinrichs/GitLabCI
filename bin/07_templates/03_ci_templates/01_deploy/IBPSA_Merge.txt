@@ -41,6 +41,7 @@ IBPSA:
         refs:
             -  external_pull_requests
         variables:
+            - $CI_COMMIT_MESSAGE  =~ /${ci_merge_except_commit}/
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
@@ -81,6 +82,7 @@ WhiteList:
         refs: 
             - external_pull_requests
         variables:
+            - $CI_COMMIT_MESSAGE  =~ /${ci_merge_except_commit}/
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
@@ -107,6 +109,7 @@ IBPSA_Pull_Request:
         refs: 
             - external_pull_requests
         variables:
+            - $CI_COMMIT_MESSAGE  =~ /${ci_merge_except_commit}/
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
