@@ -1,4 +1,4 @@
-stage:
+stages:
     - check_setting
     - build_templates
     
@@ -30,9 +30,9 @@ Create_templates;
     script:
         - mkdir build_template && cd build_template
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
-        - cd ${CI_PROJECT_NAME}
+        - cd $CI_PROJECT_NAME
         - python bin/02_CITests/07_ci_templates/ci_templates.py --setting
-        - message="Automatic push of CI with new created CI templates.Please pull the new files before push again. [skip ci]"
+        - message="Automatic push of CI with new created CI templates. Please pull the new files before push again. [skip ci]"
         - git add .
         - git commit -m "$message"
         - git push git@github.com:${Github_Repository}.git

@@ -21,6 +21,12 @@ dymolaversion = "${dymolaversion}"
 	%endfor
 	]
 	
+[git_url]
+giturl = "${git_url}"
+	
+[wh_library_path]
+wh_path = "${wh_path}"
+
 [Merge_Branch]
 merge_branch = "${merge_branch}"
 

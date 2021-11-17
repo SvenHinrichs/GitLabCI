@@ -1,0 +1,42 @@
+﻿RunScript("c:/program files/dymola 2019/insert/dymola.mos", true);
+ = true
+Successfully loaded settings file C:/Users/sven-/AppData/Roaming/DassaultSystemes/Dymola/setup.dymx
+HTTP server listening on port 44056. Only local connections allowed.
+DymolaVersionNumber()
+ = 2019.0
+Advanced.TranslationInCommandLog:=true;
+openModel("AixLib\\package.mo", true, true)
+ = true
+checkModel("AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM", true, false)
+Check of AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM:
+The model has the same number of unknowns and equations: 3
+Check of AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM successful.
+Translation of AixLib.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM:
+The DAE has 3 scalar unknowns and 3 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 1
+  Variables: 11
+  Constants: 6 (6 scalars)
+  Parameters: 2 (2 scalars)
+  Unknowns: 3 (3 scalars)
+  Equations: 4
+  Nontrivial: 4
+Translated Model
+  Constants: 7 scalars
+  Free parameters: 1 scalars
+  Time-varying variables: 3 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+Finished
+Finished
+ = true
+savelog("AixLib.Airflow-log.txt")

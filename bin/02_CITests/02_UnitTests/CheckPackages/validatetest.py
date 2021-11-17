@@ -507,11 +507,11 @@ def create_wh_workflow():
         Whitelist_class._write_exit_log(version_check)
         model_list = []
         if args.repo_dir is None:
-            print(f'{CRED}Error:{CEND} Repo directory is missing!')
+            print(f'{CRED}Error:{CEND} Repository directory is missing!')
             exit(1)
         print(f'Setting: Package {args.repo_dir}')
         if args.git_url is None and args.wh_path is None:
-            print(f'{CRED}Error:{CEND} git Url or whitelist path is missing!')
+            print(f'{CRED}Error:{CEND} git url or whitelist path is missing!')
             exit(1)
         if args.git_url is not None:
             print(f'Setting: library {args.git_url}')

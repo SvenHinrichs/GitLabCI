@@ -107,8 +107,8 @@ HTML_Check:
     except:
         refs:
             - external_pull_requests
-            - ${merge_branch} 
             - /^Correct_HTML.*$/
+            ${merge_branch} 
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
@@ -175,7 +175,7 @@ Open_Pull_Request:
         variables:
             - $CI_COMMIT_MESSAGE =~ /${html_commit}/
            
-htmL_whitelist_job:
+html_whitelist_job:
     stage: create_html_whitelist
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
@@ -195,7 +195,7 @@ htmL_whitelist_job:
         - mkdir whitelist && cd whitelist
         - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
         - cd ${CI_PROJECT_NAME}
-        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList
+        - python bin/02_CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList ${git}					
         - message="Automatic push of CI - Update html_whitelist. Please pull the new files before push again. [skip ci]" 
         - git add ${html_wh_file}
         - git commit -m "$message"

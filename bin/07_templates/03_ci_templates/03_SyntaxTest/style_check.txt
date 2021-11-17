@@ -44,7 +44,7 @@ Style_Check_ChangedModel:
     except:
         refs:
             - external_pull_requests
-            - ${merge_branch} 
+            ${merge_branch} 
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE =~ /${commit}/
