@@ -8,7 +8,7 @@ Test_CI_Setting:
         - source activate python36
         - export PYTHONIOENCODING=utf-8
     script:
-        - python bin/02_CITests/01_CleanUp/setting_check.py
+        - python bin/02_CITests/01_CleanUp/setting_check.py --github-private-key ${GITHUB_PRIVATE_KEY} --github-token $GITHUB_API_TOKEN
     only:
         variables:
         - $CI_COMMIT_MESSAGE  =~ /${ci_setting_commit}/

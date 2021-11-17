@@ -41,7 +41,7 @@ def _check_file(file_list):
             continue
 
 
-def _check_variables(variable_main_list, github_token, github_private_key, GL_Token):
+def _check_variables(variable_main_list, github_token, github_private_key):
     for var in variable_main_list:
         if var is None:
             print(f'Please set variable {var}.')
@@ -51,8 +51,7 @@ def _check_variables(variable_main_list, github_token, github_private_key, GL_To
         print(f'Please set variable GITHUB_API_TOKEN in your gitlab ci repo under CI/Variables.')
     if github_private_key is None:
         print(f'Please set variable GITHUB_PRIVATE_KEY in your gitlab ci repo under CI/Variables.')
-    if GL_Token is None:
-        print(f'Please set variable GL_TOKEN in your gitlab ci repo under CI/Variables.')
+
 
 
 
@@ -75,6 +74,5 @@ if __name__ == '__main__':
     path_list = [artifacts_dir, temp_dir, chart_dir, ref_file_dir, resource_dir]
     _check_dir(path_list)
     _check_file(file_list)
-    gitlab_ci_variables = [args.github_token, args.github_private_key, args.GL_Token]
-    _check_variables(variable_main_list, github_token=args.github_token, github_private_key=args.github_private_key, GL_Token=args.GL_Token)
+    _check_variables(variable_main_list, github_token=args.github_token, github_private_key=args.github_private_key)
 
