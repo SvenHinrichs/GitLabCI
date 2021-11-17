@@ -49,8 +49,12 @@ def _check_variables(variable_main_list, github_token, github_private_key):
             print(f'variable {var} is set in file .gitlab-ci.yml.')
     if github_token is None:
         print(f'Please set variable GITHUB_API_TOKEN in your gitlab ci repo under CI/Variables.')
+    else:
+        print(f'Variable GITHUB_API_TOKEN is set.')
     if github_private_key is None:
         print(f'Please set variable GITHUB_PRIVATE_KEY in your gitlab ci repo under CI/Variables.')
+    else:
+        print(f'Variable GITHUB_PRIVATE_KEY is set.')
 
 
 
@@ -72,7 +76,7 @@ if __name__ == '__main__':
     file_list = [ch_file, exit_file, eof_file, new_ref_file, ref_file, wh_file, ref_whitelist_file, html_wh_file, show_ref_file, update_ref_file, reg_temp_file, write_temp_file, sim_temp_file, page_temp_file, ibpsa_temp_file,
                  style_check_temp_file, html_temp_file, main_temp_file, main_yml_file, chart_temp_file, index_temp_file, layout_temp_file, setting_file]
     path_list = [artifacts_dir, temp_dir, chart_dir, ref_file_dir, resource_dir]
-    _check_dir(path_list)
+    #_check_dir(path_list)
     _check_file(file_list)
     _check_variables(variable_main_list, github_token=args.github_token, github_private_key=args.github_private_key)
 
