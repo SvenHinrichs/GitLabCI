@@ -2,7 +2,7 @@ stages:
     - check_setting
     - build_templates
     
-Test_CI_Setting;
+Test_CI_Setting:
     stage: check_setting
     before_script:
         - source activate python36
@@ -13,7 +13,7 @@ Test_CI_Setting;
         variables:
         - $CI_COMMIT_MESSAGE  =~ /${ci_setting_commit}/
 
-Create_templates;
+Create_templates:
     stage: build_templates
     before_script:
         - source activate python36
