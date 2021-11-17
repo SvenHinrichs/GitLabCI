@@ -454,8 +454,6 @@ def _read_wh_path(data):
     print(f'Setting git whitelist url: {wh_path}')
     return wh_path
 
-
-
 if __name__ == '__main__':
     # python bin/02_CITests/07_ci_templates/ci_templates.py
     parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
