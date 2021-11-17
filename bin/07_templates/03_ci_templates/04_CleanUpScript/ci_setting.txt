@@ -12,13 +12,16 @@ Test_CI_Setting:
     only:
         variables:
         - $CI_COMMIT_MESSAGE  =~ /${ci_setting_commit}/
+    except:
+        refs:
+            - external_pull_requests
 
 Create_templates:
     stage: build_templates
     before_script:
         - source activate python36
         - export PYTHONIOENCODING=utf-8
-        - pip install pandas toml
+        - pip install pandas toml mako
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
@@ -40,6 +43,9 @@ Create_templates:
     only:
         variables:
             - $CI_COMMIT_MESSAGE  =~ /${ci_setting_commit}/
+    except:
+        refs:
+            - external_pull_requests
     artifacts:
         when: always
         paths:
