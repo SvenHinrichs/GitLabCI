@@ -18,6 +18,7 @@ Create_templates:
     before_script:
         - source activate python36
         - export PYTHONIOENCODING=utf-8
+        - pip install pandas toml
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
