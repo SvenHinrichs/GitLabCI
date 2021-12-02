@@ -17,6 +17,7 @@ If you have any questions regarding **AixLib**, feel free to contact us at aixli
 * If you have already cloned the repository, run:  
   ``git submodule update --init --recursive``
 * The default branch of AixLib is the ``development`` branch. This means that after cloning the repository, you always checked out the ``development`` branch.
+  
 ## Release versions
 
 The latest version is always available on the [release page](https://github.com/RWTH-EBC/AixLib/releases) and defined in [AixLib's package.mo](https://github.com/RWTH-EBC/AixLib/blob/master/AixLib/package.mo).
@@ -29,7 +30,7 @@ Starting with the Dymola 2021x version, the MSL 4.0 is included and automaticall
 
 We continuously improve **AixLib** and try to keep the community up-to-date with citable papers:
 
-- AixLib - An Open-Source Modelica Library within the IEA-EBC Annex 60 Framework.
+* AixLib - An Open-Source Modelica Library within the IEA-EBC Annex 60 Framework.
   Müller D., Lauster M., Constantin A., Fuchs M., Remmen P..
   BauSIM 2016, p.3–9, September 2016.
   [link](http://www.iea-annex60.org/downloads/2016-bausim-aixlib.pdf)
