@@ -1,6 +1,7 @@
-- name: Notify slack
-  env:
-    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-  uses: pullreminders/slack-action@master
-  with:
-    args: '{\"channel\":\"C02NXDEL1GD\",\"text\":\"Hello world\"}'
+action "Post message to Slack" {
+  uses = "pullreminders/slack-github-action@master"
+  secrets = [
+    "SLACK_BOT_TOKEN",
+  ]
+  args = "{\"channel\":\"C02NXDEL1GD\",\"text\":"Hello world"}"
+}
