@@ -7,7 +7,7 @@ jobs:
             - name: Slack Message
               uses: pullreminders/slack-action@master
               with:
-                args: '{\"channel\":\"C02NXDEL1GD\",\"text\":\"Hello world\"}'
+                args: '{\"channel\":\"UBZ9F4VL3\",\"text\":\"Hello world\"}'
               env:
                 SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
            
