@@ -75,7 +75,7 @@ class Slack_Notification(object):
             slack_email = profile.get("email")
             if github_mail == slack_email:
                 id = member.get("id")
-                print(f'Slack id: {id}')
+                #print(f'Slack id: {id}')
                 return id
 
     def _delete_branch(self, branch):
@@ -167,20 +167,30 @@ if __name__ == '__main__':
     time_list = []
     l_time = slack._local_time()
     branch_list = slack._get_branches()
-    w_message = []
-    e_message = []
     for branch in branch_list:
-        print("******************************")
         commit = slack._get_date(branch)
         name = slack._get_name(commit)
         email = slack._get_name_mail(commit)
+        if branch == "development" or branch == "master":
+            continue
+        print("******************************")
         print(f'Name: {name}')
         print(f'Email: {email}')
         print(f'Branch: {branch}')
-        if branch == "development" or branch == "master":
-            continue
         time = slack._get_time(commit)
         previous_date = str(l_time - time)
+        if branch == "slack":
+            message_text = f'Branch {branch} is inactiv for more than 180 days. Inactive for  days.'
+            print(message_text)
+            channel_id = slack._get_slack_id(email)
+            slack._post_message(channel_id, message_text)
+            owner = slack.return_owner()
+            slack._open_pr(branch, owner)
+            pr_number = slack._get_pr_number()
+            slack._close_pr(pr_number)
+            slack._delete_branch(branch)
+
+        '''
         if previous_date.find("days") > -1:
             time_dif = int(previous_date[:previous_date.find("days")])
             if time_dif > 180:
@@ -201,5 +211,5 @@ if __name__ == '__main__':
 
             else:
                 print(f'Branch {branch} is since {time_dif} days inactive')
-
+            '''
 
