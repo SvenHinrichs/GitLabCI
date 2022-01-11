@@ -1,13 +1,17 @@
 name: github-action-slack
 on: push
+
 jobs:
-    slack_message_job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Slack Message
-              uses: pullreminders/slack-action@master
-              with:
-                args: '{\"channel\":\"UBZ9F4VL3\",\"text\":\"Hello world\"}'
-              env:
-                SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-           
+  slack_message_job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # in this example, there is a newer version already installed, 3.7.7, so the older version will be downloaded
+        python-version: ['3.7.4', '3.8', '3.9', '3.10']
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.11.0-alpha.1'
+      - run:  python bin/CITests/04_api_script/api_slack.py --github-token ${{ secrets.GIT_TOKEN }} --slack-token ${{ secrets.SLACK_BOT_TOKEN }} --github-repo "SvenHinrichs/GitLabCI"
+
