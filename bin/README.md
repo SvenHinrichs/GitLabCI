@@ -19,7 +19,7 @@ The whole process is automatically triggered by checking into the version contro
 - `git commit -m "ci_check"` 		  		# Check all models
 - `git commit -m "ci_regression_test"` 		# Start the regression test [only as pull_request]
 - `git commit -m "ci_html"` 				# Test only the html of models
-- `git commit -m " [skip ci]"` 			# Skip the CI
+- `git commit -m " [skip ci]"` 				# Skip the CI
 
 
 ## What CI Tests are implement?

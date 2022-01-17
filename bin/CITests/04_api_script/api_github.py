@@ -192,7 +192,7 @@ if  __name__ == '__main__':
 											   github_token=args.github_token)
 			get_api = GET_API_GITHUB(github_repo=args.github_repo, working_branch=args.working_branch)
 			owner = get_api.return_owner()
-			base_branch = "development"
+			base_branch = args.base_branch
 			pr_response = pull_request._post_comment_IBBSA_merge(owner, base_branch)
 			time.sleep(3)
 			pr_number = get_api._get_pr_number()
