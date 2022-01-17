@@ -67,7 +67,7 @@ Check_${library}_${package}:
 %for package in package_list:
 Check_${library}_${package}_changed_models:
     variables:
-        lib_package: $package
+        lib_package: ${package}
     only:
         changes:
             - ${library}/${package}/**/*
