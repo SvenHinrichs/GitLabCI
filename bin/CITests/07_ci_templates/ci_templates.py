@@ -368,79 +368,79 @@ def _read_setting_file(setting_file):
 def _read_library(data):
     library = data["library"]
     library = library["library_name"]
-    print(f'Setting library: {library}')
+    print(f'Setting library: {library}\n')
     return library
 
 def _read_wh_library(data):
     wh_library = data["whitelist_library"]
     wh_library = wh_library["wh_library_name"]
-    print(f'Setting whitelist_library: {wh_library}')
+    print(f'Setting whitelist_library: {wh_library}\n')
     return wh_library
 
 def _read_package_list(data):
     packagelist = data["Package"]
     packagelist = packagelist["packagelist"]
-    print(f'Setting packagelist: {packagelist}')
+    print(f'Setting packagelist: {packagelist}\n')
     return packagelist
 
 def _read_dymolaversion(data):
     dymolaversion = data["dymola_version"]
     dymolaversion = dymolaversion["dymolaversion"]
-    print(f'Setting dymolaversion: {dymolaversion}')
+    print(f'Setting dymolaversion: {dymolaversion}\n')
     return dymolaversion
 
 def _read_stages(data):
     stages = data["stages"]
     stages = stages["stagelist"]
-    print(f'Setting stages: {stages}')
+    print(f'Setting stages: {stages}\n')
     return stages
 
 def _read_merge_branch(data):
     Merge_Branch = data["Merge_Branch"]
     Merge_Branch = Merge_Branch["merge_branch"]
-    print(f'Setting merge branch: {Merge_Branch}')
+    print(f'Setting merge branch: {Merge_Branch}\n')
     return Merge_Branch
 
 def _read_image_name(data):
     image_name = data["image_name"]
     image_name = image_name["image"]
-    print(f'Setting image: {image_name}')
+    print(f'Setting image: {image_name}\n')
     return image_name
 
 def _read_variable_list(data):
     variable_list = data["variable_list"]
     variable_list = variable_list["variablelist"]
-    print(f'Setting variables: {variable_list}')
+    print(f'Setting variables: {variable_list}\n')
     return variable_list
 
 def _read_ci_commands(data):
     ci_commit_commands = data["ci_commit_commands"]
     ci_commit_commands = ci_commit_commands["commitlist"]
-    print(f'Setting ci commands: {ci_commit_commands}')
+    print(f'Setting ci commands: {ci_commit_commands}\n')
     return ci_commit_commands
 
 def _read_file_list(data):
     file_list = data["File_list"]
     file_list = file_list["filelist"]
-    print(f'Setting yaml file list: {file_list}')
+    print(f'Setting yaml file list: {file_list}\n')
     return file_list
 
 def _read_config_list(data):
     config_list = data["config_list"]
     config_list = config_list["configlist"]
-    print(f'Setting config list: {config_list}')
+    print(f'Setting config list: {config_list}\n')
     return config_list
 
 def _read_git_url(data):
     git_url = data["git_url"]
     giturl = git_url["giturl"]
-    print(f'Setting git whitelist url: {giturl}')
+    print(f'Setting git whitelist url: {giturl}\n')
     return giturl
 
 def _read_wh_path(data):
     wh_path = data["wh_library_path"]
     wh_path = wh_path["wh_path"]
-    print(f'Setting git whitelist url: {wh_path}')
+    print(f'Setting git whitelist url: {wh_path}\n')
     return wh_path
 
 if __name__ == '__main__':

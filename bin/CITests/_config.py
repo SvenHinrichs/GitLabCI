@@ -1,7 +1,7 @@
 import os
 
 image_name = 'registry.git.rwth-aachen.de/ebc/ebc_intern/dymola-docker:miniconda-latest' # image_name
-variable_main_list = ['Github_Repository: RWTH-EBC/AixLib', 'GITLAB_Page: https://ebc.pages.rwth-aachen.de/EBC_all/github_ci/AixLib']
+variable_main_list = ['Github_Repository: SvenHinrichs/GitLabCI', 'GITLAB_Page: https://svenhinrichs.pages.rwth-aachen.de/GitLabCI']
 base_branch = "development"
 
 
