@@ -32,10 +32,11 @@ class GET_API_GITHUB(object):
 		response = requests.request("GET", url, headers=headers, data=payload)
 		branch = response.json()
 		commit = branch["commit"]
-		commit = commit["author"]
-		if commit is not None:
-			login = commit["login"]
-			return login
+		commit = commit["commit"]
+		committer = commit["committer"]
+		name = committer["name"]
+		if name is not None:
+			return name
 
 	def return_owner(self):
 		owner = self.github_repo.split("/")
