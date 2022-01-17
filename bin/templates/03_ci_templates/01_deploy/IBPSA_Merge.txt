@@ -24,7 +24,7 @@ IBPSA:
     script:
         - mkdir Merge_Package
         - cd Merge_Package
-        - git clone --single-branch --branch  ${merge_branch} git@github.com:$(Github_Repository).git
+        - git clone --single-branch --branch  ${merge_branch} git@github.com:$Github_Repository.git
         - cd $CI_PROJECT_NAME
         - git clone ${git_url}
         - cd ${library}/Resources/Scripts
@@ -75,7 +75,7 @@ WhiteList:
         - message="${bot_merge_commit}"
         - git add  . 
         - git commit -m "$message" 
-        - git push --force git@github.com:$(Github_Repository).git
+        - git push --force git@github.com:$Github_Repository.git
     only:
         - ${merge_branch}
     except:   

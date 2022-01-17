@@ -8,7 +8,7 @@ stages:
 
 variables:
         Praefix_Branch: "Correct_HTML_"
-        Newbranch: $(Praefix_Branch)$(CI_COMMIT_REF_NAME)
+        Newbranch: $Praefix_Branch$CI_COMMIT_REF_NAME
 
 trigger_check_HTML:
     stage: build
@@ -83,7 +83,7 @@ HTML_Check:
         - python bin/CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
             mkdir CorrectedVersion &&  cd CorrectedVersion ;
-            git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$(Github_Repository).git;
+            git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git;
             cd $CI_PROJECT_NAME ;
             python bin/CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
@@ -91,7 +91,7 @@ HTML_Check:
             git add . ;
             echo $message;
             git commit -m "$message" ;
-            git push --force git@github.com:$(Github_Repository).git;
+            git push --force git@github.com:$Github_Repository.git;
             wait ;
             exit 1;
           else 
@@ -131,7 +131,7 @@ CI_HTML_Check:
         - python bin/CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-view --log  --align --font
         - if cat ${exit_file} | grep "exit 1"; then 
             mkdir CorrectedVersion &&  cd CorrectedVersion ;
-            git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$(Github_Repository).git;
+            git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git;
             cd $CI_PROJECT_NAME;
             python bin/CITests/03_SyntaxTests/html_tidy_errors.py --s ${library} --correct-overwrite --align --font --log;
             git checkout -B $Newbranch;
@@ -139,7 +139,7 @@ CI_HTML_Check:
             git add . ;
             echo $message;
             git commit -m "$message" ;
-            git push --force git@github.com:$(Github_Repository).git;
+            git push --force git@github.com:$Github_Repository.git;
             wait ;
             exit 1;
           else 
@@ -191,16 +191,16 @@ html_whitelist_job:
         - git config --global user.email "$GITLAB_USER_EMAIL"
     script:
         - mkdir whitelist && cd whitelist
-        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$(Github_Repository).git
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git
         - cd $CI_PROJECT_NAME
         - python bin/CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList ${git}					
         - message=${bot_html_commit}
         - git add ${html_wh_file}
         - git commit -m "$message"
-        - git push git@github.com:$(Github_Repository).git
+        - git push git@github.com:$Github_Repository.git
     artifacts:
         paths:
-            - whitelist/$(CI_PROJECT_NAME)/${html_wh_file}
+            - whitelist/$CI_PROJECT_NAME/${html_wh_file}
         expire_in: 7 day 
     only:
         variables:

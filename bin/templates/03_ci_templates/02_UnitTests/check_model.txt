@@ -14,8 +14,8 @@ stages:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$(lib_package)-log.txt
-            - ${library}/${library}.$(lib_package)-errorlog.txt
+            - ${library}/${library}.$lib_package-log.txt
+            - ${library}/${library}.$lib_package-errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -49,8 +49,8 @@ Check_${library}_${package}:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$(lib_package)-log.txt
-            - ${library}/${library}.$(lib_package)-errorlog.txt
+            - ${library}/${library}.$lib_package-log.txt
+            - ${library}/${library}.$lib_package-errorlog.txt
         expire_in: 7 day
     except:
         refs:
@@ -87,8 +87,8 @@ Check_${library}_${package}_changed_models:
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$(lib_package)-log.txt
-            - ${library}/${library}.$(lib_package)-errorlog.txt
+            - ${library}/${library}.$lib_package-log.txt
+            - ${library}/${library}.$lib_package-errorlog.txt
         expire_in: 7 day 
     only:
         variables:
@@ -127,7 +127,7 @@ whitelist_job:
         - git config --global user.email "$GITLAB_USER_EMAIL"
     script:
         - mkdir whitelist && cd whitelist
-        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$(Github_Repository).git
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git
         - cd $CI_PROJECT_NAME
         - echo "FAIL" > ${exit_file}
         - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
@@ -140,7 +140,7 @@ whitelist_job:
             message="${bot_check_commit}" ;
             git add ${wh_file} ;
             git commit -m "$message" ;
-            git push git@github.com:$(Github_Repository).git ;
+            git push git@github.com:$Github_Repository.git ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "$GREEN New html whitelist files were pushed to this branch.$NC" ;
@@ -152,7 +152,7 @@ whitelist_job:
           fi
     artifacts:
         paths:
-            - whitelist/$(CI_PROJECT_NAME)/${wh_file}
+            - whitelist/$CI_PROJECT_NAME/${wh_file}
         expire_in: 7 day 
     only:
         variables:
