@@ -384,14 +384,14 @@ class Create_whitelist(object):
                 continue
             if result is False:
                 print(f'\n{self.CRED}Error:{self.CEND} {model}\n')
-                log = self.dymola.getLastError()
-                print(f'{log}')
+                #log = self.dymola.getLastError()
+                #print(f'{log}')
                 error_model.append(model)
-                error_message.append(log)
+                #error_message.append(log)
                 continue
         self.dymola.savelog(f'{self.wh_lib}-log.txt')
         self.dymola.close()
-        return error_model, error_message
+        return error_model
 
     def _write_exit_log(self, version_check):  # write entry in exit file
         exit = open(self.exit_file, "w")
@@ -531,8 +531,8 @@ def create_wh_workflow():
             model_list = Whitelist_class._get_wh_model(args.wh_path)
         print(f'Write new writelist from {args.wh_library} library')
         Whitelist_class._dym_check_lic()
-        result = Whitelist_class._check_wh_model(model_list)
-        error_model_list = result[0]
+        error_model_list = Whitelist_class._check_wh_model(model_list)
+        #error_model_list = result[0]
         Whitelist_class._write_whitelist(error_model_list, version)
         exit(0)
     else:
