@@ -178,15 +178,6 @@ if __name__ == '__main__':
         print(f'Branch: {branch}')
         time = slack._get_time(commit)
         previous_date = str(l_time - time)
-        if branch == "154-test-issue":
-            time_dif = int(previous_date[:previous_date.find("days")])
-            message_text = f'The branch {branch} has been inactiv for more than {time_dif} days. The branch is automatically deleted after 180 days. If you want to keep the branch, add changes to the branch. '
-            print(message_text)
-            channel_id = slack._get_slack_id(email)
-            slack._post_message(channel_id, message_text)
-            exit(0)
-
-        '''
         if previous_date.find("days") > -1:
             time_dif = int(previous_date[:previous_date.find("days")])
             if time_dif > 180:
@@ -209,5 +200,5 @@ if __name__ == '__main__':
             else:
                 print(f'Branch {branch} is since {time_dif} days inactive')
                 exit(0)
-            '''
+
 
