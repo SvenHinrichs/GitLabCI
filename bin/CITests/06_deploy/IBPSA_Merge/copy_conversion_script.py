@@ -130,52 +130,11 @@ def add_conv_to_package(aixlib_mos, last_aixlib_conv):
         if line.find(f'                      script="modelica://{aixlib_mos}")),\n') > -1:
             content_list.remove(version)
         '''
-
     file.close()
     file = open("AixLib" + os.sep + "package.mo", "w")
     for line in content_list:
         file.write(line)
     file.close()
-
-
-
-
-
-
-    #{aixlib_mos[aixlib_mos.rfind(os.sep) + 1:aixlib_mos.rfind(".mos")]}
-    '''
-
-
-
-    list = []
-    counter = 0
-    number_beg = aixlib_mos[aixlib_mos.find("_to_") + 4:aixlib_mos.find(".mos")]
-    number = aixlib_mos[aixlib_mos.find("from") + 5:aixlib_mos.find("_to")]
-    version_number = _read_package()
-    # ConvertAixLib_from_0.11.0_to_0.12.0.mos")),
-    aixlib_mos = aixlib_mos[aixlib_mos.find("ConvertAixLib"):]
-    for line in file:
-        if line.find('version =') and line.find(version_number) > -1:
-            list.append(line.replace(version_number, number_beg))
-        elif line.find("conversion(from(") > -1:
-            list.append(line)
-            counter = 1
-            continue
-        elif line.find('.mos")),') > -1 and counter == 1:
-            ent = line.replace('.mos")),', '.mos",')
-            list.append(ent)
-            version = '    version="'+number+'", script="modelica://'+aixlib_dir.replace(os.sep,"/")+'/' +aixlib_mos +'")),\n'
-            list.append(version)
-            counter = 0
-            continue
-        else:
-            list.append(line)
-            continue
-    file.close()
-    pack = open("AixLib" + os.sep + "package.mo", "w")
-    for i in list:
-        pack.write(i)
-    pack.close()'''
 
 def search_ibpsa_conversion(ibpsa_dir):
     file = (glob.glob(ibpsa_dir))
