@@ -21,6 +21,7 @@ IBPSA:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "$GITLAB_USER_NAME"
         - git config --global user.email "$GITLAB_USER_EMAIL"
+        - pip install natsort
     script:
         - mkdir Merge_Package
         - cd Merge_Package
