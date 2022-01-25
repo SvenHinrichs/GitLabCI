@@ -179,37 +179,26 @@ if __name__ == '__main__':
         print(f'Branch: {branch}')
         time = slack._get_time(commit)
         previous_date = str(l_time - time)
-        if branch == "slack":
-            message_text = f'Branch {branch} is inactiv for more than 180 days. Inactive for  days.'
-            print(message_text)
-            channel_id = slack._get_slack_id(email)
-            slack._post_message(channel_id, message_text)
-            owner = slack.return_owner()
-            slack._open_pr(branch, owner)
-            pr_number = slack._get_pr_number()
-            slack._close_pr(pr_number)
-            slack._delete_branch(branch)
-
-        '''
         if previous_date.find("days") > -1:
             time_dif = int(previous_date[:previous_date.find("days")])
             if time_dif > 180:
-                message_text = f'Branch {branch} is inactiv for more than 180 days. Inactive for {time_dif} days.'
+                message_text = f'The branch {branch} has been inactiv for more than {time_dif} days. A pull request is created and the branch is then deleted. If you want to restore the branch, go to the closed pull requests and restore your branch.'
                 print(message_text)
                 channel_id = slack._get_slack_id(email)
-                #slack._post_message(channel_id, message_text)
-                #owner = slack.return_owner()
-                #slack._open_pr(branch, owner)
-                #pr_number = slack._get_pr_number()
-                #slack._close_pr(pr_number)
-                #slack._delete_branch(branch)
+                slack._post_message(channel_id, message_text)
+                owner = slack.return_owner()
+                slack._open_pr(branch, owner)
+                pr_number = slack._get_pr_number()
+                slack._close_pr(pr_number)
+                slack._delete_branch(branch)
+                exit(0)
             if time_dif > 90:
-                message_text = f'Branch {branch} is inactiv for more than 49 days. Inactive for {time_dif} days.'
+                message_text = f'The branch {branch} has been inactiv for more than {time_dif} days. The branch is automatically deleted after 180 days. If you want to keep the branch, add changes to the branch. '
                 print(message_text)
                 channel_id = slack._get_slack_id(email)
-                #slack._post_message(channel_id, message_text)
-
+                slack._post_message(channel_id, message_text)
+                exit(0)
             else:
                 print(f'Branch {branch} is since {time_dif} days inactive')
-            '''
+                exit(0)
 
