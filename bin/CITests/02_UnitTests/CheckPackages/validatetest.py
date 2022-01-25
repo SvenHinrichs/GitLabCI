@@ -307,12 +307,10 @@ class Create_whitelist(object):
         version = (data[len(data) - 1])
         return version'''
         from natsort import natsorted
-
-
         aixlib_dir = self.library + os.sep + "Resources" + os.sep + "Scripts"
         filelist = (glob.glob(aixlib_dir + os.sep + "*.mos"))
         sorted_list = natsorted(filelist)
-        last_script = sorted_list[len(sorted_list) - 1
+        last_script = sorted_list[len(sorted_list) - 1]
         version = last_script[last_script.rfind(os.sep)+1:last_script.rfind(".mos")]
         return version
 
