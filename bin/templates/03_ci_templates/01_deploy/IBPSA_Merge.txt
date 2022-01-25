@@ -67,6 +67,7 @@ WhiteList:
         - chmod 600 ~/.ssh/id_rsa
         - git config --global user.name "$GITLAB_USER_NAME"
         - git config --global user.email "$GITLAB_USER_EMAIL"
+        - pip install natsort
     script:
         - cd Merge_Package/$CI_PROJECT_NAME
         - python bin/CITests/03_SyntaxTests/html_tidy_errors.py --WhiteList # Update WhiteList for HTML

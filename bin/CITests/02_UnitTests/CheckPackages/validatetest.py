@@ -287,8 +287,8 @@ class Create_whitelist(object):
             "Advanced.TranslationInCommandLog:=true;")  # ## Writes all information in the log file, not only the
 
     def read_script_version(self):
-        aixlib_dir = self.library + os.sep + "Resources" + os.sep + "Scripts"
-        filelist = (glob.glob(aixlib_dir + os.sep + "*.mos"))
+
+        '''
         list = []
         for file in filelist:
             list.append(file.replace(".mos", ""))
@@ -305,7 +305,17 @@ class Create_whitelist(object):
         data = (data[len(data) - 1])
         data = data.split(os.sep)
         version = (data[len(data) - 1])
+        return version'''
+        from natsort import natsorted
+
+
+        aixlib_dir = self.library + os.sep + "Resources" + os.sep + "Scripts"
+        filelist = (glob.glob(aixlib_dir + os.sep + "*.mos"))
+        sorted_list = natsorted(filelist)
+        last_script = sorted_list[len(sorted_list) - 1
+        version = last_script[last_script.rfind(os.sep)+1:last_script.rfind(".mos")]
         return version
+
 
     def _check_fileexist(self):
         if os.path.exists(self.wh_file):
@@ -326,7 +336,6 @@ class Create_whitelist(object):
             if line.strip("\n") == version.strip("\n"):
                 print(f'Whitelist is on version {version}. The Whitelist is already up to date')
                 version_check = True
-
         vfile.close()
         return version_check
 

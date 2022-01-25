@@ -5,48 +5,12 @@ import glob
 import argparse
 from natsort import natsorted
 
-
-def copy_ibpsa_mos(ibpsa_dir, dst):  # Copy the ConvertIBPSA mos Script
-    if os.path.isdir(dst):
-        pass
-    else:
-        os.mkdir(dst)
-    file = (glob.glob(ibpsa_dir))
-    if len(file) == 0:  # Look which ConvertScript is the latest
-        print("Cannot find a Conversion Script in IBPSA Repo")
-        exit(0)
-
-    if len(file) > 1:
-        list = []
-        for i in file:
-            i = i.replace(".mos", "")
-            list.append(i)
-
-        data = (sorted(list, key=lambda x: float(x[x.find("_to_") + 4:])))
-        data = (data[len(data) - 1])
-        i = data + ".mos"
-        data = data.split(os.sep)
-        data = data[len(data) - 1]
-        data = dst + os.sep + data + ".mos"
-
-        shutil.copy(i, dst)
-    if len(file) == 1:
-        for i in file:
-            shutil.copy(i, dst)
-        file = file[len(file) - 1]
-        data = file.split(os.sep)
-        data = data[len(data) - 1]
-        data = dst + os.sep + data
-    return data
-
 def search_aixlib_conversion(aixlib_dir):  # Read the last aixlib mos script
     from natsort import natsorted
     filelist = (glob.glob(aixlib_dir + os.sep + "*.mos"))
     sorted_list = natsorted(filelist)
     last_script = sorted_list[len(sorted_list) - 1]
     return last_script
-
-
 
 def create_convert_aixlib(ibpsa_content, last_aixlib_conv):  # change the paths in the script from IBPSA.Package.model -> AixLib.Package.model
     from_numb = last_aixlib_conv[last_aixlib_conv.find("from_") + 5:last_aixlib_conv.rfind("_to_")]
@@ -78,7 +42,6 @@ def compare_conversions(ibpsa_content, aixlib_content):
             if i.find("from:") > -1 and i.find(" Version") > -1:
                 x = x + 1
                 continue
-
             if i.find("to") > -1 and i.find(" Version") > -1:
                 x = x + 1
                 continue
@@ -86,11 +49,9 @@ def compare_conversions(ibpsa_content, aixlib_content):
                 list.append(i)
                 x = x + 1
                 continue
-
             x = x + 1
     else:
         list.append(x)
-
     if len(list) > 0:
         return False
     if len(list) == 0:
