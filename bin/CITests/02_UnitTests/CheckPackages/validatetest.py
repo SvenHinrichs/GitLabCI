@@ -532,7 +532,6 @@ def create_wh_workflow():
         print(f'Write new writelist from {args.wh_library} library')
         Whitelist_class._dym_check_lic()
         error_model_list = Whitelist_class._check_wh_model(model_list)
-        #error_model_list = result[0]
         Whitelist_class._write_whitelist(error_model_list, version)
         exit(0)
     else:
