@@ -28,7 +28,8 @@ within AixLib.Media.Antifreeze.Validation.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
      end testDensity_TX_a;
  
    function testDynamicViscosity_TX_a
@@ -56,7 +57,8 @@ within AixLib.Media.Antifreeze.Validation.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end testDynamicViscosity_TX_a;
  
    function testFusionTemperature_TX_a
@@ -84,7 +86,8 @@ within AixLib.Media.Antifreeze.Validation.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end testFusionTemperature_TX_a;
  
    function testSpecificHeatCapacityCp_TX_a
@@ -112,7 +115,8 @@ within AixLib.Media.Antifreeze.Validation.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end testSpecificHeatCapacityCp_TX_a;
  
    function testThermalConductivity_TX_a
@@ -140,7 +144,8 @@ within AixLib.Media.Antifreeze.Validation.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end testThermalConductivity_TX_a;
  annotation (Documentation(info="<html>
  <p>

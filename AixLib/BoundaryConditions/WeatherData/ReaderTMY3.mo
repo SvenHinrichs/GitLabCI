@@ -467,7 +467,8 @@ within AixLib.BoundaryConditions.WeatherData;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end Latitude;
  
    block Longitude "Generate constant signal of type Real"
@@ -511,7 +512,8 @@ within AixLib.BoundaryConditions.WeatherData;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end Longitude;
  
  equation

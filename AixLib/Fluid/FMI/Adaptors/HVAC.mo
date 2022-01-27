@@ -139,7 +139,8 @@ within AixLib.Fluid.FMI.Adaptors;
  parameter menu via variable <code>y</code>. The purpose is to support the
  easy definition of vector-valued Real expressions in a block diagram.
  </p>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
  
    end RealVectorExpression;
  

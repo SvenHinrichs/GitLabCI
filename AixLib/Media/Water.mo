@@ -114,7 +114,8 @@ within AixLib.Media;
        <td>kg/mol</td>
        <td>molar mass</td></tr>
  </table>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end BaseProperties;
  
  function enthalpyOfLiquid "Return the specific enthalpy of liquid"
@@ -140,7 +141,8 @@ within AixLib.Media;
  AixLib.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
  end enthalpyOfLiquid;
    annotation(Documentation(info="<html>
  <p>

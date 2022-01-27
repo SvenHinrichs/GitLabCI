@@ -99,7 +99,8 @@ within AixLib.Controls.Continuous.Examples;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end Plant;
  
    model Controller "PID controller with optional output reset"
@@ -182,7 +183,8 @@ within AixLib.Controls.Continuous.Examples;
  First implementation.
  </li>
  </ul>
- </html>"));
+ </html>"), 
+   __Dymola_LockedEditing="ibpsa");
    end Controller;
  
  equation
