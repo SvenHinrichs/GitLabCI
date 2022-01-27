@@ -11,8 +11,7 @@ The whole process is automatically triggered by checking into the version contro
 ## CI commands and ci [lists](interact_CI)
 
 - `git commit -m "ci_update_ref"` 			# Update referencefiles for all models that are added in file bin/08_interact_CI/update_ref.txt  
-- `git commit -m "ci_show_ref"`	  			# plot all referencefiles that are added in file bin/08_interact_CI/show_ref.txt [only as pull_request]
-- `git commit -m "ci_correct_html"`     	# CI bot message: correct html syntax
+- `git commit -m "ci_show_ref"`	  			# plot all referencefiles that are added in file bin/interact_CI/show_ref.txt [only as pull_request]
 - `git commit -m "ci_create_whitelist"` 	# create a new whitelist for the model check
 - `git commit -m "ci_create_html_whitelist"`# create a new html whitelist for the html check
 - `git commit -m "ci_simulate"` 	  		# Simulate all examples
