@@ -10,6 +10,10 @@ Important are the variables `image_name` and `variable_main_list`. These must be
 
 ### Create templates based on the toml file
 
+Before templates are to be created based on toml, the toml file must be created first. This is done with the command `python bin/CITests/07_ci_templates/ci_templates.py`.
+
+Now changes can be made in the toml file.
+
 If changes should be made in the settings, these can be made in the `bin\Setting\CI_setting.toml`. 
 Then execute the command `python bin/CITests/07_ci_templates/ci_templates.py --setting`. 
-
+The templates are recreated with the information from the toml file

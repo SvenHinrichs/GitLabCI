@@ -120,17 +120,17 @@ class ValidateTest(object):
             print(f'{self.CRED}Error:{self.CEND} Found no examples')
             exit(0)
         for example in example_list:
-            print(f'Simulate model: {example}')
+            #print(f'Simulate model: {example}')
             result = self.dymola.checkModel(example, simulate=True)
             if result is True:
-                print(f'\n {self.green}Successful:{self.CEND} {example}\n')
+                print(f'\n{self.green}Successful:{self.CEND} {example}\n')
             if result is False:
                 print(f'Simulate model {example} {self.CRED} failed! {self.CEND} \n Second check test for model {example}')
                 sec_result = self.dymola.checkModel(example, simulate=True)
                 if sec_result is True:
-                    print(f'\n {self.green} Successful: {self.CEND} {example} \n')
+                    print(f'\n{self.green} Successful: {self.CEND} {example} \n')
                 if sec_result is False:
-                    print(f'\n {self.CRED} Error: {self.CEND} {example}\n')
+                    print(f'\n{self.CRED} Error: {self.CEND} {example}\n')
                     log = self.dymola.getLastError()
                     print(f'{log}')
                     error_model.append(example)
