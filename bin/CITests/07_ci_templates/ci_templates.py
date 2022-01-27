@@ -33,8 +33,8 @@ class CI_yml_templates(object):
         self.bot_update_wh_commit = "Update or created new whitelist. Please pull the new whitelist before push again. [skip ci]"
         self.bot_html_commit = "Automatic push of CI - Update html_whitelist. Please pull the new files before push again. [skip ci]"
         self.bot_check_commit = "Automatic push of CI - Update model_whitelist. Please pull the new files before push again. [skip ci]"
-        self.bot_create_ref_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results $(GITLAB_Page)/$(CI_COMMIT_REF_NAME)/plots/"
-        self.bot_update_ref_commit = f'Automatic push of CI with updated or new regression reference files.Please pull the new files before push again.Plottet Results $(GITLAB_Page)/$(CI_COMMIT_REF_NAME)/plots/ [skip ci]'
+        self.bot_create_ref_commit = "Automatic push of CI with new regression reference files. Please pull the new files before push again. Plottet Results $GITLAB_Page/$CI_COMMIT_REF_NAME/plots/"
+        self.bot_update_ref_commit = f'Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results $GITLAB_Page/$CI_COMMIT_REF_NAME/plots/ [skip ci]'
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
                                    self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
