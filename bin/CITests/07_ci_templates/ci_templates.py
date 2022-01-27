@@ -447,7 +447,7 @@ if __name__ == '__main__':
     # python bin/CITests/07_ci_templates/ci_templates.py
     parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
     check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
-    check_test_group.add_argument("--setting", help="Create the CI from file bin\9_Setting\CI_setting.txt",
+    check_test_group.add_argument("--setting", help="Create the CI from file bin\Setting\CI_setting.txt",
                                   action="store_true")
     args = parser.parse_args()  # Parse the arguments
 
@@ -494,6 +494,8 @@ if __name__ == '__main__':
         CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
         CI_Class._write_settings(image_name, stage_list, variable_list, file_list, config_list, git_url)
         print(f'The CI settings are saved in file {setting_file}')
+        print(f'\n New templates were created.')
+        print(f'\n The created templates are stored under the following folder: bin{os.sep}templates{os.sep}03_ci_templates')
 
     if args.setting is True:
         data = _read_setting_file(setting_file)
@@ -533,3 +535,11 @@ if __name__ == '__main__':
                 CI_Class._write_merge_template()
         CI_Class._write_page_template()
         CI_Class._write_main_yml(image_name, stage_list, variable_list, file_list)
+        print(f'\n New templates were created based on the toml file bin{os.sep}Setting{os.sep}CI_setting.toml.')
+        print(f'\n The created templates are stored under the following folder: bin{os.sep}templates{os.sep}03_ci_templates')
+
+
+
+
+
+
