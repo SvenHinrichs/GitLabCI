@@ -1,4 +1,4 @@
-import pandas as pd
+
 import os
 from mako.template import Template
 import sys
