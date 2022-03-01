@@ -27,8 +27,6 @@ import git
 
 # Check if it just implements post-process (from .mat files to Json files)
 POST_PROCESS_ONLY = False
-# Erase old .mat files
-CLEAN_MAT = False
 # Erase anything but the Json file results in the ResultJson folder and .mat
 # files
 DEL_EVR = False
@@ -53,21 +51,21 @@ except TypeError as e:
     BRANCH = None
 
 # Software specifications
-# Set library_name to IBPSA, or Buildings, etc.
-library_name = LIBPATH.split(os.path.sep)[-1]
+# Set LIBRARY_NAME to IBPSA, or Buildings, etc.
+LIBRARY_NAME = LIBPATH.split(os.path.sep)[-1]
 library_version = 'v4.0.0dev'
 modeler_organization = 'LBNL'
 modeler_organization_for_tables_and_charts = 'LBNL'
-program_name_for_tables_and_charts = library_name
+program_name_for_tables_and_charts = LIBRARY_NAME
 results_submission_date = str(date.today().strftime('%m/%d/%Y'))
 
 # Make sure script is run from correct directory
-if os.path.abspath(".").split(os.path.sep)[-1] != library_name:
+if os.path.abspath(".").split(os.path.sep)[-1] != LIBRARY_NAME:
     raise ValueError(f"Script must be run from directory \
-                     {library_name}")
+                     {LIBRARY_NAME}")
 
 # List of cases and result cases
-PACKAGES = f'{library_name}.BoundaryConditions.Validation.BESTEST'
+PACKAGES = f'{LIBRARY_NAME}.BoundaryConditions.Validation.BESTEST'
 
 CASES = ['WD100', 'WD200', 'WD300', 'WD400', 'WD500', 'WD600']
 
@@ -216,7 +214,6 @@ def get_cases(case_dict):
              "set_tolerance": case_dict["set_tolerance"],
              "show_GUI": case_dict["show_GUI"],
              "n_intervals": case_dict["n_intervals"],
-             "CLEAN_MAT": case_dict['CLEAN_MAT'],
              "DEL_EVR": case_dict["DEL_EVR"],
              "CODE_VERBOSE": case_dict["CODE_VERBOSE"]})
     return cases
@@ -226,8 +223,8 @@ def _simulate(spec):
     '''
     This function execute the simulation of a specific Case model and stores
     the result in the simulation directory, then copies the result to the
-    current working directory and if CLEAN_MAT option is selected the old .mat
-    files are removed
+    current working directory.
+
     :param spec: dictionary with the simulation specifications
 
     '''
@@ -249,13 +246,9 @@ def _simulate(spec):
     # Set MODELICAPATH
     #os.environ['MODELICAPATH'] = LIBPATH
     # Set Model to simulate, the output dir and the package directory
-    s = Simulator(spec["model"])
+    s = Simulator(spec["model"], packagePath=os.path.join(wor_dir, LIBRARY_NAME))
     # Add all necessary parameters from Case Dict
     s.addPreProcessingStatement("OutputCPUtime:= true;")
-    # fixme: Printing current directory for diagnostics
-    s.addPreProcessingStatement("cd")
-    # fixme: Print directories and files
-    s.addPreProcessingStatement("Modelica.Utilities.Files.list(\".\");")
     s.setSolver(spec["solver"])
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
@@ -275,19 +268,20 @@ def _simulate(spec):
 
     def _copy_results(wor_dir, des_dir):
         os.mkdir(des_dir)
+        if spec['CODE_VERBOSE']:
+            print(f"Running glob for .mat in '{wor_dir}'")
         files = glob.glob(os.path.join(wor_dir, '*.mat'))
         files.extend(glob.glob(os.path.join(wor_dir, '*.log')))
         for file in files:
+            if spec['CODE_VERBOSE']:
+                print(f"Copying result file '{file}'' to '{res_des}'")
             shutil.copy(file, res_des)
 
     # Removing old results directory
-    if os.path.isdir(res_des) and spec["CLEAN_MAT"]:
+    if os.path.isdir(res_des):
         shutil.rmtree(res_des)
-        _copy_results(wor_dir, res_des)
-    elif os.path.isdir(res_des) and not spec["CLEAN_MAT"]:
-        pass
-    else:
-        _copy_results(wor_dir, res_des)
+
+    _copy_results(wor_dir, res_des)
 
 
 def _organize_cases(mat_dir,case_dict):
@@ -319,8 +313,7 @@ def _organize_cases(mat_dir,case_dict):
             case_list.append(temp)
     else:
         raise ValueError(
-            f"*** There is failed simulation, no result file was found. \
-                Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
+            f"*** No result file was found. Check the simulations. len(CASES) = {len(CASES)}, len(mat_files) = {len(mat_files)}")
     return case_list
 
 
@@ -1062,10 +1055,9 @@ if __name__ == '__main__':
                  'from_git_hub': FROM_GIT_HUB or not CI_TESTING,
                  'BRANCH': BRANCH,
                  'LIBPATH': LIBPATH,
-                 'CLEAN_MAT': CLEAN_MAT,
                  'DEL_EVR': DEL_EVR or CI_TESTING,
                  'CODE_VERBOSE': CODE_VERBOSE,
-                 'lib_name': library_name,
+                 'lib_name': LIBRARY_NAME,
                  'TestN': TestN}
     if CI_TESTING or not POST_PROCESS_ONLY:
         # Get list of case to simulate with their parameters
@@ -1076,8 +1068,8 @@ if __name__ == '__main__':
         # Copy library to temporary directories
         for case in list_of_cases:
             shutil.copytree(
-                os.path.join(temp_lib_dir, library_name),
-                os.path.join(case['wor_dir'], library_name))
+                os.path.join(temp_lib_dir, LIBRARY_NAME),
+                os.path.join(case['wor_dir'], LIBRARY_NAME))
 
         program_version_release_date = d['commit_time']
         program_name_and_version = d['lib_name'] + ' ' + library_version +\
@@ -1096,9 +1088,9 @@ if __name__ == '__main__':
         po.join()  # Block at this line until all processes are done
 
         # Delete temporary directories
-        for case in list_of_cases:
+        #for case in list_of_cases:
             # Delete simulation directory
-            shutil.rmtree(case['wor_dir'])
+        #    shutil.rmtree(case['wor_dir'])
         # Delete temporary library directory
         shutil.rmtree(temp_lib_dir, onerror=remove_readonly)
 
