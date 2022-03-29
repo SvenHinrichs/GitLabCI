@@ -25,8 +25,7 @@ within AixLib.Utilities.IO.Files.BaseClasses;
  </p>
  </html>", revisions="<html>
  c
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end constructor;
  
    function destructor "Release storage and close the external object, write data if needed"
@@ -47,8 +46,7 @@ within AixLib.Utilities.IO.Files.BaseClasses;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end destructor;
  
  annotation(Documentation(info="<html>

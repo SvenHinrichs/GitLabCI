@@ -126,8 +126,7 @@ within AixLib.Fluid.FMI.Adaptors;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end RealVectorExpression;
  
    block x_i_toX_w "Conversion from Xi to X"
@@ -189,8 +188,7 @@ within AixLib.Fluid.FMI.Adaptors;
  needs to access the conditional connector, but conditional connectors
  can only be used in <code>connect</code> statements.
  </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end x_i_toX_w;
  
  initial equation

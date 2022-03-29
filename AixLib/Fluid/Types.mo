@@ -44,8 +44,7 @@ within AixLib.Fluid;
  Users Guide</a>.
  </p>
  
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    type HeatExchangerConfiguration = enumeration(
        ParallelFlow "Parallel flow",
        CounterFlow "Counter flow",
@@ -98,8 +97,7 @@ within AixLib.Fluid;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
    type HeatExchangerFlowRegime = enumeration(
        ParallelFlow "Parallel flow",
@@ -144,8 +142,7 @@ within AixLib.Fluid;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    type InputType = enumeration(
        Constant "Use parameter to set stage",
        Stages "Use integer input to select stage",
@@ -173,8 +170,7 @@ within AixLib.Fluid;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
   annotation (preferredView="info", Documentation(info="<html>
  <p>

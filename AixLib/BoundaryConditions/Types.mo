@@ -17,8 +17,7 @@ within AixLib.BoundaryConditions;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
    type RadiationDataSource = enumeration(
        File "Use data from file",
@@ -41,8 +40,7 @@ within AixLib.BoundaryConditions;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    type SkyTemperatureCalculation = enumeration(
        HorizontalRadiation
          "Use horizontal irradiation",
@@ -61,8 +59,7 @@ within AixLib.BoundaryConditions;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
  annotation (preferredView="info", Documentation(info="<html>
  This package contains type definitions.

@@ -104,8 +104,7 @@ within AixLib.Media.Antifreeze;
      Also, the model checks if the mass fraction of the mixture is within the
      allowed limits.
      </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end BaseProperties;
  protected
    constant Modelica.SIunits.MassFraction X_a_min=0.
@@ -181,8 +180,7 @@ within AixLib.Media.Antifreeze;
    AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
    </li>
    </ul>
-   </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+   </html>"));
  
    end density_TX_a;
  
@@ -220,8 +218,7 @@ within AixLib.Media.Antifreeze;
  AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end dynamicViscosity_TX_a;
  
    replaceable function fusionTemperature_TX_a
@@ -258,8 +255,7 @@ within AixLib.Media.Antifreeze;
  AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end fusionTemperature_TX_a;
  
    replaceable function polynomialProperty
@@ -324,8 +320,7 @@ within AixLib.Media.Antifreeze;
  AixLib.Media.Antifreeze</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end polynomialProperty;
  
    replaceable function specificHeatCapacityCp_TX_a
@@ -362,8 +357,7 @@ within AixLib.Media.Antifreeze;
  AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end specificHeatCapacityCp_TX_a;
  
    replaceable function thermalConductivity_TX_a
@@ -400,8 +394,7 @@ within AixLib.Media.Antifreeze;
  AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end thermalConductivity_TX_a;
  annotation(preferredView="info", Documentation(info="<html>
  <p>

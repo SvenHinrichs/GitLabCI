@@ -43,8 +43,7 @@ within AixLib.Media.Specialized.Water;
      <p>
      Base properties of the medium.
      </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end BaseProperties;
  
  redeclare function extends density "Return the density"
@@ -88,8 +87,7 @@ within AixLib.Media.Specialized.Water;
  but converted from Celsius to Kelvin and linearly extended.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density;
  
  redeclare function extends dynamicViscosity "Return the dynamic viscosity"
@@ -109,8 +107,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end dynamicViscosity;
  
  redeclare function extends specificEnthalpy "Return the specific enthalpy"
@@ -131,8 +128,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificEnthalpy;
  
  function enthalpyOfLiquid "Return the specific enthalpy of liquid"
@@ -157,8 +153,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end enthalpyOfLiquid;
  
  redeclare function extends specificInternalEnergy
@@ -180,8 +175,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificInternalEnergy;
  
  redeclare function extends specificEntropy "Return the specific entropy"
@@ -207,8 +201,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificEntropy;
  
  redeclare function extends specificGibbsEnergy
@@ -230,8 +223,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificGibbsEnergy;
  
  redeclare function extends specificHelmholtzEnergy
@@ -253,8 +245,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificHelmholtzEnergy;
  
  redeclare function extends isentropicEnthalpy "Return the isentropic enthalpy"
@@ -280,8 +271,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isentropicEnthalpy;
  
  redeclare function extends isobaricExpansionCoefficient
@@ -324,8 +314,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isobaricExpansionCoefficient;
  
  redeclare function extends isothermalCompressibility
@@ -357,8 +346,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isothermalCompressibility;
  
  redeclare function extends density_derp_T
@@ -381,8 +369,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derp_T;
  
  redeclare function extends density_derT_p
@@ -419,8 +406,7 @@ within AixLib.Media.Specialized.Water;
  but converted from Celsius to Kelvin.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derT_p;
  
  redeclare function extends density_derX
@@ -443,8 +429,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derX;
  
  redeclare replaceable function extends specificHeatCapacityCp
@@ -466,8 +451,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificHeatCapacityCp;
  
  redeclare replaceable function extends specificHeatCapacityCv
@@ -489,8 +473,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificHeatCapacityCv;
  
  redeclare function extends thermalConductivity
@@ -520,8 +503,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end thermalConductivity;
  
  redeclare function extends pressure "Return the pressure"
@@ -542,8 +524,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end pressure;
  
  redeclare function extends temperature "Return the temperature"
@@ -564,8 +545,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end temperature;
  
  redeclare function extends molarMass "Return the molar mass"
@@ -587,8 +567,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end molarMass;
  
  redeclare function setState_dTX
@@ -623,8 +602,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_phX;
  
  redeclare function extends setState_pTX
@@ -647,8 +625,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_pTX;
  
  redeclare function extends setState_psX
@@ -683,8 +660,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_psX;
  
  //////////////////////////////////////////////////////////////////////
@@ -725,8 +701,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end der_specificHeatCapacityCp;
  
  replaceable function der_enthalpyOfLiquid
@@ -753,8 +728,7 @@ within AixLib.Media.Specialized.Water;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end der_enthalpyOfLiquid;
  
  function kinematicViscosity "Return the kinematic viscosity"
@@ -810,8 +784,7 @@ within AixLib.Media.Specialized.Water;
  but converted from Celsius to Kelvin.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end kinematicViscosity;
  
  annotation(preferredView="info", Documentation(info="<html>

@@ -32,8 +32,7 @@ within AixLib.Fluid.Geothermal.Borefields;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    annotation (preferredView="info", Documentation(info="<html>
   <p>
   This package contains type definitions.

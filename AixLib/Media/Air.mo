@@ -180,8 +180,7 @@ within AixLib.Media;
  but with <code>noEvent</code> added to check of bounds.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end BaseProperties;
  
  redeclare function density "Gas density"
@@ -194,8 +193,7 @@ within AixLib.Media;
    Inline=true,
    Documentation(info="<html>
  Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density;
  
  redeclare function extends dynamicViscosity
@@ -232,8 +230,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end dynamicViscosity;
  
  redeclare function enthalpyOfCondensingGas
@@ -300,8 +297,7 @@ within AixLib.Media;
      Inline=true,
      Documentation(info="<html>
  The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end gasConstant;
  
  redeclare function extends pressure
@@ -314,8 +310,7 @@ within AixLib.Media;
    Inline=true,
    Documentation(info="<html>
  Pressure is returned from the thermodynamic state record input as a simple assignment.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end pressure;
  
  redeclare function extends isobaricExpansionCoefficient
@@ -348,8 +343,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isobaricExpansionCoefficient;
  
  redeclare function extends isothermalCompressibility
@@ -382,8 +376,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isothermalCompressibility;
  
  redeclare function extends saturationPressure
@@ -472,8 +465,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificEntropy;
  
  redeclare function extends density_derp_T
@@ -495,8 +487,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derp_T;
  
  redeclare function extends density_derT_p
@@ -521,8 +512,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derT_p;
  
  redeclare function extends density_derX
@@ -547,8 +537,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end density_derX;
  
  redeclare replaceable function extends specificHeatCapacityCp
@@ -595,8 +584,7 @@ within AixLib.Media;
  The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
      is computed from density <code>d</code>, temperature <code>T</code> and composition <code>X</code>.
  </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_dTX;
  
  redeclare function extends setState_phX
@@ -612,8 +600,7 @@ within AixLib.Media;
    Documentation(info="<html>
  The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
  thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_phX;
  
  redeclare function extends setState_pTX
@@ -629,8 +616,7 @@ within AixLib.Media;
    Documentation(info="<html>
  The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
  thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_pTX;
  
  redeclare function extends setState_psX
@@ -685,8 +671,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end setState_psX;
  
  redeclare replaceable function extends specificEnthalpy
@@ -725,8 +710,7 @@ within AixLib.Media;
  issue 227</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end specificEnthalpy_pTX;
  
  redeclare replaceable function extends specificGibbsEnergy
@@ -768,8 +752,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end isentropicEnthalpy;
  
  redeclare function extends specificInternalEnergy "Specific internal energy"
@@ -789,8 +772,7 @@ within AixLib.Media;
    Inline=true,
    Documentation(info="<html>
  Temperature is returned from the thermodynamic state record input as a simple assignment.
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end temperature;
  
  redeclare function extends molarMass "Return the molar mass"
@@ -811,8 +793,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end molarMass;
  
  redeclare replaceable function temperature_phX
@@ -842,8 +823,7 @@ within AixLib.Media;
  issue 227</a>.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  end temperature_phX;
  
  redeclare function extends thermalConductivity
@@ -890,8 +870,7 @@ within AixLib.Media;
  First implementation.
  </li>
  </ul>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
    end GasProperties;
    // In the assignments below, we compute cv as OpenModelica
    // cannot evaluate cv=cp-R as defined in GasProperties.

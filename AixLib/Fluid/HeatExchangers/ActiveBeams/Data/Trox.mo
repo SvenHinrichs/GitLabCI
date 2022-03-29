@@ -35,8 +35,7 @@ within AixLib.Fluid.HeatExchangers.ActiveBeams.Data;
  <p>
  Performance data for Trox active beam for cooling mode.
  </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
  
    record DID632A_nozzleH_length6ft_heating =
@@ -74,8 +73,7 @@ within AixLib.Fluid.HeatExchangers.ActiveBeams.Data;
  <p>
  Performance data for Trox active beam for heating mode.
  </p>
- </html>"), 
-   __Dymola_LockedEditing="ibpsa");
+ </html>"));
  
  
  annotation (Documentation(revisions="", info="<html>
