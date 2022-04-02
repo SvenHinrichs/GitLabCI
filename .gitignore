@@ -68,7 +68,6 @@ success
 *comparison*.log
 funnel_comp
 
-
 #Ignore files create by HTML Check
 HTML-logfile.txt
 #Ignore Dymola License log
