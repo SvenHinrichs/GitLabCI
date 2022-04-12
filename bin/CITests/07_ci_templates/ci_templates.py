@@ -372,7 +372,7 @@ def _delte_yml_files(temp_dir):
 
 
 def _read_setting_file():
-    setting_file = f'bin{os.sep}09_Setting{os.sep}CI_setting.toml'
+    setting_file = f'bin{os.sep}Setting{os.sep}CI_setting.toml'
     data = toml.load(setting_file)
     return data
 
@@ -458,7 +458,7 @@ if __name__ == '__main__':
     # python bin/CITests/07_ci_templates/ci_templates.py
     parser = argparse.ArgumentParser(description="Set Github Environment Variables")  # Configure the argument parser
     check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
-    check_test_group.add_argument("--setting", help="Create the CI from file bin\9_Setting\CI_setting.txt",
+    check_test_group.add_argument("--setting", help="Create the CI from file bin\Setting\CI_setting.txt",
                                   action="store_true")
     args = parser.parse_args()  # Parse the arguments
 
