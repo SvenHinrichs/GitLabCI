@@ -32,7 +32,7 @@ IBPSA:
         - cd ..
         - cd ..
         - cd .. 
-        - python bin/CITests/06_deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Dymola/ConvertIBPSA_*" --aixlib-dir "${library}/Resources/Scripts"
+        - python bin/CITests/06_deploy/IBPSA_Merge/copy_conversion_script.py --dst "Convertmos" --ibpsa-dir  "modelica-ibpsa/IBPSA/Resources/Scripts/Conversion/ConvertIBPSA_*" --aixlib-dir "${library}/Resources/Scripts"
         - python bin/CITests/06_deploy/IBPSA_Merge/correct_userguide.py
         - rm -r modelica-ibpsa
     only:
