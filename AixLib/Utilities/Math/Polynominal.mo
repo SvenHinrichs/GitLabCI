@@ -1,10 +1,10 @@
 within AixLib.Utilities.Math;
-block Polynominal "Polynominal function"
-  extends Modelica.Blocks.Interfaces.SISO;
- parameter Real a[:] "Coefficients";
-equation
-  y = AixLib.Utilities.Math.Functions.polynomial(a=a, x=u);
-  annotation (Documentation(info="<html><p>
+ block Polynominal "Polynominal function"
+   extends Modelica.Blocks.Interfaces.SISO;
+  parameter Real a[:] "Coefficients";
+ equation
+   y = AixLib.Utilities.Math.Functions.polynomial(a=a, x=u);
+   annotation (Documentation(info="<html><p>
   This block computes a polynomial of arbitrary order. The polynomial
   has the form
 </p>
@@ -18,7 +18,8 @@ equation
   </li>
 </ul>
 </html>"), Icon(graphics={   Text(
-          extent={{-90,38},{90,-34}},
-          lineColor={160,160,164},
-          textString="polynominal()")}));
-end Polynominal;
+           extent={{-90,38},{90,-34}},
+           lineColor={160,160,164},
+           textString="polynominal()")}), 
+   __Dymola_LockedEditing="Model from IBPSA");
+ end Polynominal;
