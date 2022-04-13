@@ -34,7 +34,7 @@ class CI_yml_templates(object):
         self.bot_create_ref_commit = "Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/${TARGET_BRANCH}/plots/"
 
         self.except_commit_list = [self.update_ref_commit, self.dif_ref_commit, self.html_commit, self.create_wh_commit,
-                                   self.bot_merge_commit, self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
+                                   self.bot_push_commit, self.bot_create_ref_message, self.show_ref_commit, self.regression_test_commit, self.check_commit, self.simulate_commit,
                                    self.create_html_wh_commit, self.ci_html_commit, self.ci_setting_commit]
         # except branches
         if self.wh_library is None:
