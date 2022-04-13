@@ -8,6 +8,7 @@ stages:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate myenv
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
@@ -42,6 +43,7 @@ Check_${library}_${package}:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate myenv
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - git diff --raw --diff-filter=AMT HEAD^1 >  ${ch_file}
@@ -81,6 +83,7 @@ Check_${library}_${package}_changed_models:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate myenv
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
         - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
@@ -115,6 +118,7 @@ whitelist_job:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
         - source activate myenv
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)

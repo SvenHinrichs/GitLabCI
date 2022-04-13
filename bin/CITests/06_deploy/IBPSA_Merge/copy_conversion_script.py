@@ -44,13 +44,13 @@ def create_convert_aixlib(l_ibpsa_conv, dst, l_aixlib_conv):  # change the paths
 	first_numb = old_to_numb[:old_to_numb.find(".")]
 	sec_numb = int(old_to_numb[old_to_numb.find(".")+1:old_to_numb.rfind(".")]) + 1
 	new_to_numb = f'{first_numb}.{sec_numb}.0'
-	print(f'New TO_NUMBER: {new_to_numb}')  # 1.1.0
+	#print(f'New TO_NUMBER: {new_to_numb}')  # 1.1.0
 
 	new_conv_number = str(old_to_numb)+"_to_"+str(new_to_numb)  # write new conversion number
-	print(f'New conversion number: {new_conv_number}')  # 1.0.2_to_1.1.0
+	#print(f'New conversion number: {new_conv_number}')  # 1.0.2_to_1.1.0
 
 	file_new_conv = f'{dst}{os.sep}ConvertAixLib_from_{new_conv_number}.mos'
-	print(f'New conversion script: {file_new_conv}')  # Convertmos\ConvertAixLib_from_1.0.2_to_1.1.0.mos
+	#print(f'New conversion script: {file_new_conv}')  # Convertmos\ConvertAixLib_from_1.0.2_to_1.1.0.mos
 
 	ibpsa_file = open(l_ibpsa_conv, "r")
 	aixlib_file = open(file_new_conv, "w+")
@@ -153,6 +153,6 @@ if  __name__ == '__main__':
 		else:
 			new_conversion_script = copy_aixlib_mos(file_new_conv, args.aixlib_dir, args.dst)
 			add_conv_to_package(l_aixlib_conv, new_conversion_script, old_to_numb, old_from_numb, new_to_numb)
-			print("New Aixlib Conversion skrip was created")
+			print(f'New Aixlib Conversion skrip was created: {file_new_conv}')
 
 
