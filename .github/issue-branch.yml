@@ -1,7 +1,7 @@
 # configuration file for automatic issue branch creation
 
 #branchName: 'Issue${issue.number}_${issue.title}'
-branchName: 'Issue${issue.number}_${SHORT_NAME}'
+branchName: 'Issue${issue.number}_${GITHUB_BRANCHNAME}'
  silent: false
 autoCloseIssue: true
 gitSafeReplacementChar: '-'

@@ -9,7 +9,7 @@ on:
     types: [ closed ]
 
 jobs:
-  def_branch_name_job:
+  branch_name_job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11.0-alpha.1'
       - run: pip install argparse
       - run: python bin/CITests/06_deploy/branch_issue.py --issue-title '${issue.number}'
-      - run: cat bin/Configfiles/ci_branch_name.txt >> $SHORT_NAME
+      - run: cat bin/Configfiles/ci_branch_name.txt >> $GITHUB_BRANCHNAME
 
   create_issue_branch_job:
     runs-on: ubuntu-latest
