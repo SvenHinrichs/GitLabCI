@@ -42,6 +42,6 @@ December 17, 2018, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end ExportedModel;

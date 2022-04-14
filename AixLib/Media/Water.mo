@@ -112,7 +112,7 @@ This model provides equation for the following thermodynamic properties:
       <td>kg/mol</td>
       <td>molar mass</td></tr>
 </table>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end BaseProperties;
 
@@ -139,7 +139,7 @@ This function is used by
 AixLib.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end enthalpyOfLiquid;
   annotation(Documentation(info="<html>

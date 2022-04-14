@@ -137,6 +137,6 @@ equation
   First implementation.
   </li>
   </ul>
-  </html>"), 
+  </html>"),
    __Dymola_LockedEditing="ibpsa");
 end CorrectionGDoublePane;

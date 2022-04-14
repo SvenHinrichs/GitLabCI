@@ -35,7 +35,7 @@ First implementation.
 <p>
 Performance data for Trox active beam for cooling mode.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
 
@@ -74,7 +74,7 @@ First implementation.
 <p>
 Performance data for Trox active beam for heating mode.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
 
@@ -82,6 +82,6 @@ annotation (Documentation(revisions="", info="<html>
 <p>
 Package with performance data for active beams from Trox.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end Trox;

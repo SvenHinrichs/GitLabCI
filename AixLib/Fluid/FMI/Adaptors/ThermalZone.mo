@@ -126,7 +126,7 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end RealVectorExpression;
 
@@ -189,7 +189,7 @@ input <code>X</code>, because the conversion from scalar to vector
 needs to access the conditional connector, but conditional connectors
 can only be used in <code>connect</code> statements.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end x_i_toX_w;
 
@@ -399,6 +399,6 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end ThermalZone;

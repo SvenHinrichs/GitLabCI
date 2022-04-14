@@ -25,7 +25,7 @@ the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 c
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end constructor;
 
@@ -47,7 +47,7 @@ April 15 2019, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end destructor;
 
@@ -64,6 +64,6 @@ April 15 2019, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end JSONWriterObject;

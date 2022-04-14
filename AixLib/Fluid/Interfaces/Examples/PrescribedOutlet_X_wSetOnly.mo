@@ -45,6 +45,6 @@ November 11, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end PrescribedOutlet_X_wSetOnly;

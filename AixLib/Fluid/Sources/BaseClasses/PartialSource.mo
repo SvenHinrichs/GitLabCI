@@ -99,6 +99,6 @@ Initial version for refactoring inputs of sources.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, #882</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end PartialSource;

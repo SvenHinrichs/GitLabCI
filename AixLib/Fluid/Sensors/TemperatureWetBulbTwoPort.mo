@@ -153,6 +153,6 @@ Implementation is based on
 <a href=\"modelica://AixLib.Fluid.Sensors.Temperature\">AixLib.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end TemperatureWetBulbTwoPort;

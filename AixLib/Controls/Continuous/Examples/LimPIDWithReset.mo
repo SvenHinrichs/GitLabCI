@@ -99,7 +99,7 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end Plant;
 
@@ -183,7 +183,7 @@ October 3, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end Controller;
 
@@ -224,6 +224,6 @@ September 29, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end LimPIDWithReset;

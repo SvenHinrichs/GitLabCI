@@ -48,7 +48,7 @@ algorithm
 Density is computed from temperature and pressure using the
 IAPWS-IF97 relationship via the Gibbs free energy for region 2.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density;
 
@@ -64,7 +64,7 @@ algorithm
 Dynamic viscosity is computed from density, temperature and pressure
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end dynamicViscosity;
 
@@ -76,7 +76,7 @@ algorithm
 <p>
 Returns the molar mass.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end molarMass;
 
@@ -88,7 +88,7 @@ algorithm
 <p>
 Pressure is returned from the thermodynamic state record input as a simple assignment.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end pressure;
 
@@ -104,7 +104,7 @@ algorithm
 Saturation pressure is computed from temperature
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end saturationPressure;
 
@@ -119,7 +119,7 @@ algorithm
 Saturation temperature is computed from pressure
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end saturationTemperature;
 
@@ -165,7 +165,7 @@ October 30, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEnthalpy;
 
@@ -205,7 +205,7 @@ The largest error of this approximation is <i>0.047 kJ/kg-K</i> (<i>0.70</i>%),
 which occurs at <i>160&deg;C</i> and <i>550 kPa</i>.
 The root mean square error (RMSE) is <i>12.56 J/kg-K</i>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEntropy;
 
@@ -217,7 +217,7 @@ algorithm
 <p>
 Returns the specific internal energy for a given state.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificInternalEnergy;
 
@@ -242,7 +242,7 @@ Specific heat at constant pressure is computed from temperature and
 pressure using the IAPWS-IF97 relationship via the Gibbs
 free energy for region 2.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCp;
 
@@ -281,7 +281,7 @@ AixLib.Media.Examples.SteamDerivativeCheck</a>
 does not translate.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCv;
 
@@ -300,7 +300,7 @@ algorithm
 <p>
 Returns the specific Helmholtz energy for a given state.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHelmholtzEnergy;
 
@@ -314,7 +314,7 @@ annotation (Inline=true,
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
 is computed from density <code>d</code> and temperature <code>T</code>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_dTX;
 
@@ -328,7 +328,7 @@ annotation (Inline=true,smoothOrder=2,
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
 is computed from pressure <code>p</code> and temperature <code>T</code>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_pTX;
 
@@ -342,7 +342,7 @@ annotation (Inline=true,smoothOrder=2,
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
 is computed from pressure <code>p</code> and specific enthalpy <code>h</code>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_phX;
 
@@ -356,7 +356,7 @@ annotation (Inline=true,smoothOrder=2,
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
 is computed from pressure <code>p</code> and specific entropy <code>s</code>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_psX;
 
@@ -368,7 +368,7 @@ algorithm
 <p>
 Temperature is returned from the thermodynamic state record input as a simple assignment.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature;
 
@@ -384,7 +384,7 @@ algorithm
 Thermal conductivity is computed from density, temperature and pressure
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end thermalConductivity;
 
@@ -401,7 +401,7 @@ algorithm
 Returns the partial derivative of density with respect
 to specific enthalpy at constant pressure using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derh_p;
 
@@ -418,7 +418,7 @@ algorithm
 Returns the partial derivative of density with respect
 to pressure at constant specific enthalpy using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derp_h;
 
@@ -434,7 +434,7 @@ algorithm
 Isentropic exponent is computed from temperature and pressure
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isentropicExponent;
 
@@ -450,7 +450,7 @@ algorithm
 Isothermal compressibility is computed from temperature and pressure
 using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isothermalCompressibility;
 
@@ -466,7 +466,7 @@ algorithm
 Isobaric expansion coefficient is computed from temperature and
 pressure using the IAPWS-IF97 formulation.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isobaricExpansionCoefficient;
 
@@ -488,7 +488,7 @@ Isentropic enthalpy is computed using the IAPWS-IF97 formulation:
      is performed with a change of specific entropy <i>ds = 0</i> and the pressure of state <code>h_is</code>
      is <code>p_downstream</code> and the composition <code>X</code> upstream and downstream is assumed to be the same.</li>
 </ol>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isentropicEnthalpy;
 //////////////////////////////////////////////////////////////////////
@@ -737,7 +737,7 @@ June 11, 2021, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end g2;
 
@@ -784,7 +784,7 @@ October 30, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature_ph;
 
@@ -832,7 +832,7 @@ October 30, 2020, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature_ps;
 
@@ -858,7 +858,7 @@ algorithm
 Density is computed from temperature and pressure using the
 IAPWS-IF97 relationship via the Gibbs free energy for region 2.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end rho_pT;
 
@@ -954,6 +954,6 @@ Complete new reimplementation to eliminate numerical inefficiencies
 and improve accuracy of property function calculations.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end Steam;

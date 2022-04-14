@@ -89,6 +89,6 @@ February 10, 2005 by Michael Wetter:<br/>
 Released first version.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end DoorDiscretizedOpen;

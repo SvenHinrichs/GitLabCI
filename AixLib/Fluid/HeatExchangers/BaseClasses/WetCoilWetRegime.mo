@@ -251,6 +251,6 @@ Available
 <a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
 online</a>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end WetCoilWetRegime;

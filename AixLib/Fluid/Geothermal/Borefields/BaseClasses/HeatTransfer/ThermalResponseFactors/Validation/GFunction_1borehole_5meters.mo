@@ -95,6 +95,6 @@ March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end GFunction_1borehole_5meters;

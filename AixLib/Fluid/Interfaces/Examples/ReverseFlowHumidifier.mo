@@ -219,6 +219,6 @@ August 19, 2010, by Michael Wetter:<br/>
 First implementation based on a model from Giuliano Fontanella.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end ReverseFlowHumidifier;

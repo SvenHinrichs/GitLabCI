@@ -44,7 +44,7 @@ The details of the coefficients are explained in the
 Users Guide</a>.
 </p>
 
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   type HeatExchangerConfiguration = enumeration(
       ParallelFlow "Parallel flow",
@@ -98,7 +98,7 @@ February 18, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
   type HeatExchangerFlowRegime = enumeration(
@@ -144,7 +144,7 @@ February 18, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   type InputType = enumeration(
       Constant "Use parameter to set stage",
@@ -173,13 +173,13 @@ April 2, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains type definitions.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end Types;

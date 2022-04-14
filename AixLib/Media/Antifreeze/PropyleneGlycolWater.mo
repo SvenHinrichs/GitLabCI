@@ -101,7 +101,7 @@ as required from medium model \"" + mediumName + "\".");
     Also, the model checks if the mass fraction of the mixture is within the
     allowed limits.
     </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end BaseProperties;
 protected
@@ -178,7 +178,7 @@ protected
   AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
   </li>
   </ul>
-  </html>"), 
+  </html>"),
    __Dymola_LockedEditing="ibpsa");
 
   end density_TX_a;
@@ -219,7 +219,7 @@ This function is used by
 AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end dynamicViscosity_TX_a;
 
@@ -259,7 +259,7 @@ This function is used by
 AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end fusionTemperature_TX_a;
 
@@ -325,7 +325,7 @@ This function is used models in
 AixLib.Media.Antifreeze</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end polynomialProperty;
 
@@ -365,7 +365,7 @@ This function is used by
 AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end specificHeatCapacityCp_TX_a;
 
@@ -405,7 +405,7 @@ This function is used by
 AixLib.Media.Antifreeze.PropyleneGlycolWater</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end thermalConductivity_TX_a;
 annotation(preferredView="info", Documentation(info="<html>
@@ -483,6 +483,6 @@ March 16, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end PropyleneGlycolWater;

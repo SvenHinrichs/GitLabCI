@@ -40,6 +40,6 @@ November 20, 2013 by Michael Wetter:<br/>
 First implementation, moved from <code>AixLib.Media</code>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end der_sublimationPressureIce;

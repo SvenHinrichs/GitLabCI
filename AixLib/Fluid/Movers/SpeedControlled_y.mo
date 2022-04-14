@@ -169,6 +169,6 @@ October 31, 2005 by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Cas
 Model added to the Fluid library
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end SpeedControlled_y;

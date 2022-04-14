@@ -77,6 +77,6 @@ Apr 6, 2021, by Klaas De Jonge:<br/>
 First Implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end interpolate;

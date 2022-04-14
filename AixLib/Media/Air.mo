@@ -200,7 +200,7 @@ First implementation based on Modelica Standard Library,
 but with <code>noEvent</code> added to check of bounds.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end BaseProperties;
 
@@ -214,7 +214,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density;
 
@@ -252,7 +252,7 @@ December 19, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end dynamicViscosity;
 
@@ -320,7 +320,7 @@ algorithm
     Inline=true,
     Documentation(info="<html>
 The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end gasConstant;
 
@@ -334,7 +334,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Pressure is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end pressure;
 
@@ -368,7 +368,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isobaricExpansionCoefficient;
 
@@ -402,7 +402,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isothermalCompressibility;
 
@@ -492,7 +492,7 @@ November 27, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEntropy;
 
@@ -515,7 +515,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derp_T;
 
@@ -541,7 +541,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derT_p;
 
@@ -567,7 +567,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derX;
 
@@ -615,7 +615,7 @@ algorithm
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a>
     is computed from density <code>d</code>, temperature <code>T</code> and composition <code>X</code>.
 </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_dTX;
 
@@ -632,7 +632,7 @@ algorithm
   Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_phX;
 
@@ -649,7 +649,7 @@ algorithm
   Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_pTX;
 
@@ -705,7 +705,7 @@ November 27, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_psX;
 
@@ -745,7 +745,7 @@ Added <code>Inline=true</code> for
 issue 227</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEnthalpy_pTX;
 
@@ -788,7 +788,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isentropicEnthalpy;
 
@@ -809,7 +809,7 @@ algorithm
   Inline=true,
   Documentation(info="<html>
 Temperature is returned from the thermodynamic state record input as a simple assignment.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature;
 
@@ -831,7 +831,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end molarMass;
 
@@ -862,7 +862,7 @@ Added <code>Inline=true</code> for
 issue 227</a>.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature_phX;
 
@@ -910,7 +910,7 @@ November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end GasProperties;
 

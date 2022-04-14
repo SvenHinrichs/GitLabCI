@@ -147,6 +147,6 @@ equation
   Implemented.
   </li>
   </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end PartialVDI6007;

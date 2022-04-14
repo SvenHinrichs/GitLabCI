@@ -16,7 +16,7 @@ July 20, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
   type RadiationDataSource = enumeration(
@@ -39,7 +39,7 @@ August 13, 2012, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   type SkyTemperatureCalculation = enumeration(
       HorizontalRadiation
@@ -58,11 +58,11 @@ October 3, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 
 annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end Types;

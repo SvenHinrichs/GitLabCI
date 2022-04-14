@@ -41,7 +41,7 @@ package TemperatureDependentDensity
     <p>
     Base properties of the medium.
     </p>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end BaseProperties;
 
@@ -86,7 +86,7 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin and linearly extended.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density;
 
@@ -107,7 +107,7 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end dynamicViscosity;
 
@@ -129,7 +129,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEnthalpy;
 
@@ -155,7 +155,7 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end enthalpyOfLiquid;
 
@@ -178,7 +178,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificInternalEnergy;
 
@@ -205,7 +205,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificEntropy;
 
@@ -228,7 +228,7 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificGibbsEnergy;
 
@@ -251,7 +251,7 @@ December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHelmholtzEnergy;
 
@@ -278,7 +278,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isentropicEnthalpy;
 
@@ -322,7 +322,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isobaricExpansionCoefficient;
 
@@ -355,7 +355,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end isothermalCompressibility;
 
@@ -379,7 +379,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derp_T;
 
@@ -417,7 +417,7 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derT_p;
 
@@ -441,7 +441,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end density_derX;
 
@@ -464,7 +464,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCp;
 
@@ -487,7 +487,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end specificHeatCapacityCv;
 
@@ -518,7 +518,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end thermalConductivity;
 
@@ -540,7 +540,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end pressure;
 
@@ -562,7 +562,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end temperature;
 
@@ -585,7 +585,7 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end molarMass;
 
@@ -621,7 +621,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_phX;
 
@@ -645,7 +645,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_pTX;
 
@@ -681,7 +681,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end setState_psX;
 //////////////////////////////////////////////////////////////////////
@@ -722,7 +722,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end der_specificHeatCapacityCp;
 
@@ -750,7 +750,7 @@ December 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end der_enthalpyOfLiquid;
 
@@ -807,7 +807,7 @@ First implementation, based on the IDA implementation in <code>therpro.nmf</code
 but converted from Celsius to Kelvin.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end kinematicViscosity;
 annotation(preferredView="info", Documentation(info="<html>

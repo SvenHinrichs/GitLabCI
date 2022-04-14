@@ -26,7 +26,7 @@ the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 c
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end constructor;
 
@@ -48,7 +48,7 @@ May 12, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
   end destructor;
 
@@ -65,6 +65,6 @@ May 10 2018, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), 
+</html>"),
    __Dymola_LockedEditing="ibpsa");
 end FileWriterObject;
