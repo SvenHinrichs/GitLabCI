@@ -57,4 +57,13 @@ IBPSA.Fluid.Humidifiers.SprayAirWasher_X
  
 
 IBPSA.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater 
+
+
+IBPSA.Media.Refrigerants.Examples.RefrigerantTestImplementation
+
+
+IBPSA.Media.Refrigerants.Examples.BranchingDynamicPipes
+
+
+IBPSA.DataBase.CHP.ModularCHPEngineMedia.CHPCombustionMixtureGasNasa
  
