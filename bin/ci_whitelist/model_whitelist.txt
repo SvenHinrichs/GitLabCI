@@ -66,4 +66,7 @@ IBPSA.Media.Refrigerants.Examples.BranchingDynamicPipes
 
 
 IBPSA.DataBase.CHP.ModularCHPEngineMedia.CHPCombustionMixtureGasNasa
+
+
+IBPSA.Fluid.Actuators.Dampers.VAVBoxExponential
  
