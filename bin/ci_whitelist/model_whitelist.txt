@@ -216,3 +216,19 @@ IBPSA.Fluid.Storage.BufferStorage
 
 
 IBPSA.Fluid.Storage.Examples.TwoPhaseSeparator
+
+
+IBPSA.BoundaryConditions.InternalGains.Examples.InternalGains.BaseClasses.Humans
+
+
+IBPSA.Fluid.Examples.Performance.BaseClasses.Example1
+
+
+IBPSA.Fluid.MixingVolumes.Validation.BaseClasses.MixingVolumeReverseFlow
+
+
+IBPSA.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation
+
+
+IBPSA.ThermalZones.HighOrder.Validation.ASHRAE140.BaseClasses.PartialCase
+
