@@ -172,6 +172,7 @@ class Reg_Reference(object):
         for ref in ref_list:
             ref_model = ref[:ref.rfind("_")].replace("_", ".")
             ref_package_list.append(ref_model[:ref_model.rfind(".")])
+        ref_package_list = list(set(ref_package_list))
         return ref_package_list
 
     def _get_update_ref(self):  # get a model to update
