@@ -71,6 +71,7 @@ class CI_yml_templates(object):
         #self.project_name = project_name
         self.variable_main_list = variable_main_list
         self.stage_list = stage_list
+        self.python_version = "python36"
 
     def _write_page_template(self):
         mytemplate = Template(filename=self.page_temp)
@@ -83,7 +84,7 @@ class CI_yml_templates(object):
         mytemplate = Template(filename=self.setting_temp_file)
         yml_text = mytemplate.render(GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
                                      GITLAB_USER_NAME="${GITLAB_USER_NAME}", Github_Repository="${Github_Repository}",
-                                     ci_setting_commit=self.ci_setting_commit)
+                                     ci_setting_commit=self.ci_setting_commit, python_version=self.python_version)
         yml_tmp = open(self.setting_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -105,7 +106,7 @@ class CI_yml_templates(object):
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library, Newbranch="${Newbranch}",
                                      Target_Branch="${Target_Branch}", Praefix_Branch="${Praefix_Branch}", CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}",
                                      GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", html_commit=self.html_commit, create_html_wh_commit=self.create_html_wh_commit,
-                                     html_wh_file=self.html_wh_file, ci_html_commit=self.ci_html_commit, git=git)
+                                     html_wh_file=self.html_wh_file, ci_html_commit=self.ci_html_commit, git=git, python_version=self.python_version)
         yml_tmp = open(self.html_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -118,7 +119,7 @@ class CI_yml_templates(object):
         mytemplate = Template(filename=self.style_check_temp_file)
         yml_text = mytemplate.render(merge_branch=merge_branch,
                                      except_commit_list=self.except_commit_list, library=self.library, dymolaversion=self.dymolaversion,
-                                     ch_file=self.ch_file)
+                                     ch_file=self.ch_file, python_version=self.python_version)
         yml_tmp = open(self.style_check_temp_file.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -133,7 +134,7 @@ class CI_yml_templates(object):
                                      IBPSA_Repo="${IBPSA_Repo}",
                                      GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", library=self.library,
                                      Target_Branch="${Target_Branch}", wh_library=self.wh_library,
-                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit, ci_merge_except_commit=self.ci_merge_except_commit)
+                                     GITHUB_API_TOKEN="${GITHUB_API_TOKEN}", bot_commit=self.bot_merge_commit, ci_merge_except_commit=self.ci_merge_except_commit, python_version=self.python_version)
         yml_tmp = open(self.ibpsa_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -156,7 +157,7 @@ class CI_yml_templates(object):
                                      ch_file=self.ch_file, bot_create_ref_message=self.bot_create_ref_message,
                                      bot_create_ref_commit=self.bot_create_ref_commit, new_ref_file=self.new_ref_file,
                                      chart_dir=self.chart_dir, GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}", show_ref_commit=self.show_ref_commit, update_ref_commit=self.update_ref_commit,
-                                     regression_test_commit=self.regression_test_commit, eof_file=self.eof_file)
+                                     regression_test_commit=self.regression_test_commit, eof_file=self.eof_file, python_version=self.python_version)
         yml_tmp = open(self.reg_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -194,7 +195,7 @@ class CI_yml_templates(object):
                                      TARGET_BRANCH="$CI_COMMIT_REF_NAME", GITHUB_PRIVATE_KEY="${GITHUB_PRIVATE_KEY}",
                                      GITLAB_USER_NAME="${GITLAB_USER_NAME}", GITLAB_USER_EMAIL="${GITLAB_USER_EMAIL}",
                                      Github_Repository="${Github_Repository}", CI_PROJECT_NAME="${CI_PROJECT_NAME}",
-                                     exit_file=self.exit_file, check_commit=self.check_commit)
+                                     exit_file=self.exit_file, check_commit=self.check_commit, python_version=self.python_version)
         yml_tmp = open(self.write_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -213,7 +214,7 @@ class CI_yml_templates(object):
                                      dymolaversion=self.dymolaversion, package_name="${package_name}", wh_flag=wh_flag,
                                      filterflag=filterflag, except_commit_list=self.except_commit_list,
                                      merge_branch=merge_branch, git_url=self.git_url,
-                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library, ch_file=self.ch_file, simulate_commit=self.simulate_commit)
+                                     wh_commit=self.create_wh_commit, wh_library=self.wh_library, ch_file=self.ch_file, simulate_commit=self.simulate_commit, python_version=self.python_version)
         yml_tmp = open(self.sim_temp.replace(".txt", ".gitlab-ci.yml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()

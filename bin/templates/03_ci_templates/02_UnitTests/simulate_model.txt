@@ -6,7 +6,7 @@ stages:
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -41,7 +41,7 @@ CI_simulate_${library}_${package}:
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -77,7 +77,7 @@ simulate_${library}_${package}:
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
