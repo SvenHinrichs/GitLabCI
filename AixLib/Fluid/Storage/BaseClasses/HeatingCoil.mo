@@ -1,5 +1,6 @@
 within AixLib.Fluid.Storage.BaseClasses;
 model HeatingCoil "Heating coil for heat storage model"
+  import AixLib;
   extends AixLib.Fluid.Interfaces.PartialTwoPortInterface;
 
  parameter Integer disHC = 2 "Number of elements for heating coil discretization";
@@ -25,11 +26,12 @@ model HeatingCoil "Heating coil for heat storage model"
     "Vectorized heat port"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  FixedResistances.PlugFlowPipe pipe[disHC](
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipe[disHC](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=allowFlowReversal,
     each final dh=pipeHC.d_i,
-    each final v_nominal=4*m_flow_nominal/den_default/pipeHC.d_i/pipeHC.d_i/Modelica.Constants.pi,
+    each final v_nominal=4*m_flow_nominal/den_default/pipeHC.d_i/pipeHC.d_i/
+        Modelica.Constants.pi,
     each final length=lengthHC/disHC,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,
@@ -40,7 +42,8 @@ model HeatingCoil "Heating coil for heat storage model"
     each final thickness=0.5*(pipeHC.d_o - pipeHC.d_i),
     each final T_start_in=TStart,
     each final T_start_out=TStart,
-    each final nPorts=1) annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
+    each final nPorts=1)
+    annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
 
 protected
   parameter Medium.ThermodynamicState sta_default=

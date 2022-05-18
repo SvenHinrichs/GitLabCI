@@ -80,12 +80,12 @@ package AixLib
                       script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_0.12.0_to_0.12.1.mos",
     version="1.0.1",
                       script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_1.0.1_to_1.0.2.mos",
- version="1.0.2",
+	version="1.0.2",
                       script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_1.0.2_to_1.0.3.mos",
     version="1.0.3",
                       script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_1.0.3_to_1.1.0.mos",
-      to="1.1.0"), from(version="1.1.0", script=
-          "modelica://AixLib/Resources/Scripts/ConvertFromAixLib_1.1.0.mos")),
+    version="1.1.0", 
+					  script="modelica://AixLib/Resources/Scripts/ConvertAixLib_from_1.1.0_to_1.1.1")),
   Documentation(info = "<html><p>
   The free open-source <code>AixLib</code> library is being developed
   for research and teaching purposes. It aims at dynamic simulations of

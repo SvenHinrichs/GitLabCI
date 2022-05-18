@@ -1,6 +1,7 @@
 ﻿within AixLib.Fluid.FixedResistances;
 model GenericPipe
   "Pipe model that includes several selectable pipe models"
+  import AixLib;
 
   extends AixLib.Fluid.Interfaces.PartialTwoPort;
 
@@ -53,7 +54,7 @@ model GenericPipe
     "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
 
-  PlugFlowPipe plugFlowPipe(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final dh=parameterPipe.d_i,
@@ -68,7 +69,8 @@ model GenericPipe
     final thickness=(parameterPipe.d_o - parameterPipe.d_i)/2,
     final T_start_in=T_start,
     final T_start_out=T_start,
-    final fac=fac,          nPorts=1) if pipeModel == "PlugFlowPipe"
+    final fac=fac,
+    nPorts=1) if pipeModel == "PlugFlowPipe"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   SimplePipe simplePipe(
     redeclare final package Medium = Medium,

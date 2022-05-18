@@ -1,6 +1,8 @@
 within AixLib.Fluid.DistrictHeatingCooling.Demands.Examples;
 model OpenLoopVarTSupplyDpBypass
   "A small open loop example with a Substation with variable dT for fixed return temperature"
+  import AixLib;
+  import AixLib;
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.Temperature T_amb=283.15
@@ -28,7 +30,7 @@ model OpenLoopVarTSupplyDpBypass
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-60})));
-  FixedResistances.PlugFlowPipe pipeSupply(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeSupply(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,
@@ -39,7 +41,7 @@ model OpenLoopVarTSupplyDpBypass
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,0})));
-  FixedResistances.PlugFlowPipe pipeReturn(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeReturn(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,

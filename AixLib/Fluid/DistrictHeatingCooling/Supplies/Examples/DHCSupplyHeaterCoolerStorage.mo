@@ -33,32 +33,31 @@ model DHCSupplyHeaterCoolerStorage
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-16})));
-  AixLib.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe(
     dh=0.2,
     length=5,
     m_flow_nominal=5,
     dIns=0.001,
     kIns=0.04,
     redeclare package Medium = Medium,
-    nPorts=2)  annotation (Placement(transformation(extent={{-60,4},{-40,24}})));
-  AixLib.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe1(
+    nPorts=2) annotation (Placement(transformation(extent={{-60,4},{-40,24}})));
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe1(
     dh=0.2,
     length=5,
     m_flow_nominal=5,
     dIns=0.001,
     kIns=0.04,
     redeclare package Medium = Medium,
-    nPorts=1)  annotation (Placement(transformation(extent={{-2,6},{18,26}})));
-  AixLib.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe2(
+    nPorts=1) annotation (Placement(transformation(extent={{-2,6},{18,26}})));
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe2(
     dh=0.2,
     length=5,
     m_flow_nominal=5,
     dIns=0.001,
     kIns=0.04,
     redeclare package Medium = Medium,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{20,-54},{0,-34}})));
-  AixLib.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe3(
+    nPorts=1) annotation (Placement(transformation(extent={{20,-54},{0,-34}})));
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe plugFlowPipe3(
     dh=0.2,
     length=5,
     m_flow_nominal=5,

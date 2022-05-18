@@ -1,6 +1,8 @@
 within AixLib.Fluid.DistrictHeatingCooling.Demands.Examples;
 model OpenLoopHeatPumpCarnot
   "A small open loop example with a heat pump in the substation"
+  import AixLib;
+  import AixLib;
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.Temperature T_amb=283.15
@@ -29,7 +31,7 @@ model OpenLoopHeatPumpCarnot
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-60})));
-  FixedResistances.PlugFlowPipe pipeSupply(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeSupply(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,
@@ -40,7 +42,7 @@ model OpenLoopHeatPumpCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,0})));
-  FixedResistances.PlugFlowPipe pipeReturn(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeReturn(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,
