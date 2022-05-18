@@ -36,9 +36,6 @@ within AixLib.Utilities.Math.Functions;
  <li>
  October 30, 2008, by Michael Wetter:<br/>
  First implementation.
- Implemented to reduce chattering in
- <a href=\"modelica://AixLib.Fluid.Storage.BaseClasses.Stratifier\">
- AixLib.Fluid.Storage.BaseClasses.Stratifier</a>.
  </li>
  </ul>
  </html>"),  
