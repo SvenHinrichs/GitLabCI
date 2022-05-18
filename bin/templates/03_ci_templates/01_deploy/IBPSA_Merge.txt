@@ -10,7 +10,7 @@ IBPSA:
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -49,7 +49,7 @@ IBPSA:
             %endfor
     artifacts:
         paths:
-            - Merge_Package/GitLabCI/
+            - Merge_Package/${CI_PROJECT_NAME}/
         expire_in: 6 h     
 
 WhiteList:
@@ -57,7 +57,7 @@ WhiteList:
     before_script:
         - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -99,7 +99,7 @@ WhiteList:
 IBPSA_Pull_Request:
     stage: openMR
     before_script:
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
         - export PYTHONIOENCODING=utf-8 # just in case

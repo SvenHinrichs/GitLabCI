@@ -1,9 +1,11 @@
 within AixLib.Fluid.DistrictHeatingCooling.Demands.Examples;
 model OpenLoopVarTSupplyDp
   "A small open loop example with a Substation with variable dT for fixed return temperature"
+  import AixLib;
+  import AixLib;
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature T_amb = 283.15
+  parameter Modelica.Units.SI.Temperature T_amb=283.15
     "Ambient temperature around pipes";
 
   package Medium = AixLib.Media.Specialized.Water.ConstantProperties_pT (
@@ -26,7 +28,7 @@ model OpenLoopVarTSupplyDp
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-60})));
-  FixedResistances.PlugFlowPipe pipeSupply(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeSupply(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,
@@ -37,7 +39,7 @@ model OpenLoopVarTSupplyDp
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,0})));
-  FixedResistances.PlugFlowPipe pipeReturn(
+  AixLib.Obsolete.Fluid.FixedResistances.PlugFlowPipe pipeReturn(
     nPorts=1,
     redeclare package Medium = Medium,
     dh=0.05,
@@ -72,8 +74,8 @@ model OpenLoopVarTSupplyDp
         origin={-80,-80})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=12000,
-    freqHz=1/10000,
-    offset=24000)  "A sine wave for varying heat demands" annotation (Placement(
+    f=1/10000,
+    offset=24000) "A sine wave for varying heat demands" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
