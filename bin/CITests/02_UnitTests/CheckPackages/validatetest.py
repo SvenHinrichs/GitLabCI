@@ -30,8 +30,8 @@ class ValidateTest(object):
                  filter_wh):
         self.package = package
         self.mo_library = mo_library
-        self.lib_path = self.mo_library + os.sep + "package.mo"
-        self.root_package = self.mo_library + os.sep + self.package
+        self.lib_path = f'{self.mo_library}{os.sep}package.mo'
+        self.root_package = f'{self.mo_library}{os.sep}{self.package}'
         self.n_pro = n_pro
         self.show_gui = show_gui
         self.simulate_ex = simulate_examples
@@ -61,7 +61,8 @@ class ValidateTest(object):
         self.dymola.ExecuteCommand(
             "Advanced.TranslationInCommandLog:=true;")  # Writes all information in the log file, not only the
 
-    def _dym_check_lic(self):  # check the license
+
+    def _dym_check_lic(self):  # check dymola license
         dym_sta_lic_available = self.dymola.ExecuteCommand('RequestOption("Standard");')
         lic_counter = 0
         while dym_sta_lic_available is False:
@@ -79,12 +80,21 @@ class ValidateTest(object):
 
 
     def _checkmodel(self, model_list):  # Check models and return a Error Log, if the check failed
+        print(f'Library path: {self.lib_path}')
         pack_check = self.dymola.openModel(self.lib_path)
         if pack_check is True:
-            print(f'Found {self.mo_library} Library and start Checkmodel Tests \n Check Package {self.package} \n')
+            print(f'Found {self.mo_library} library and start checkmodel tests. \nCheck package {self.package} \n')
         elif pack_check is False:
-            print(f'Library Path is wrong. Please Check Path of {self.mo_library} Library Path')
+            print(f'Library path is wrong. Please check path of {self.mo_library} library path.')
             exit(1)
+        #library_check = self.dymola.openModel("../../../../../library/Modelica 4.0.0/package.mo")  # Load modelica library MSL 4.0.0
+        # self.dymola.ExecuteCommand("DefaultModelicaVersion('4.0.0', true);")
+        #if library_check is False:
+        #    print("Failed to load Modelica library 4.0.0")
+        #    exit(1)
+        #if library_check is True:
+        #    print("Load Modelica library 4.0.0 successful")
+        #self.dymola.ExecuteCommand('DymolaCommands.Others.DefaultModelicaVersion("4.0.0", true);')
         error_model = []
         error_message = []
         for model in model_list:
@@ -113,9 +123,9 @@ class ValidateTest(object):
     def _sim_examples(self, example_list):  # Simulate examples or validations
         pack_check = self.dymola.openModel(self.lib_path)
         if pack_check is True:
-            print(f'Found {self.mo_library} Library and start check model test. \n Check Package {self.package} \n')
+            print(f'Found {self.mo_library} Library and start check model test.\nCheck Package {self.package} \n')
         elif pack_check is False:
-            print(f'Library path is wrong. Please check the path of {self.mo_library} library path')
+            print(f'Library path is wrong. Please check the path of {self.mo_library} library path.')
             exit(1)
         error_model = []
         error_message = []
@@ -240,11 +250,18 @@ class ValidateTest(object):
         lines = wh_file.readlines()
         wh_list_models = []
         for line in lines:
-            if line.find(self.package) > -1:
+            if line.find(f'{self.wh_library}.{self.package}') > -1:
                 model = line.lstrip()
                 model = model.strip()
                 model = model.replace("\n", "")
+                print(f'Dont test IBPSA model: {model}. Model is on the whitelist')
                 wh_list_models.append(model.replace(self.wh_library, self.mo_library))
+            elif line.find(f'{self.mo_library}.{self.package}') > -1:
+                model = line.lstrip()
+                model = model.strip()
+                model = model.replace("\n", "")
+                print(f'Dont test AixLib model: {model}. Model is on the whitelist')
+                wh_list_models.append(model)
         wh_file.close()
         return wh_list_models
 
@@ -266,7 +283,7 @@ class Create_whitelist(object):
     def __init__(self, library, wh_lib):
         self.library = library
         self.wh_lib = wh_lib
-        self.wh_lib_path = self.wh_lib + os.sep + self.wh_lib + os.sep + "package.mo"
+        self.wh_lib_path = f'{self.wh_lib}{os.sep}{self.wh_lib}{os.sep}package.mo'
 
         sys.path.append('bin/CITests')
         from _config import ch_file, wh_file, exit_file
@@ -358,10 +375,10 @@ class Create_whitelist(object):
         if package_check is True:
             print(f'Found {self.wh_lib} Library and check models in library {self.wh_lib} \n')
         elif package_check is False:
-            print(f'Library Path is wrong. Please Check Path of {self.wh_lib} Library Path')
+            print(f'Library path is wrong. Please check path of {self.wh_lib} library path.')
             exit(1)
         error_model = []
-        error_message = []
+        #error_message = []
         for model in model_list:
             result = self.dymola.checkModel(model)
             if result is True:
@@ -369,14 +386,15 @@ class Create_whitelist(object):
                 continue
             if result is False:
                 print(f'\n{self.CRED}Error:{self.CEND} {model}\n')
-                log = self.dymola.getLastError()
-                print(f'{log}')
+                #log = self.dymola.getLastError()
+                #print(f'{log}')
                 error_model.append(model)
-                error_message.append(log)
+                #error_message.append(log)
                 continue
         self.dymola.savelog(f'{self.wh_lib}-log.txt')
         self.dymola.close()
-        return error_model, error_message
+        #return error_model, error_message
+        return error_model
 
     def _write_exit_log(self, version_check):  # write entry in exit file
         exit = open(self.exit_file, "w")
@@ -506,18 +524,19 @@ def create_wh_workflow():
             print(f'{CRED}Error:{CEND} git url or whitelist path is missing!')
             exit(1)
         if args.git_url is not None:
-            print(f'Setting: library {args.git_url}')
+            print(f'Setting: whitelist git url library {args.git_url}')
             Git_Class = Git_Repository_Clone(repo_dir=args.repo_dir,
                                              git_url=args.git_url)
             Git_Class._clone_repository()
             model_list = Whitelist_class._get_wh_model(args.repo_dir)
         elif args.wh_path is not None:
-            print(f'Setting: library {args.wh_path}')
+            print(f'Setting: whitelist path library {args.wh_path}')
             model_list = Whitelist_class._get_wh_model(args.wh_path)
         print(f'Write new writelist from {args.wh_library} library')
         Whitelist_class._dym_check_lic()
         result = Whitelist_class._check_wh_model(model_list)
-        error_model_list = result[0]
+        #error_model_list = result[0]
+        error_model_list = result
         Whitelist_class._write_whitelist(error_model_list, version)
         exit(0)
     else:

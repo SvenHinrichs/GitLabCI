@@ -7,13 +7,14 @@ import toml
 
 class CI_yml_templates(object):
 
-    def __init__(self, library, package_list, dymolaversion, wh_library, git_url, wh_path):
+    def __init__(self, library, package_list, dymolaversion, wh_library, git_url, wh_path, python_version):
         self.library = library
         self.package_list = package_list
         self.dymolaversion = dymolaversion
         self.wh_library = wh_library
         self.git_url = git_url
         self.wh_path = wh_path
+        self.python_version = python_version
         # except commits
         self.update_ref_commit = "ci_update_ref"
         self.show_ref_commit = "ci_show_ref"
@@ -71,7 +72,7 @@ class CI_yml_templates(object):
         #self.project_name = project_name
         self.variable_main_list = variable_main_list
         self.stage_list = stage_list
-        self.python_version = "python36"
+
 
     def _write_page_template(self):
         mytemplate = Template(filename=self.page_temp)
@@ -284,7 +285,8 @@ class CI_yml_templates(object):
         yml_text = mytemplate.render(library=self.library, wh_library=self.wh_library, dymolaversion=self.dymolaversion,
                                      package_list=self.package_list, stage_list=stage_list, merge_branch=self.merge_branch,
                                      image_name=image_name, variable_main_list=variable_list,
-                                    except_commit_list=self.except_commit_list, file_list=file_list, config_list=config_list, git_url=git_url, wh_path=self.wh_path)
+                                     except_commit_list=self.except_commit_list, file_list=file_list, config_list=config_list, git_url=git_url, wh_path=self.wh_path,
+                                     python_version=self.python_version)
         yml_tmp = open(self.setting_file.replace("_template.txt", ".toml"), "w")
         yml_tmp.write(yml_text.replace("\n", ""))
         yml_tmp.close()
@@ -336,6 +338,8 @@ def _config_settings_check():
     print(f'Setting packages: {package_list_final}')
     dymolaversion = input(f'Give the dymolaversion (e.g. 2020): ')
     print(f'Setting dymola version: {dymolaversion}')
+    python_version = input(f'Give the python version in your image (e.g. python36): ')
+    print(f'Setting python version: {python_version}')
     response = input(
         f'Create whitelist? Useful if your own library has been assembled from other libraries. A whitelist is created, where faulty models from the foreign library are no longer tested in the future and are filtered out. (y/n)  ')
     if response == "y":
@@ -357,11 +361,11 @@ def _config_settings_check():
             response = input(f'Are settings okay(y/n)? ')
             if response == "y":
                 wh_config = False
-                return library, package_list_final, dymolaversion, wh_library, git_url, wh_path
+                return library, package_list_final, dymolaversion, wh_library, git_url, wh_path, python_version
     wh_library = None
     git_url = None
     wh_path = None
-    return library, package_list_final, dymolaversion, wh_library, git_url, wh_path
+    return library, package_list_final, dymolaversion, wh_library, git_url, wh_path, python_version
 
 
 def _delte_yml_files(temp_dir):
@@ -400,6 +404,13 @@ def _read_dymolaversion(data):
     dymolaversion = dymolaversion["dymolaversion"]
     print(f'Setting dymolaversion: {dymolaversion}')
     return dymolaversion
+
+def _read_pythonversion(data):
+    pythonversion = data["python_version"]
+    pythonversion = pythonversion["python_version"]
+    print(f'Setting python version: {pythonversion}')
+    return pythonversion
+
 
 def _read_stages(data):
     stages = data["stages"]
@@ -479,7 +490,8 @@ if __name__ == '__main__':
         wh_library = result[3]
         git_url = result[4]
         wh_path = result[5]
-        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
+        python_version = result[6]
+        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path, python_version)
         CI_Class._write_setting_template()
         for temp in config_list:
             if temp == "check":
@@ -518,6 +530,7 @@ if __name__ == '__main__':
             wh_library = None
         package_list = _read_package_list(data)
         dymolaversion = _read_dymolaversion(data)
+        python_version = _read_pythonversion(data)
         stage_list = _read_stages(data)
         Merge_Branch = _read_merge_branch(data)
         image_name = _read_image_name(data)
@@ -528,7 +541,7 @@ if __name__ == '__main__':
         git_url = _read_git_url(data)
         if git_url == "None":
             git_url = None
-        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path)
+        CI_Class = CI_yml_templates(library, package_list, dymolaversion, wh_library, git_url, wh_path, python_version)
         CI_Class._write_setting_template()
         for temp in config_list:
             if temp == "check":
