@@ -5,17 +5,18 @@ stages:
 .check_model_job:
     stage: check
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv  
+        - source activate ${python_version}
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package $lib_package --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag}
+        - xvfb-run -n 77 python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag} 
+
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$lib_package-log.txt
-            - ${library}/${library}.$lib_package-errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         - external_pull_requests
@@ -27,6 +28,9 @@ stages:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+        refs:
+            - master
+            - development
             
 %for package in package_list:
 Check_${library}_${package}:
@@ -36,26 +40,59 @@ Check_${library}_${package}:
 
 %endfor
 
-.check_changed_models_job:
+.dev_check_model_job:
     stage: check
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - git diff --raw --diff-filter=AMT HEAD^1 >  ${ch_file}
-        - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py --single-package $lib_package --library ${library} -DS ${dymolaversion} -CM
+        - xvfb-run -n 77 python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag}
+
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$lib_package-log.txt
-            - ${library}/${library}.$lib_package-errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
+        expire_in: 7 day
+    only:
+        - master
+        - development
+    retry:
+        max: 2
+        when: runner_system_failure
+
+%for package in package_list:
+Development_Check_${library}_${package}:
+    variables:
+        lib_package: ${package}
+    extends: .dev_check_model_job
+
+%endfor
+
+.check_changed_models_job:
+    stage: check
+    before_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate ${python_version}
+        - pip install natsort
+        - export PYTHONIOENCODING=utf-8 # just in case
+    script:
+        - git diff --raw --diff-filter=AMT HEAD^1 >  ${ch_file}
+        - xvfb-run -n 77 python bin/CITests/02_UnitTests/CheckPackages/validatetest.py --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} -CM  ; pkill -f Xvfb
+    artifacts:
+        when: on_failure
+        paths:
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day
     except:
         refs:
             - external_pull_requests
             ${merge_branch}
+            - master
+            - development
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
@@ -78,17 +115,17 @@ Check_${library}_${package}_changed_models:
 .CI_check_model_job:
     stage: check
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv  
+        - source activate ${python_version}
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
-        - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package $lib_package --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag}
+        - xvfb-run -n 77 python bin/CITests/02_UnitTests/CheckPackages/validatetest.py  --single-package "${lib_package}" --library ${library} -DS ${dymolaversion} ${wh_flag} ${filterflag}  ; pkill -f Xvfb
     artifacts:
         when: on_failure
         paths:
-            - ${library}/${library}.$lib_package-log.txt
-            - ${library}/${library}.$lib_package-errorlog.txt
+            - ${library}/${library}.${lib_package}-log.txt
+            - ${library}/${library}.${lib_package}-errorlog.txt
         expire_in: 7 day 
     only:
         variables:
@@ -112,35 +149,35 @@ CI_Check_${library}_${package}:
 whitelist_job:
     stage: create_whitelist
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv  
+        - source activate ${python_version}
+        - pip install natsort
         - export PYTHONIOENCODING=utf-8 
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
         - ssh-keyscan github.com >> ~/.ssh/known_hosts
         - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-        - echo "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
         - chmod 600 ~/.ssh/id_rsa
-        - git config --global user.name "$GITLAB_USER_NAME"
-        - git config --global user.email "$GITLAB_USER_EMAIL"
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
         - mkdir whitelist && cd whitelist
-        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git
-        - cd $CI_PROJECT_NAME
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - echo "FAIL" > ${exit_file}
-        - python bin/CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist
+        - xvfb-run -n 77 python bin/CITests/02_UnitTests/CheckPackages/validatetest.py -DS ${dymolaversion} --repo-dir ${wh_library} ${git_url} ${wh_path} --library ${library} --wh-library ${wh_library} --whitelist 
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - export PYTHONIOENCODING=utf-8 # just in case
-        - cd whitelist && cd $CI_PROJECT_NAME
+        - cd whitelist && cd ${CI_PROJECT_NAME}
         - if cat ${exit_file} | grep "FAIL"; then
-            message="${bot_check_commit}" ;
+            message="Automatic push of CI - Update model_whitelist. Please pull the new files before push again. [skip ci]" ;
             git add ${wh_file} ;
             git commit -m "$message" ;
-            git push git@github.com:$Github_Repository.git ;
+            git push git@github.com:${Github_Repository}.git ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "$GREEN New html whitelist files were pushed to this branch.$NC" ;
@@ -152,7 +189,7 @@ whitelist_job:
           fi
     artifacts:
         paths:
-            - whitelist/$CI_PROJECT_NAME/${wh_file}
+            - whitelist/${CI_PROJECT_NAME}/${wh_file}
         expire_in: 7 day 
     only:
         variables:
@@ -160,3 +197,4 @@ whitelist_job:
     except:
         refs:
             - external_pull_requests
+

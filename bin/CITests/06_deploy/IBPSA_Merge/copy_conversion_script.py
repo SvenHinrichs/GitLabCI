@@ -1,149 +1,158 @@
 import os
-import sys
+import sys 
 import shutil
 import glob
 import argparse
 from natsort import natsorted
 
-def search_aixlib_conversion(aixlib_dir):  # Read the last aixlib mos script
-    from natsort import natsorted
-    filelist = (glob.glob(aixlib_dir + os.sep + "*.mos"))
-    sorted_list = natsorted(filelist)
-    last_script = sorted_list[len(sorted_list) - 1]
-    return last_script
+def copy_mos(ibpsa_dir, dst):
+	''' Copy the ConvertIBPSA mos Script '''
+	if os.path.isdir(dst):
+		pass
+	else:
+		os.mkdir(dst)
+	mos_file_list = (glob.glob(ibpsa_dir))
+	if len(mos_file_list) == 0:
+		print("Cant find a Conversion Script in IBPSA Repo")
+		exit(0)
+	l_ibpsa_conv = natsorted(mos_file_list)[(-1)]
+	l_ibpsa_conv = l_ibpsa_conv.replace("/", os.sep)
+	l_ibpsa_conv = l_ibpsa_conv.replace("\\", os.sep)
+	print(f'Latest IBPSA Conversion script: {l_ibpsa_conv}')
+	shutil.copy(l_ibpsa_conv, dst)
+	return l_ibpsa_conv
+	
 
-def create_convert_aixlib(ibpsa_content, last_aixlib_conv):  # change the paths in the script from IBPSA.Package.model -> AixLib.Package.model
-    from_numb = last_aixlib_conv[last_aixlib_conv.find("from_") + 5:last_aixlib_conv.rfind("_to_")]
-    last_from_numb = int(from_numb[from_numb.rfind(".") + 1]) + 1
-    new_from_numb = f'{from_numb[:from_numb.rfind(".")]}.{last_from_numb}'
-
-    to_numb = last_aixlib_conv[last_aixlib_conv.find("_to_") + 4:last_aixlib_conv.rfind(".mos")]
-    last_to_numb = int(to_numb[to_numb.rfind(".") + 1]) + 1
-    new_to_numb = f'{to_numb[:to_numb.rfind(".")]}.{last_to_numb}'
-    new_version_number = f'ConvertAixLib_from_{new_from_numb}_to_{new_to_numb}.mos'
-    new_conversion_script = f'{aixlib_dir}{os.sep}{new_version_number}'
-    aixlib_conversion = open(new_conversion_script, "w")
-    for line in ibpsa_content:
-        aixlib_conversion.write(line.replace("IBPSA", "AixLib"))
-    aixlib_conversion.close()
-    return new_conversion_script
+# Read the last aixlib conversion mos script
+def read_aixlib_convert(aixlib_dir):
+	filelist = (glob.glob(aixlib_dir+os.sep+"*.mos"))
+	if len(filelist) == 0:
+		print("Cant find a Conversion Script in IBPSA Repo")
+		exit(0)
+	l_aixlib_conv = natsorted(filelist)[(-1)]
+	l_aixlib_conv = l_aixlib_conv.replace("/", os.sep)
+	l_aixlib_conv = l_aixlib_conv.replace("\\", os.sep)
+	print(f'Latest AixLib Conversion script: {l_aixlib_conv}')
+	return l_aixlib_conv
 
 
-def copy_aixlib_mos(aixlib_mos, aixlib_dir, dst):
-    shutil.copy(aixlib_mos, aixlib_dir)
-    shutil.rmtree(dst)
+def create_convert_aixlib(l_ibpsa_conv, dst, l_aixlib_conv):  # change the paths in the script from IBPSA.Package.model -> AixLib.Package.model
+	conv_number = l_aixlib_conv[l_aixlib_conv.find("ConvertAixLib_from_")+19:l_aixlib_conv.rfind(".mos")]
+	print(f'Latest conversion number: {conv_number}')  # FROM 1.0.1_ TO _1.0.2
+	old_from_numb = conv_number[:conv_number.find("_to_")]
+	old_to_numb = conv_number[conv_number.find("_to_") + 4:]  # Update TO Number 1.0.2 old_to_numb == new_from_numb
+	first_numb = old_to_numb[:old_to_numb.find(".")]
+	sec_numb = int(old_to_numb[old_to_numb.find(".")+1:old_to_numb.rfind(".")]) + 1
+	new_to_numb = f'{first_numb}.{sec_numb}.0'
+	#print(f'New TO_NUMBER: {new_to_numb}')  # 1.1.0
 
-def compare_conversions(ibpsa_content, aixlib_content):
-    x = 0
-    list = []
-    if len(ibpsa_content) == len(aixlib_content):
-        for i in ibpsa_content:
-            i = i.replace("IBPSA", "AixLib")
-            if i.find("from:") > -1 and i.find(" Version") > -1:
-                x = x + 1
-                continue
-            if i.find("to") > -1 and i.find(" Version") > -1:
-                x = x + 1
-                continue
-            if i != aixlib_content[x]:
-                list.append(i)
-                x = x + 1
-                continue
-            x = x + 1
-    else:
-        list.append(x)
-    if len(list) > 0:
-        return False
-    if len(list) == 0:
-        return True
+	new_conv_number = str(old_to_numb)+"_to_"+str(new_to_numb)  # write new conversion number
+	#print(f'New conversion number: {new_conv_number}')  # 1.0.2_to_1.1.0
+
+	file_new_conv = f'{dst}{os.sep}ConvertAixLib_from_{new_conv_number}.mos'
+	#print(f'New conversion script: {file_new_conv}')  # Convertmos\ConvertAixLib_from_1.0.2_to_1.1.0.mos
+
+	ibpsa_file = open(l_ibpsa_conv, "r")
+	aixlib_file = open(file_new_conv, "w+")
+
+	for line in ibpsa_file:
+		if line.find("Conversion script for IBPSA library") > -1:
+			aixlib_file.write(line)
+		elif line.find("IBPSA") > - 1:
+			aixlib_file.write(line.replace("IBPSA", "AixLib"))
+		else:
+			aixlib_file.write(line)
+	ibpsa_file.close()
+	aixlib_file.close()
+	return file_new_conv, old_to_numb, old_from_numb, new_to_numb
+
+def copy_aixlib_mos(file_new_conv,aixlib_dir, dst):
+	new_conversion_script = shutil.copy(file_new_conv, aixlib_dir)
+	shutil.rmtree(dst)
+	return new_conversion_script
+
+def compare_conversions(l_ibpsa_conv, l_aixlib_conv):
+
+	result = True
+	with open(l_ibpsa_conv) as file_1:
+		file_1_text = file_1.readlines()
+	with open(l_aixlib_conv) as file_2:
+		file_2_text = file_2.readlines()
+	for line1, line2 in zip(file_1_text, file_2_text):
+		if line1 == line2.replace("AixLib", "IBPSA"):
+			continue
+		else:
+			#print(f'Different Content:\n{l_ibpsa_conv}: {line1}\n{l_aixlib_conv}: {line2} ')
+			result = False
+	return result
 
 
 def _read_package():
-    file = open("AixLib" + os.sep + "package.mo", "r")
-    list = []
-    for line in file:
-        if line.find("conversion(from(") > -1:
-            list.append(line)
-            counter = 1
-            continue
-        if line.find('.mos")),') > -1 and counter == 1:
-            version_number = line[line.find("_to_") + 4:line.find(".mos")]
-            return version_number
+	file = open(f'AixLib{os.sep}package.mo', "r")
+	list = []	
+	for line in file:
+		if line.find("conversion(from(") > -1:
+			list.append(line)
+			counter = 1
+			continue	
+		if line.find('.mos")),') > -1 and counter == 1:
+			version_number = line[line.find("_to_")+4:line.find(".mos")]
+			return version_number
 
-def add_conv_to_package(aixlib_mos, last_aixlib_conv):
-    file = open("AixLib" + os.sep + "package.mo", "r")
-    latest_numb = f'{last_aixlib_conv[last_aixlib_conv.rfind(os.sep)+1:last_aixlib_conv.rfind(".mos")]}'
-    new_numb = f'{aixlib_mos[aixlib_mos.rfind(os.sep) + 1:aixlib_mos.rfind(".mos")]}'
-    #ConvertAixLib_from_0.9.4_to_0.10.0.mos
-    version_numb = f'{aixlib_mos[aixlib_mos.rfind("from_") + 5:aixlib_mos.rfind("_to_")]}'
-    content_list = []
-    version = f'    version="{version_numb}",\n                      script="modelica://{aixlib_mos}")),\n'
-    for line in file:
-        if line.find(f'{latest_numb}') > -1:
-            content_list.append(line.replace("))",""))
-            content_list.append(version)
-            continue
-        else:
-            content_list.append(line)
-        '''
-                if line.find(f'    version="{version_numb}",\n') > -1:
-            content_list.remove(version)
-        if line.find(f'                      script="modelica://{aixlib_mos}")),\n') > -1:
-            content_list.remove(version)
-        '''
-    file.close()
-    file = open("AixLib" + os.sep + "package.mo", "w")
-    for line in content_list:
-        file.write(line)
-    file.close()
+def add_conv_to_package(l_aixlib_conv, new_conversion_script, old_to_numb, old_from_numb, new_to_numb):
+	l_aixlib_conv = l_aixlib_conv.replace('\\','/')
+	#print(f'old_to_numb_ {old_to_numb}')
+	#print(f'old_from_numb {old_from_numb}')
+	#print(f'new_to_numb {new_to_numb}')
+	new_conversion_script = new_conversion_script.replace('\\','/')
+	file = open(f'AixLib{os.sep}package.mo', "r")
+	list = []
+	for line in file:
+		if line.find("version") == 0 or line.find('script="modelica://') == 0:
+			list.append(line)
+			continue
+		if line.find(f'  version = "{old_to_numb}",') > -1:
+			list.append(line.replace(old_to_numb, new_to_numb))
+			continue
+		if line.find(f'{l_aixlib_conv}') > -1:
+			list.append(line.replace(")),", ","))
+			list.append(f'    version="{old_to_numb}",\n')
+			list.append(f'                      script="modelica://{new_conversion_script}")),\n')
+			continue
+		else:
+			list.append(line)
+			continue
+	file.close()
+	pack = open(f'AixLib{os.sep}package.mo', "w")
+	for i in list:
+		pack.write(i)
+	pack.close()
 
-def search_ibpsa_conversion(ibpsa_dir):
-    file = (glob.glob(ibpsa_dir))
-    if len(file) == 0:  # Look which ConvertScript is the latest
-        print("Cannot find a Conversion Script in IBPSA Repo")
-        exit(0)
-    if len(file) > 0:
-        sorted_list = natsorted(file)
-        last_script = sorted_list[len(sorted_list) - 1]
-        return last_script
+if  __name__ == '__main__':
+	parser = argparse.ArgumentParser(description = "Set Github Environment Variables")
+	check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
+	check_test_group.add_argument("-dst", "--dst", default ="Convertmos", help="temp folder")
+	check_test_group.add_argument("-ad", "--aixlib-dir", default="AixLib\\Resources\\Scripts", help="path to the aixlib scripts" )
+	check_test_group.add_argument('-id',"--ibpsa-dir",default='modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*', help="path to the ibpsa scripts")
+	# Parse the arguments
+	args = parser.parse_args()
+	l_ibpsa_conv = copy_mos(args.ibpsa_dir, args.dst)  # latest conversion script IBPSA
+	l_aixlib_conv = read_aixlib_convert(args.aixlib_dir)  # latest conversion Script AixLib
+	result = compare_conversions(l_ibpsa_conv, l_aixlib_conv)  # Compare latest aixlib and IBPSA script
+	if result is True:
+		print(f'The latest aixlib conversion script {l_aixlib_conv} is up to date with IBPSA conversion script {l_ibpsa_conv}')
+	if result is False:
+		conv_data = create_convert_aixlib(l_ibpsa_conv, args.dst, l_aixlib_conv)
+		file_new_conv = conv_data[0]
+		old_to_numb = conv_data[1]
+		old_from_numb = conv_data[2]
+		new_to_numb = conv_data[3]
+		if file_new_conv is None:
+			print("please check when the last merge took place")
+			shutil.rmtree(args.dst)
+		else:
+			new_conversion_script = copy_aixlib_mos(file_new_conv, args.aixlib_dir, args.dst)
+			add_conv_to_package(l_aixlib_conv, new_conversion_script, old_to_numb, old_from_numb, new_to_numb)
+			print(f'New Aixlib Conversion skrip was created: {file_new_conv}')
 
-def read_aixlib_conversion(last_aixlib_conv):
-    aixlib_script = open(last_aixlib_conv, "r")
-    aixlib_content = aixlib_script.readlines()
-    aixlib_script.close()
-    return aixlib_content
-
-def read_ibpsa_conversion(last_ibpsa_script):
-    ibpsa_script = open(last_ibpsa_script, "r")
-    ibpsa_content = ibpsa_script.readlines()
-    ibpsa_script.close()
-    return ibpsa_content
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Set Github Environment Variables")
-    check_test_group = parser.add_argument_group("Arguments to set Environment Variables")
-    check_test_group.add_argument("-dst", "--dst", default="Convertmos", help="temp folder")
-    check_test_group.add_argument("-ad", "--aixlib-dir", default="AixLib\\Resources\\Scripts",
-                                  help="path to the aixlib scripts")
-    check_test_group.add_argument('-id', "--ibpsa-dir",
-                                  default='modelica-ibpsa\\IBPSA\\Resources\\Scripts\\Dymola\\ConvertIBPSA_*',
-                                  help="path to the ibpsa scripts")
-
-    args = parser.parse_args()  # Parse the arguments
-    dst = args.dst
-    aixlib_dir = args.aixlib_dir
-    ibpsa_dir = args.ibpsa_dir
-    last_ibpsa_script = search_ibpsa_conversion(ibpsa_dir)  # Search the latest ibpsa conversion script
-    print(f'Latest IBPSA Conversion number: {last_ibpsa_script[last_ibpsa_script.rfind(os.sep)+1:last_ibpsa_script.rfind(".mos")]}')
-    ibpsa_content = read_ibpsa_conversion(last_ibpsa_script)  # read the latest ibpsa conversion script
-    last_aixlib_conv = search_aixlib_conversion(aixlib_dir)  # Search the latest aixlib conversion script
-    print(f'Latest AixLib Conversion number: {last_aixlib_conv[last_aixlib_conv.rfind(os.sep)+1:last_aixlib_conv.rfind(".mos")]}')
-    aixlib_content = read_aixlib_conversion(last_aixlib_conv)
-    result = compare_conversions(ibpsa_content, aixlib_content)  # Compare latest ibpsa and aixlib conversion script
-    if result == False:
-        aixlib_mos = create_convert_aixlib(ibpsa_content, last_aixlib_conv)
-        print(aixlib_mos)
-        print(f'New AixLib Conversion number: {aixlib_mos[aixlib_mos.rfind(os.sep)+1:aixlib_mos.rfind(".mos")]}')
-        add_conv_to_package(aixlib_mos, last_aixlib_conv)
-    else:
-        print("The latest conversion script is up to date from the IBPSA")
 

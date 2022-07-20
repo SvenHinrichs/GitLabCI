@@ -8,21 +8,20 @@ stages:
 .CI_Regressiontest:
     stage: RegressionTest
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package "$lib_package" --library ${library} --batch -DS ${dymolaversion}
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py -n 4 --tool dymola --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion} 
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
-            source activate myenv ;
+            source activate ${python_version} ;
             pip install pandas mako matplot ;
-            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package $lib_package ;
+            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -34,7 +33,7 @@ stages:
         when: on_failure
         paths:
           - data
-          - ${chart_dir}/$lib_package
+          - ${chart_dir}/${lib_package}
         expire_in: 7 day
     only:
         refs:
@@ -45,6 +44,9 @@ stages:
         max: 2
         when: runner_system_failure
 
+
+
+
 %for package in package_list:
 CI_Regressiontest_${library}_${package}:
     variables:
@@ -53,10 +55,59 @@ CI_Regressiontest_${library}_${package}:
 
 %endfor
 
+
+
+.dev_Regressiontest:
+    stage: RegressionTest
+    before_script:
+        - export PIP_CACHE_DIR="/opt/cache/pip"
+        - source activate ${python_version}
+        - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
+        - export PYTHONIOENCODING=utf-8 # just in case
+        - echo 'FAIL' > ${exit_file}
+    script:
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py -n 4 --tool dymola --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion}
+        - cd .. && echo 'successful' > ${exit_file}
+    after_script:
+        - if cat ${exit_file} | grep "FAIL"; then
+            export PIP_CACHE_DIR="/opt/cache/pip" ;
+            source activate ${python_version} ;
+            pip install pandas mako matplot ;
+            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
+            mkdir -p data ;
+            cp -r ${library}/simulator-dymola.log data ;
+            cp -r ${library}/unitTests-dymola.log data ;
+            cp -r ${library}/funnel_comp data ;
+          else
+            echo "Test was succesful!" ;
+          fi
+    artifacts:
+        when: on_failure
+        paths:
+          - data
+          - ${chart_dir}/${lib_package}
+        expire_in: 7 day
+    only:
+        refs:
+            - development
+            - master
+    retry:
+        max: 2
+        when: runner_system_failure
+
+%for package in package_list:
+Development_Regressiontest_${library}_${package}:
+    variables:
+        lib_package: ${library}.${package}
+    extends: .dev_Regressiontest
+
+%endfor
+
+
 CI_create_plots:
     stage: prepare
     before_script:
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
@@ -66,7 +117,7 @@ CI_create_plots:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
-        - python bin/CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo $Github_Repository --gitlab-page $GITLAB_Page --github-token $GITHUB_API_TOKEN --post-pr-comment --prepare-plot
+        - python bin/CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -85,21 +136,20 @@ CI_create_plots:
 .Regressiontest_job:
     stage: RegressionTest
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo 'FAIL' > ${exit_file}
     script:
-        - cd ${library} && python ../bin/CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package "$lib_package" --library ${library} --batch -DS ${dymolaversion}
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py -n 4 --tool dymola --single-package "${lib_package}" --library ${library} --batch -DS ${dymolaversion} 
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip" ;
-            source activate myenv ;
+            source activate ${python_version} ;
             pip install pandas mako matplot ;
-            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package $lib_package ;
+            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package} ;
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -111,7 +161,7 @@ CI_create_plots:
         when: on_failure
         paths:
           - data
-          - ${chart_dir}/$lib_package
+          - ${chart_dir}/${lib_package}
         expire_in: 7 day
     only:
         refs:
@@ -121,6 +171,10 @@ CI_create_plots:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+        refs:
+            - master
+            - development
+
     retry:
         max: 2
         when: runner_system_failure
@@ -137,7 +191,7 @@ Regression_overall_coverage:
     stage: RegressionTest
     before_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
     script:
@@ -156,6 +210,9 @@ Regression_overall_coverage:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+        refs:
+            - master
+            - development
     retry:
         max: 2
         when: runner_system_failure
@@ -163,7 +220,7 @@ Regression_overall_coverage:
 prepare_create_plots:
     stage: prepare
     before_script:
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
@@ -173,7 +230,7 @@ prepare_create_plots:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/CITests/05_Converter/google_charts.py  --create-layout --library ${library} --single-package ${library}
         - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
-        - python bin/CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo $Github_Repository --gitlab-page $GITLAB_Page --github-token $GITHUB_API_TOKEN --post-pr-comment --prepare-plot
+        - python bin/CITests/04_api_script/api_github.py  --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --prepare-plot
     artifacts:
         paths:
          - $CI_COMMIT_REF_NAME/plots
@@ -185,6 +242,9 @@ prepare_create_plots:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
             %endfor
+        refs:
+            - master
+            - development
     when: on_failure
     needs:
     %for package in package_list:
@@ -195,22 +255,21 @@ prepare_create_plots:
 .Regressiontest_changed_Job:
     stage: RegressionTest
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
         - echo 'FAIL' > ${exit_file}
     script:
         - git diff --raw --diff-filter=AMT HEAD^1 > ${ch_file}
-        - cd ${library} && python ../bin/CITests/02_UnitTests/reference_check.py -n 2 --tool dymola --single-package $lib_package --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py -n 4 --tool dymola --single-package ${lib_package} --library ${library} --batch -DS ${dymolaversion} -n 2 --modified-model 
         - cd .. && echo 'successful' > ${exit_file}
     after_script:
         - if cat ${exit_file} | grep "FAIL"; then
             export PIP_CACHE_DIR="/opt/cache/pip";
-            source activate myenv;
+            source activate ${python_version};
             pip install pandas mako matplot;
-            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package $lib_package;
+            python bin/CITests/05_Converter/google_charts.py --line-html --error --funnel-comp --single-package ${lib_package};
             mkdir -p data ;
             cp -r ${library}/simulator-dymola.log data ;
             cp -r ${library}/unitTests-dymola.log data ;
@@ -222,12 +281,14 @@ prepare_create_plots:
         when: on_failure
         paths:
             - data
-            - ${chart_dir}/$lib_package
+            - ${chart_dir}/${lib_package}
         expire_in: 7 day
     except:
         refs:
             - external_pull_requests
             ${merge_branch}
+            - master
+            - development
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
@@ -251,7 +312,7 @@ Changed_Regressiontest_${library}_${package}:
 Changed_create_plots:
     stage: prepare
     before_script:
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
@@ -269,6 +330,8 @@ Changed_create_plots:
         refs:
             - external_pull_requests
             ${merge_branch}
+            - master
+            - development
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
@@ -290,40 +353,39 @@ Changed_create_plots:
 RegressionTest_Check_References:
     stage: Ref_Check
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - export PYTHONIOENCODING=utf-8 # just in case
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
         - eval $(ssh-agent -s)
         - mkdir -p ~/.ssh
         - ssh-keyscan github.com >> ~/.ssh/known_hosts
         - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-        - echo "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
         - chmod 600 ~/.ssh/id_rsa
-        - git config --global user.name "$GITLAB_USER_NAME"
-        - git config --global user.email "$GITLAB_USER_EMAIL"
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
         - mkdir CorrectedVersion && cd CorrectedVersion
-        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git
-        - cd $CI_PROJECT_NAME
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - echo "FAIL" > ${exit_file}
-        - cd ${library} && python ../bin/CITests/02_UnitTests/reference_check.py --create-ref -n 2 < ../${eof_file}
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py --create-ref -n 4 < ../${eof_file} 
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - export PYTHONIOENCODING=utf-8 # just in case
-        - cd CorrectedVersion && cd $CI_PROJECT_NAME
+        - cd CorrectedVersion && cd ${CI_PROJECT_NAME}
         - git ls-files --others --exclude-standard
         - if cat ${exit_file} | grep "FAIL"; then
             pushmodel=$(git ls-files --others --exclude-standard) ;
             echo $pushmodel ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             python bin/CITests/06_deploy/deploy_artifacts.py --library AixLib --ref --new-ref;
-            message="${bot_create_ref_commit}" ;
+            message="Automatic push of CI with new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/$CI_COMMIT_REF_NAME/plots/ " ;
             git add $pushmodel ;
             git commit -m "$message";
-            git push git@github.com:$Github_Repository.git ;
+            git push git@github.com:${Github_Repository}.git ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "$GREEN New reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
@@ -333,11 +395,11 @@ RegressionTest_Check_References:
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
             mkdir -p data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/simulator-dymola.log data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/unitTests-dymola.log data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/funnel_comp data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/Referencefiles data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/simulator-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
             exit 1 ;
           else
             echo 'successful' > ${exit_file} ;
@@ -352,6 +414,8 @@ RegressionTest_Check_References:
     except:
         refs:
             ${merge_branch}
+            - master
+            - development
         variables:
             %for commit in except_commit_list:
             - $CI_COMMIT_MESSAGE  =~ /${commit}/
@@ -362,9 +426,8 @@ RegressionTest_Check_References:
 Update_Regression_Results:
     stage: Update_Ref
     before_script:
-        - Xvfb :77 -extension RANDR -extension GLX & export DISPLAY=:77.0 &&
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade git+https://github.com/MichaMans/BuildingsPy@testexamplescoverage
         - export PYTHONIOENCODING=utf-8 # just in case
         - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -372,32 +435,32 @@ Update_Regression_Results:
         - mkdir -p ~/.ssh
         - ssh-keyscan github.com >> ~/.ssh/known_hosts
         - ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-        - echo "$GITHUB_PRIVATE_KEY" > ~/.ssh/id_rsa
+        - echo "${GITHUB_PRIVATE_KEY}" > ~/.ssh/id_rsa
         - chmod 600 ~/.ssh/id_rsa
-        - git config --global user.name "$GITLAB_USER_NAME"
-        - git config --global user.email "$GITLAB_USER_EMAIL"
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
         
     script:
         - mkdir CorrectedVersion && cd CorrectedVersion
-        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:$Github_Repository.git
-        - cd $CI_PROJECT_NAME
+        - git clone --single-branch --branch $CI_COMMIT_REF_NAME git@github.com:${Github_Repository}.git
+        - cd ${CI_PROJECT_NAME}
         - echo "FAIL" > ${exit_file}
-        - cd ${library} && python ../bin/CITests/02_UnitTests/reference_check.py --update-ref --single-package ${library} -n 2 < ../${eof_file}
+        - cd ${library} && xvfb-run -n 77 python ../bin/CITests/02_UnitTests/reference_check.py --update-ref --single-package ${library} -n 4 < ../${eof_file} 
     after_script:
         - export PIP_CACHE_DIR="/opt/cache/pip"
-        - source activate myenv
+        - source activate ${python_version}
         - export PYTHONIOENCODING=utf-8 # just in case
-        - cd CorrectedVersion && cd $CI_PROJECT_NAME
+        - cd CorrectedVersion && cd ${CI_PROJECT_NAME}
         - git ls-files --others --exclude-standard
         - if cat ${exit_file} | grep "FAIL"; then
             pushmodel=$(git ls-files --others --exclude-standard) ;
             echo $pushmodel ;
             (git ls-files --others --exclude-standard) > ${new_ref_file} ;
             python bin/CITests/06_deploy/deploy_artifacts.py --library ${library} --ref --updated-ref;
-            message="${bot_update_ref_commit}" ;
+            message="Automatic push of CI with updated or new regression reference files.Please pull the new files before push again. Plottet Results ${GITLAB_Page}/$CI_COMMIT_REF_NAME/plots/ " ;
             git add ${library}/Resources/ReferenceResults/Dymola/* ;
             git commit -m "$message";
-            git push git@github.com:$Github_Repository.git ;
+            git push git@github.com:${Github_Repository}.git ;
             GREEN='\033[0;32m' ;
             NC='\033[0m' ;
             echo  -e "$GREEN New or updated reference files were pushed to this branch. The job was successfully and the newly added files are tested in another commit. $NC " ;
@@ -407,11 +470,11 @@ Update_Regression_Results:
             cd .. ;
             mkdir -p $CI_COMMIT_REF_NAME/plots ;
             mkdir -p data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/simulator-dymola.log data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/unitTests-dymola.log data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${library}/funnel_comp data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/Referencefiles data ;
-            cp -r CorrectedVersion/$CI_PROJECT_NAME/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/simulator-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/unitTests-dymola.log data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${library}/funnel_comp data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/Referencefiles data ;
+            cp -r CorrectedVersion/${CI_PROJECT_NAME}/${chart_dir}/* $CI_COMMIT_REF_NAME/plots ;
             exit 0 ;
           else
             echo 'successful' > ${exit_file} ;
@@ -436,7 +499,7 @@ Update_Regression_Results:
 plot_reference_results:
     stage: plot_ref
     before_script:
-        - source activate myenv
+        - source activate ${python_version}
         - pip install --upgrade pip &&  apt-get update -y && apt-get install zip unzip -y
         - pip install requests
         - pip install pandas mako matplot
@@ -444,8 +507,8 @@ plot_reference_results:
     script:
         - mkdir -p $CI_COMMIT_REF_NAME/plots
         - python bin/CITests/05_Converter/google_charts.py --line-html --show-ref --single-package ${library} --library ${library} 
-        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots
-        - python bin/CITests/04_api_script/api_github.py --working-branch $CI_COMMIT_REF_NAME --github-repo $Github_Repository --gitlab-page $GITLAB_Page --github-token $GITHUB_API_TOKEN --post-pr-comment --show-plot
+        - cp -r ${chart_dir}/* $CI_COMMIT_REF_NAME/plots 
+        - python bin/CITests/04_api_script/api_github.py --working-branch $CI_COMMIT_REF_NAME --github-repo ${Github_Repository} --gitlab-page ${GITLAB_Page} --github-token ${GITHUB_API_TOKEN} --post-pr-comment --show-plot 
     artifacts:
         when: always
         paths:
