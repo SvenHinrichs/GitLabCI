@@ -1,77 +1,77 @@
 within AixLib.Fluid.FixedResistances;
-model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flow as parameter"
-  extends AixLib.Fluid.FixedResistances.PressureDrop(
-    final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
-    final dp_nominal=fac*dpStraightPipe_nominal);
-
-  parameter Modelica.Units.SI.Length dh=sqrt(4*m_flow_nominal/rho_default/
-      v_nominal/Modelica.Constants.pi)
-    "Hydraulic diameter (assuming a round cross section area)";
-
-  parameter Modelica.Units.SI.Length length "Length of the pipe";
-
-  parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulence starts";
-
-  parameter Modelica.Units.SI.Velocity v_nominal=if rho_default < 500 then 1.5
-       else 0.15
-    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.Length roughness(min=0) = 2.5e-5
-    "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-
-  parameter Real fac(min=1) = 2
-    "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
-
-  final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
-      displayUnit="Pa")=
-    Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-    m_flow=m_flow_nominal,
-    rho_a=rho_default,
-    rho_b=rho_default,
-    mu_a=mu_default,
-    mu_b=mu_default,
-    length=length,
-    diameter=dh,
-    roughness=roughness,
-    m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
-
-  Modelica.Units.SI.Velocity v=m_flow/(rho_default*ARound)
-    "Flow velocity (assuming a round cross section area)";
-
-protected
-  parameter Modelica.Units.SI.Area ARound=dh^2*Modelica.Constants.pi/4
-    "Cross sectional area (assuming a round cross section area)";
-
-  parameter Medium.ThermodynamicState state_default=
-    Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]) "Default state";
-
-  parameter Modelica.Units.SI.Density rho_default=Medium.density(state_default)
-    "Density at nominal condition";
-
-  parameter Modelica.Units.SI.DynamicViscosity mu_default=
-      Medium.dynamicViscosity(state_default)
-    "Dynamic viscosity at nominal condition";
-
-annotation (defaultComponentName="res",
-Documentation(info="<html>
+ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flow as parameter"
+   extends AixLib.Fluid.FixedResistances.PressureDrop(
+     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
+     final dp_nominal=fac*dpStraightPipe_nominal);
+ 
+   parameter Modelica.Units.SI.Length dh=sqrt(4*m_flow_nominal/rho_default/
+       v_nominal/Modelica.Constants.pi)
+     "Hydraulic diameter (assuming a round cross section area)";
+ 
+   parameter Modelica.Units.SI.Length length "Length of the pipe";
+ 
+   parameter Real ReC(min=0)=4000
+     "Reynolds number where transition to turbulence starts";
+ 
+   parameter Modelica.Units.SI.Velocity v_nominal=if rho_default < 500 then 1.5
+        else 0.15
+     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
+     annotation (Dialog(group="Nominal condition"));
+ 
+   parameter Modelica.Units.SI.Length roughness(min=0) = 2.5e-5
+     "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
+ 
+   parameter Real fac(min=1) = 2
+     "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+ 
+   final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
+       displayUnit="Pa") =
+     Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+     m_flow=m_flow_nominal,
+     rho_a=rho_default,
+     rho_b=rho_default,
+     mu_a=mu_default,
+     mu_b=mu_default,
+     length=length,
+     diameter=dh,
+     roughness=roughness,
+     m_flow_small=m_flow_small)
+     "Pressure loss of a straight pipe at m_flow_nominal";
+ 
+   Modelica.Units.SI.Velocity v=m_flow/(rho_default*ARound)
+     "Flow velocity (assuming a round cross section area)";
+ 
+ protected
+   parameter Modelica.Units.SI.Area ARound=dh^2*Modelica.Constants.pi/4
+     "Cross sectional area (assuming a round cross section area)";
+ 
+   parameter Medium.ThermodynamicState state_default=
+     Medium.setState_pTX(
+       T=Medium.T_default,
+       p=Medium.p_default,
+       X=Medium.X_default[1:Medium.nXi]) "Default state";
+ 
+   parameter Modelica.Units.SI.Density rho_default=Medium.density(state_default)
+     "Density at nominal condition";
+ 
+   parameter Modelica.Units.SI.DynamicViscosity mu_default=
+       Medium.dynamicViscosity(state_default)
+     "Dynamic viscosity at nominal condition";
+ 
+ annotation (defaultComponentName="res",
+ Documentation(info="<html>
  <p>
  This is a model of a flow resistance with a fixed flow coefficient.
  The mass flow rate is computed as
  </p>
  <p align=\"center\" style=\"font-style:italic;\">
  m&#775; = k
- &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
+ &radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
  </p>
  <p>
  where
  <i>k</i> is a constant and
- <i>&Delta;P</i> is the pressure drop.
+ <i>&Delta;p</i> is the pressure drop.
  The constant <i>k</i> is equal to
  <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
  where <code>m_flow_nominal</code> is a parameter.
@@ -163,7 +163,7 @@ Documentation(info="<html>
  This package contains regularized implementations of the equation
  </p>
  <p align=\"center\" style=\"font-style:italic;\">
-   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+   m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
  </p>
  <p>
  and its inverse function.
@@ -174,7 +174,7 @@ Documentation(info="<html>
  and not the volume flow rate.
  This leads to simpler equations.
  </p>
- </html>",revisions="<html>
+ </html>", revisions="<html>
  <ul>
  <li>
  September 21, 2021, by Michael Wetter:<br/>
@@ -189,9 +189,9 @@ Documentation(info="<html>
  </li>
  </ul>
  </html>"),
-  Icon(graphics={Text(
-          extent={{-40,18},{38,-20}},
-          textColor={255,255,255},
-          textString="dh")}),
-  __Dymola_LockedEditing="Model from IBPSA");
-end HydraulicDiameter;
+   Icon(graphics={Text(
+           extent={{-40,18},{38,-20}},
+           textColor={255,255,255},
+           textString="dh")}), 
+   __Dymola_LockedEditing="Model from IBPSA");
+ end HydraulicDiameter;

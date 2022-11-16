@@ -2007,6 +2007,8 @@ IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12.mo
 
 IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4.mo
 
+IBPSA.Fluid.Movers.Validation.NegativePressureOrFlow.mo
+
 IBPSA.Fluid.Movers.Validation.SpeedControlled_y.mo
 
 IBPSA.Fluid.Movers.Validation.package.mo
@@ -2569,6 +2571,8 @@ IBPSA.Fluid.MixingVolumes.Validation.MixingVolumeMoistureReverseFlow.mo
 
 IBPSA.Fluid.MixingVolumes.Validation.CoupledVolumesSpecializedAirPerfectGas.mo
 
+IBPSA.Fluid.MixingVolumes.Validation.MSLFlueGasSixComponents.mo
+
 IBPSA.Fluid.MixingVolumes.Validation.MixingVolume.mo
 
 IBPSA.Fluid.MixingVolumes.Validation.MixingVolumeMassFlow.mo
@@ -2586,6 +2590,8 @@ IBPSA.Fluid.MixingVolumes.Validation.MixingVolumeInitialization.mo
 IBPSA.Fluid.MixingVolumes.Validation.TraceSubstanceConservationDynamicBalance.mo
 
 IBPSA.Fluid.MixingVolumes.Validation.TraceSubstanceConservationSteadyState.mo
+
+IBPSA.Fluid.MixingVolumes.Validation.MSLCombustionAir.mo
 
 IBPSA.Fluid.MixingVolumes.Validation.MixingVolumeTraceSubstance.mo
 

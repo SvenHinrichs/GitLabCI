@@ -1,91 +1,91 @@
 within AixLib.Fluid.FixedResistances;
-model PressureDrop
-  "Fixed flow resistance with dp and m_flow as parameter"
-  extends AixLib.Fluid.BaseClasses.PartialResistance(
-    final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
-
-  parameter Real deltaM(min=1E-6) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-
-  final parameter Real k = if computeFlowResistance then
-        m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-protected
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "Flag to enable/disable computation of flow resistance"
-   annotation(Evaluate=true);
-  final parameter Real coeff=
-    if linearized and computeFlowResistance
-    then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
-    else 0
-    "Precomputed coefficient to avoid division by parameter";
-initial equation
- if computeFlowResistance then
-   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
- end if;
-
- assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
-equation
-  // Pressure drop calculation
+ model PressureDrop
+   "Fixed flow resistance with dp and m_flow as parameter"
+   extends AixLib.Fluid.BaseClasses.PartialResistance(
+     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
+ 
+   parameter Real deltaM(min=1E-6) = 0.3
+     "Fraction of nominal mass flow rate where transition to turbulent occurs"
+        annotation(Evaluate=true,
+                   Dialog(group = "Transition to laminar",
+                          enable = not linearized));
+ 
+   final parameter Real k = if computeFlowResistance then
+         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
+     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+ protected
+   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
+     "Flag to enable/disable computation of flow resistance"
+    annotation(Evaluate=true);
+   final parameter Real coeff=
+     if linearized and computeFlowResistance
+     then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
+     else 0
+     "Precomputed coefficient to avoid division by parameter";
+ initial equation
   if computeFlowResistance then
-    if linearized then
-      if from_dp then
-        m_flow = dp*coeff;
-      else
-        dp = m_flow*coeff;
-      end if;
-    else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow=homotopy(
-            actual=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-        else
-          dp=homotopy(
-            actual=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-              m_flow=m_flow,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
+  end if;
+ 
+  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
+ equation
+   // Pressure drop calculation
+   if computeFlowResistance then
+     if linearized then
+       if from_dp then
+         m_flow = dp*coeff;
+       else
+         dp = m_flow*coeff;
+       end if;
+     else
+       if homotopyInitialization then
+         if from_dp then
+           m_flow=homotopy(
+             actual=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+               dp=dp,
+               k=k,
+               m_flow_turbulent=m_flow_turbulent),
+             simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+         else
+           dp=homotopy(
+             actual=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+               m_flow=m_flow,
+               k=k,
+               m_flow_turbulent=m_flow_turbulent),
+             simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+          end if;  // from_dp
+       else // do not use homotopy
+         if from_dp then
+           m_flow=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+             dp=dp,
+             k=k,
+             m_flow_turbulent=m_flow_turbulent);
+         else
+           dp=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+             m_flow=m_flow,
+             k=k,
+             m_flow_turbulent=m_flow_turbulent);
          end if;  // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        else
-          dp=AixLib.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        end if;  // from_dp
-      end if; // homotopyInitialization
-    end if; // linearized
-  else // do not compute flow resistance
-    dp = 0;
-  end if;  // computeFlowResistance
-
-  annotation (defaultComponentName="res",
-Documentation(info="<html>
+       end if; // homotopyInitialization
+     end if; // linearized
+   else // do not compute flow resistance
+     dp = 0;
+   end if;  // computeFlowResistance
+ 
+   annotation (defaultComponentName="res",
+ Documentation(info="<html>
  <p>
  Model of a flow resistance with a fixed flow coefficient.
  The mass flow rate is
  </p>
  <p align=\"center\" style=\"font-style:italic;\">
  m&#775; = k
- &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
+ &radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
  </p>
  <p>
  where
  <i>k</i> is a constant and
- <i>&Delta;P</i> is the pressure drop.
+ <i>&Delta;p</i> is the pressure drop.
  The constant <i>k</i> is equal to
  <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
  where <code>m_flow_nominal</code> and <code>dp_nominal</code>
@@ -163,7 +163,7 @@ Documentation(info="<html>
  This package contains regularized implementations of the equation
  </p>
  <p align=\"center\" style=\"font-style:italic;\">
-   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+   m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
  </p>
  <p>
  and its inverse function.
@@ -174,7 +174,7 @@ Documentation(info="<html>
  and not the volume flow rate.
  This leads to simpler equations.
  </p>
- </html>",revisions="<html>
+ </html>", revisions="<html>
  <ul>
  <li>
  September 21, 2018, by Michael Wetter:<br/>
@@ -253,6 +253,6 @@ Documentation(info="<html>
  First implementation.
  </li>
  </ul>
- </html>"),
-  __Dymola_LockedEditing="Model from IBPSA");
-end PressureDrop;
+ </html>"),  
+   __Dymola_LockedEditing="Model from IBPSA");
+ end PressureDrop;
