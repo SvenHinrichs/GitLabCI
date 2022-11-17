@@ -1,6 +1,6 @@
 always-run:
   script: echo 'this should always run'
-  except:
+  only:
     - branches
   
 on-pull-requests:
@@ -18,5 +18,5 @@ except-pull-requests:
     # make the job fail with a command that does not exist
     - s
   except:
-    - branches
     - external_pull_requests
+ 
